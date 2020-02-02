@@ -36,6 +36,10 @@ haxelib install flixel-tools
 haxelib run flixel-tools setup
 ```
 
+## Stylecheck
+
+To auto-stylecheck, please install [Haxe Checkstyle](https://marketplace.visualstudio.com/items?itemName=vshaxe.haxe-checkstyle) in VSCode.
+
 ## Test
 
 ```bash
