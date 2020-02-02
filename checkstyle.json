@@ -3,9 +3,6 @@
     "extendsConfigPath": "parentCheckstyle.json",
     "checks": [
         {
-            "type": "EmptyLines"
-        },
-        {
             "type": "UnusedLocalVar"
         },
         {
