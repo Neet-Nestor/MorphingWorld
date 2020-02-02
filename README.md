@@ -1,7 +1,9 @@
 # MorphingWorld
+
 A game inspired by winner game World Collector on Ludum Dare 45.
 
 ## Install dependencies
+
 To build this project, you need to first download [Haxe](https://haxe.org/).
 
 Then, install the latest stable version of HaxeFlixel:
@@ -33,14 +35,15 @@ haxelib run flixel-tools setup
 ```
 
 ## Test
+
 ```bash
 lime test windows
 lime test mac
 lime test linux
-lime test ios
-lime test android
+lime test neko
 lime test html5
 lime test flash
+lime test ios
+lime test android
 lime test air
-lime test neko
 ```
