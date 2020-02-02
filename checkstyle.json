@@ -1,0 +1,157 @@
+{
+    "defaultSeverity": "WARNING",
+    "extendsConfigPath": "parentCheckstyle.json",
+    "checks": [
+        {
+            "type": "EmptyLines"
+        },
+        {
+            "type": "UnusedLocalVar"
+        },
+        {
+            "type": "FileLength",
+            "props": {
+                "severity": "WARNING",
+                "max": 2000
+            }
+        },
+        {
+            "type": "UnusedImport",
+            "props": {
+                "severity": "ERROR",
+                "ignoreModules": [
+                    "haxe.macro.Type"
+                ],
+                "moduleTypeMap": {
+                    "haxe.macro.Expr": [
+                        "ExprDef",
+                        "ComplexType"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "ConstantName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$",
+                "tokens": [
+                    "INLINE"
+                ]
+            }
+        },
+        {
+            "type": "ListenerName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^_?on.*",
+                "listeners": [
+                    "addEventListener",
+                    "addListener",
+                    "on",
+                    "once"
+                ]
+            }
+        },
+        {
+            "type": "LocalVariableName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[a-z][a-zA-Z0-9]*$"
+            }
+        },
+        {
+            "type": "MemberName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^_?[a-z][a-zA-Z0-9]*$",
+                "tokens": [
+                    "PUBLIC",
+                    "PRIVATE",
+                    "CLASS"
+                ]
+            }
+        },
+        {
+            "type": "MethodName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[a-z][a-zA-Z0-9]*$",
+                "tokens": [
+                    "PUBLIC",
+                    "PRIVATE"
+                ]
+            }
+        },
+        {
+            "type": "ParameterName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[a-z][a-zA-Z0-9]*$"
+            }
+        },
+        {
+            "type": "TypeName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^[A-Z]+[a-zA-Z0-9]*$",
+                "tokens": [
+                    "CLASS",
+                    "ENUM",
+                    "TYPEDEF"
+                ]
+            }
+        },
+        {
+            "type": "TypeName",
+            "props": {
+                "severity": "ERROR",
+                "format": "^I[A-Z]+[a-zA-Z0-9]*$",
+                "tokens": [
+                    "INTERFACE"
+                ]
+            }
+        },
+        {
+            "type": "OperatorWhitespace",
+            "props": {
+                "severity": "WARNING",
+                "assignOpPolicy": "around",
+                "unaryOpPolicy": "none",
+                "ternaryOpPolicy": "none",
+                "arithmeticOpPolicy": "around",
+                "compareOpPolicy": "around",
+                "bitwiseOpPolicy": "around",
+                "boolOpPolicy": "around",
+                "intervalOpPolicy": "none",
+                "arrowPolicy": "none"
+            }
+        },
+        {
+            "type": "TabForAligning",
+            "props": {
+                "severity": "WARNING"
+            }
+        },
+        {
+            "type": "WhitespaceAfter",
+            "props": {
+                "severity": "WARNING",
+                "tokens": [ ",", ";" ]
+            }
+        },
+        {
+            "type": "WhitespaceAround",
+            "props": {
+                "severity": "WARNING",
+                "tokens": [ "=", "+", "-", "*", "/", "%" ]
+            }
+        },
+        {
+            "type": "TrailingWhitespace",
+            "props": {
+                "severity": "WARNING"
+            }
+        }
+    ]
+}
