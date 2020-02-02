@@ -2,6 +2,8 @@
 
 A game inspired by winner game World Collector on Ludum Dare 45.
 
+![Title Page](screenshots/title.png)
+
 ## Install dependencies
 
 To build this project, you need to first download [Haxe](https://haxe.org/).
