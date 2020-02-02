@@ -134,7 +134,7 @@
             "type": "WhitespaceAfter",
             "props": {
                 "severity": "WARNING",
-                "tokens": [ ",", ";", ":" ]
+                "tokens": [ ",", ";" ]
             }
         },
         {
