@@ -15,7 +15,7 @@ class Player extends FlxSprite {
         setFacingFlip(FlxObject.RIGHT, false, false);
         setFacingFlip(FlxObject.LEFT, true, false);
 
-        animation.add("stand", [3], 6, false);
+        animation.add("stand", [2], 6, false);
         animation.add("run", [1, 2, 3, 4], 6, false);
 
         drag.x = drag.y = 1600;
@@ -66,7 +66,7 @@ class Player extends FlxSprite {
         }
 
         if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
-            animation.play("d");
+            animation.play("run");
         } else {
             animation.play("stand");
         }
