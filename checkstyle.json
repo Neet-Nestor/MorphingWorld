@@ -162,14 +162,6 @@
             }
         },
         {
-            "type": "IndentationCharacter",
-            "props":
-            {
-                "character": "space",
-                "severity": "ERROR"
-            }
-        },
-        {
             "type": "InnerAssignment",
             "props":
             {
