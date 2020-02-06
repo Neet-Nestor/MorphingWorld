@@ -55,3 +55,5 @@ lime test air
 ```
 ## Troubleshooting
 If encountered `Error: Could not find <lib>, does it need to be installed?`, run `haxelib install <lib>` to install.
+
+If encountered `Error: Could not find "hxcpp-debug-server", does it need to be installed?`, go to visual studio code, install extention Hxcpp Debugger, and use command p in vscode, type in ">" and select "Hxcpp Debugger: Setup".
