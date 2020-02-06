@@ -1,5 +1,6 @@
 package sprites;
 
+import config.Constant;
 import lycan.util.GraphicUtil;
 import lycan.components.CenterPositionable;
 import lycan.components.Attachable;
@@ -13,25 +14,21 @@ import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 
 class Player extends FlxSprite implements Attachable implements CharacterController implements Groundable implements CenterPositionable implements PhysicsEntity implements  PhysicsEntity {
-    private static final FRAME_PER_ROW:Int = 13;
-
-    public var speed:Float = 200;
-
     public function new(x:Float, y:Float, width:Int, height:Int) {
         super(x, y);
 
         loadGraphic(AssetPaths.player__png, true, 32, 32);
 		GraphicUtil.makePlaceholderGraphic(this, "player", width, height, [
 			{name: "idle", frameCount: 0},
-			{name: "run", frameCount: FRAME_PER_ROW},
-			{name: "jump", frameCount: 5 * FRAME_PER_ROW},
-			{name: "fall", frameCount: 6 * FRAME_PER_ROW}
+			{name: "run", frameCount: Constant.playerFramePerRow},
+			{name: "jump", frameCount: 5 * Constant.playerFramePerRow},
+			{name: "fall", frameCount: 6 * Constant.playerFramePerRow}
         ], FlxColor.WHITE, 10);
 
-		animation.add("idle", [for (i in 0...FRAME_PER_ROW) i], 10, true);
-		animation.add("run", [for (i in FRAME_PER_ROW...FRAME_PER_ROW + 8) i], 12, true);
-		animation.add("jump", [for (i in 5 * FRAME_PER_ROW...5 * FRAME_PER_ROW + 6) i], 12);
-		animation.add("fall", [for (i in 6 * FRAME_PER_ROW...6 * FRAME_PER_ROW + 4) i], 12);
+		animation.add("idle", [for (i in 0...Constant.playerFramePerRow) i], 10, true);
+		animation.add("run", [for (i in Constant.playerFramePerRow...Constant.playerFramePerRow + 8) i], 12, true);
+		animation.add("jump", [for (i in 5 * Constant.playerFramePerRow...5 * Constant.playerFramePerRow + 6) i], 12);
+		animation.add("fall", [for (i in 6 * Constant.playerFramePerRow...6 * Constant.playerFramePerRow + 4) i], 12);
 		offset.set(0, (64 - height) / 2 - 2);
 
 		characterController.init(width, height);
