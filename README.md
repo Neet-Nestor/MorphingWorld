@@ -53,3 +53,5 @@ lime test ios
 lime test android
 lime test air
 ```
+## Troubleshooting
+If encountered `Error: Could not find <lib>, does it need to be installed?`, run `haxelib install <lib>` to install.
