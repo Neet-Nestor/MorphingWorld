@@ -1,14 +1,16 @@
 package sprites;
 
+import lycan.util.GraphicUtil;
 import lycan.components.CenterPositionable;
 import lycan.components.Attachable;
 import lycan.world.components.Groundable;
 import lycan.world.components.PhysicsEntity;
 import lycan.world.components.CharacterController;
 import flixel.FlxObject;
-import flixel.math.FlxPoint;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
 
 class Player extends FlxSprite implements Attachable implements CharacterController implements Groundable implements CenterPositionable implements PhysicsEntity implements  PhysicsEntity {
     private static final FRAME_PER_ROW:Int = 13;
@@ -16,23 +18,22 @@ class Player extends FlxSprite implements Attachable implements CharacterControl
     public var speed:Float = 200;
 
     public function new(x:Float, y:Float, width:Int, height:Int) {
-		super(x, y);
+        super(x, y);
 
-		// GraphicUtil.makePlaceholderGraphic(this, "player", width, height, [
-		// 	{name: "idle", frameCount: 4},
-		// 	{name: "run", frameCount: 8},
-		// 	{name: "jump", frameCount: 1},
-    	// 	{name: "zeroG", frameCount: 1},
-		// 	{name: "fall", frameCount: 1}
-		// ], FlxColor.WHITE, 10);
-		
-		animation.add("idle", [for (i in 0...4) i], 10, true);
-		animation.add("run", [for (i in 8...16) i], 12, true);
-		animation.add("jump", [16], 12);
-		animation.add("zeroG", [17], 12);
-		animation.add("fall", [18], 12);
+        loadGraphic(AssetPaths.player__png, true, 32, 32);
+		GraphicUtil.makePlaceholderGraphic(this, "player", width, height, [
+			{name: "idle", frameCount: 0},
+			{name: "run", frameCount: FRAME_PER_ROW},
+			{name: "jump", frameCount: 5 * FRAME_PER_ROW},
+			{name: "fall", frameCount: 6 * FRAME_PER_ROW}
+        ], FlxColor.WHITE, 10);
+
+		animation.add("idle", [for (i in 0...FRAME_PER_ROW) i], 10, true);
+		animation.add("run", [for (i in FRAME_PER_ROW...FRAME_PER_ROW + 8) i], 12, true);
+		animation.add("jump", [for (i in 5 * FRAME_PER_ROW...5 * FRAME_PER_ROW + 6) i], 12);
+		animation.add("fall", [for (i in 6 * FRAME_PER_ROW...6 * FRAME_PER_ROW + 4) i], 12);
 		offset.set(0, (64 - height) / 2 - 2);
-		
+
 		characterController.init(width, height);
 		characterController.moveAcceleration = 0.2;
 		characterController.runSpeed = 200;
@@ -40,66 +41,60 @@ class Player extends FlxSprite implements Attachable implements CharacterControl
 		characterController.maxJumpVelY = 50;
 		characterController.minMoveVel = 8;
 		characterController.maxJumps = 1;
-		
+
 		groundable.groundedAngleLimit = 65;
-		
+
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 	}
 
-    public function updateVelocity():Void {
-        var up:Bool = false;
-        var down:Bool = false;
-        var left:Bool = false;
-        var right:Bool = false;
+	override public function revive():Void {
+		super.revive();
+	}
 
-        up = FlxG.keys.anyPressed([UP, W]);
-        down = FlxG.keys.anyPressed([DOWN, S]);
-        left = FlxG.keys.anyPressed([LEFT, A]);
-        right = FlxG.keys.anyPressed([RIGHT, D]);
+	override public function destroy():Void {
+		super.destroy();
+	}
 
-        if (up && down)
-            up = down = false;
-        if (left && right)
-            left = right = false;
+	override public function update(dt:Float):Void {
+		super.update(dt);
 
-        if (up || down || left || right) {
-            var mA:Float = 0;
-            if (up) {
-                mA = -90;
-                if (left)
-                    mA -= 45;
-                else if (right)
-                    mA += 45;
-                facing = FlxObject.UP;
-            } else if (down) {
-                mA = 90;
-                if (left)
-                    mA += 45;
-                else if (right)
-                    mA -= 45;
-                facing = FlxObject.DOWN; // the sprite is facing DOWN
-            } else if (left) {
-                mA = 180;
-                facing = FlxObject.LEFT; // the sprite should be facing LEFT
-            } else if (right) {
-                mA = 0;
-                facing = FlxObject.RIGHT; // set the sprite's facing to RIGHT
-            }
+		// Cheap crushing, probably full of problems
+		// var ti = physics.body.totalContactsImpulse();
+		// if (ti.length > 2500) kill();
+		// ti.dispose();
+	}
 
-            velocity.set(speed, 0);
-            velocity.rotate(FlxPoint.weak(0, 0), mA);
-        }
+	override private function updateAnimation(dt:Float):Void {
+		var body = physics.body;
+		var velocity = body.velocity;
 
-        if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
-            animation.play("run");
-        } else {
-            animation.play("stand");
-        }
-    }
+		var cc = characterController;
 
-    override public function update(elapsed:Float):Void {
-        updateVelocity();
-        super.update(elapsed);
-    }
+		if (cc.targetMoveVel > 0) {
+			facing = FlxObject.RIGHT;
+		} else if (cc.targetMoveVel < 0) {
+			facing = FlxObject.LEFT;
+		}
+
+		if (groundable.isGrounded) {
+			if (cc.targetMoveVel > 0) {
+				animation.play("run");
+			} else if (cc.targetMoveVel < 0) {
+				animation.play("run");
+			} else {
+				animation.play("idle");
+			}
+		} else {
+			if (velocity.y > 100) {
+				animation.play("fall");
+			} else if (velocity.y < -100) {
+				animation.play("jump");
+			} else {
+				animation.play("zeroG");
+			}
+		}
+
+		super.updateAnimation(dt);
+	}
 }
