@@ -487,7 +487,6 @@
                     "ABSTRACT_DEF",
                     "TYPEDEF_DEF",
                     "INTERFACE_DEF",
-                    "OBJECT_DECL",
                     "FUNCTION",
                     "FOR",
                     "IF",
@@ -507,19 +506,6 @@
                 "dotPolicy": "none",
                 "commaPolicy": "after",
                 "semicolonPolicy": "after",
-                "severity": "ERROR"
-            }
-        },
-        {
-            "type": "SeparatorWrap",
-            "props":
-            {
-                "tokens":
-                [
-                    ",",
-                    "."
-                ],
-                "option": "nl",
                 "severity": "ERROR"
             }
         },
