@@ -24,71 +24,45 @@ import nape.dynamics.InteractionFilter;
 import openfl.geom.Matrix3D;
 import lycan.game3D.Point3D;
 import lycan.game3D.PerspectiveProjection;
-#if !FLX_NO_DEBUG
-import nape.util.ShapeDebug;
-import flixel.addons.nape.FlxNapeSpace.GraphicNapeDebug;
-#end
 
 class Phys {
 	public static var space:Space;
-	
+
 	/** Iterations for resolving velocity (default 10) */
 	public static var velocityIterations:Int = 10;
 	/** Iterations for resolving position (default 10) */
 	public static var positionIterations:Int = 10;
 	public static var steps:Int = 1;
-	/** Whether debug graphics are enabled */
-	public static var drawDebug(default, set):Null<Bool> = null;
 	/** Force a fixed timestep for integrator. Null means use FlxG.elapsed */
 	public static var forceTimestep:Null<Float> = null;
-	
+
 	public static var floorPos:Bool = false;
-	
-	#if !FLX_NO_DEBUG
-	public static var shapeDebug(default, null):ShapeDebug;
-	private static var drawDebugButton:FlxSystemButton;
-	public static var debugManipulator:DebugManipulator;
-	public static var enableDebugManipulator(default, set):Bool = false;
-	#end
-	
+
 	public static var matrix3D:Matrix3D;
 	public static var projection:PerspectiveProjection;//TODO general projections
-	
+
 	// CbTypes
 	public static var tilemapShapeType:CbType = new CbType();
 	public static var sensorFilter:InteractionFilter = new InteractionFilter(0, 0, 1, 1, 0, 0);
-	
+
 	public static function init():Void {
 		if (space != null) return;
 		trace("klkj");
 		space = new Space(Vec2.weak(0, 3));
 		space.gravity.y = 2500;
-		
+
 		FlxG.signals.preUpdate.add(update);
-		FlxG.signals.postUpdate.add(draw);
-		FlxG.signals.stateSwitched.add(onStateSwitch);
-		
-		#if !FLX_NO_DEBUG
-		// Add a button to toggle Nape debug shapes to the debugger
-		drawDebugButton = FlxG.debugger.addButton(RIGHT, new GraphicNapeDebug(0, 0), function() {
-			drawDebug = !drawDebug;
-		}, true, true);
-		drawDebug = false;
-		#end
+		FlxG.signals.preStateSwitch.add(onStateSwitch);
 	}
-	
+
 	public static function destroy():Void {
-		
-		destroyDebug();
-		
 		space = null;
-		
+
 		FlxG.signals.preUpdate.remove(update);
-		FlxG.signals.postUpdate.remove(draw);
-		FlxG.signals.stateSwitched.remove(onStateSwitch);
-		
+		FlxG.signals.preStateSwitch.remove(onStateSwitch);
+
 		GroundableComponent.clearGroundsSignal.removeAll();
-		
+
 	}
 
 	/**
@@ -105,9 +79,9 @@ class Phys {
 		if (maxX == 0) 	maxX = FlxG.width;
 		if (maxY == 0)	maxY = FlxG.height;
 		if (material == null) material = new Material();
-		
+
 		var walls:Body = new Body(BodyType.STATIC);
-		
+
 		// Left, right, top, bottom
 		walls.shapes.add(new Polygon(Polygon.rect(minX - thickness, minY, thickness, maxY - minY)));
 		walls.shapes.add(new Polygon(Polygon.rect(maxX, minY, thickness, maxY - minY)));
@@ -116,64 +90,17 @@ class Phys {
 
 		walls.space = space;
 		walls.setShapeMaterials(material);
-		
-		return walls;
-	}
 
-	private static function set_drawDebug(drawDebug:Bool):Bool {
-		if (drawDebug == Phys.drawDebug) return drawDebug;
-		
-		#if !FLX_NO_DEBUG
-		if (drawDebugButton != null)
-			drawDebugButton.toggled = !drawDebug;
-		
-		if (drawDebug) {
-			if (shapeDebug == null) {
-				shapeDebug = new ShapeDebug(FlxG.width, FlxG.height);
-				shapeDebug.drawConstraints = true;
-				shapeDebug.display.scrollRect = null;
-				shapeDebug.thickness = 1;
-				FlxG.addChildBelowMouse(shapeDebug.display);
-			}
-		}
-		else if (shapeDebug != null) {
-			FlxG.removeChild(shapeDebug.display);
-			shapeDebug = null;
-		}
-		#end
-		
-		return Phys.drawDebug = drawDebug;
+		return walls;
 	}
 
 	public static function update():Void {
 		if (FlxG.mouse.justPressed)  trace("Physics update");
 		var dt = forceTimestep == null ? FlxG.elapsed : forceTimestep;
 		if (space != null && dt > 0) {
-			
-			#if !FLX_NO_DEBUG
-			if (debugManipulator != null && enableDebugManipulator) {
-				var x:Null<Float> = FlxG.mouse.x;
-				var y:Null<Float> = FlxG.mouse.y;
-				if (!FlxG.mouse.pressed) {
-					x = null;
-					y = null;	
-				} else if (projection != null) {
-					var p = FlxPoint.get(x, y);
-					var p3d = Point3D.get(x, y, 0);
-					projection.to3D(null, p, projection.depth);
-					p.put();
-					x = p3d.x;
-					y = p3d.y;
-					p3d.put();
-					if (FlxG.mouse.justPressed) trace(x + " " + y);
-				}
-				debugManipulator.update(FlxG.mouse.justPressed, x, y);
-			}
-			#end
-			
 			// TODO better method or location for this?
 			GroundableComponent.clearGroundsSignal.dispatch();
-			
+
 			if (steps == 1) {
 				space.step(dt, velocityIterations, positionIterations);
 			} else {
@@ -187,65 +114,11 @@ class Phys {
 
 		}
 	}
-	
+
 	private static function onStateSwitch():Void {
 		if (space != null) {
 			space.clear();
 			space = null; // resets attributes like gravity.
 		}
-		
-		destroyDebug();
 	}
-	
-	private static function destroyDebug():Void {
-		#if !FLX_NO_DEBUG
-		drawDebug = false;
-		enableDebugManipulator = false;
-		debugManipulator = null;
-		if (drawDebugButton != null) {
-			FlxG.debugger.removeButton(drawDebugButton);
-			drawDebugButton = null;
-		}
-		#end
-	}
-	
-	public static function draw():Void {
-		#if !FLX_NO_DEBUG
-		if (shapeDebug == null || space == null) return;
-		
-		shapeDebug.clear();
-		shapeDebug.draw(space);
-		
-		var zoom = FlxG.camera.zoom;
-		var sprite = shapeDebug.display;
-		var scale = FlxG.camera.totalScaleX / FlxG.camera.zoom;
-		
-		// sprite.scaleX = FlxG.camera.totalScaleX;
-		// sprite.scaleY = FlxG.camera.totalScaleY;
-		// sprite.x = FlxG.camera.x - FlxG.camera.scroll.x * FlxG.camera.totalScaleX - FlxG.width * ((scale - 1) / 2);
-		// sprite.y = FlxG.camera.y - FlxG.camera.scroll.y * FlxG.camera.totalScaleY - FlxG.height * ((scale - 1) / 2);
-		
-		if (matrix3D != null) {
-			if (sprite.transform.matrix3D == null) sprite.transform.matrix3D = new Matrix3D();
-			// var scaleX = sprite.scaleX;
-			// var scaleY = sprite.scaleY;
-			// var sx = sprite.x;
-			// var sy = sprite.y;
-			var mat = sprite.transform.matrix3D;
-			mat.identity();
-			// mat.appendScale(scaleX, scaleY, 1);
-			// mat.appendTranslation(sx, sy, 0);
-			mat.append(matrix3D);
-		}
-		#end
-	}
-	
-	#if !FLX_NO_DEBUG
-	private static function set_enableDebugManipulator(enable:Bool):Bool {
-		if (enable && debugManipulator == null) {
-			debugManipulator = new DebugManipulator();
-		}
-		return Phys.enableDebugManipulator = enable;
-	}
-	#end
 }
