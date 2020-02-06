@@ -18,12 +18,12 @@ class Player extends FlxSprite implements Attachable implements CharacterControl
         super(x, y);
 
         loadGraphic(AssetPaths.player__png, true, 32, 32);
-		GraphicUtil.makePlaceholderGraphic(this, "player", width, height, [
-			{name: "idle", frameCount: 0},
-			{name: "run", frameCount: Constant.playerFramePerRow},
-			{name: "jump", frameCount: 5 * Constant.playerFramePerRow},
-			{name: "fall", frameCount: 6 * Constant.playerFramePerRow}
-        ], FlxColor.WHITE, 10);
+		// GraphicUtil.makePlaceholderGraphic(this, "player", width, height, [
+		// 	{name: "idle", frameCount: 0},
+		// 	{name: "run", frameCount: Constant.playerFramePerRow},
+		// 	{name: "jump", frameCount: 5 * Constant.playerFramePerRow},
+		// 	{name: "fall", frameCount: 6 * Constant.playerFramePerRow}
+        // ], FlxColor.WHITE, 10);
 
 		animation.add("idle", [for (i in 0...Constant.playerFramePerRow) i], 10, true);
 		animation.add("run", [for (i in Constant.playerFramePerRow...Constant.playerFramePerRow + 8) i], 12, true);
@@ -88,7 +88,7 @@ class Player extends FlxSprite implements Attachable implements CharacterControl
 			} else if (velocity.y < -100) {
 				animation.play("jump");
 			} else {
-				animation.play("zeroG");
+				animation.play("idle");
 			}
 		}
 
