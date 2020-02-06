@@ -30,8 +30,11 @@ class PlayState extends FlxState {
         super.create();
         initPhysics();
 
+		// Actions
+		actions = new FlxActionManager();
+
         // Player actions
-        actionJump = new FlxActionDigital("Jump", (_)->player.characterController.jump());
+        actionJump = new FlxActionDigital("Jump", (_) -> player.characterController.jump());
         actionJump.addKey(FlxKey.UP, FlxInputState.JUST_PRESSED);
         actionJump.addKey(FlxKey.X, FlxInputState.JUST_PRESSED);
         actionJump.addKey(FlxKey.Z, FlxInputState.JUST_PRESSED);
@@ -40,13 +43,17 @@ class PlayState extends FlxState {
         actionJump.addGamepad(FlxGamepadInputID.A, FlxInputState.JUST_PRESSED);
         actionJump.addGamepad(FlxGamepadInputID.B, FlxInputState.JUST_PRESSED);
 
-        actionLeft = new FlxActionDigital("Left", (_)->player.characterController.actionLeft = true);
+        actionLeft = new FlxActionDigital("Left", (_) -> {
+            player.characterController.leftPressed = true;
+        });
         actionLeft.addKey(FlxKey.LEFT, FlxInputState.PRESSED);
         actionLeft.addKey(FlxKey.A, FlxInputState.PRESSED);
         actionLeft.addGamepad(FlxGamepadInputID.DPAD_LEFT, FlxInputState.PRESSED);
         actionLeft.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT, FlxInputState.PRESSED);
 
-        actionRight = new FlxActionDigital("Right", (_)->player.characterController.actionRight = true);
+        actionRight = new FlxActionDigital("Right", (_) -> {
+            player.characterController.rightPressed = true;
+        });
         actionRight.addKey(FlxKey.RIGHT, FlxInputState.PRESSED);
         actionRight.addKey(FlxKey.D, FlxInputState.PRESSED);
         actionRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.PRESSED);

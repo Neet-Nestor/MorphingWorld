@@ -61,6 +61,10 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	public var currentJumps:Int;
 	public var canJump:Bool;
 
+	// Whether left or right key is pressed
+	public var leftPressed:Bool = false;
+	public var rightPressed:Bool = false;
+
 	// State
 	public var isSliding:Bool = false;
 
@@ -175,11 +179,9 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		}
 
 		// Moving Left/Right
-		var leftPress = FlxG.keys.anyPressed([FlxKey.A, FlxKey.LEFT]);
-		var rightPress = FlxG.keys.anyPressed([FlxKey.D, FlxKey.RIGHT]);
 		if (hasControl) {//TODO tidy up control, probably differentiate between hascontrol and input enabled
-			if (leftPress != rightPress) {
-				targetMoveVel = leftPress ? -runSpeed : runSpeed;
+			if (leftPressed != rightPressed) {
+				targetMoveVel = leftPressed ? -runSpeed : runSpeed;
 				move();
 			} else {
 				if (Math.abs(currentMoveVel) > 0) stop();
