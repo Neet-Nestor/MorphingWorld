@@ -44,6 +44,14 @@ haxelib install tink_macro
 haxelib install tink_lang
 ```
 
+## Install lycan
+
+Lycan library is too large to include in this repo as it would cause the auto-completion plugin fails. Therefore, it is packed as a zip file included in this repo (`lycan.zip`). Please manually install it using haxelib before compiling.
+
+```bash
+haxelib install lycan.zip
+```
+
 ## Install tools for development
 
 Please install [Haxe VSCode plugin](https://marketplace.visualstudio.com/items?itemName=nadako.vshaxe) and [HXCPP Debugger](https://marketplace.visualstudio.com/items?itemName=vshaxe.hxcpp-debugger). If you want you can also install the [Haxe Extention Pack](https://marketplace.visualstudio.com/items?itemName=vshaxe.haxe-extension-pack) in VSCode (but it includes some extra package needed for flash development that we don't need).
