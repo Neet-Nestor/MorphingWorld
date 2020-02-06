@@ -477,29 +477,6 @@
             }
         },
         {
-            "type": "RightCurly",
-            "props":
-            {
-                "tokens":
-                [
-                    "CLASS_DEF",
-                    "ENUM_DEF",
-                    "ABSTRACT_DEF",
-                    "TYPEDEF_DEF",
-                    "INTERFACE_DEF",
-                    "FUNCTION",
-                    "FOR",
-                    "IF",
-                    "WHILE",
-                    "SWITCH",
-                    "TRY",
-                    "CATCH"
-                ],
-                "option": "same",
-                "severity": "ERROR"
-            }
-        },
-        {
             "type": "SeparatorWhitespace",
             "props":
             {
