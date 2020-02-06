@@ -44,7 +44,11 @@
 	<!--In case you want to use nape with flixel-->
 	<haxelib name="nape-haxe4" />
 	<haxelib name="tink_macro" />
+	<haxelib name="tink_lang" />
 
+	<!-- Debug Server -->
+	<haxelib name="hxcpp-debug-server" />
+W
 	<!-- Include in this repo instead -->
 	<!-- <haxelib name="lycan" /> -->
 
