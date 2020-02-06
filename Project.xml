@@ -87,4 +87,5 @@ W
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	<setenv name="SHOW_CONSOLE" />
 </project>
