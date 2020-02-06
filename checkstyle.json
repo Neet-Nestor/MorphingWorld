@@ -570,13 +570,6 @@
             }
         },
         {
-            "type": "TrailingWhitespace",
-            "props":
-            {
-                "severity": "ERROR"
-            }
-        },
-        {
             "type": "Type",
             "props":
             {
