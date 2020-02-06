@@ -216,8 +216,8 @@ interface PhysicsEntity extends Entity {
 	
 	//TODO from old flixel. origin is not correct
 	public function snapEntityToBody():Void {
-		entity.entity_x = position.x - entity.entity_origin.x * entity.entity_scale.x;
-		entity.entity_y = position.y - entity.entity_origin.y * entity.entity_scale.y;
+		entity.entity_x = body.position.x - entity.entity_origin.x * entity.entity_scale.x;
+		entity.entity_y = body.position.y - entity.entity_origin.y * entity.entity_scale.y;
 		
 		if (Phys.floorPos) {
 			entity.entity_x = Math.floor(entity.entity_x);
@@ -232,12 +232,12 @@ interface PhysicsEntity extends Entity {
 	public function snapBodyToEntity():Void {
 		var wasEnabled = enabled;
 		enabled = false;
-		position.x = entity.entity_x + entity.entity_origin.x * entity.entity_scale.x;
-		position.y = entity.entity_y + entity.entity_origin.y * entity.entity_scale.y;
+		body.position.x = entity.entity_x + entity.entity_origin.x * entity.entity_scale.x;
+		body.position.y = entity.entity_y + entity.entity_origin.y * entity.entity_scale.y;
 		
 		if (Phys.floorPos) {
-			position.x = Math.floor(position.x);
-			position.y = Math.floor(position.y);
+			body.position.x = Math.floor(body.position.x);
+			body.position.y = Math.floor(body.position.y);
 		}
 		
 		if (body.allowRotation) {

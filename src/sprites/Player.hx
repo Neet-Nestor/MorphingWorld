@@ -1,25 +1,51 @@
 package sprites;
 
+import lycan.components.CenterPositionable;
+import lycan.components.Attachable;
+import lycan.world.components.Groundable;
+import lycan.world.components.PhysicsEntity;
+import lycan.world.components.CharacterController;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
-class Player extends FlxSprite {
+class Player extends FlxSprite implements Attachable implements CharacterController implements Groundable implements CenterPositionable implements PhysicsEntity implements  PhysicsEntity {
+    private static final FRAME_PER_ROW:Int = 13;
+
     public var speed:Float = 200;
 
-    public function new(?x:Float = 0, ?y:Float = 0) {
-        super(x, y);
+    public function new(x:Float, y:Float, width:Int, height:Int) {
+		super(x, y);
 
-        loadGraphic(AssetPaths.player_move__png, true, 20, 33);
-        setFacingFlip(FlxObject.RIGHT, false, false);
-        setFacingFlip(FlxObject.LEFT, true, false);
-
-        animation.add("stand", [2], 6, false);
-        animation.add("run", [1, 2, 3, 4], 6, false);
-
-        drag.x = drag.y = 1600;
-    }
+		// GraphicUtil.makePlaceholderGraphic(this, "player", width, height, [
+		// 	{name: "idle", frameCount: 4},
+		// 	{name: "run", frameCount: 8},
+		// 	{name: "jump", frameCount: 1},
+    	// 	{name: "zeroG", frameCount: 1},
+		// 	{name: "fall", frameCount: 1}
+		// ], FlxColor.WHITE, 10);
+		
+		animation.add("idle", [for (i in 0...4) i], 10, true);
+		animation.add("run", [for (i in 8...16) i], 12, true);
+		animation.add("jump", [16], 12);
+		animation.add("zeroG", [17], 12);
+		animation.add("fall", [18], 12);
+		offset.set(0, (64 - height) / 2 - 2);
+		
+		characterController.init(width, height);
+		characterController.moveAcceleration = 0.2;
+		characterController.runSpeed = 200;
+		characterController.jumpSpeed = -300;
+		characterController.maxJumpVelY = 50;
+		characterController.minMoveVel = 8;
+		characterController.maxJumps = 1;
+		
+		groundable.groundedAngleLimit = 65;
+		
+		setFacingFlip(FlxObject.RIGHT, false, false);
+		setFacingFlip(FlxObject.LEFT, true, false);
+	}
 
     public function updateVelocity():Void {
         var up:Bool = false;

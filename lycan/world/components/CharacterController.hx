@@ -38,14 +38,14 @@ interface CharacterController extends Entity {
 @:tink
 class CharacterControllerComponent extends Component<CharacterController> {
 	@:forward var _object:FlxSprite;
-	@:calc var physics:PhysicsComponent = entity.physics;
+	var physics:PhysicsComponent;
 	
 	public var targetMoveVel:Float = 0;
 	public var currentMoveVel:Float = 0;
 	public var moveAcceleration:Float = 0.4;
 	public var stopAcceleration:Float = 0.2;
 	public var minMoveVel:Float = 20;
-	@:calc public var isMoving:Bool = targetMoveVel != 0;
+	public var isMoving:Bool;
 	
 	public var jumpSpeed:Float = -900;
 	public var runSpeed:Float = 600;
@@ -77,6 +77,9 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		
 		_object = cast entity;
 		targetMoveVel = 0;
+
+		physics = entity.physics;
+		isMoving = targetMoveVel != 0;
 	}
 	
 	public function init(?width:Float, ?height:Float) {
@@ -84,7 +87,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (height == null) height = _object.height;
 		
 		physics.init(BodyType.DYNAMIC, false);
-		physics.body.position.setxy(x, y);
+		physics.body.position.setxy(_object.x, _object.y);
 		physics.body.allowRotation = false;
 		feetShape = new Circle(width / 2, Vec2.weak(0, (height - width) / 2));
 		bodyShape = new Polygon(Polygon.rect(-width / 2, -height / 2, width, height - width / 2));
@@ -119,7 +122,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			currentMoveVel = 0;
 		}
 		
-		facing = currentMoveVel < 0 ? FlxObject.LEFT : FlxObject.RIGHT;
+		_object.facing = currentMoveVel < 0 ? FlxObject.LEFT : FlxObject.RIGHT;
 		anchor.kinematicVel.x = currentMoveVel;
 	}
 	

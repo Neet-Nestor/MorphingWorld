@@ -8,7 +8,7 @@ class PlayState extends FlxState {
 
     override public function create():Void {
         super.create();
-        player = new Player(16, 16);
+        player = new Player(16, 16, 16, 16);
         add(player);
     }
 
