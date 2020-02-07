@@ -11,9 +11,17 @@ import flixel.input.FlxInput.FlxInputState;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.actions.FlxActionInput.FlxInputDevice;
 import flixel.input.actions.FlxActionInput.FlxInputDeviceID;
+import flixel.addons.editors.tiled.TiledMap;
+import flixel.addons.editors.tiled.TiledTileLayer;
+import flixel.tile.FlxBaseTilemap;
+import flixel.tile.FlxTilemap;
+import flixel.FlxObject;
+
 
 class PlayState extends FlxState {
     private var player:Player;
+    var map:TiledMap;
+    var mWalls:FlxTilemap;
 
 	public var actionStart:FlxActionDigital;
 	public var actionJump:FlxActionDigital;
@@ -59,6 +67,14 @@ class PlayState extends FlxState {
         actionRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.PRESSED);
         actionRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.PRESSED);
         actions.addActions([actionLeft, actionRight, actionJump]);
+
+        map = new TiledMap(AssetPaths.test__tmx);
+        mWalls = new FlxTilemap();
+        mWalls.loadMapFromArray(cast(map.getLayer("Tile Layer 1"), TiledTileLayer).tileArray, map.width, map.height, AssetPaths.Sprute__png, map.tileWidth, map.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 3);
+        mWalls.follow();
+        mWalls.setTileProperties(2, FlxObject.NONE);
+        mWalls.setTileProperties(3, FlxObject.ANY);
+        add(mWalls);
 
         player = new Player(16, 16, 16, 16);
         add(player);
