@@ -46,11 +46,7 @@ haxelib install tink_lang
 
 ## Install lycan
 
-Lycan library is too large to include in this repo as it would cause the auto-completion plugin fails. Therefore, it is packed as a zip file included in this repo (`lycan.zip`). Please manually install it using haxelib before compiling.
-
-```bash
-haxelib install lycan.zip
-```
+Lycan library is too large to include in this repo as it would cause the auto-completion plugin fails. Therefore, it is stored in a sperate git repo. You can access it and install it by following the README file [here](https://github.com/Neet-Nestor/Lycan).
 
 ## Install tools for development
 
