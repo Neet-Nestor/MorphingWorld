@@ -11,17 +11,20 @@ import flixel.input.FlxInput.FlxInputState;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.actions.FlxActionInput.FlxInputDevice;
 import flixel.input.actions.FlxActionInput.FlxInputDeviceID;
+
+// for map loading
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.tile.FlxBaseTilemap;
 import flixel.tile.FlxTilemap;
 import flixel.FlxObject;
+import flixel.addons.editors.tiled.TiledObjectLayer;
 
 
 class PlayState extends FlxState {
     private var player:Player;
-    var map:TiledMap;
-    var mWalls:FlxTilemap;
+    private var map:TiledMap;
+    private var mWalls:FlxTilemap;
 
 	public var actionStart:FlxActionDigital;
 	public var actionJump:FlxActionDigital;
@@ -68,16 +71,32 @@ class PlayState extends FlxState {
         actionRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.PRESSED);
         actions.addActions([actionLeft, actionRight, actionJump]);
 
+        // load map
         map = new TiledMap(AssetPaths.test__tmx);
         mWalls = new FlxTilemap();
-        mWalls.loadMapFromArray(cast(map.getLayer("Tile Layer 1"), TiledTileLayer).tileArray, map.width, map.height, AssetPaths.Sprute__png, map.tileWidth, map.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 3);
+        mWalls.loadMapFromArray(cast(map.getLayer("tiles"), TiledTileLayer).tileArray, map.width, map.height, AssetPaths.Sprute__png, map.tileWidth, map.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 3);
         mWalls.follow();
         mWalls.setTileProperties(2, FlxObject.NONE);
         mWalls.setTileProperties(3, FlxObject.ANY);
         add(mWalls);
 
-        player = new Player(16, 16, 16, 16);
+        // creat player, put it at the correct position on the map
+        player = new Player(0, 0, 16, 16);
         add(player);
+        var tmpMap:TiledObjectLayer = cast map.getLayer("entities");
+        for (e in tmpMap.objects) {
+            placeEntities(e.name, e.xmlData.x);
+        }
+    }
+
+    // helper function for putting the player at the correct position.
+    private function placeEntities(entityName:String, entityData:Xml):Void {
+        var x:Int = Std.parseInt(entityData.get("x"));
+        var y:Int = Std.parseInt(entityData.get("y"));
+        if (entityName == "player") {
+            player.x = x;
+            player.y = y;
+        }
     }
 
     override public function update(elapsed:Float):Void {
