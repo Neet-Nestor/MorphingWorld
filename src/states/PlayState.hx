@@ -1,8 +1,6 @@
 package states;
 
 import config.Constant;
-import flixel.FlxState;
-import flixel.FlxG;
 import sprites.Player;
 import sprites.PhysSprite;
 import sprites.CameraFocus;
@@ -13,7 +11,9 @@ import nape.callbacks.InteractionListener;
 import nape.callbacks.InteractionType;
 import nape.callbacks.CbEvent;
 import nape.phys.BodyType;
+import nape.geom.Vec2;
 import flixel.FlxG;
+import flixel.FlxState;
 import flixel.input.actions.FlxAction;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.actions.FlxActionManager;
@@ -30,10 +30,14 @@ import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.tile.FlxBaseTilemap;
 import flixel.tile.FlxTilemap;
 import flixel.FlxObject;
+import flixel.util.FlxColor;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 
 
 class PlayState extends FlxState {
+    // Debugging
+    private var oldPosition:Vec2;
+
     private var player:Player;
     private var map:TiledMap;
     private var mWalls:FlxTilemap;
@@ -111,7 +115,7 @@ class PlayState extends FlxState {
         actions.addActions([actionLeft, actionRight, actionReleaseLeft, actionReleaseRight, actionJump]);
 
         intro();
-        loadMap();
+        // loadMap();
 
 		// Camera following
 		cameraFocus = new CameraFocus();
@@ -148,9 +152,9 @@ class PlayState extends FlxState {
 
     public function intro():Void {
         fakeGround = new PhysSprite();
-        fakeGround.makeGraphic(10, 10, 0x0, true);
+        fakeGround.makeGraphic(FlxG.width * 100, 10, FlxColor.WHITE, true);
 		fakeGround.physics.init(BodyType.KINEMATIC, false);
-		fakeGround.physics.createRectangularBody(FlxG.width * 4, 10, BodyType.KINEMATIC);
+		fakeGround.physics.createRectangularBody(FlxG.width * 100, 10, BodyType.KINEMATIC);
 		fakeGround.physics.enabled = true;
 		fakeGround.physics.body.align();
 		fakeGround.physics.body.position.x = 0;
@@ -180,6 +184,11 @@ class PlayState extends FlxState {
 
         super.update(elapsed);
         // check for collide
+        if (oldPosition != player.physics.body.position) {
+            trace("Player move from " + oldPosition + " to " + player.physics.body.position);
+            oldPosition = player.physics.body.position;
+        }
+
         FlxG.collide(player, mWalls);
     }
 

@@ -57,19 +57,6 @@
             }
         },
         {
-            "type": "CyclomaticComplexity",
-            "props":
-            {
-                "thresholds":
-                [
-                    {
-                        "complexity": 10,
-                        "severity": "ERROR"
-                    }
-                ]
-            }
-        },
-        {
             "type": "DefaultComesLast",
             "props":
             {

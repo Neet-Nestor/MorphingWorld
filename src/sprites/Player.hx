@@ -50,10 +50,12 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 	override public function update(dt:Float):Void {
 		super.update(dt);
 
-		// Cheap crushing, probably full of problems
-		// var ti = physics.body.totalContactsImpulse();
-		// if (ti.length > 2500) kill();
-		// ti.dispose();
+		// Update location
+		if (characterController.targetMoveVel != 0) {
+			physics.snapBodyToEntity();
+			physics.body.position.x += dt * characterController.targetMoveVel;
+			physics.snapEntityToBody();
+		}
 	}
 
 	override private function updateAnimation(dt:Float):Void {
