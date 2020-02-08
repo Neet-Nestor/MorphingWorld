@@ -15,5 +15,9 @@ class Constant {
     public static inline var gravity:Float = 820;
 
 	// Window
-	public static inline var spriteZoom:Int = 1;
+    public static inline var spriteZoom:Int = 1;
+    
+    // Camera
+	public static inline var cameraLerpNormal:Float = 0.3;
+	public static inline var cameraOffsetY:Float = -55;
 }
