@@ -115,7 +115,7 @@ class PlayState extends FlxState {
         actions.addActions([actionLeft, actionRight, actionReleaseLeft, actionReleaseRight, actionJump]);
 
         intro();
-        // loadMap();
+        loadMap();
 
 		// Camera following
 		cameraFocus = new CameraFocus();
@@ -129,16 +129,15 @@ class PlayState extends FlxState {
         map = new TiledMap(AssetPaths.test__tmx);
         mWalls = new FlxTilemap();
         mWalls.loadMapFromArray(cast(map.getLayer("tiles"), TiledTileLayer).tileArray, map.width, map.height, AssetPaths.Sprute__png, map.tileWidth, map.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 3);
-        mWalls.follow();
-        mWalls.setTileProperties(19, FlxObject.ANY);
-        mWalls.setTileProperties(36, FlxObject.ANY);
+        // mWalls.follow();
+        // mWalls.setTileProperties(19, FlxObject.ANY);
+        // mWalls.setTileProperties(36, FlxObject.ANY);
         add(mWalls);
 
-        var tmpMap:TiledObjectLayer = cast map.getLayer("entities");
-        for (e in tmpMap.objects) {
-            placeEntities(e.name, e.xmlData.x);
-        }
-        add(player);
+        // var tmpMap:TiledObjectLayer = cast map.getLayer("entities");
+        // for (e in tmpMap.objects) {
+        //     placeEntities(e.name, e.xmlData.x);
+        // }
     }
 
     private function initPhysics():Void {
@@ -152,8 +151,8 @@ class PlayState extends FlxState {
 
     public function intro():Void {
         fakeGround = new PhysSprite();
-        fakeGround.makeGraphic(FlxG.width * 100, 10, FlxColor.WHITE, true);
-		fakeGround.physics.init(BodyType.KINEMATIC, false);
+        fakeGround.makeGraphic(FlxG.width * 100, 10, FlxColor.WHITE);
+		fakeGround.physics.init(BodyType.STATIC, false);
 		fakeGround.physics.createRectangularBody(FlxG.width * 100, 10, BodyType.KINEMATIC);
 		fakeGround.physics.enabled = true;
 		fakeGround.physics.body.align();
@@ -184,12 +183,6 @@ class PlayState extends FlxState {
 
         super.update(elapsed);
         // check for collide
-        if (oldPosition != player.physics.body.position) {
-            trace("Player move from " + oldPosition + " to " + player.physics.body.position);
-            oldPosition = player.physics.body.position;
-        }
-
-        FlxG.collide(player, mWalls);
     }
 
 	override public function draw():Void {

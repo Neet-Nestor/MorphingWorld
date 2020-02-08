@@ -53,7 +53,10 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 		// Update location
 		physics.snapBodyToEntity();
 		physics.body.position.x += dt * characterController.currentMoveVel;
+		physics.body.position.y += dt * physics.body.velocity.y;
 		physics.snapEntityToBody();
+		trace("Position = " + physics.body.position);
+		trace("Velocity = " + physics.body.velocity);
 	}
 
 	override private function updateAnimation(dt:Float):Void {
@@ -61,28 +64,19 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 		var velocity = body.velocity;
 
 		var cc = characterController;
-
-		if (cc.targetMoveVel > 0) {
-			facing = FlxObject.RIGHT;
-		} else if (cc.targetMoveVel < 0) {
-			facing = FlxObject.LEFT;
-		}
-
 		if (groundable.isGrounded) {
-			if (cc.targetMoveVel > 0) {
+			if (cc.currentMoveVel > 0) {
 				animation.play("run");
-			} else if (cc.targetMoveVel < 0) {
+			} else if (cc.currentMoveVel < 0) {
 				animation.play("run");
 			} else {
 				animation.play("idle");
 			}
 		} else {
-			if (velocity.y > 100) {
+			if (velocity.y > 0) {
 				animation.play("fall");
-			} else if (velocity.y < -100) {
-				animation.play("jump");
 			} else {
-				animation.play("idle");
+				animation.play("jump");
 			}
 		}
 		super.updateAnimation(dt);
