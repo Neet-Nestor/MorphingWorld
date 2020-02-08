@@ -50,7 +50,8 @@
 	<haxelib name="hxcpp-debug-server" />
 
 	<!-- Include in this repo instead -->
-	<!-- <haxelib name="lycan" /> -->
+	<haxelib name="lycan" />
+	<dependency name="lycan" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
