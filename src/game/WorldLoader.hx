@@ -70,7 +70,7 @@ class WorldLoader {
 		return world;
 	}
 
-	private function setupLayerHandlers():Void {
+	public function setupLayerHandlers():Void {
 		layerLoadedHandlers.add(function(tiledLayer, layer) {
 			if (layer.worldLayer.type == TiledLayerType.TILE) {
 				var tl:PhysicsTileLayer = cast layer;
@@ -131,7 +131,7 @@ class WorldLoader {
 		});
 	}
 
-	private function setupObjectHandlers():Void {
+	public function setupObjectHandlers():Void {
 		var spriteZoom = Config.spriteZoom;
 
 		// Scale everything up and position it based on world pos
@@ -304,7 +304,7 @@ class WorldLoader {
 
 	}
 
-	private function getGraphicFromTile(obj:TiledObject):Void {
+	public function getGraphicFromTile(obj:TiledObject):Void {
 			if (obj.gid > 0) {
 				var graphicSrc = obj.layer.map.getGidOwner(obj.gid).getImageSourceByGid(obj.gid).source;
 				var path = new Path(graphicSrc);
@@ -314,7 +314,7 @@ class WorldLoader {
 			return null;
 		}
 
-	private function setBodyType(po:PhysicsEntity, bodyTypeString:String):Void {
+    public function setBodyType(po:PhysicsEntity, bodyTypeString:String):Void {
 		var bodyType:BodyType = switch(bodyTypeString.toLowerCase()) {
 			case "kinematic": BodyType.KINEMATIC;
 			case "dynamic": BodyType.DYNAMIC;
@@ -332,7 +332,7 @@ class WorldLoader {
 		}
 	}
 
-	private function weld(weldTarget:PhysicsEntity, weldee:PhysicsEntity):Void {
+	public function weld(weldTarget:PhysicsEntity, weldee:PhysicsEntity):Void {
 		var b1 = weldee.physics.body;
 		var b2 = weldTarget.physics.body;
 		var mid:Vec2 = Vec2.get((b1.position.x + b2.position.x) / 2, (b1.position.y + b2.position.y) / 2);
@@ -351,7 +351,7 @@ class WorldLoader {
 		@:privateAccess joint.zpp_inner.wake();
 	}
 
-	private function setCollisionGroup(obj:Dynamic, layer:WorldLayer, map:Map<Int, Dynamic>):Void {
+	public function setCollisionGroup(obj:Dynamic, layer:WorldLayer, map:Map<Int, Dynamic>):Void {
 		if (obj.properties.contains("collisionGroup")) {
 			var groupName = obj.properties.get("collisionGroup");
 			var groups = layer.worldLayer.world.collisionGroups;

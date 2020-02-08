@@ -40,7 +40,7 @@ class WorldCollection extends NamedCollection<WorldDef> {
 		defineWorld("world3", false);
 	}
 
-	private static function defineWorld(name:String, owned:Bool = false):WorldDef {
+	public static function defineWorld(name:String, owned:Bool = false):WorldDef {
 		var wd = new WorldDef(name, Config.MAP_PATH + name + ".tmx");
 		trace("Adding world def for " + name);
 		wd.owned = owned;
@@ -49,7 +49,7 @@ class WorldCollection extends NamedCollection<WorldDef> {
 		return wd;
 	}
 
-	private function get_collectedCount():Int {
+	public function get_collectedCount():Int {
 		var count:Int = 0;
 		for (w in list) {
 			if (w.owned) count++;

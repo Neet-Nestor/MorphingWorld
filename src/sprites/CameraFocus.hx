@@ -35,7 +35,7 @@ class CameraFocus extends FlxObject {
 		}
 	}
 
-	override function update(dt:Float) {
+	override public function update(dt:Float):Void {
 		super.update(dt);
 
 		updatePosition();

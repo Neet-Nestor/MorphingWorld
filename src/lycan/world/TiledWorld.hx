@@ -152,7 +152,7 @@ class TiledWorld extends FlxGroup {
 		onLoadingComplete.dispatch();
 	}
 
-	private function loadTileSets(tiledMap:TiledMap):Void {
+	public function loadTileSets(tiledMap:TiledMap):Void {
 		var tilesetBitmaps = new Array<BitmapData>();
 		for (tileset in tiledMap.tilesetArray) {
 			if (tileset.properties.contains("noload")) {
@@ -177,7 +177,7 @@ class TiledWorld extends FlxGroup {
 		tilesets = tiledMap.tilesets;
 	}
 
-	private function loadImageLayer(tiledLayer:TiledImageLayer):ImageLayer {
+	public function loadImageLayer(tiledLayer:TiledImageLayer):ImageLayer {
 		// If it's a submap TODO
 
 		// If it's an image
@@ -191,7 +191,7 @@ class TiledWorld extends FlxGroup {
 		return layer;
 	}
 
-	private function loadObjectLayer(tiledLayer:TiledObjectLayer, handlers:ObjectHandlers):ObjectLayer {
+	public function loadObjectLayer(tiledLayer:TiledObjectLayer, handlers:ObjectHandlers):ObjectLayer {
 		var layer = new ObjectLayer(this, tiledLayer);
 		layer.loadObjects(tiledLayer, handlers);
 		objectLayers.set(tiledLayer.name, layer);
@@ -199,7 +199,7 @@ class TiledWorld extends FlxGroup {
 		return layer;
 	}
 
-	private function loadTileLayer(tiledLayer:TiledTileLayer):TileLayer {
+	public function loadTileLayer(tiledLayer:TiledTileLayer):TileLayer {
 		// By default, use world's physics setting
 		var collisionType:WorldCollisionType = defaultCollisionType;
 
