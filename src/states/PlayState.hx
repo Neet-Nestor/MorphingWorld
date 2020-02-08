@@ -95,10 +95,10 @@ class PlayState extends FlxState {
             trace("right pressed");
             player.characterController.rightPressed = true;
         });
-        actionRight.addKey(FlxKey.RIGHT, FlxInputState.PRESSED);
-        actionRight.addKey(FlxKey.D, FlxInputState.PRESSED);
-        actionRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.PRESSED);
-        actionRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.PRESSED);
+        actionRight.addKey(FlxKey.RIGHT, FlxInputState.JUST_PRESSED);
+        actionRight.addKey(FlxKey.D, FlxInputState.JUST_PRESSED);
+        actionRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.JUST_PRESSED);
+        actionRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.JUST_PRESSED);
 
         actionReleaseRight = new FlxActionDigital("ReleaseRight", (_) -> {
             trace("right released");
