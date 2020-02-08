@@ -49,10 +49,10 @@ class BitmapDataIso #if flash implements IsoFunction #end {
 		this.alphaThreshold = alphaThreshold;
 		bounds = new AABB(0, 0, bitmap.width, bitmap.height);
 	}
-	public function graphic():Void {
+	public function graphic():Bitmap {
 		return new Bitmap(bitmap);
 	}
-	public function iso(x:Float, y:Float) {
+	public function iso(x:Float, y:Float):Float {
 		// Take 4 nearest pixels to interpolate linearly.
 		// This gives us a smooth iso-function for which
 		// we can use a lower quality in MarchingSquares for

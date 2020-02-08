@@ -1,44 +1,43 @@
 package states;
 
-import config.Config;
 import sprites.Player;
 import sprites.PhysSprite;
 import sprites.CameraFocus;
-import lycan.phys.Phys;
-import lycan.phys.PlatformerPhysics;
-import nape.callbacks.InteractionCallback;
-import nape.callbacks.InteractionListener;
-import nape.callbacks.InteractionType;
-import nape.callbacks.CbEvent;
 import nape.phys.BodyType;
 import nape.geom.Vec2;
-import flixel.FlxG;
-import flixel.FlxState;
-import flixel.input.actions.FlxAction;
+import nape.callbacks.InteractionType;
+import nape.callbacks.InteractionListener;
+import nape.callbacks.InteractionCallback;
+import nape.callbacks.CbEvent;
+import lycan.states.LycanState;
+import lycan.phys.PlatformerPhysics;
+import lycan.phys.Phys;
+import game.WorldCollection;
+import flixel.util.FlxColor;
+import flixel.tile.FlxTilemap;
+import flixel.tile.FlxBaseTilemap;
+import flixel.input.keyboard.FlxKey;
+import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.actions.FlxActionManager;
-import flixel.input.keyboard.FlxKey;
+import flixel.input.actions.FlxAction;
 import flixel.input.FlxInput.FlxInputState;
-import flixel.input.gamepad.FlxGamepadInputID;
-import flixel.FlxCamera.FlxCameraFollowStyle;
-
-// for map loading
-import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledTileLayer;
-import flixel.tile.FlxBaseTilemap;
-import flixel.tile.FlxTilemap;
-import flixel.FlxObject;
-import flixel.util.FlxColor;
 import flixel.addons.editors.tiled.TiledObjectLayer;
+import flixel.addons.editors.tiled.TiledMap;
+import flixel.FlxState;
+import flixel.FlxObject;
+import flixel.FlxG;
+import flixel.FlxCamera.FlxCameraFollowStyle;
+import config.Config;
 
 
-class PlayState extends FlxState {
+class PlayState extends LycanState {
     private var player:Player;
-    private var map:TiledMap;
-    private var mWalls:FlxTilemap;
 
 	public var fakeGround:PhysSprite;
 	public var cameraFocus:CameraFocus;
+	public var reloadPlayerPosition:Bool;
 
 	public var actionStart:FlxActionDigital;
 	public var actionJump:FlxActionDigital;
@@ -59,10 +58,17 @@ class PlayState extends FlxState {
     override public function create():Void {
 		persistentDraw = true;
         persistentUpdate = true;
+        reloadPlayerPosition = false;
 
         super.create();
         initPhysics();
+        initActions();
+        WorldCollection.init();
+        initCamera();
+        intro();
+    }
 
+    private function initActions():Void {
 		// Actions
 		actions = new FlxActionManager();
 
@@ -110,15 +116,6 @@ class PlayState extends FlxState {
         actionReleaseRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.JUST_RELEASED);
         actionReleaseRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.JUST_RELEASED);
         actions.addActions([actionLeft, actionRight, actionReleaseLeft, actionReleaseRight, actionJump]);
-
-        intro();
-
-		// Camera following
-		cameraFocus = new CameraFocus();
-		cameraFocus.add(new ObjectTargetInfluencer(player));
-		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
-		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
-		FlxG.camera.snapToTarget();
     }
 
     private function initPhysics():Void {
@@ -147,6 +144,17 @@ class PlayState extends FlxState {
         player.physics.snapEntityToBody();
         add(fakeGround);
         add(player);
+    }
+
+    private function initCamera():Void {
+        baseZoom = Config.DEFAULT_ZOOM;
+        worldZoom = 1;
+        
+		cameraFocus = new CameraFocus();
+		cameraFocus.add(new ObjectTargetInfluencer(player));
+		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
+		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
+		FlxG.camera.snapToTarget();
     }
 
     // helper function for putting the player at the correct position.

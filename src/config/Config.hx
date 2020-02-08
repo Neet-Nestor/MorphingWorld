@@ -17,8 +17,10 @@ class Config {
 	// Physics
     public static inline var GRAVITY:Float = 800;
 
-	// Window
+	// Zoom
     public static inline var SPRITE_ZOOM:Int = 1;
+	public static inline var DEFAULT_ZOOM:Float = 2;
+	public static inline var WORLD_EDITING_ZOOM:Float = 0.5;
 
     // Camera
 	public static inline var CAMERA_LERP_NORMAL:Float = 0.3;

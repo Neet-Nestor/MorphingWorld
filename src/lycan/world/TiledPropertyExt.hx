@@ -2,7 +2,7 @@ package lycan.world;
 
 import flixel.addons.editors.tiled.TiledPropertySet;
 import flixel.util.helpers.FlxRange;
-import lycan.util.StringUtil;
+import lycan.util.ext.StringExt;
 import flixel.util.FlxColor;
 
 class TiledPropertyExt {
@@ -20,7 +20,7 @@ class TiledPropertyExt {
 	}
 	
 	public static function getRange(props:TiledPropertySet, key:String):{min:Float, max:Float} {
-		return StringUtil.parseRange(props.get(key));
+		return StringExt.parseRange(props.get(key));
 	}
 	
 	public static function getColor(props:TiledPropertySet, key:String):FlxColor {

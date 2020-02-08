@@ -5,6 +5,7 @@ import flixel.addons.editors.tiled.TiledMap;
 import lycan.entities.LSprite;
 import lycan.util.CameraSprite;
 import lycan.util.NamedCollection;
+import states.PlayState;
 
 class WorldDef implements Named {
 	public var name:String;
