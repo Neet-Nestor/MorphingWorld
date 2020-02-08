@@ -12,8 +12,8 @@ import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.tile.FlxTilemap;
 
-typedef ObjectHandler = TiledObject->ObjectLayer->Map<TiledObject, FlxBasic>->Void;
+typedef ObjectHandler = TiledObject -> ObjectLayer -> Map<TiledObject, FlxBasic> -> Void;
 typedef ObjectHandlers = FlxTypedSignal<ObjectHandler>;
 
-typedef LayerLoadedHandler = TiledLayer->WorldLayer->Void;
+typedef LayerLoadedHandler = TiledLayer -> WorldLayer -> Void;
 typedef LayerLoadedHandlers = FlxTypedSignal<LayerLoadedHandler>;
