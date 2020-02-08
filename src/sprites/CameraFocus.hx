@@ -1,6 +1,5 @@
 package sprites;
 
-import flixel.math.FlxMath;
 import flixel.util.helpers.FlxRange;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;

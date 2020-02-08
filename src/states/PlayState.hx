@@ -66,7 +66,6 @@ class PlayState extends FlxState {
 
         // Player actions
         actionJump = new FlxActionDigital("Jump", (_) -> {
-            trace("jump pressed");
             player.characterController.jump();
         });
         actionJump.addKey(FlxKey.UP, FlxInputState.JUST_PRESSED);
@@ -78,7 +77,6 @@ class PlayState extends FlxState {
         actionJump.addGamepad(FlxGamepadInputID.B, FlxInputState.JUST_PRESSED);
 
         actionLeft = new FlxActionDigital("Left", (_) -> {
-            trace("left pressed");
             player.characterController.leftPressed = true;
         });
         actionLeft.addKey(FlxKey.LEFT, FlxInputState.JUST_PRESSED);
@@ -87,7 +85,6 @@ class PlayState extends FlxState {
         actionLeft.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT, FlxInputState.JUST_PRESSED);
 
         actionReleaseLeft = new FlxActionDigital("ReleaseLeft", (_) -> {
-            trace("left released");
             player.characterController.leftPressed = false;
         });
         actionReleaseLeft.addKey(FlxKey.LEFT, FlxInputState.JUST_RELEASED);
@@ -96,7 +93,6 @@ class PlayState extends FlxState {
         actionReleaseLeft.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT, FlxInputState.JUST_RELEASED);
 
         actionRight = new FlxActionDigital("Right", (_) -> {
-            trace("right pressed");
             player.characterController.rightPressed = true;
         });
         actionRight.addKey(FlxKey.RIGHT, FlxInputState.JUST_PRESSED);
@@ -105,7 +101,6 @@ class PlayState extends FlxState {
         actionRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.JUST_PRESSED);
 
         actionReleaseRight = new FlxActionDigital("ReleaseRight", (_) -> {
-            trace("right released");
             player.characterController.rightPressed = false;
         });
         actionReleaseRight.addKey(FlxKey.RIGHT, FlxInputState.JUST_RELEASED);
@@ -115,29 +110,13 @@ class PlayState extends FlxState {
         actions.addActions([actionLeft, actionRight, actionReleaseLeft, actionReleaseRight, actionJump]);
 
         intro();
-        loadMap();
 
 		// Camera following
 		cameraFocus = new CameraFocus();
 		cameraFocus.add(new ObjectTargetInfluencer(player));
 		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
-		FlxG.camera.targetOffset.y = Config.cameraOffsetY;
+		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
 		FlxG.camera.snapToTarget();
-    }
-
-    public function loadMap():Void {
-        map = new TiledMap(AssetPaths.test__tmx);
-        mWalls = new FlxTilemap();
-        mWalls.loadMapFromArray(cast(map.getLayer("tiles"), TiledTileLayer).tileArray, map.width, map.height, AssetPaths.Sprute__png, map.tileWidth, map.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 3);
-        // mWalls.follow();
-        // mWalls.setTileProperties(19, FlxObject.ANY);
-        // mWalls.setTileProperties(36, FlxObject.ANY);
-        add(mWalls);
-
-        // var tmpMap:TiledObjectLayer = cast map.getLayer("entities");
-        // for (e in tmpMap.objects) {
-        //     placeEntities(e.name, e.xmlData.x);
-        // }
     }
 
     private function initPhysics():Void {
@@ -146,7 +125,7 @@ class PlayState extends FlxState {
         PlatformerPhysics.setupPlatformerPhysics();
 
         // Setup gravity
-        Phys.space.gravity.setxy(0, Config.gravity);
+        Phys.space.gravity.setxy(0, Config.GRAVITY);
     }
 
     public function intro():Void {
@@ -160,7 +139,7 @@ class PlayState extends FlxState {
 		fakeGround.physics.body.position.y = 0;
 		fakeGround.physics.snapEntityToBody();
 
-        player = new Player(0, 0, Config.playerWidth, Config.playerHeight);
+        player = new Player(0, 0, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
 		player.physics.snapBodyToEntity();
 		player.physics.body.position.y = fakeGround.physics.body.position.y - (player.physics.body.shapes.at(0).bounds.height + fakeGround.physics.body.shapes.at(0).bounds.height) / 2;
         player.physics.snapEntityToBody();
