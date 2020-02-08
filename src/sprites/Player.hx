@@ -1,17 +1,11 @@
 package sprites;
 
 import config.Config;
-import lycan.components.CenterPositionable;
-import lycan.components.Attachable;
 import lycan.world.components.Groundable;
 import lycan.world.components.PhysicsEntity;
 import lycan.world.components.CharacterController;
-import nape.phys.BodyType;
 import flixel.FlxObject;
-import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxColor;
-import flixel.math.FlxPoint;
 
 class Player extends FlxSprite implements CharacterController implements Groundable implements PhysicsEntity {
     public function new(x:Float, y:Float, width:Int, height:Int) {

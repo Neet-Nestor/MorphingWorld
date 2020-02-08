@@ -20,8 +20,6 @@ import flixel.input.actions.FlxActionManager;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.FlxInput.FlxInputState;
 import flixel.input.gamepad.FlxGamepadInputID;
-import flixel.input.actions.FlxActionInput.FlxInputDevice;
-import flixel.input.actions.FlxActionInput.FlxInputDeviceID;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 
 // for map loading
