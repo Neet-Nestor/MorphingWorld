@@ -1,6 +1,7 @@
 package states;
 
 import flixel.FlxState;
+import flixel.FlxG;
 import sprites.Player;
 import lycan.phys.Phys;
 import flixel.input.actions.FlxAction;
@@ -76,17 +77,17 @@ class PlayState extends FlxState {
         mWalls = new FlxTilemap();
         mWalls.loadMapFromArray(cast(map.getLayer("tiles"), TiledTileLayer).tileArray, map.width, map.height, AssetPaths.Sprute__png, map.tileWidth, map.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 3);
         mWalls.follow();
-        mWalls.setTileProperties(2, FlxObject.NONE);
-        mWalls.setTileProperties(3, FlxObject.ANY);
+        mWalls.setTileProperties(19, FlxObject.ANY);
+        mWalls.setTileProperties(36, FlxObject.ANY);
         add(mWalls);
 
         // creat player, put it at the correct position on the map
         player = new Player(0, 0, 16, 16);
-        add(player);
         var tmpMap:TiledObjectLayer = cast map.getLayer("entities");
         for (e in tmpMap.objects) {
             placeEntities(e.name, e.xmlData.x);
         }
+        add(player);
     }
 
     // helper function for putting the player at the correct position.
@@ -101,6 +102,8 @@ class PlayState extends FlxState {
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
+        // check for collide
+        FlxG.collide(player, mWalls);
     }
 
     private function initPhysics():Void {
