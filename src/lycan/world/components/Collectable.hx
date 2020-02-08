@@ -1,6 +1,6 @@
 package lycan.world.components;
 
-import entities.Player;
+import sprites.Player;
 import lycan.components.Entity;
 import lycan.components.Component;
 import lycan.components.Attachable;

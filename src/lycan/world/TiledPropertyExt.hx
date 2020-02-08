@@ -2,7 +2,7 @@ package lycan.world;
 
 import flixel.addons.editors.tiled.TiledPropertySet;
 import flixel.util.helpers.FlxRange;
-import lycan.util.ext.StringExt;
+using lycan.util.ext.StringExt;
 import flixel.util.FlxColor;
 
 class TiledPropertyExt {

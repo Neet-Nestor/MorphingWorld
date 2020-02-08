@@ -22,6 +22,9 @@ import flixel.input.actions.FlxActionSet;
 import flixel.input.actions.FlxActionManager;
 import flixel.input.actions.FlxAction;
 import flixel.input.FlxInput.FlxInputState;
+import flixel.tweens.FlxEase;
+import flixel.util.FlxTimer;
+import flixel.tweens.FlxTween;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledMap;
@@ -29,16 +32,22 @@ import flixel.FlxState;
 import flixel.FlxObject;
 import flixel.FlxG;
 import flixel.FlxCamera.FlxCameraFollowStyle;
+import hscript.Expr;
+import hscript.Parser;
+import hscript.Interp;
 import config.Config;
 
-
 class PlayState extends LycanState {
-    private var player:Player;
-
+    public var player:Player;
 	public var fakeGround:PhysSprite;
 	public var cameraFocus:CameraFocus;
 	public var reloadPlayerPosition:Bool;
 
+    // For scripts
+	public var parser:Parser;
+	public var interp:Interp;
+
+    // Actions
 	public var actionStart:FlxActionDigital;
 	public var actionJump:FlxActionDigital;
 	public var actionFlap:FlxActionDigital;
@@ -46,7 +55,11 @@ class PlayState extends LycanState {
     public var actionReleaseLeft:FlxActionDigital;
     public var actionRight:FlxActionDigital;
     public var actionReleaseRight:FlxActionDigital;
+
+    // Managers
     public var actions:FlxActionManager;
+	public var timers:FlxTimerManager;
+	public var tweens:FlxTweenManager;
 
 	public static var instance(default, null):PlayState;
 
@@ -62,16 +75,32 @@ class PlayState extends LycanState {
 
         super.create();
         initPhysics();
+        initManagers();
         initActions();
+        initScripts();
         WorldCollection.init();
         initCamera();
         intro();
     }
 
-    private function initActions():Void {
-		// Actions
-		actions = new FlxActionManager();
+    private function initPhysics():Void {
+        // Initialize physics
+        Phys.init();
+        PlatformerPhysics.setupPlatformerPhysics();
 
+        // Setup gravity
+        Phys.space.gravity.setxy(0, Config.GRAVITY);
+    }
+
+    private function initManagers():Void {
+		timers = new FlxTimerManager();
+		tweens = new FlxTweenManager();
+		actions = new FlxActionManager();
+		add(timers);
+        add(tweens);
+    }
+
+    private function initActions():Void {
         // Player actions
         actionJump = new FlxActionDigital("Jump", (_) -> {
             player.characterController.jump();
@@ -118,13 +147,19 @@ class PlayState extends LycanState {
         actions.addActions([actionLeft, actionRight, actionReleaseLeft, actionReleaseRight, actionJump]);
     }
 
-    private function initPhysics():Void {
-        // Initialize physics
-        Phys.init();
-        PlatformerPhysics.setupPlatformerPhysics();
-
-        // Setup gravity
-        Phys.space.gravity.setxy(0, Config.GRAVITY);
+    private function initScripts():Void {
+        // Scripting Setup
+		parser = new Parser();
+		interp = new Interp();
+		var scriptGlobals:Dynamic = {};
+		interp.variables.set("Global", scriptGlobals);
+		interp.variables.set("game", this);
+		interp.variables.set("Math", Math);
+		interp.variables.set("FlxTween", tweens);
+		interp.variables.set("FlxEase", FlxEase);
+		interp.variables.set("BodyType", BodyType);
+		interp.variables.set("ObjectTargetInfluencer", ObjectTargetInfluencer);
+		interp.variables.set("wait", function(delay:Float, cb:Void->Void) new FlxTimer(timers).start(delay, (_)->cb()));
     }
 
     public function intro():Void {

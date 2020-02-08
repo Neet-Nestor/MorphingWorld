@@ -45,6 +45,7 @@
 	<haxelib name="nape-haxe4" />
 	<haxelib name="tink_macro" />
 	<haxelib name="tink_lang" />
+	<haxelib name="hscript" />
 
 	<!-- Debug Server -->
 	<haxelib name="hxcpp-debug-server" />

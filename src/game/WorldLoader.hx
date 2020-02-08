@@ -1,23 +1,56 @@
 package game;
 
-import config.Config;
+import states.PlayState;
+import sprites.TiledSprite;
+import sprites.Player;
 import sprites.PhysSprite;
-import nape.geom.Vec2;
+import nape.phys.Material;
+import nape.phys.BodyType;
 import nape.phys.Body;
-import lycan.phys.Phys;
-import lycan.phys.PlatformerPhysics;
-import lycan.world.TiledWorld;
+import nape.geom.Vec2;
+import nape.dynamics.InteractionGroup;
+import nape.constraint.WeldJoint;
+import nape.constraint.PivotJoint;
+import nape.constraint.AngleJoint;
 import lycan.world.layer.TileLayer;
 import lycan.world.layer.PhysicsTileLayer;
+import lycan.world.layer.ObjectLayer;
+import flixel.system.FlxAssets;
 import lycan.world.components.PhysicsEntity;
-import flixel.FlxSprite;
+import lycan.world.WorldLayer;
+import lycan.world.WorldHandlers;
+import lycan.world.TiledWorld;
+import lycan.system.FpsText;
+import lycan.states.LycanState;
+import lycan.phys.PlatformerPhysics;
+import lycan.phys.Phys;
+import hscript.Parser;
+import hscript.Interp;
+import hscript.Expr;
+import haxe.io.Path;
+import haxe.ds.Map;
+import flixel.util.FlxPath;
+import flixel.tile.FlxTilemap;
+import flixel.tile.FlxBaseTilemap.FlxTilemapAutoTiling;
+import flixel.math.FlxPoint;
+import flixel.math.FlxPoint;
+import flixel.math.FlxMath;
+import flixel.math.FlxAngle;
+import flixel.addons.nape.FlxNapeTilemap;
+import flixel.addons.nape.FlxNapeSpace;
 import flixel.addons.editors.tiled.TiledObject;
 import flixel.addons.editors.tiled.TiledMap;
+import flixel.addons.editors.tiled.TiledLayer;
+import flixel.addons.editors.tiled.TiledLayer.TiledLayerType;
+import flixel.FlxSprite;
+import flixel.FlxG;
+import flixel.FlxCamera.FlxCameraFollowStyle;
+import flixel.FlxBasic;
+import config.Config;
 
 using lycan.world.TiledPropertyExt;
 
 class WorldLoader {
-
 	public static var instance(default, never):WorldLoader = new WorldLoader();
 
 	var objectHandlers:ObjectHandlers = new ObjectHandlers();
@@ -68,7 +101,7 @@ class WorldLoader {
 		layerLoadedHandlers.add(function(tiledLayer, layer) {
 			if (layer.worldLayer.type == TiledLayerType.TILE && Std.is(layer, PhysicsTileLayer)) {
 				var tl:PhysicsTileLayer = cast layer;
-				tl.body.shapes.foreach(s->s.filter = PlatformerPhysics.worldFilter);
+				// tl.body.shapes.foreach(s->s.filter = PlatformerPhysics.worldFilter);
 				if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s->s.cbTypes.add(PlatformerPhysics.onewayType));
 			}
 		});
@@ -89,10 +122,10 @@ class WorldLoader {
 				spr.initFromLayer(tl);
 				tl.worldLayer.world.insert(tl.worldLayer.world.members.indexOf(tl), spr);
 				tl.worldLayer.world.remove(tl);
-				layer.worldLayer.world.objects.set(tiledLayer.id, spr);
+				layer.worldLayer.world.layers.set(tiledLayer.name, spr);
 
 				// TODO better unification of layer and object loading
-				setCollisionGroup(tiledLayer, layer, layer.worldLayer.world.objects);
+				setCollisionGroup(tiledLayer, layer, layer.worldLayer.world.layers);
 
 				var bodyType:Null<String> = tiledLayer.properties.get("bodyType");
 				if (bodyType != null) setBodyType(tl, bodyType);
@@ -100,13 +133,13 @@ class WorldLoader {
 				var weldId:Null<Int> = tiledLayer.properties.getInt("weldTo");
 				if (weldId != null) {
 					layer.worldLayer.world.onLoadingComplete.addOnce(()->{
-						weld(tl, layer.worldLayer.world.objects.get(weldId));
+						weld(tl, layer.worldLayer.world.layers.get(weldId));
 					});
 				}
 			}
 		});
 
-		// TODO duplicated, implement for layers and objects at same time
+		// TODO duplicated, implement for layers and layers at same time
 		layerLoadedHandlers.add(function(tiledLayer, layer) {
 			layer.worldLayer.world.onLoadingComplete.addOnce(()->{
 				if (tiledLayer.properties.contains("onLoad")) {
@@ -118,7 +151,7 @@ class WorldLoader {
 	}
 
 	public function setupObjectHandlers():Void {
-		var spriteZoom = Config.spriteZoom;
+		var spriteZoom = Config.SPRITE_ZOOM;
 
 		// Scale everything up and position it based on world pos
 		objectHandlers.add((obj, layer, map)->{
@@ -140,10 +173,10 @@ class WorldLoader {
 		});
 
 		objectHandlers.add((obj, layer, map)->{
-			// Offset objects based on world offset
+			// Offset layers based on world offset
 			trace((cast layer.worldLayer.world:MiniWorld).x);
-			obj.x += (cast layer.worldLayer.world:MiniWorld).x;
-			obj.y += (cast layer.worldLayer.world:MiniWorld).y;
+			obj.x += Math.round((cast layer.worldLayer.world:MiniWorld).x);
+			obj.y += Math.round((cast layer.worldLayer.world:MiniWorld).y);
 		});
 
 		var loadObject = function(type:String, handler:ObjectHandler) {
@@ -162,11 +195,11 @@ class WorldLoader {
 			});
 		};
 
-		var runObjectScript = function(obj:Dynamic, expr:Expr, world:TiledWorld) {
+		var runlayerscript = function(obj:Dynamic, expr:Expr, world:TiledWorld) {
 			PlayState.instance.interp.variables.set("obj", obj);
 			PlayState.instance.interp.variables.set("world", world);
 			PlayState.instance.interp.variables.set("object", function(id) {
-				return world.objects.get(id);
+				return world.layers.get(id);
 			});
 			PlayState.instance.interp.execute(expr);
 			PlayState.instance.interp.variables.remove("obj");
@@ -175,13 +208,13 @@ class WorldLoader {
 		loadObject("player", (obj, layer, map)->{
 			var player:Player = playState.player;
 			if (player == null) {
-				player = new Player(0, 0, Config.playerWidth, Config.playerHeight);
+				player = new Player(0, 0, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
 			}
 			if (PlayState.instance.reloadPlayerPosition) {
 				PlayState.instance.reloadPlayerPosition = false;
-				player.physics.body.position.setxy(obj.x, obj.y + obj.height / 2 - Config.playerHeight / 2);
+				player.physics.body.position.setxy(obj.x, obj.y + obj.height / 2 - Config.PLAYER_HEIGHT / 2);
 				player.physics.snapEntityToBody();
-				map.set(obj.id, player);
+				map.set(obj.name, player);
 				playState.player = player;
 			}
 		});
@@ -193,13 +226,13 @@ class WorldLoader {
 			block.physics.init(BodyType.STATIC);
 			block.setCenter(obj.x, obj.y);
 			block.physics.snapBodyToEntity();
-			map.set(obj.id, block);
+			map.set(obj.name, block);
 			layer.add(block);
 		});
 
 		objectHandlers.add((obj, layer, map)->{
 			if (!obj.properties.getBool("visible", true)) {
-				map[obj.id].visible = false;
+				map[obj.name].visible = false;
 			}
 		});
 
@@ -209,12 +242,12 @@ class WorldLoader {
 				var spr = new FlxSprite(getGraphicFromTile(obj));
 				spr.setCenter(obj.x, obj.y);
 				layer.add(spr);
-				map.set(obj.id, spr);
+				map.set(obj.name, spr);
 			}
 		});
 
 		lateLoad((obj, layer, map)->{
-			var o = map.get(obj.id);
+			var o = map.get(obj.name);
 			if (!Std.is(o, FlxSprite)) return;
 			var s:FlxSprite = cast o;
 			s.flipX = obj.flippedHorizontally;
@@ -222,14 +255,14 @@ class WorldLoader {
 			null;
 		});
 
-		// TODO better way to do for both objects and tilemaps
+		// TODO better way to do for both layers and tilemaps
 		objectHandlers.add((obj, layer, map)->{
 			setCollisionGroup(obj, layer, map);
 		});
 
 		lateLoad((obj, layer, map)->{
 			if (obj.properties.contains("bodyType")) {
-				var po:PhysicsEntity = cast map.get(obj.id);
+				var po:PhysicsEntity = cast map.get(obj.name);
 				setBodyType(po, obj.properties.get("bodyType"));
 
 			}
@@ -238,7 +271,7 @@ class WorldLoader {
 		//TODO split into components... and you know... make all of this nicer
 		lateLoad((obj, layer, map)->{
 			if (obj.properties.contains("padHitbox")) {
-				var po:PhysicsEntity = cast map.get(obj.id);
+				var po:PhysicsEntity = cast map.get(obj.name);
 				var pad:Float = cast obj.properties.getFloat("padHitbox");
 				var verts = po.physics.body.shapes.at(0).castPolygon.localVerts;
 				verts.at(0).x -= pad;
@@ -262,13 +295,13 @@ class WorldLoader {
 				var joint:PivotJoint = new PivotJoint(body1, body2, body1.worldPointToLocal(worldPoint), body2.worldPointToLocal(worldPoint));
 				worldPoint.dispose();
 				joint.space = Phys.space;
-				map[obj.id] = joint;
+				map[obj.name] = joint;
 			}
 		});
 
 		lateLoad((obj, layer, map)->{
 			if (obj.properties.getBool("oneway")) {
-				var po:PhysicsEntity = cast map.get(obj.id);
+				var po:PhysicsEntity = cast map.get(obj.name);
 				po.physics.body.cbTypes.add(PlatformerPhysics.onewayType);
 
 			}
@@ -277,20 +310,20 @@ class WorldLoader {
 		lateLoad((obj, layer, map)->{
 			if (obj.properties.contains("weldTo")) {
 				var weldTarget:PhysicsEntity = cast map.get(obj.properties.getInt("weldTo"));
-				var weldee:PhysicsEntity = cast map.get(obj.id);
+				var weldee:PhysicsEntity = cast map.get(obj.name);
 				weld(weldTarget, weldee);
 			}
 		});
 
 		lateLoad((obj, layer, map)->{
 			if (obj.properties.contains("onLoad")) {
-				runObjectScript(map.get(obj.id), PlayState.instance.parser.parseString(obj.properties.get("onLoad")), layer.worldLayer.world);
+				runlayerscript(map.get(obj.name), PlayState.instance.parser.parseString(obj.properties.get("onLoad")), layer.worldLayer.world);
 			}
 		});
 
 	}
 
-	public function getGraphicFromTile(obj:TiledObject):Void {
+	public function getGraphicFromTile(obj:TiledObject):FlxGraphicAsset {
 			if (obj.gid > 0) {
 				var graphicSrc = obj.layer.map.getGidOwner(obj.gid).getImageSourceByGid(obj.gid).source;
 				var path = new Path(graphicSrc);
@@ -338,15 +371,15 @@ class WorldLoader {
 	}
 
 	public function setCollisionGroup(obj:Dynamic, layer:WorldLayer, map:Map<Int, Dynamic>):Void {
-		if (obj.properties.contains("collisionGroup")) {
-			var groupName = obj.properties.get("collisionGroup");
-			var groups = layer.worldLayer.world.collisionGroups;
+		if (obj.properties.contains("collisionLayers")) {
+			var groupName = obj.properties.get("collisionLayers");
+			var groups = layer.worldLayer.world.collisionLayers;
 			var group = groups.get(groupName);
 			if (group == null) {
 				group = new InteractionGroup(true);
 				groups.set(groupName, group);
 			}
-			(cast (map[obj.id]):PhysicsEntity).physics.body.group = group;
+			(cast (map[obj.name]):PhysicsEntity).physics.body.group = group;
 		}
 	}
 }
