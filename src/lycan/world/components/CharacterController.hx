@@ -223,7 +223,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		}
 	}
 
-	public function stop() {
+	public function stop():Void {
 		targetMoveVel = 0;
 		// TODO probably issues with this method when running into a wall as walls don't zero it
 		currentMoveVel = 0;
@@ -236,11 +236,11 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		anchor.kinematicVel.x = currentMoveVel;
 	}
 
-	public function run() {
+	public function run():Void {
 
 	}
 
-	public function jump() {
+	public function jump():Void {
 
 	}
 }

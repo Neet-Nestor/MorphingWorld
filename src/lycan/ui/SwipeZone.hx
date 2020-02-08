@@ -101,7 +101,7 @@ import flixel.FlxObject;
 	/**
 	 * Set threshold crossed flags based on current position with respect to start position
 	 */
-	private function updateThreshold() {
+	private function updateThreshold():Void {
 		if (!thresholdCrossedX && thresholdX >= 0 && Math.abs(currentPointer.x - startPosition.x) >= thresholdX) {
 			thresholdCrossedX = true;
 			if (thresholdY < 0) thresholdCrossedY = true;

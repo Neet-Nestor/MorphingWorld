@@ -195,6 +195,6 @@ class Point3D implements IFlxPooled {
 			]);
 	}
 	
-	public function destroy() {}
+	public function destroy():Void {}
 	
 }

@@ -45,7 +45,7 @@ class SignalCarrierComponent extends Component<SignalCarrier> {
 		FlxG.signals.preUpdate.remove(earlyUpdate);
 	}
 	
-	public function earlyUpdate() {
+	public function earlyUpdate():Void {
 		if (exists && alive) {
 			for (node in nodes) {
 				node.update(FlxG.elapsed);

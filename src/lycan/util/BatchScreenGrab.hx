@@ -53,7 +53,7 @@ class BatchScreenGrab {
 		}
 	}
 
-	private function saveScreenshot() {
+	private function saveScreenshot():Void {
 		path.file = baseFilename + "_" + Std.int(resolutions[currentScreenshot].x) + "x" + Std.int(resolutions[currentScreenshot].y) + "__" + Std.int(Math.random() * 10000000);
 		SaveBitmap.save(path, FlxScreenGrab.grab(null, false, true));
 		currentScreenshot++;

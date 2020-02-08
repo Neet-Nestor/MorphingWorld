@@ -16,10 +16,10 @@ class NoiseSprite extends FlxSprite {
 		noiseAnimationName = name;
 	}
 	
-	public function play() {
+	public function play():Void {
 		animation.play(noiseAnimationName);
 	}
-	public function stop() {
+	public function stop():Void {
 		animation.stop();
 	}
 	

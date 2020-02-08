@@ -48,7 +48,7 @@ class AttachableComponent extends Component<Attachable> {
 		
 		FlxG.signals.postUpdate.add(lateUpdate);
 		
-		//removeSignals = function() {
+		//removeSignals = function():Void {
 			//FlxG.signals.postUpdate.remove(lateUpdate);
 		//};
 	}
@@ -58,7 +58,7 @@ class AttachableComponent extends Component<Attachable> {
 		FlxG.signals.postUpdate.remove(lateUpdate);
 	}
 	
-	//dynamic function removeSignals() {FlxG.signals.postUpdate.remove(lateUpdate);}
+	//dynamic function removeSignals():Void {FlxG.signals.postUpdate.remove(lateUpdate);}
 	
 	public function lateUpdate():Void {
 		// The root is responsible for recursively updating its children

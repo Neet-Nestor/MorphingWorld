@@ -18,7 +18,7 @@ private enum EngineDefines {
 }
 
 class Defines {
-	public static function run() {
+	public static function run():Void {
 		checkDefines();
 		makeDefines();
 	}

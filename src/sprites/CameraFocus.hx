@@ -17,7 +17,7 @@ class CameraFocus extends FlxObject {
 		solid = false;
 	}
 
-	public function updatePosition() {
+	public function updatePosition():Void {
 		var totalWeight:Float = 0;
 
 		// Calculate total influencer weight

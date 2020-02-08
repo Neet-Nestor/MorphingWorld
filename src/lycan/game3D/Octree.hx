@@ -318,12 +318,12 @@ class Octree extends Box {
 		//If it wasn't completely contained we have to check out the partial overlaps
 		var x1, x2, y1, y2, z1, z2:Float;
 		
-		inline function lowerX() {x1 = minX; x2 = _midpointX; }
-		inline function upperX() {x1 = _midpointX; x2 = maxX; }
-		inline function lowerY() {y1 = minY; y2 = _midpointY; }
-		inline function upperY() {y1 = _midpointY; y2 = maxY; }
-		inline function lowerZ() {z1 = minZ; z2 = _midpointZ; }
-		inline function upperZ() {z1 = _midpointZ; z2 = maxZ; }
+		inline function lowerX():Void {x1 = minX; x2 = _midpointX; }
+		inline function upperX():Void {x1 = _midpointX; x2 = maxX; }
+		inline function lowerY():Void {y1 = minY; y2 = _midpointY; }
+		inline function upperY():Void {y1 = _midpointY; y2 = maxY; }
+		inline function lowerZ():Void {z1 = minZ; z2 = _midpointZ; }
+		inline function upperZ():Void {z1 = _midpointZ; z2 = maxZ; }
 
 		
 		inline function checkIntersection():Bool {

@@ -32,8 +32,8 @@ class EntityBuilder {
 	public static var componentPath:TypePath = {pack: packagePath, name: "Component"};
 	
 	/** change this to get conditional output when building */
-	static function shouldTrace() {return false;};
-	// static function shouldTrace() {return TypeTools.getClass(Context.getLocalType()).name == "Paddle";};
+	static function shouldTrace():Void {return false;};
+	// static function shouldTrace():Void {return TypeTools.getClass(Context.getLocalType()).name == "Paddle";};
 	
 	/** Conditional trace for debugging */
 	static function traceIf(string:String):Void {

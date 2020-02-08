@@ -18,7 +18,7 @@ class LateUpdatableComponent extends Component<LateUpdatable> {
 		LG.lateUpdate.add(lateUpdate);
 	}
 	
-	@:append("destroy") public function destroy() {
+	@:append("destroy") public function destroy():Void {
 		LG.lateUpdate.remove(lateUpdate);
 	}
 	

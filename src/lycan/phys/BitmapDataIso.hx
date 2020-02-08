@@ -49,7 +49,7 @@ class BitmapDataIso #if flash implements IsoFunction #end {
 		this.alphaThreshold = alphaThreshold;
 		bounds = new AABB(0, 0, bitmap.width, bitmap.height);
 	}
-	public function graphic() {
+	public function graphic():Void {
 		return new Bitmap(bitmap);
 	}
 	public function iso(x:Float, y:Float) {
