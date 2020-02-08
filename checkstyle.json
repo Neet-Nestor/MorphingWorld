@@ -123,14 +123,6 @@
             }
         },
         {
-            "type": "FileLength",
-            "props":
-            {
-                "max": 1000,
-                "severity": "ERROR"
-            }
-        },
-        {
             "type": "HexadecimalLiteral",
             "props":
             {
@@ -191,7 +183,7 @@
             "type": "LineLength",
             "props":
             {
-                "max": 999,
+                "max": 180,
                 "ignorePattern": "(^@desc)|(LONG LINE TEST)",
                 "severity": "ERROR"
             }
@@ -256,14 +248,6 @@
                 "maxPrivate": 70,
                 "maxPublic": 70,
                 "maxTotal": 70,
-                "severity": "ERROR"
-            }
-        },
-        {
-            "type": "MethodLength",
-            "props":
-            {
-                "max": 50,
                 "severity": "ERROR"
             }
         },
