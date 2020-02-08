@@ -24,13 +24,12 @@ class WorldDef implements Named {
 		this.name = name;
 		this.path = path;
 
-		tiledMap = new TiledMap(path);
-
 		// Keep cache of parsed tiled map data
+		tiledMap = new TiledMap(path);
 
 		// Create an inventory sprite for this world
 		// Loads a temporary version then draws it to the sprite
-		// TODO dont show some things such as player?
+		// TODO: dont show some things such as player?
 		generatePreview();
 	}
 

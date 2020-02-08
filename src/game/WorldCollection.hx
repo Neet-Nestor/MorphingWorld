@@ -11,9 +11,7 @@ class WorldCollection extends NamedCollection<WorldDef> {
 	}
 
 	public static function init():Void {
-		defineWorld("world", false);
-		defineWorld("world2", false);
-		defineWorld("world3", false);
+		defineWorld("introworld", false);
 	}
 
 	public static function defineWorld(name:String, owned:Bool = false):WorldDef {
