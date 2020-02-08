@@ -12,5 +12,8 @@ class Constant {
     public static inline var playerWidth:Int = 32;
 
 	// Physics
-	public static inline var gravity:Float = 820;
+    public static inline var gravity:Float = 820;
+
+	// Window
+	public static inline var spriteZoom:Int = 1;
 }

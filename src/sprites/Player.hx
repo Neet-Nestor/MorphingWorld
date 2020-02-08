@@ -1,29 +1,23 @@
 package sprites;
 
 import config.Constant;
-import lycan.util.GraphicUtil;
 import lycan.components.CenterPositionable;
 import lycan.components.Attachable;
 import lycan.world.components.Groundable;
 import lycan.world.components.PhysicsEntity;
 import lycan.world.components.CharacterController;
+import nape.phys.BodyType;
 import flixel.FlxObject;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 
-class Player extends FlxSprite implements Attachable implements CharacterController implements Groundable implements CenterPositionable implements PhysicsEntity implements  PhysicsEntity {
+class Player extends FlxSprite implements CharacterController implements Groundable implements PhysicsEntity {
     public function new(x:Float, y:Float, width:Int, height:Int) {
         super(x, y);
 
         loadGraphic(AssetPaths.player__png, true, Constant.playerWidth, Constant.playerHeight);
-		GraphicUtil.makePlaceholderGraphic(this, "player", width, height, [
-			{name: "idle", frameCount: 0},
-			{name: "run", frameCount: Constant.playerFramePerRow},
-			{name: "jump", frameCount: 5 * Constant.playerFramePerRow},
-			{name: "fall", frameCount: 6 * Constant.playerFramePerRow}
-        ], FlxColor.WHITE, 10);
 
 		animation.add("idle", [for (i in 0...Constant.playerFramePerRow) i], 10, true);
 		animation.add("run", [for (i in Constant.playerFramePerRow...Constant.playerFramePerRow + 8) i], 12, true);
@@ -91,7 +85,6 @@ class Player extends FlxSprite implements Attachable implements CharacterControl
 				animation.play("idle");
 			}
 		}
-
 		super.updateAnimation(dt);
 	}
 }

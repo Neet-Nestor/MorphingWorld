@@ -48,9 +48,9 @@
 
 	<!-- Debug Server -->
 	<haxelib name="hxcpp-debug-server" />
-W
+
 	<!-- Include in this repo instead -->
-	<haxelib name="lycan" />
+	<!-- <haxelib name="lycan" /> -->
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
