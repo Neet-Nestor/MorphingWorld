@@ -6,7 +6,7 @@ class Spring extends FlxBasic {
 	public var value:Float;
 	public var diff(get, set):Float;
 	public var mass:Float;
-	public var springConstant:Float;
+	public var springConfig:Float;
 	public var velocity:Float;
 	public var minPeakForce:Float;
 	public var damping:Float;
@@ -14,9 +14,9 @@ class Spring extends FlxBasic {
 	public var targetObject:Dynamic;
 	public var targetProperty:String;
 	
-	public function new(springConstant:Float = 400, damping:Float = 7, minPeakForce:Float = 2, mass:Float = 1) {
+	public function new(springConfig:Float = 400, damping:Float = 7, minPeakForce:Float = 2, mass:Float = 1) {
 		super();
-		this.springConstant = springConstant;
+		this.springConfig = springConfig;
 		this.mass = mass;
 		velocity = 0;
 		this.damping = damping;
@@ -27,7 +27,7 @@ class Spring extends FlxBasic {
 		super.update(dt);
 		
 		var d = value - restValue;
-		var acc:Float = - springConstant * d / mass - (damping) * velocity;
+		var acc:Float = - springConfig * d / mass - (damping) * velocity;
 		var velPos:Bool = velocity > 0;
 		velocity += acc * dt;
 		

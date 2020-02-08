@@ -1,6 +1,6 @@
 package config;
 
-class Constant {
+class Config {
 	// Debug
     public static inline var isDebug = #if debug true #else false #end;
 
@@ -10,6 +10,9 @@ class Constant {
     // Player image dimension in sprite sheet
     public static inline var playerHeight:Int = 32;
     public static inline var playerWidth:Int = 32;
+
+    // Map Path
+    public static inline var mapPath:String = "assets/data/";
 
 	// Physics
     public static inline var gravity:Float = 800;

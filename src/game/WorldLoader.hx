@@ -1,6 +1,6 @@
 package game;
 
-import config.Constant;
+import config.Config;
 import sprites.PhysSprite;
 import nape.geom.Vec2;
 import nape.phys.Body;

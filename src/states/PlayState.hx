@@ -1,6 +1,6 @@
 package states;
 
-import config.Constant;
+import config.Config;
 import sprites.Player;
 import sprites.PhysSprite;
 import sprites.CameraFocus;
@@ -121,7 +121,7 @@ class PlayState extends FlxState {
 		cameraFocus = new CameraFocus();
 		cameraFocus.add(new ObjectTargetInfluencer(player));
 		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
-		FlxG.camera.targetOffset.y = Constant.cameraOffsetY;
+		FlxG.camera.targetOffset.y = Config.cameraOffsetY;
 		FlxG.camera.snapToTarget();
     }
 
@@ -146,7 +146,7 @@ class PlayState extends FlxState {
         PlatformerPhysics.setupPlatformerPhysics();
 
         // Setup gravity
-        Phys.space.gravity.setxy(0, Constant.gravity);
+        Phys.space.gravity.setxy(0, Config.gravity);
     }
 
     public function intro():Void {
@@ -160,7 +160,7 @@ class PlayState extends FlxState {
 		fakeGround.physics.body.position.y = 0;
 		fakeGround.physics.snapEntityToBody();
 
-        player = new Player(0, 0, Constant.playerWidth, Constant.playerHeight);
+        player = new Player(0, 0, Config.playerWidth, Config.playerHeight);
 		player.physics.snapBodyToEntity();
 		player.physics.body.position.y = fakeGround.physics.body.position.y - (player.physics.body.shapes.at(0).bounds.height + fakeGround.physics.body.shapes.at(0).bounds.height) / 2;
         player.physics.snapEntityToBody();

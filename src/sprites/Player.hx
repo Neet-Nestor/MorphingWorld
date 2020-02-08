@@ -1,6 +1,6 @@
 package sprites;
 
-import config.Constant;
+import config.Config;
 import lycan.components.CenterPositionable;
 import lycan.components.Attachable;
 import lycan.world.components.Groundable;
@@ -17,12 +17,12 @@ class Player extends FlxSprite implements CharacterController implements Grounda
     public function new(x:Float, y:Float, width:Int, height:Int) {
         super(x, y);
 
-        loadGraphic(AssetPaths.player__png, true, Constant.playerWidth, Constant.playerHeight);
+        loadGraphic(AssetPaths.player__png, true, Config.playerWidth, Config.playerHeight);
 
-		animation.add("idle", [for (i in 0...Constant.playerFramePerRow) i], 10, true);
-		animation.add("run", [for (i in Constant.playerFramePerRow...Constant.playerFramePerRow + 8) i], 12, true);
-		animation.add("jump", [for (i in 5 * Constant.playerFramePerRow...5 * Constant.playerFramePerRow + 6) i], 12);
-		animation.add("fall", [for (i in 6 * Constant.playerFramePerRow...6 * Constant.playerFramePerRow + 4) i], 12);
+		animation.add("idle", [for (i in 0...Config.playerFramePerRow) i], 10, true);
+		animation.add("run", [for (i in Config.playerFramePerRow...Config.playerFramePerRow + 8) i], 12, true);
+		animation.add("jump", [for (i in 5 * Config.playerFramePerRow...5 * Config.playerFramePerRow + 6) i], 12);
+		animation.add("fall", [for (i in 6 * Config.playerFramePerRow...6 * Config.playerFramePerRow + 4) i], 12);
 		offset.set(0, (64 - height) / 2 - 2);
 
 		characterController.init(width, height);
