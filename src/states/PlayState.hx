@@ -33,9 +33,6 @@ import flixel.addons.editors.tiled.TiledObjectLayer;
 
 
 class PlayState extends FlxState {
-    // Debugging
-    private var oldPosition:Vec2;
-
     private var player:Player;
     private var map:TiledMap;
     private var mWalls:FlxTilemap;
@@ -51,6 +48,13 @@ class PlayState extends FlxState {
     public var actionRight:FlxActionDigital;
     public var actionReleaseRight:FlxActionDigital;
     public var actions:FlxActionManager;
+
+	public static var instance(default, null):PlayState;
+
+    public function new() {
+        super();
+		instance = this;
+    }
 
     override public function create():Void {
 		persistentDraw = true;

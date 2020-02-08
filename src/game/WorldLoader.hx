@@ -110,8 +110,8 @@ class WorldLoader {
 		layerLoadedHandlers.add(function(tiledLayer, layer) {
 			layer.worldLayer.world.onLoadingComplete.addOnce(()->{
 				if (tiledLayer.properties.contains("onLoad")) {
-					var expr = PlayState.get.parser.parseString(tiledLayer.properties.get("onLoad"));
-					PlayState.get.interp.execute(expr);
+					var expr = PlayState.instance.parser.parseString(tiledLayer.properties.get("onLoad"));
+					PlayState.instance.interp.execute(expr);
 				}
 			});
 		});
@@ -163,13 +163,13 @@ class WorldLoader {
 		};
 
 		var runObjectScript = function(obj:Dynamic, expr:Expr, world:TiledWorld) {
-			PlayState.get.interp.variables.set("obj", obj);
-			PlayState.get.interp.variables.set("world", world);
-			PlayState.get.interp.variables.set("object", function(id) {
+			PlayState.instance.interp.variables.set("obj", obj);
+			PlayState.instance.interp.variables.set("world", world);
+			PlayState.instance.interp.variables.set("object", function(id) {
 				return world.objects.get(id);
 			});
-			PlayState.get.interp.execute(expr);
-			PlayState.get.interp.variables.remove("obj");
+			PlayState.instance.interp.execute(expr);
+			PlayState.instance.interp.variables.remove("obj");
 		}
 
 		loadObject("player", (obj, layer, map)->{
@@ -177,8 +177,8 @@ class WorldLoader {
 			if (player == null) {
 				player = new Player(0, 0, Config.playerWidth, Config.playerHeight);
 			}
-			if (PlayState.get.reloadPlayerPosition) {
-				PlayState.get.reloadPlayerPosition = false;
+			if (PlayState.instance.reloadPlayerPosition) {
+				PlayState.instance.reloadPlayerPosition = false;
 				player.physics.body.position.setxy(obj.x, obj.y + obj.height / 2 - Config.playerHeight / 2);
 				player.physics.snapEntityToBody();
 				map.set(obj.id, player);
@@ -284,7 +284,7 @@ class WorldLoader {
 
 		lateLoad((obj, layer, map)->{
 			if (obj.properties.contains("onLoad")) {
-				runObjectScript(map.get(obj.id), PlayState.get.parser.parseString(obj.properties.get("onLoad")), layer.worldLayer.world);
+				runObjectScript(map.get(obj.id), PlayState.instance.parser.parseString(obj.properties.get("onLoad")), layer.worldLayer.world);
 			}
 		});
 
