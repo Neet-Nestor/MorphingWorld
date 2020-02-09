@@ -90,30 +90,30 @@ class WorldLoader {
 	}
 
 	public function setupLayerHandlers():Void {
-		layerLoadedHandlers.add(function(tiledLayer, layer) {
-			if (layer.worldLayer.type == TiledLayerType.TILE) {
-				var tl:PhysicsTileLayer = cast layer;
-				// tl.body.shapes.foreach(s->s.filter = PlatformerPhysics.worldFilter);
-				if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s->s.cbTypes.add(PlatformerPhysics.onewayType));
-			}
-		});
+	// 	layerLoadedHandlers.add(function(tiledLayer, layer) {
+	// 		if (layer.worldLayer.type == TiledLayerType.TILE) {
+	// 			var tl:PhysicsTileLayer = cast layer;
+	// 			// tl.body.shapes.foreach(s->s.filter = PlatformerPhysics.worldFilter);
+	// 			if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s->s.cbTypes.add(PlatformerPhysics.onewayType));
+	// 		}
+	// 	});
 
-		layerLoadedHandlers.add(function(tiledLayer, layer) {
-			if (layer.worldLayer.type == TiledLayerType.TILE && Std.is(layer, PhysicsTileLayer)) {
-				var tl:PhysicsTileLayer = cast layer;
-				// tl.body.shapes.foreach(s->s.filter = PlatformerPhysics.worldFilter);
-				if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s->s.cbTypes.add(PlatformerPhysics.onewayType));
-			}
-		});
+	// 	layerLoadedHandlers.add(function(tiledLayer, layer) {
+	// 		if (layer.worldLayer.type == TiledLayerType.TILE && Std.is(layer, PhysicsTileLayer)) {
+	// 			var tl:PhysicsTileLayer = cast layer;
+	// 			// tl.body.shapes.foreach(s->s.filter = PlatformerPhysics.worldFilter);
+	// 			if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s->s.cbTypes.add(PlatformerPhysics.onewayType));
+	// 		}
+	// 	});
 
-		layerLoadedHandlers.add(function(tiledLayer, layer) {
-			if (layer.worldLayer.type == TiledLayerType.TILE) {
-				var tl:TileLayer = cast layer;
-				tl.alpha = tiledLayer.opacity;
-				var scrollFactor = tiledLayer.properties.contains("scrollFactor") ? tiledLayer.properties.getFloat("scrollFactor") : 1;
-				tl.scrollFactor.set(scrollFactor, scrollFactor);
-			}
-		});
+	// 	layerLoadedHandlers.add(function(tiledLayer, layer) {
+	// 		if (layer.worldLayer.type == TiledLayerType.TILE) {
+	// 			var tl:TileLayer = cast layer;
+	// 			tl.alpha = tiledLayer.opacity;
+	// 			var scrollFactor = tiledLayer.properties.contains("scrollFactor") ? tiledLayer.properties.getFloat("scrollFactor") : 1;
+	// 			tl.scrollFactor.set(scrollFactor, scrollFactor);
+	// 		}
+	// 	});
 
 		// layerLoadedHandlers.add(function(tiledLayer, layer) {
 		// 	if (layer.worldLayer.type == TiledLayerType.TILE && tiledLayer.properties.contains("sprite")) {
