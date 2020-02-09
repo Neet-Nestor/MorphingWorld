@@ -1,41 +1,44 @@
 package states;
 
-import sprites.Player;
-import sprites.PhysSprite;
-import sprites.CameraFocus;
-import nape.phys.BodyType;
-import nape.geom.Vec2;
-import nape.callbacks.InteractionType;
-import nape.callbacks.InteractionListener;
-import nape.callbacks.InteractionCallback;
-import nape.callbacks.CbEvent;
-import lycan.states.LycanState;
-import lycan.phys.PlatformerPhysics;
-import lycan.phys.Phys;
-import game.WorldCollection;
-import flixel.util.FlxColor;
-import flixel.tile.FlxTilemap;
-import flixel.tile.FlxBaseTilemap;
-import flixel.input.keyboard.FlxKey;
-import flixel.input.gamepad.FlxGamepadInputID;
-import flixel.input.actions.FlxActionSet;
-import flixel.input.actions.FlxActionManager;
-import flixel.input.actions.FlxAction;
-import flixel.input.FlxInput.FlxInputState;
-import flixel.tweens.FlxEase;
-import flixel.util.FlxTimer;
-import flixel.tweens.FlxTween;
-import flixel.addons.editors.tiled.TiledTileLayer;
-import flixel.addons.editors.tiled.TiledObjectLayer;
-import flixel.addons.editors.tiled.TiledMap;
-import flixel.FlxState;
-import flixel.FlxObject;
-import flixel.FlxG;
-import flixel.FlxCamera.FlxCameraFollowStyle;
-import hscript.Expr;
-import hscript.Parser;
-import hscript.Interp;
+import openfl.display.Tilemap;
+import game.WorldLoader;
 import config.Config;
+import flixel.FlxCamera.FlxCameraFollowStyle;
+import flixel.FlxG;
+import flixel.FlxObject;
+import flixel.FlxState;
+import flixel.addons.editors.tiled.TiledMap;
+import flixel.addons.editors.tiled.TiledObjectLayer;
+import flixel.addons.editors.tiled.TiledTileLayer;
+import flixel.input.FlxInput.FlxInputState;
+import flixel.input.actions.FlxAction;
+import flixel.input.actions.FlxActionManager;
+import flixel.input.actions.FlxActionSet;
+import flixel.input.gamepad.FlxGamepadInputID;
+import flixel.input.keyboard.FlxKey;
+import flixel.tile.FlxBaseTilemap;
+import flixel.tile.FlxTilemap;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
+import game.MiniWorld;
+import game.WorldCollection;
+import hscript.Expr;
+import hscript.Interp;
+import hscript.Parser;
+import lycan.phys.Phys;
+import lycan.phys.PlatformerPhysics;
+import lycan.states.LycanState;
+import nape.callbacks.CbEvent;
+import nape.callbacks.InteractionCallback;
+import nape.callbacks.InteractionListener;
+import nape.callbacks.InteractionType;
+import nape.geom.Vec2;
+import nape.phys.BodyType;
+import sprites.CameraFocus;
+import sprites.PhysSprite;
+import sprites.Player;
 
 class PlayState extends LycanState {
     public var player:Player;
@@ -80,7 +83,9 @@ class PlayState extends LycanState {
         initScripts();
         WorldCollection.init();
         intro();
-        initCamera();   // Needs to be after adding player in intro()
+        initWorld();
+        add(player);
+        initCamera();
     }
 
     private function initPhysics():Void {
@@ -178,7 +183,31 @@ class PlayState extends LycanState {
 		player.physics.body.position.y = fakeGround.physics.body.position.y - (player.physics.body.shapes.at(0).bounds.height + fakeGround.physics.body.shapes.at(0).bounds.height) / 2;
         player.physics.snapEntityToBody();
         add(fakeGround);
-        add(player);
+    }
+
+    private function initWorld():Void {
+        var firstWorld = WorldCollection.get("world1");
+        for (layer in firstWorld.tiledMap.layers) {
+            if (Std.is(layer, TiledObjectLayer)) {
+                var ol:TiledObjectLayer = cast layer;
+                for (o in ol.objects) {
+                    if (o.type == "player") {
+                        var ix = player.x;
+                        var iy = player.y;
+                        var cx = player.getCenterX() - worldCamera.scroll.x;
+                        var cy = (player.getCenterY() + Config.CAMERA_OFFSET_Y) - worldCamera.scroll.y;
+                        player.physics.body.position.setxy(o.x, o.y + o.height / 2 - Config.PLAYER_HEIGHT / 2);
+                        player.physics.snapEntityToBody();
+                        break;
+                    }
+                }
+            }
+        }
+        trace(player.getCenterX(), player.getCenterY(), worldCamera.scroll);
+        var world = new MiniWorld();
+        world.worldDef = firstWorld;
+        WorldLoader.load(world, new TiledMap(firstWorld.path), this, worldCamera.scroll.x, worldCamera.scroll.y);
+        add(world);
     }
 
     private function initCamera():Void {

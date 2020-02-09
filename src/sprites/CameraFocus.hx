@@ -87,7 +87,7 @@ class ObjectTargetInfluencer extends CameraInfluencer {
 	public var viewer:FlxObject;
 	public var target:FlxObject;
 	public var offset:FlxPoint;
-	public var ease:Float->Float;
+	public var ease:Float -> Float;
 
 	public var distanceRange:FlxRange<Float>;
 	public var weightRange:FlxRange<Float>;

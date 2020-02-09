@@ -30,8 +30,6 @@ import hscript.Expr;
 import haxe.io.Path;
 import haxe.ds.Map;
 import flixel.util.FlxPath;
-import flixel.tile.FlxTilemap;
-import flixel.tile.FlxBaseTilemap.FlxTilemapAutoTiling;
 import flixel.math.FlxPoint;
 import flixel.math.FlxPoint;
 import flixel.math.FlxMath;
@@ -205,7 +203,7 @@ class WorldLoader {
 			PlayState.instance.interp.variables.remove("obj");
 		}
 
-		loadObject("player", (obj, layer, map)->{
+		loadObject("player", (obj, layer, map) -> {
 			var player:Player = playState.player;
 			if (player == null) {
 				player = new Player(0, 0, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
