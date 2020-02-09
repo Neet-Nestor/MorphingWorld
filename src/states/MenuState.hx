@@ -3,10 +3,10 @@ package states;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.ui.FlxButton;
-import flixel.FlxState;
 import flixel.FlxG;
+import lycan.states.LycanState;
 
-class MenuState extends FlxState {
+class MenuState extends LycanState {
     private var startBtn:FlxButton;
     private var title:FlxText;
 

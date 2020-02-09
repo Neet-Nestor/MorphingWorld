@@ -289,8 +289,10 @@ class WorldLoader {
 			if (obj.type == "pivotJoint") {
 				var body1Id = obj.properties.getInt("body1", -1);
 				var body2Id = obj.properties.getInt("body2", -1);
-				var body1:Body = body1Id >= 0 ? (cast map.get(body1Id):PhysicsEntity).physics.body : Phys.space.world;
-				var body2:Body = body2Id >= 0 ? (cast map.get(body2Id):PhysicsEntity).physics.body : Phys.space.world;
+				var body1PE:PhysicsEntity = cast map.get(body1Id);
+				var body2PE:PhysicsEntity = cast map.get(body2Id);
+				var body1:Body = body1Id >= 0 ? body1PE.physics.body : Phys.space.world;
+				var body2:Body = body2Id >= 0 ? body2PE.physics.body : Phys.space.world;
 				var worldPoint:Vec2 = Vec2.get(obj.x, obj.y);
 				var joint:PivotJoint = new PivotJoint(body1, body2, body1.worldPointToLocal(worldPoint), body2.worldPointToLocal(worldPoint));
 				worldPoint.dispose();

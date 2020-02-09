@@ -1,12 +1,12 @@
 package;
 
-import states.MenuState;
+import states.RootState;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 
 class Main extends Sprite {
     public function new() {
         super();
-        addChild(new FlxGame(0, 0, MenuState));
+        addChild(new FlxGame(0, 0, RootState));
     }
 }
