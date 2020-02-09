@@ -79,8 +79,8 @@ class PlayState extends LycanState {
         initActions();
         initScripts();
         WorldCollection.init();
-        initCamera();
         intro();
+        initCamera();   // Needs to be after adding player in intro()
     }
 
     private function initPhysics():Void {
