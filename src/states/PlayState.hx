@@ -42,7 +42,6 @@ import sprites.Player;
 
 class PlayState extends LycanState {
     public var player:Player;
-	public var fakeGround:PhysSprite;
 	public var cameraFocus:CameraFocus;
 	public var reloadPlayerPosition:Bool;
 
@@ -82,7 +81,7 @@ class PlayState extends LycanState {
         initActions();
         initScripts();
         WorldCollection.init();
-        intro();
+        player = new Player(0, 0, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
         initWorld();
         add(player);
         initCamera();
@@ -167,24 +166,6 @@ class PlayState extends LycanState {
 		interp.variables.set("wait", function(delay:Float, cb:Void->Void) new FlxTimer(timers).start(delay, (_)->cb()));
     }
 
-    public function intro():Void {
-        fakeGround = new PhysSprite();
-        fakeGround.makeGraphic(FlxG.width * 100, 10, FlxColor.WHITE);
-		fakeGround.physics.init(BodyType.STATIC, false);
-		fakeGround.physics.createRectangularBody(FlxG.width * 100, 10, BodyType.KINEMATIC);
-		fakeGround.physics.enabled = true;
-		fakeGround.physics.body.align();
-		fakeGround.physics.body.position.x = 0;
-		fakeGround.physics.body.position.y = 0;
-		fakeGround.physics.snapEntityToBody();
-
-        player = new Player(0, 0, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
-		player.physics.snapBodyToEntity();
-		player.physics.body.position.y = fakeGround.physics.body.position.y - (player.physics.body.shapes.at(0).bounds.height + fakeGround.physics.body.shapes.at(0).bounds.height) / 2;
-        player.physics.snapEntityToBody();
-        add(fakeGround);
-    }
-
     private function initWorld():Void {
         var firstWorld = WorldCollection.get("world1");
         for (layer in firstWorld.tiledMap.layers) {
@@ -192,11 +173,7 @@ class PlayState extends LycanState {
                 var ol:TiledObjectLayer = cast layer;
                 for (o in ol.objects) {
                     if (o.type == "player") {
-                        var ix = player.x;
-                        var iy = player.y;
-                        var cx = player.getCenterX() - worldCamera.scroll.x;
-                        var cy = (player.getCenterY() + Config.CAMERA_OFFSET_Y) - worldCamera.scroll.y;
-                        player.physics.body.position.setxy(o.x, o.y + o.height / 2 - Config.PLAYER_HEIGHT / 2);
+                        player.physics.body.position.setxy(o.x+ Config.PLAYER_WIDTH / 2, o.y + Config.PLAYER_HEIGHT / 2);
                         player.physics.snapEntityToBody();
                         break;
                     }
@@ -207,6 +184,7 @@ class PlayState extends LycanState {
         var world = new MiniWorld();
         world.worldDef = firstWorld;
         WorldLoader.load(world, new TiledMap(firstWorld.path), this, worldCamera.scroll.x, worldCamera.scroll.y);
+
         add(world);
     }
 

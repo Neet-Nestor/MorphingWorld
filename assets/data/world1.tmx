@@ -3,6 +3,7 @@
  <tileset firstgid="1" source="Sprute.tsx"/>
  <layer id="2" name="Tile Layer 1" width="14" height="14">
   <properties>
+   <property name="collision" value="true"/>
    <property name="collisionType" value="physics"/>
   </properties>
   <data encoding="csv">

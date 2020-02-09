@@ -31,7 +31,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 
 	var _binaryData:Array<Int>;
 
-	public function new(world:TiledWorld, tiledLayer:TiledTileLayer, bodyType:BodyType = BodyType.STATIC) {
+	public function new(world:TiledWorld, tiledLayer:TiledTileLayer, bodyType:BodyType) {
 		physics.init(bodyType, false);
 		origin = FlxPoint.get();
 		
@@ -144,7 +144,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 	 * @param	tileIndices		An array of all tile indices that should be solid
 	 * @param	mat				The nape physics material applied to the collider. Defaults to nape default material
 	 */
-	public function setupTileIndices(tileIndices:Array<Int>, ?mat:Material, ?cbType:CbType) {
+	public function setupTileIndices(tileIndices:Array<Int>, ?mat:Material, ?cbType:CbType):Void {
 		if (_data == null) {
 			FlxG.log.error("loadMap has to be called first!");
 			return;
@@ -159,7 +159,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 		constructCollider(mat, cbType);
 	}
 
-	function constructCollider(?mat:Material, ?cbType:CbType) {
+	public function constructCollider(?mat:Material, ?cbType:CbType):Void {
 		if (mat == null) {
 			mat = new Material();
 		}
@@ -227,21 +227,21 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 	}
 
 	/**
-	 * Scans along x in the rows between StartY to EndY for the biggest rectangle covering solid tiles in the binary data
+	 * Scans along x in the rows between startY to endY for the biggest rectangle covering solid tiles in the binary data
 	 *
 	 * @param	StartX	The column in which the rectangle starts
-	 * @param	StartY	The row in which the rectangle starts
-	 * @param	EndY	The row in which the rectangle ends
+	 * @param	startY	The row in which the rectangle starts
+	 * @param	endY	The row in which the rectangle ends
 	 * @return			The rectangle covering solid tiles. CAUTION: Width is used as bottom-right x coordinate, height is used as bottom-right y coordinate
 	 */
-	function constructRectangle(StartX:Int, StartY:Int, EndY:Int):FlxRect {
-		// Increase StartX by one to skip the first column, we checked that one already
-		StartX++;
+	public function constructRectangle(startX:Int, startY:Int, endY:Int):FlxRect {
+		// Increase startX by one to skip the first column, we checked that one already
+		startX++;
 		var rectFinished = false;
 		var tileIndex = 0;
-		// go along the columns from StartX onwards, then scan along those columns in the range of StartY to EndY
-		for (x in StartX...widthInTiles) {
-			for (y in StartY...(EndY + 1)) {
+		// go along the columns from startX onwards, then scan along those columns in the range of startY to endY
+		for (x in startX...widthInTiles) {
+			for (y in startY...(endY + 1)) {
 				tileIndex = x + (y * widthInTiles);
 				// If the range includes a non-solid tile or a tile already read, the rectangle is finished
 				if (_binaryData[tileIndex] == 0 || _binaryData[tileIndex] == -1) {
@@ -251,24 +251,24 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 			}
 			if (rectFinished) {
 				// If the rectangle is finished, fill the area covered with -1 (tiles have been read)
-				for (u in StartX...x) {
-					for (v in StartY...(EndY + 1)) {
+				for (u in startX...x) {
+					for (v in startY...(endY + 1)) {
 						tileIndex = u + (v * widthInTiles);
 						_binaryData[tileIndex] = -1;
 					}
 				}
-				// StartX - 1 to counteract the increment in the beginning
+				// startX - 1 to counteract the increment in the beginning
 				// Slight misuse of Rectangle here, width and height are used as x/y of the bottom right corner
-				return FlxRect.get(StartX - 1, StartY, x - 1, EndY);
+				return FlxRect.get(startX - 1, startY, x - 1, endY);
 			}
 		}
 		// We reached the end of the map without finding a non-solid/alread-read tile, finalize the rectangle with the map's right border as the endX
-		for (u in StartX...widthInTiles) {
-			for (v in StartY...(EndY + 1)) {
+		for (u in startX...widthInTiles) {
+			for (v in startY...(endY + 1)) {
 				tileIndex = u + (v * widthInTiles);
 				_binaryData[tileIndex] = -1;
 			}
 		}
-		return FlxRect.get(StartX - 1, StartY, widthInTiles - 1, EndY);
+		return FlxRect.get(startX - 1, startY, widthInTiles - 1, endY);
 	}
 }

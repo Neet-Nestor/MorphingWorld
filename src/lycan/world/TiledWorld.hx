@@ -1,36 +1,37 @@
 package lycan.world;
 
-import flash.display.BitmapData;
-import flixel.FlxBasic;
-import flixel.FlxG;
-import flixel.FlxObject;
-import flixel.addons.editors.tiled.TiledImageLayer;
-import flixel.addons.editors.tiled.TiledLayer.TiledLayerType;
-import flixel.addons.editors.tiled.TiledMap.FlxTiledMapAsset;
-import flixel.addons.editors.tiled.TiledMap;
-import flixel.addons.editors.tiled.TiledMap;
-import flixel.addons.editors.tiled.TiledObject;
-import flixel.addons.editors.tiled.TiledObjectLayer;
-import flixel.addons.editors.tiled.TiledPropertySet;
-import flixel.addons.editors.tiled.TiledTileLayer;
-import flixel.addons.editors.tiled.TiledTileSet;
-import flixel.graphics.frames.FlxTileFrames;
-import flixel.group.FlxGroup;
-import flixel.math.FlxPoint;
-import flixel.system.FlxAssets;
-import flixel.tile.FlxTilemap;
-import flixel.util.FlxSignal.FlxTypedSignal;
-import haxe.ds.Map;
-import haxe.io.Path;
-import lycan.phys.Phys;
-import lycan.world.WorldHandlers;
-import lycan.world.WorldHandlers;
-import lycan.world.layer.ImageLayer;
-import lycan.world.layer.ObjectLayer;
-import lycan.world.layer.PhysicsTileLayer;
-import lycan.world.layer.TileLayer;
-import nape.dynamics.InteractionGroup;
 import nape.phys.Material;
+import nape.phys.BodyType;
+import nape.dynamics.InteractionGroup;
+import lycan.world.layer.TileLayer;
+import lycan.world.layer.PhysicsTileLayer;
+import lycan.world.layer.ObjectLayer;
+import lycan.world.layer.ImageLayer;
+import lycan.world.WorldHandlers;
+import lycan.world.WorldHandlers;
+import lycan.phys.Phys;
+import haxe.io.Path;
+import haxe.ds.Map;
+import flixel.util.FlxSignal.FlxTypedSignal;
+import flixel.tile.FlxTilemap;
+import flixel.system.FlxAssets;
+import flixel.math.FlxPoint;
+import flixel.group.FlxGroup;
+import flixel.graphics.frames.FlxTileFrames;
+import flixel.addons.editors.tiled.TiledTileSet;
+import flixel.addons.editors.tiled.TiledTileLayer;
+import flixel.addons.editors.tiled.TiledPropertySet;
+import flixel.addons.editors.tiled.TiledObjectLayer;
+import flixel.addons.editors.tiled.TiledObject;
+import flixel.addons.editors.tiled.TiledMap;
+import flixel.addons.editors.tiled.TiledMap;
+import flixel.addons.editors.tiled.TiledMap.FlxTiledMapAsset;
+import flixel.addons.editors.tiled.TiledLayer.TiledLayerType;
+import flixel.addons.editors.tiled.TiledImageLayer;
+import flixel.FlxObject;
+import flixel.FlxG;
+import flixel.FlxBasic;
+import flash.display.BitmapData;
 
 //TODO
 typedef Tileset = TiledTileSet;
@@ -211,7 +212,7 @@ class TiledWorld extends FlxGroup {
 			collisionType = tiledLayer.properties.get("collisionType");
 		}
 		
-		var tileLayer:TileLayer = collisionType == "physics" ? new PhysicsTileLayer(this, tiledLayer) : new TileLayer(this, tiledLayer);
+		var tileLayer:TileLayer = collisionType == "physics" ? new PhysicsTileLayer(this, tiledLayer, BodyType.STATIC) : new TileLayer(this, tiledLayer);
 		
 		if (tileLayer.properties.contains("hidden")) {
 			tileLayer.visible = false;

@@ -43,9 +43,6 @@ class GroundableComponent extends Component<Groundable> {
 			clearGroundsSignal.addOnce(()->{
 				remove(object);
 			});
-			if (object != null) {
-				trace("Groundable: add " + object == null ? "null" : object.toString());
-			}
 		}
 	}
 

@@ -25,7 +25,7 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 		characterController.jumpSpeed = -300;
 		characterController.maxJumpVelY = 50;
 		characterController.minMoveVel = 8;
-		characterController.maxJumps = 1;
+		characterController.maxJumps = 3;
 
 		groundable.groundedAngleLimit = 65;
 		
