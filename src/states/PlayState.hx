@@ -26,6 +26,7 @@ import game.MiniWorld;
 import game.WorldCollection;
 import hscript.Expr;
 import hscript.Interp;
+import lycan.world.layer.PhysicsTileLayer;
 import hscript.Parser;
 import lycan.phys.Phys;
 import lycan.phys.PlatformerPhysics;
@@ -42,8 +43,9 @@ import sprites.Player;
 
 class PlayState extends LycanState {
     public var player:Player;
+    public var world:MiniWorld;
 	public var cameraFocus:CameraFocus;
-	public var reloadPlayerPosition:Bool;
+    public var reloadPlayerPosition:Bool;
 
     // For scripts
 	public var parser:Parser;
@@ -167,24 +169,22 @@ class PlayState extends LycanState {
     }
 
     private function initWorld():Void {
-        var firstWorld = WorldCollection.get("world1");
-        for (layer in firstWorld.tiledMap.layers) {
-            if (Std.is(layer, TiledObjectLayer)) {
-                var ol:TiledObjectLayer = cast layer;
-                for (o in ol.objects) {
-                    if (o.type == "player") {
-                        player.physics.body.position.setxy(o.x+ Config.PLAYER_WIDTH / 2, o.y + Config.PLAYER_HEIGHT / 2);
-                        player.physics.snapEntityToBody();
-                        break;
-                    }
-                }
-            }
-        }
-        trace(player.getCenterX(), player.getCenterY(), worldCamera.scroll);
-        var world = new MiniWorld();
-        world.worldDef = firstWorld;
-        WorldLoader.load(world, new TiledMap(firstWorld.path), this, worldCamera.scroll.x, worldCamera.scroll.y);
-
+        // for (layer in firstWorld.tiledMap.layers) {
+        //     if (Std.is(layer, TiledObjectLayer)) {
+        //         var ol:TiledObjectLayer = cast layer;
+        //         for (o in ol.objects) {
+        //             if (o.type == "player") {
+        //                 player.physics.body.position.setxy(o.x+ Config.PLAYER_WIDTH / 2, o.y + Config.PLAYER_HEIGHT / 2);
+        //                 player.physics.snapEntityToBody();
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }
+        var worldDef = WorldCollection.get("world1");
+        world = new MiniWorld();
+        world.worldDef = worldDef;
+        WorldLoader.load(world, new TiledMap(worldDef.path), this, worldCamera.scroll.x, worldCamera.scroll.y);
         add(world);
     }
 
@@ -214,6 +214,17 @@ class PlayState extends LycanState {
 
         super.update(elapsed);
         // check for collide
+
+        // debug
+        trace("Player: " + player.physics.body.position);
+        trace("        " + player.origin + ", " + player.x + ", " + player.y);
+        trace("        " + player.width + ", " + player.height);
+        for (tiledLayer in world.tileLayers) {
+            var pLayer:PhysicsTileLayer = cast tiledLayer;
+            trace("World: " + pLayer.body.position);
+            trace("       " + pLayer.origin + ", " + pLayer.x + ", " + pLayer.y);
+            trace("       " + pLayer.width + ", " + pLayer.height);
+        }
     }
 
 	override public function draw():Void {

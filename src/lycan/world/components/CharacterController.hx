@@ -83,7 +83,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		targetMoveVel = 0;
 	}
 
-	public function init(?width:Float, ?height:Float) {
+	public function init(?width:Float, ?height:Float):Void {
 		if (width == null) width = _object.width;
 		if (height == null) height = _object.height;
 
@@ -115,7 +115,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		physics.body.cbTypes.add(PlatformerPhysics.groundableType);
 	}
 
-	public function move() {
+	public function move():Void {
 		isSliding = false;
 		currentMoveVel -= moveAcceleration * (currentMoveVel - targetMoveVel);
 
@@ -128,7 +128,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	}
 
 	@:append("destroy")
-	public function destroy() {
+	public function destroy():Void {
 		anchor.space = null;
 		anchorJoint.space = null;
 		_object = null;

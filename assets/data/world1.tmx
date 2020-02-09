@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="6">
- <tileset firstgid="1" source="Sprute.tsx"/>
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="11">
+ <tileset firstgid="1" name="Sprute" tilewidth="32" tileheight="32" tilecount="49" columns="7">
+  <image source="../images/Sprute.png" width="224" height="224"/>
+ </tileset>
  <layer id="2" name="Tile Layer 1" width="14" height="14">
   <properties>
    <property name="collision" value="true"/>
@@ -23,4 +25,7 @@
 36,36,36,36,36,36,36,36,36,36,36,36,36,36
 </data>
  </layer>
+ <objectgroup id="4" name="Object Layer 1">
+  <object id="9" name="Player" type="player" x="64" y="224" width="31.2251" height="32.0257"/>
+ </objectgroup>
 </map>

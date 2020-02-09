@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.math.FlxPoint;
 import config.Config;
 import lycan.world.components.Groundable;
 import lycan.world.components.PhysicsEntity;
@@ -17,7 +18,6 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 		animation.add("run", [for (i in Config.PLAYER_FRAME_PER_ROW...Config.PLAYER_FRAME_PER_ROW + 8) i], 12, true);
 		animation.add("jump", [for (i in 5 * Config.PLAYER_FRAME_PER_ROW...5 * Config.PLAYER_FRAME_PER_ROW + 6) i], 12);
 		animation.add("fall", [for (i in 6 * Config.PLAYER_FRAME_PER_ROW...6 * Config.PLAYER_FRAME_PER_ROW + 4) i], 12);
-		offset.set(0, (64 - height) / 2 - 2);
 
 		characterController.init(width, height);
 		characterController.moveAcceleration = 0.2;
@@ -26,6 +26,7 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 		characterController.maxJumpVelY = 50;
 		characterController.minMoveVel = 8;
 		characterController.maxJumps = 3;
+		// origin = FlxPoint.weak(x, y);
 
 		groundable.groundedAngleLimit = 65;
 		

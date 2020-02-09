@@ -210,6 +210,7 @@ class WorldLoader {
 			}
 			if (PlayState.instance.reloadPlayerPosition) {
 				PlayState.instance.reloadPlayerPosition = false;
+				player.physics.snapBodyToEntity();
 				player.physics.body.position.setxy(obj.x, obj.y + obj.height / 2 - Config.PLAYER_HEIGHT / 2);
 				player.physics.snapEntityToBody();
 				map.set(obj.gid, player);
@@ -324,7 +325,7 @@ class WorldLoader {
 
 	public function getGraphicFromTile(obj:TiledObject):FlxGraphicAsset {
 			if (obj.gid > 0) {
-				var graphicSrc = obj.layer.map.getGidOwner(obj.gid).getImageSourceByGid(obj.gid).source;
+				var graphicSrc = obj.layer.map.getGidOwner(obj.gid).imageSource;
 				var path = new Path(graphicSrc);
 				// TODO better determination of asset path
 				return "assets/images/" + path.file + "." + path.ext;

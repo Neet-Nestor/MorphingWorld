@@ -78,7 +78,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 	 * @param	Y		The Y-Position of the tile
 	 * @param	mat		The material for the collider. Defaults to default nape material
 	 */
-	public function addSolidTile(X:Int, Y:Int, ?mat:Material) {
+	public function addSolidTile(X:Int, Y:Int, ?mat:Material):Void {
 		body.space = null;
 		if (mat == null) {
 			mat = new Material();
@@ -97,7 +97,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 		body.space = Phys.space;
 	}
 
-	public function placeCustomPolygon(tileIndices:Array<Int>, vertices:Array<Vec2>, ?mat:Material) {
+	public function placeCustomPolygon(tileIndices:Array<Int>, vertices:Array<Vec2>, ?mat:Material):Void {
 		body.space = null;
 		var polygon:Polygon;
 		for (index in tileIndices) {
