@@ -23,12 +23,13 @@ import nape.shape.Polygon;
 import lycan.phys.Phys;
 import lycan.world.WorldLayer;
 import flixel.addons.editors.tiled.TiledLayer;
+import flixel.addons.editors.tiled.TiledPropertySet;
 
 @:tink
 class TileLayer extends FlxTilemap implements WorldLayer {
 	public var tileWidth(get, never):Float;
 	public var tileHeight(get, never):Float;
-	@:calc public var properties = worldLayer.properties;
+	@:calc public var properties:TiledPropertySet = worldLayer.properties;
 	
 	public function new(world:TiledWorld, tiledLayer:TiledTileLayer) {
 		super();

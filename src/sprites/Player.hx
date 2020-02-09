@@ -28,7 +28,7 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 		characterController.maxJumps = 1;
 
 		groundable.groundedAngleLimit = 65;
-
+		
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 	}
