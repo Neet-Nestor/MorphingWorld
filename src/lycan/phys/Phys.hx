@@ -29,21 +29,21 @@ class Phys {
 	public static var space:Space;
 
 	/** Iterations for resolving velocity (default 10) */
-	public static var velocityIterations:Int = 10;
+	public static var VELOCITY_ITERATIONS:Int = 10;
 	/** Iterations for resolving position (default 10) */
-	public static var positionIterations:Int = 10;
-	public static var steps:Int = 1;
+	public static var POSITION_ITERATIONS:Int = 10;
+	public static var STEPS:Int = 1;
 	/** Force a fixed timestep for integrator. Null means use FlxG.elapsed */
-	public static var forceTimestep:Null<Float> = null;
+	public static var FORCE_TIMESTEP:Null<Float> = null;
 
-	public static var floorPos:Bool = false;
+	public static var FLOOR_POS:Bool = false;
 
-	public static var matrix3D:Matrix3D;
-	public static var projection:PerspectiveProjection;//TODO general projections
+	public static var MATRIX3_D:Matrix3D;
+	public static var PROJECTION:PerspectiveProjection;//TODO general projections
 
 	// CbTypes
-	public static var tilemapShapeType:CbType = new CbType();
-	public static var sensorFilter:InteractionFilter = new InteractionFilter(0, 0, 1, 1, 0, 0);
+	public static var TILEMAP_SHAPE_TYPE:CbType = new CbType();
+	public static var SENSOR_FILTER:InteractionFilter = new InteractionFilter(0, 0, 1, 1, 0, 0);
 
 	public static function init():Void {
 		if (space != null) return;
@@ -94,18 +94,18 @@ class Phys {
 	}
 
 	public static function update():Void {
-		var dt = forceTimestep == null ? FlxG.elapsed : forceTimestep;
+		var dt = FORCE_TIMESTEP == null ? FlxG.elapsed : FORCE_TIMESTEP;
 		if (space != null && dt > 0) {
 			// TODO better method or location for this?
 			GroundableComponent.clearGroundsSignal.dispatch();
 
-			if (steps == 1) {
-				space.step(dt, velocityIterations, positionIterations);
+			if (STEPS == 1) {
+				space.step(dt, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 			} else {
-				var sdt = dt / steps;
-				var velItr = Std.int(velocityIterations / steps);
-				var posItr = Std.int(positionIterations / steps);
-				for (i in 0...steps) {
+				var sdt = dt / STEPS;
+				var velItr = Std.int(VELOCITY_ITERATIONS / STEPS);
+				var posItr = Std.int(POSITION_ITERATIONS / STEPS);
+				for (i in 0...STEPS) {
 					space.step(sdt, velItr, posItr);
 				}
 			}

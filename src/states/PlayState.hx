@@ -294,7 +294,7 @@ class PlayState extends LycanState {
     // Helper functions
 
     // Create a text on screen
-	public function showText(str:String, showTime:Float = 1.65, ?group:FlxSpriteGroup) {
+	public function showText(str:String, showTime:Float = 1.65, ?group:FlxSpriteGroup):Void {
 		var t = new FlxText(0, 0, 0, str, 20);
 		t.font = "fairfax";
 		t.y = FlxG.height - 50;
@@ -318,7 +318,7 @@ class PlayState extends LycanState {
 	private function set_timeFactor(val:Float):Float {
 		this.timeFactor = val;
 		// TODO: better solution for this
-		Phys.forceTimestep = (val == 0) ? null : FlxG.elapsed * timeFactor;
+		Phys.FORCE_TIMESTEP = (val == 0) ? null : FlxG.elapsed * timeFactor;
 		return val;
     }
     
@@ -332,7 +332,7 @@ class PlayState extends LycanState {
 		// musicLowPass.volume = Math.max(0.01, val);
 
 		// TODO: better solution for this
-		Phys.forceTimestep = (val == 0) ? null : FlxG.elapsed * timeFactor;
+		Phys.FORCE_TIMESTEP = (val == 0) ? null : FlxG.elapsed * timeFactor;
 
 		return val;
 	}

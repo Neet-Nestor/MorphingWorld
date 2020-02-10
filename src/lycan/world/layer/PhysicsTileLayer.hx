@@ -39,7 +39,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 	}
 	
 	override public function setupCollisions(tiledLayer:TiledTileLayer):Void {
-		setupCollideIndex(1, new Material(0, 1, 2, 0, 0.001), Phys.tilemapShapeType);
+		setupCollideIndex(1, new Material(0, 1, 2, 0, 0.001), Phys.TILEMAP_SHAPE_TYPE);
 		body.space = null;
 		body.scaleShapes(scale.x, scale.y);
 		body.space = Phys.space;
@@ -122,7 +122,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 	 * @param	CollideIndex	All tiles with an index greater or equal to this will be solid
 	 * @param	mat				The Nape physics material to use. Will use the default material if not specified
 	 */
-	public function setupCollideIndex(CollideIndex:Int = 1, ?mat:Material, ?cbType:CbType) {
+	public function setupCollideIndex(CollideIndex:Int = 1, ?mat:Material, ?cbType:CbType):Void {
 		if (_data == null) {
 			FlxG.log.error("loadMap has to be called first!");
 			return;

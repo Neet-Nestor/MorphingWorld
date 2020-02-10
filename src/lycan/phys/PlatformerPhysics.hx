@@ -26,15 +26,20 @@ import nape.geom.Vec3;
 
 // TODO could be PhysicsPresets?
 class PlatformerPhysics {
+	// Callback types
+	public static var COLLISION_TYPE:CbType = new CbType();
+	public static var GROUNDABLE_TYPE:CbType = new CbType();
+	public static var CHARACTER_TYPE:CbType = new CbType();
+	public static var ONEWAY_TYPE:CbType = new CbType();
+	public static var PUSHABLE_TYPE:CbType = new CbType();
+	public static var MOVING_PLATFORM_TYPE:CbType = new CbType();
 	
-	public static var collisionType:CbType = new CbType();
-	public static var groundableType:CbType = new CbType();
-	public static var characterType:CbType = new CbType();
-	public static var onewayType:CbType = new CbType();
-	public static var pushableType:CbType = new CbType();
-	public static var movingPlatformType:CbType = new CbType();
-	
-	public static var overlappingObjectGroup:InteractionGroup = new InteractionGroup(true);
+	// Interaction groups
+	public static var OVERLAPPING_OBJECT_GROUP:InteractionGroup = new InteractionGroup(true);
+
+	// Interaction Filters
+	public static var WORLD_FILTER:InteractionFilter = new InteractionFilter(1, -1, 0, 0, 0, 0);
+	public static var OVERLAPPING_OBJECT_FILTER:InteractionFilter = new InteractionFilter(0, 0, 1, -1, 0, 0);
 	
 	private static var isSetup:Bool = false;
 	
@@ -50,35 +55,32 @@ class PlatformerPhysics {
 		space = space == null ? Phys.space : space;
 		
 		// Landing on ground
-		// space.listeners.add(
-		// 	new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, groundableType, CbType.ANY_SHAPE,
-		// 		function(ic:InteractionCallback):Void {
-		// 			var body:Body = ic.int1.castBody;
-		// 			//TODO why did I do this? waking it up?
-		// 			body.position.x += 1;
-		// 			body.position.x -= 1;
-		// 			var groundable:Groundable = cast ic.int1.userData.entity;
-		// 			for (arbiter in ic.arbiters) {
-		// 				if (!arbiter.isCollisionArbiter()) continue;
-		// 				var groundableFirst:Bool = arbiter.body1 == body;
-		// 				var ca:CollisionArbiter = cast arbiter;
-		// 				var angle:Float = FlxAngle.TO_DEG * ca.normal.angle - (groundableFirst ? 90 : -90);
-		// 				// If we just left the ground
-		// 				if (arbiter.collisionArbiter.totalImpulse().length == 0) {
-		// 					groundable.groundable.remove(cast ic.int2.userData.entity);
-		// 				} else if (angle >= -groundable.groundable.groundedAngleLimit && angle <= groundable.groundable.groundedAngleLimit) {
-		// 					groundable.groundable.add(cast ic.int2.userData.entity);
-		// 				}
-		// 			}
-		// 		}
-		// 	)
-		// );
+		space.listeners.add(
+			new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, GROUNDABLE_TYPE, CbType.ANY_SHAPE,
+				(ic:InteractionCallback) -> {
+					var body:Body = ic.int1.castBody;
+					var groundable:Groundable = cast ic.int1.userData.entity;
+					for (arbiter in ic.arbiters) {
+						if (!arbiter.isCollisionArbiter()) continue;
+						var groundableFirst:Bool = arbiter.body1 == body;
+						var ca:CollisionArbiter = cast arbiter;
+						var angle:Float = FlxAngle.TO_DEG * ca.normal.angle - (groundableFirst ? 90 : -90);
+						if (arbiter.collisionArbiter.totalImpulse().length == 0) {
+							// If we just left the ground
+							groundable.groundable.remove(cast ic.int2.userData.entity);
+						} else if (angle >= -groundable.groundable.groundedAngleLimit && angle <= groundable.groundable.groundedAngleLimit) {
+							groundable.groundable.add(cast ic.int2.userData.entity);
+						}
+					}
+				}
+			)
+		);
 		
 		var threshold:Float = 2;
 		// Attempt to work around ghost edges issue
 		// TODO it's a work in progress
 		space.listeners.add(
-			new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, CbType.ANY_BODY, Phys.tilemapShapeType,
+			new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, CbType.ANY_BODY, Phys.TILEMAP_SHAPE_TYPE,
 				function(ic:InteractionCallback) {
 					var b1:Body = ic.int1.castBody;
 					var b2:Body = ic.int2.castBody;
@@ -102,8 +104,8 @@ class PlatformerPhysics {
 								if (Math.abs(d) > threshold) break;
 								b1.position.x += d;
 								var impulse:Vec3 = ca.contacts.at(0).normalImpulse();
-								// trace("impulse: " + impulse);
-								// trace("totalImpulse: " + impulse);
+								trace("impulse: " + impulse);
+								trace("totalImpulse: " + impulse);
 								b1.applyImpulse(Vec2.weak(impulse.x, impulse.y));
 								break;
 							}
@@ -115,7 +117,7 @@ class PlatformerPhysics {
 		
 		// Character controller drop-through one way
 		space.listeners.add(
-			new PreListener(InteractionType.COLLISION, characterType, onewayType,
+			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, ONEWAY_TYPE,
 				function(ic:PreCallback):PreFlag {
 					var body:Body = ic.int1.castBody;
 					var p:CharacterController = cast body.userData.entity;
@@ -131,7 +133,7 @@ class PlatformerPhysics {
 		// Avoid vertical friction on grounds
 		// TODO could we merge this with groun checks?
 		space.listeners.add(
-			new PreListener(InteractionType.COLLISION, groundableType, CbType.ANY_BODY,
+			new PreListener(InteractionType.COLLISION, GROUNDABLE_TYPE, CbType.ANY_BODY,
 				function(ic:PreCallback):PreFlag {
 					var body:Body = ic.int1.castBody;
 					var groundable:Groundable = cast body.userData.entity;
@@ -156,7 +158,7 @@ class PlatformerPhysics {
 		// TODO should use accept/ignore_once?
 		// TODO don't hardcode the angles
 		space.listeners.push(
-			new PreListener(InteractionType.COLLISION, CbType.ANY_BODY, onewayType,
+			new PreListener(InteractionType.COLLISION, CbType.ANY_BODY, ONEWAY_TYPE,
 				function(ic:PreCallback):PreFlag {
 					var groundable:Groundable = ic.int1.userData.sprite;
 					var arbiter:CollisionArbiter = cast ic.arbiter;

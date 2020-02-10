@@ -73,7 +73,7 @@ class WorldLoader {
 
 		world.load(tiledMap, instance.objectHandlers, instance.layerLoadedHandlers, WorldCollisionType.PHYSICS);
 
-		world.forEachExists((o)->{
+		world.forEachExists((o) -> {
 			if (Std.is(o, PhysicsTileLayer)) {
 				var p:PhysicsEntity = cast o;
 				var wasEnabled = p.physics.enabled;
@@ -88,30 +88,30 @@ class WorldLoader {
 	}
 
 	public function setupLayerHandlers():Void {
-	// 	layerLoadedHandlers.add(function(tiledLayer, layer) {
-	// 		if (layer.worldLayer.type == TiledLayerType.TILE) {
-	// 			var tl:PhysicsTileLayer = cast layer;
-	// 			// tl.body.shapes.foreach(s->s.filter = PlatformerPhysics.worldFilter);
-	// 			if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s->s.cbTypes.add(PlatformerPhysics.onewayType));
-	// 		}
-	// 	});
+		layerLoadedHandlers.add(function(tiledLayer, layer) {
+			if (layer.worldLayer.type == TiledLayerType.TILE) {
+				var tl:PhysicsTileLayer = cast layer;
+				tl.body.shapes.foreach(s -> s.filter = PlatformerPhysics.WORLD_FILTER);
+				if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s -> s.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE));
+			}
+		});
 
-	// 	layerLoadedHandlers.add(function(tiledLayer, layer) {
-	// 		if (layer.worldLayer.type == TiledLayerType.TILE && Std.is(layer, PhysicsTileLayer)) {
-	// 			var tl:PhysicsTileLayer = cast layer;
-	// 			// tl.body.shapes.foreach(s->s.filter = PlatformerPhysics.worldFilter);
-	// 			if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s->s.cbTypes.add(PlatformerPhysics.onewayType));
-	// 		}
-	// 	});
+		layerLoadedHandlers.add(function(tiledLayer, layer) {
+			if (layer.worldLayer.type == TiledLayerType.TILE && Std.is(layer, PhysicsTileLayer)) {
+				var tl:PhysicsTileLayer = cast layer;
+				tl.body.shapes.foreach(s -> s.filter = PlatformerPhysics.WORLD_FILTER);
+				if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s -> s.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE));
+			}
+		});
 
-	// 	layerLoadedHandlers.add(function(tiledLayer, layer) {
-	// 		if (layer.worldLayer.type == TiledLayerType.TILE) {
-	// 			var tl:TileLayer = cast layer;
-	// 			tl.alpha = tiledLayer.opacity;
-	// 			var scrollFactor = tiledLayer.properties.contains("scrollFactor") ? tiledLayer.properties.getFloat("scrollFactor") : 1;
-	// 			tl.scrollFactor.set(scrollFactor, scrollFactor);
-	// 		}
-	// 	});
+		layerLoadedHandlers.add(function(tiledLayer, layer) {
+			if (layer.worldLayer.type == TiledLayerType.TILE) {
+				var tl:TileLayer = cast layer;
+				tl.alpha = tiledLayer.opacity;
+				var scrollFactor = tiledLayer.properties.contains("scrollFactor") ? tiledLayer.properties.getFloat("scrollFactor") : 1;
+				tl.scrollFactor.set(scrollFactor, scrollFactor);
+			}
+		});
 
 		// layerLoadedHandlers.add(function(tiledLayer, layer) {
 		// 	if (layer.worldLayer.type == TiledLayerType.TILE && tiledLayer.properties.contains("sprite")) {
@@ -302,7 +302,7 @@ class WorldLoader {
 		lateLoad((obj, layer, map)->{
 			if (obj.properties.getBool("oneway")) {
 				var po:PhysicsEntity = cast map.get(obj.gid);
-				po.physics.body.cbTypes.add(PlatformerPhysics.onewayType);
+				po.physics.body.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE);
 			}
 		});
 

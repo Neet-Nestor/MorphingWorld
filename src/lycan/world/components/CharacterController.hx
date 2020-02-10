@@ -95,7 +95,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		physics.body.shapes.add(feetShape);
 		physics.body.shapes.add(bodyShape);
 		physics.setBodyMaterial();
-		physics.body.group = PlatformerPhysics.overlappingObjectGroup;
+		physics.body.group = PlatformerPhysics.OVERLAPPING_OBJECT_GROUP;
 
 		physics.body.isBullet = true;
 
@@ -111,8 +111,8 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		hasControl = true;
 		currentJumps = 0;
 
-		physics.body.cbTypes.add(PlatformerPhysics.characterType);
-		physics.body.cbTypes.add(PlatformerPhysics.groundableType);
+		physics.body.cbTypes.add(PlatformerPhysics.CHARACTER_TYPE);
+		physics.body.cbTypes.add(PlatformerPhysics.GROUNDABLE_TYPE);
 	}
 
 	public function move():Void {
