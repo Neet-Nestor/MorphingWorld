@@ -47,7 +47,6 @@ class Phys {
 
 	public static function init():Void {
 		if (space != null) return;
-		trace("klkj");
 		space = new Space(Vec2.weak(0, 3));
 		space.gravity.y = 2500;
 
@@ -95,7 +94,6 @@ class Phys {
 	}
 
 	public static function update():Void {
-		if (FlxG.mouse.justPressed)  trace("Physics update");
 		var dt = forceTimestep == null ? FlxG.elapsed : forceTimestep;
 		if (space != null && dt > 0) {
 			// TODO better method or location for this?

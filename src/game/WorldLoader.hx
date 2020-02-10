@@ -172,7 +172,6 @@ class WorldLoader {
 
 		objectHandlers.add((obj, layer, map)->{
 			// Offset objects based on world offset
-			trace((cast layer.worldLayer.world:MiniWorld).x);
 			obj.x += Math.round((cast layer.worldLayer.world:MiniWorld).x);
 			obj.y += Math.round((cast layer.worldLayer.world:MiniWorld).y);
 		});

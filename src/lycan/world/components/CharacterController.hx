@@ -213,7 +213,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			if (canJump) {
 				currentJumps++;
 				physics.body.velocity.y = jumpSpeed;
-				trace("physics.body.velocity.y = " + physics.body.velocity.y);
 			}
 		}
 

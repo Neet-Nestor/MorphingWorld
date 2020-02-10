@@ -19,7 +19,6 @@ class WorldCollection extends NamedCollection<WorldDef> {
 		trace("Adding world def for " + name);
 		wd.owned = owned;
 		instance.add(wd);
-		trace(WorldCollection.get(name));
 		return wd;
 	}
 
