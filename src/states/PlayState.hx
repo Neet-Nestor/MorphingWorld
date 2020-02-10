@@ -262,16 +262,16 @@ class PlayState extends LycanState {
     // Handlers
 
     public function collectWorld(worldDef:WorldDef):Void {
-        vat foundState = new PieceFoundState(worldDef);
+        var foundState = new PieceFoundState(worldDef);
 
 		function collectWorld() {
 			persistentUpdate = false;
 			Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
-			state.closeCallback = () -> {
+			foundState.closeCallback = () -> {
 				Phys.FORCE_TIMESTEP = null;
 				persistentUpdate = true;
 			}
-			openSubState(state);
+			openSubState(foundState);
 		}
 
 		if (isWorldEditing) {
