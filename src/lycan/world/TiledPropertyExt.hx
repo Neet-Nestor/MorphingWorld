@@ -15,17 +15,22 @@ class TiledPropertyExt {
 	}
 	
 	public static function getInt(props:TiledPropertySet, key:String, defaultVal:Int = -1):Int {
-		var val = props.get(key);
-		if (val != null)
-			return Std.parseInt(val);
+		if (props.contains(key))
+			return Std.parseInt(props.get(key));
 		else
 			return defaultVal;
 	}
 	
 	public static function getFloat(props:TiledPropertySet, key:String, defaultVal:Int = -1):Float {
-		var val = props.get(key);
-		if (val != null)
-			return Std.parseFloat(val);
+		if (props.contains(key))
+			return Std.parseFloat(props.get(key));
+		else
+			return defaultVal;
+	}
+
+	public static function getString(props:TiledPropertySet, key:String, defaultVal:String = ""):String {
+		if (props.contains(key))
+			return props.get(key);
 		else
 			return defaultVal;
 	}
