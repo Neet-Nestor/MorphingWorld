@@ -219,7 +219,7 @@ interface PhysicsEntity extends Entity {
 		entity.entity_x = position.x - entity.entity_origin.x * entity.entity_scale.x;
 		entity.entity_y = position.y - entity.entity_origin.y * entity.entity_scale.y;
 		
-		if (Phys.floorPos) {
+		if (Phys.FLOOR_POS) {
 			entity.entity_x = Math.floor(entity.entity_x);
 			entity.entity_y = Math.floor(entity.entity_y);
 		}
@@ -235,7 +235,7 @@ interface PhysicsEntity extends Entity {
 		position.x = entity.entity_x + entity.entity_origin.x * entity.entity_scale.x;
 		position.y = entity.entity_y + entity.entity_origin.y * entity.entity_scale.y;
 		
-		if (Phys.floorPos) {
+		if (Phys.FLOOR_POS) {
 			position.x = Math.floor(position.x);
 			position.y = Math.floor(position.y);
 		}

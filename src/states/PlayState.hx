@@ -1,8 +1,5 @@
 package states;
 
-import flixel.util.FlxAxes;
-import flixel.group.FlxSpriteGroup;
-import flixel.text.FlxText;
 import config.Config;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
@@ -11,6 +8,7 @@ import flixel.FlxState;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
+import flixel.group.FlxSpriteGroup;
 import flixel.input.FlxInput.FlxInputState;
 import flixel.input.actions.FlxAction;
 import flixel.input.actions.FlxActionManager;
@@ -18,14 +16,18 @@ import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
+import flixel.text.FlxText;
 import flixel.tile.FlxBaseTilemap;
 import flixel.tile.FlxTilemap;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import game.MiniWorld;
+import game.Universe;
 import game.WorldCollection;
+import game.WorldDef;
 import game.WorldLoader;
 import hscript.Expr;
 import hscript.Interp;
@@ -44,7 +46,6 @@ import openfl.display.Tilemap;
 import sprites.CameraFocus;
 import sprites.PhysSprite;
 import sprites.Player;
-import game.Universe;
 
 class PlayState extends LycanState {
     public var player:Player;
@@ -205,7 +206,7 @@ class PlayState extends LycanState {
     }
 
     private function initWorld():Void {
-        var worldDef = WorldCollection.get("world1");
+        var worldDef = WorldCollection.get("02_00");
         for (layer in worldDef.tiledMap.layers) {
             if (Std.is(layer, TiledObjectLayer)) {
                 var ol:TiledObjectLayer = cast layer;
@@ -245,6 +246,8 @@ class PlayState extends LycanState {
         }
     }
 
+    // FlxSprite Overrides
+
     override public function update(elapsed:Float):Void {
         @:privateAccess actions.update();
 
@@ -254,6 +257,30 @@ class PlayState extends LycanState {
 	override public function draw():Void {
 		cameraFocus.update(FlxG.elapsed);
 		super.draw();
+    }
+
+    // Handlers
+
+    public function collectWorld(worldDef:WorldDef):Void {
+        var foundState = new PieceFoundState(worldDef);
+
+		function collectWorld() {
+			persistentUpdate = false;
+			Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
+			foundState.closeCallback = () -> {
+				Phys.FORCE_TIMESTEP = null;
+				persistentUpdate = true;
+			}
+			openSubState(foundState);
+		}
+
+		if (isWorldEditing) {
+			endWorldEditing(() -> {
+				collectWorld();
+			}, true);
+		} else {
+			collectWorld();
+		}
     }
 
     public function beginWorldEditing():Void {
@@ -294,7 +321,7 @@ class PlayState extends LycanState {
     // Helper functions
 
     // Create a text on screen
-	public function showText(str:String, showTime:Float = 1.65, ?group:FlxSpriteGroup) {
+	public function showText(str:String, showTime:Float = 1.65, ?group:FlxSpriteGroup):Void {
 		var t = new FlxText(0, 0, 0, str, 20);
 		t.font = "fairfax";
 		t.y = FlxG.height - 50;
@@ -318,7 +345,7 @@ class PlayState extends LycanState {
 	private function set_timeFactor(val:Float):Float {
 		this.timeFactor = val;
 		// TODO: better solution for this
-		Phys.forceTimestep = (val == 0) ? null : FlxG.elapsed * timeFactor;
+		Phys.FORCE_TIMESTEP = (val == 0) ? null : FlxG.elapsed * timeFactor;
 		return val;
     }
     
@@ -332,7 +359,7 @@ class PlayState extends LycanState {
 		// musicLowPass.volume = Math.max(0.01, val);
 
 		// TODO: better solution for this
-		Phys.forceTimestep = (val == 0) ? null : FlxG.elapsed * timeFactor;
+		Phys.FORCE_TIMESTEP = (val == 0) ? null : FlxG.elapsed * timeFactor;
 
 		return val;
 	}
