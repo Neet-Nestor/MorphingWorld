@@ -16,6 +16,7 @@ import flixel.input.actions.FlxAction;
 import flixel.input.actions.FlxActionManager;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadInputID;
+improt game.WorldDef;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.tile.FlxBaseTilemap;
@@ -245,6 +246,8 @@ class PlayState extends LycanState {
         }
     }
 
+    // FlxSprite Overrides
+
     override public function update(elapsed:Float):Void {
         @:privateAccess actions.update();
 
@@ -254,6 +257,30 @@ class PlayState extends LycanState {
 	override public function draw():Void {
 		cameraFocus.update(FlxG.elapsed);
 		super.draw();
+    }
+
+    // Handlers
+
+    public function collectWorld(worldDef:WorldDef):Void {
+        vat foundState = new PieceFoundState(worldDef);
+
+		function collectWorld() {
+			persistentUpdate = false;
+			Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
+			state.closeCallback = () -> {
+				Phys.FORCE_TIMESTEP = null;
+				persistentUpdate = true;
+			}
+			openSubState(state);
+		}
+
+		if (isWorldEditing) {
+			endWorldEditing(() -> {
+				collectWorld();
+			}, true);
+		} else {
+			collectWorld();
+		}
     }
 
     public function beginWorldEditing():Void {
