@@ -1,8 +1,5 @@
 package states;
 
-import flixel.util.FlxAxes;
-import flixel.group.FlxSpriteGroup;
-import flixel.text.FlxText;
 import config.Config;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
@@ -11,22 +8,26 @@ import flixel.FlxState;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
+import flixel.group.FlxSpriteGroup;
 import flixel.input.FlxInput.FlxInputState;
 import flixel.input.actions.FlxAction;
 import flixel.input.actions.FlxActionManager;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadInputID;
-improt game.WorldDef;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
+import flixel.text.FlxText;
 import flixel.tile.FlxBaseTilemap;
 import flixel.tile.FlxTilemap;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import game.MiniWorld;
+import game.Universe;
 import game.WorldCollection;
+import game.WorldDef;
 import game.WorldLoader;
 import hscript.Expr;
 import hscript.Interp;
@@ -45,7 +46,6 @@ import openfl.display.Tilemap;
 import sprites.CameraFocus;
 import sprites.PhysSprite;
 import sprites.Player;
-import game.Universe;
 
 class PlayState extends LycanState {
     public var player:Player;
@@ -206,7 +206,7 @@ class PlayState extends LycanState {
     }
 
     private function initWorld():Void {
-        var worldDef = WorldCollection.get("world1");
+        var worldDef = WorldCollection.get("02_00");
         for (layer in worldDef.tiledMap.layers) {
             if (Std.is(layer, TiledObjectLayer)) {
                 var ol:TiledObjectLayer = cast layer;
