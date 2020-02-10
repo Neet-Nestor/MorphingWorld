@@ -2,13 +2,15 @@ package sprites;
 
 import flixel.math.FlxPoint;
 import config.Config;
+import lycan.components.CenterPositionable;
+import lycan.components.Attachable;
 import lycan.world.components.Groundable;
 import lycan.world.components.PhysicsEntity;
 import lycan.world.components.CharacterController;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 
-class Player extends FlxSprite implements CharacterController implements Groundable implements PhysicsEntity {
+class Player extends FlxSprite implements CharacterController implements Groundable implements PhysicsEntity implements Attachable implements CenterPositionable {
     public function new(x:Float, y:Float, width:Int, height:Int) {
         super(x, y);
 
