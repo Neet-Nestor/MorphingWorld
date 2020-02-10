@@ -4,6 +4,7 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxTween.FlxTweenType;
 import flixel.tweens.FlxEase;
 import game.WorldCollection;
+import game.WorldDef;
 import flixel.FlxSprite;
 import lycan.util.CircularGraphic;
 import flixel.tweens.FlxTween.FlxTweenManager;
