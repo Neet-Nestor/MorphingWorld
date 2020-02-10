@@ -221,18 +221,15 @@ class PlayState extends LycanState {
         @:privateAccess actions.update();
 
         super.update(elapsed);
-        // check for collide
 
-        // debug
-        // trace("Player: " + player.physics.body.position);
-        // trace("        " + player.origin + ", " + player.x + ", " + player.y);
-        // trace("        " + player.width + ", " + player.height);
-        // for (tiledLayer in world.tileLayers) {
-        //     var pLayer:PhysicsTileLayer = cast tiledLayer;
-        //     trace("World: " + pLayer.body.position);
-        //     trace("       " + pLayer.origin + ", " + pLayer.x + ", " + pLayer.y);
-        //     trace("       " + pLayer.width + ", " + pLayer.height);
-        // }
+		#if cpp
+			if (FlxG.keys.justPressed.ESCAPE) {
+                Sys.exit(0);
+            }
+			if (FlxG.keys.justPressed.F) {
+                FlxG.fullscreen = !FlxG.fullscreen;
+            }
+		#end
     }
 
 	override public function draw():Void {
