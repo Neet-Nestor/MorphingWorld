@@ -78,9 +78,6 @@ class PlatformerPhysics {
 				function(ic:PreCallback):PreFlag {
 					var b1:Body = ic.int1.castBody;
 					var b2:Body = ic.int2.castBody;
-					trace("b1: " + Type.typeof(b1.userData.entity) + ", " + b1.userData.entity);
-					if (b2 != null)
-					trace("shapes:"+ b2.shapes);
 					return PreFlag.ACCEPT;
 				}, 2
 			)

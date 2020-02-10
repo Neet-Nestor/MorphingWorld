@@ -4,6 +4,7 @@ import config.Config;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.addons.editors.tiled.TiledLayer.TiledLayerType;
 import flixel.FlxState;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObjectLayer;
@@ -46,6 +47,7 @@ import openfl.display.Tilemap;
 import sprites.CameraFocus;
 import sprites.PhysSprite;
 import sprites.Player;
+import sprites.WorldPiece;
 
 class PlayState extends LycanState {
     public var player:Player;
@@ -61,6 +63,9 @@ class PlayState extends LycanState {
     public var editState:EditState;
     public var isWorldEditing:Bool;
     public var editingTransitionAmount(default, set):Float = 0;
+
+    public var fakeGround:PhysSprite;
+    public var firstPiece:WorldPiece;
 
     // Hints
 	public var zoomHintShown:Bool;
@@ -202,27 +207,72 @@ class PlayState extends LycanState {
 		interp.variables.set("FlxEase", FlxEase);
 		interp.variables.set("BodyType", BodyType);
 		interp.variables.set("ObjectTargetInfluencer", ObjectTargetInfluencer);
-		interp.variables.set("wait", function(delay:Float, cb:Void->Void) new FlxTimer(timers).start(delay, (_)->cb()));
+		interp.variables.set("wait", function(delay:Float, cb:Void -> Void) new FlxTimer(timers).start(delay, (_) -> cb()));
     }
 
     private function initWorld():Void {
-        var worldDef = WorldCollection.get("02_00");
-        for (layer in worldDef.tiledMap.layers) {
-            if (Std.is(layer, TiledObjectLayer)) {
-                var ol:TiledObjectLayer = cast layer;
-                for (o in ol.objects) {
-                    if (o.type == "player") {
-                        player.physics.body.position.setxy(o.x+ Config.PLAYER_WIDTH / 2, o.y + Config.PLAYER_HEIGHT / 2);
-                        player.physics.snapEntityToBody();
-                        break;
-                    }
-                }
-            }
+        fakeGround = new PhysSprite();
+		fakeGround.makeGraphic(10, 10, 0x0, true);
+		fakeGround.physics.init(BodyType.KINEMATIC, false);
+		fakeGround.physics.createRectangularBody(FlxG.width * 4, 10, BodyType.KINEMATIC);
+		fakeGround.physics.enabled = true;
+		fakeGround.physics.body.align();
+		fakeGround.physics.body.position.x = 0;
+		fakeGround.physics.body.position.y = 0;
+		fakeGround.physics.snapEntityToBody();
+		player.physics.snapBodyToEntity();
+		player.physics.body.position.y = fakeGround.physics.body.position.y - (player.physics.body.shapes.at(0).bounds.height + fakeGround.physics.body.shapes.at(0).bounds.height) / 2;
+		player.physics.snapEntityToBody();
+        add(fakeGround);
+        
+        firstPiece = new WorldPiece();
+		firstPiece.worldDef = WorldCollection.get("02_00");
+		firstPiece.alpha = 1;
+		firstPiece.setCenterX(player.getCenterX() + 50);
+		firstPiece.setCenterY(player.getCenterY());
+        firstPiece.physics.snapBodyToEntity();
+        
+        var collectCallback = firstPiece.collectable.onCollect;
+		firstPiece.collectable.onCollect = (p) -> {
+			player.characterController.hasControl = false;
+			player.characterController.stop();
+			for (layer in firstPiece.worldDef.tiledMap.layers) {
+				if (layer.type == TiledLayerType.OBJECT) {
+					var ol:TiledObjectLayer = cast layer;
+					for (o in ol.objects) {
+						if (o.type == "player") {
+							var ix = player.x;
+							var iy = player.y;
+							var cx = player.getCenterX() - worldCamera.scroll.x;
+							var cy = (player.getCenterY() + Config.CAMERA_OFFSET_Y) - worldCamera.scroll.y;
+							player.physics.body.position.setxy(o.x, o.y + o.height / 2 - Config.PLAYER_HEIGHT / 2);
+							player.physics.snapEntityToBody();
+							var dx = player.x - ix;
+							var dy = player.y - iy;
+							firstPiece.physics.body.position.x += dx;
+							firstPiece.physics.body.position.y += dy;
+							firstPiece.physics.snapEntityToBody();
+							fakeGround.physics.body.position.x += dx;
+							fakeGround.physics.body.position.y += dy;
+							firstPiece.physics.snapEntityToBody();
+							cameraFocus.updatePosition();
+							worldCamera.snapToTarget();
+							worldCamera.scroll.x = player.getCenterX() - cx;
+							worldCamera.scroll.y = (player.getCenterY() + Config.CAMERA_OFFSET_Y) - cy;
+
+							new FlxTimer(timers).start(0.5, (_) -> {
+								showText("[SCROLL WHEEL or SPACE to zoom]");
+							});
+
+							break;
+						}
+					}
+				}
+			}
+            collectCallback(p);
+
+            add(firstPiece);
         }
-        world = new MiniWorld();
-        world.worldDef = worldDef;
-        WorldLoader.load(world, new TiledMap(worldDef.path), this, worldCamera.scroll.x, worldCamera.scroll.y);
-        add(world);
     }
 
     private function initCamera():Void {
@@ -255,6 +305,7 @@ class PlayState extends LycanState {
 
         FlxG.watch.addQuick("player position", player.physics.body.position);
         FlxG.watch.addQuick("player velocity", player.physics.body.velocity);
+        FlxG.watch.addQuick("piece position", firstPiece.physics.body.position);
     }
 
 	override public function draw():Void {
