@@ -211,10 +211,6 @@ class TiledWorld extends FlxGroup {
 		}
 		
 		var tileLayer:TileLayer = collisionType == "physics" ? new PhysicsTileLayer(this, tiledLayer, BodyType.STATIC) : new TileLayer(this, tiledLayer);
-		if (collisionType == "physics") {
-			var ptl:PhysicsTileLayer = cast tileLayer;
-			ptl.drawDebug();
-		}
 		if (tileLayer.properties.contains("hidden")) {
 			tileLayer.visible = false;
 		}

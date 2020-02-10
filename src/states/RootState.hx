@@ -18,10 +18,5 @@ class RootState extends LycanRootState {
 	
 	override public function update(dt:Float):Void {
 		super.update(dt);
-
-		if (FlxG.keys.justPressed.R) {
-			closeSubState();
-			openSubState(new MenuState());
-		}
 	}
 }

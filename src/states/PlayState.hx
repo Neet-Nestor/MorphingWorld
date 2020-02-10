@@ -306,6 +306,11 @@ class PlayState extends LycanState {
         FlxG.watch.addQuick("player position", player.physics.body.position);
         FlxG.watch.addQuick("player velocity", player.physics.body.velocity);
         FlxG.watch.addQuick("piece position", firstPiece.physics.body.position);
+
+        // Reset Game
+		if (FlxG.keys.justPressed.R) {
+			FlxG.switchState(new RootState());
+		}
     }
 
 	override public function draw():Void {
