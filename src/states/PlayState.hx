@@ -1,5 +1,8 @@
 package states;
 
+import flixel.util.FlxAxes;
+import flixel.group.FlxSpriteGroup;
+import flixel.text.FlxText;
 import config.Config;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
@@ -41,10 +44,12 @@ import openfl.display.Tilemap;
 import sprites.CameraFocus;
 import sprites.PhysSprite;
 import sprites.Player;
+import game.Universe;
 
 class PlayState extends LycanState {
     public var player:Player;
     public var world:MiniWorld;
+    public var universe:Universe;
 	public var cameraFocus:CameraFocus;
     public var reloadPlayerPosition:Bool;
 
@@ -55,6 +60,10 @@ class PlayState extends LycanState {
     public var editState:EditState;
     public var isWorldEditing:Bool;
     public var editingTransitionAmount(default, set):Float = 0;
+
+    // Hints
+	public var zoomHintShown:Bool;
+	public var dragHintShown:Bool;
 
     // For scripts
 	public var parser:Parser;
@@ -71,6 +80,8 @@ class PlayState extends LycanState {
         super();
         instance = this;
         isWorldEditing = false;
+        zoomHintShown = false;
+        dragHintShown = false;
     }
 
     override public function create():Void {
@@ -83,12 +94,16 @@ class PlayState extends LycanState {
         initManagers();
         initActions();
         initScripts();
+        universe = new Universe();
         WorldCollection.init();
         player = new Player(0, 0, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
         initWorld();
-        add(player);
         initCamera();
+        add(universe);
+        add(player);
     }
+
+    // Initializers
 
     private function initPhysics():Void {
         // Initialize physics
@@ -152,13 +167,13 @@ class PlayState extends LycanState {
         actionReleaseRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.JUST_RELEASED);
         actionReleaseRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.JUST_RELEASED);
 
-        var actionBeginWorldEditing = new FlxActionDigital("BeginWorldEditing", this.beginWorldEditing);
+        var actionBeginWorldEditing = new FlxActionDigital("BeginWorldEditing", (_) -> this.beginWorldEditing());
         actionBeginWorldEditing.addMouseWheel(false, FlxInputState.JUST_PRESSED);
 
-        var actionEndWorldEditing = new FlxActionDigital("EndWorldEditing", this.endWorldEditing);
+        var actionEndWorldEditing = new FlxActionDigital("EndWorldEditing", (_) -> this.endWorldEditing());
         actionEndWorldEditing.addMouseWheel(true, FlxInputState.JUST_PRESSED);
 
-        var actionToggleWorldEditing = new FlxActionDigital("ToggleWorldEditing", this.toggleWorldEditing);
+        var actionToggleWorldEditing = new FlxActionDigital("ToggleWorldEditing", (_) -> this.toggleWorldEditing());
         actionToggleWorldEditing.addKey(FlxKey.SPACE, FlxInputState.JUST_PRESSED);
 
         actions.addActions([actionLeft, actionRight, actionReleaseLeft, actionReleaseRight, actionJump]);
@@ -241,7 +256,7 @@ class PlayState extends LycanState {
 		super.draw();
     }
 
-    public function beginWorldEditing(action:FlxActionDigital):Void {
+    public function beginWorldEditing():Void {
         if (isWorldEditing || editState != null || WorldCollection.instance.collectedCount <= 0) {
             return;
         }
@@ -249,9 +264,14 @@ class PlayState extends LycanState {
         exclusiveTween("editTransition", this, { editingTransitionAmount: 1 }, 0.7, { ease: FlxEase.quadOut });
         editState = new EditState();
         openSubState(editState);
+        // Hint show once
+        if (!dragHintShown) {
+            dragHintShown = true;
+            new FlxTimer().start(0.5, (_) -> this.showText("[Drag & Drop]", 2, uiGroup));
+        }
     }
 
-    public function endWorldEditing(action:FlxActionDigital, ?callback:Void -> Void, fast:Bool = false):Void {
+    public function endWorldEditing(?callback:Void -> Void, fast:Bool = false):Void {
         if (!isWorldEditing || editState == null) {
             return;
         }
@@ -263,15 +283,38 @@ class PlayState extends LycanState {
         }, fast);
     }
 
-    public function toggleWorldEditing(action:FlxActionDigital):Void {
+    public function toggleWorldEditing():Void {
         if (isWorldEditing) {
-            endWorldEditing(action);
+            endWorldEditing();
         } else {
-            beginWorldEditing(action);
+            beginWorldEditing();
         }
     }
+
+    // Helper functions
+
+    // Create a text on screen
+	public function showText(str:String, showTime:Float = 1.65, ?group:FlxSpriteGroup) {
+		var t = new FlxText(0, 0, 0, str, 20);
+		t.font = "fairfax";
+		t.y = FlxG.height - 50;
+		t.screenCenter(FlxAxes.X);
+		t.alpha = 0;
+
+		if (group == null) group = uiGroup;
+
+		FlxTween.tween(t, {alpha: 1}, 0.6, {onComplete: (_) -> {
+			FlxTween.tween(t, {alpha: 0}, 0.6, {startDelay: showTime, onComplete: (_) -> {
+				group.remove(t);
+				t.destroy();
+			}});
+		}});
+
+		group.add(t);
+	}
     
     // Setters
+
 	private function set_timeFactor(val:Float):Float {
 		this.timeFactor = val;
 		// TODO: better solution for this
