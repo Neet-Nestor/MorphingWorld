@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="7">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="14">
  <tileset firstgid="1" source="Sprute.tsx"/>
  <layer id="2" name="Tile Layer 1" width="14" height="14">
   <properties>
+   <property name="collision" value="true"/>
    <property name="collisionType" value="physics"/>
   </properties>
   <data encoding="csv">
 36,36,36,36,36,36,36,36,36,36,36,36,36,36,
 36,36,36,36,0,0,0,0,0,0,36,0,0,0,
 36,0,0,36,19,19,0,0,0,0,0,0,0,0,
-36,0,0,0,40,36,0,0,0,0,0,0,0,0,
-36,0,0,0,19,36,19,19,19,41,41,41,19,19,
+36,0,0,0,0,36,0,0,0,0,0,0,0,0,
+36,0,0,0,19,36,19,19,19,0,0,0,19,19,
 36,0,0,19,36,36,36,36,36,36,36,36,36,36,
 36,0,0,0,36,36,36,36,36,36,36,36,36,36,
 36,0,0,0,36,0,0,0,0,0,0,0,36,36,
@@ -18,11 +19,16 @@
 36,0,0,0,36,0,0,0,0,0,0,0,0,36,
 36,19,0,0,36,0,0,0,19,19,0,0,0,0,
 36,36,0,0,0,0,0,19,36,36,19,0,0,0,
-36,36,0,41,19,19,19,36,36,36,36,19,0,0,
+36,36,0,0,19,19,19,36,36,36,36,19,0,0,
 36,36,19,36,36,36,36,36,36,36,36,36,19,19
 </data>
  </layer>
  <objectgroup id="4" name="Object Layer 1">
-  <object id="6" name="player" x="301.042" y="302.643"/>
+  <object id="6" name="player" type="player" x="300" y="280"/>
+  <object id="9" type="collect" gid="47" x="128.916" y="128.09" width="32" height="32"/>
+  <object id="10" type="spike" gid="41" x="287.444" y="160.116" width="32" height="32"/>
+  <object id="11" type="spike" gid="41" x="321.071" y="159.315" width="32" height="32"/>
+  <object id="12" type="spike" gid="41" x="352.296" y="159.315" width="32" height="32"/>
+  <object id="13" type="spike" gid="41" x="95.2894" y="416.322" width="32" height="32"/>
  </objectgroup>
 </map>
