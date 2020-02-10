@@ -59,15 +59,6 @@ class PlayState extends LycanState {
 	public var parser:Parser;
 	public var interp:Interp;
 
-    // Actions
-	public var actionStart:FlxActionDigital;
-	public var actionJump:FlxActionDigital;
-	public var actionFlap:FlxActionDigital;
-    public var actionLeft:FlxActionDigital;
-    public var actionReleaseLeft:FlxActionDigital;
-    public var actionRight:FlxActionDigital;
-    public var actionReleaseRight:FlxActionDigital;
-
     // Managers
     public var actions:FlxActionManager;
 	public var timers:FlxTimerManager;
@@ -116,7 +107,7 @@ class PlayState extends LycanState {
 
     private function initActions():Void {
         // Player actions
-        actionJump = new FlxActionDigital("Jump", (_) -> {
+        var actionJump = new FlxActionDigital("Jump", (_) -> {
             player.characterController.jump();
         });
         actionJump.addKey(FlxKey.UP, FlxInputState.JUST_PRESSED);
@@ -127,7 +118,7 @@ class PlayState extends LycanState {
         actionJump.addGamepad(FlxGamepadInputID.A, FlxInputState.JUST_PRESSED);
         actionJump.addGamepad(FlxGamepadInputID.B, FlxInputState.JUST_PRESSED);
 
-        actionLeft = new FlxActionDigital("Left", (_) -> {
+        var actionLeft = new FlxActionDigital("Left", (_) -> {
             player.characterController.leftPressed = true;
         });
         actionLeft.addKey(FlxKey.LEFT, FlxInputState.JUST_PRESSED);
@@ -135,7 +126,7 @@ class PlayState extends LycanState {
         actionLeft.addGamepad(FlxGamepadInputID.DPAD_LEFT, FlxInputState.JUST_PRESSED);
         actionLeft.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT, FlxInputState.JUST_PRESSED);
 
-        actionReleaseLeft = new FlxActionDigital("ReleaseLeft", (_) -> {
+        var actionReleaseLeft = new FlxActionDigital("ReleaseLeft", (_) -> {
             player.characterController.leftPressed = false;
         });
         actionReleaseLeft.addKey(FlxKey.LEFT, FlxInputState.JUST_RELEASED);
@@ -143,7 +134,7 @@ class PlayState extends LycanState {
         actionReleaseLeft.addGamepad(FlxGamepadInputID.DPAD_LEFT, FlxInputState.JUST_RELEASED);
         actionReleaseLeft.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT, FlxInputState.JUST_RELEASED);
 
-        actionRight = new FlxActionDigital("Right", (_) -> {
+        var actionRight = new FlxActionDigital("Right", (_) -> {
             player.characterController.rightPressed = true;
         });
         actionRight.addKey(FlxKey.RIGHT, FlxInputState.JUST_PRESSED);
@@ -151,13 +142,14 @@ class PlayState extends LycanState {
         actionRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.JUST_PRESSED);
         actionRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.JUST_PRESSED);
 
-        actionReleaseRight = new FlxActionDigital("ReleaseRight", (_) -> {
+       var actionReleaseRight = new FlxActionDigital("ReleaseRight", (_) -> {
             player.characterController.rightPressed = false;
         });
         actionReleaseRight.addKey(FlxKey.RIGHT, FlxInputState.JUST_RELEASED);
         actionReleaseRight.addKey(FlxKey.D, FlxInputState.JUST_RELEASED);
         actionReleaseRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.JUST_RELEASED);
         actionReleaseRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.JUST_RELEASED);
+
         actions.addActions([actionLeft, actionRight, actionReleaseLeft, actionReleaseRight, actionJump]);
     }
 
@@ -229,7 +221,7 @@ class PlayState extends LycanState {
 			if (FlxG.keys.justPressed.F) {
                 FlxG.fullscreen = !FlxG.fullscreen;
             }
-		#end
+        #end
     }
 
 	override public function draw():Void {
