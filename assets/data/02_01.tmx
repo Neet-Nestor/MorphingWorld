@@ -2,10 +2,6 @@
 <map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="20">
  <tileset firstgid="1" source="Sprute.tsx"/>
  <layer id="2" name="Tile Layer 1" width="14" height="14">
-  <properties>
-   <property name="collision" value="true"/>
-   <property name="collisionType" value="physics"/>
-  </properties>
   <data encoding="csv">
 36,36,36,36,36,36,36,36,36,36,36,36,36,36,
 0,0,0,0,0,0,0,0,0,0,0,0,0,36,
@@ -29,6 +25,10 @@
   <object id="16" name="object04" type="spike" gid="41" x="65.0434" y="128.701" width="32" height="32"/>
   <object id="17" name="object03" type="spike" gid="41" x="319.57" y="351.57" width="32" height="32"/>
   <object id="18" name="object02" type="spike" gid="41" x="191.674" y="416.152" width="32" height="32"/>
-  <object id="19" name="object01" type="piece" world="02_02" gid="47" x="287.913" y="416.152" width="32" height="32"/>
+  <object id="19" name="object01" type="piece" gid="2147483695" x="287.913" y="416.152" width="32" height="32">
+   <properties>
+    <property name="world" value="02_02"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

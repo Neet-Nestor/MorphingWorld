@@ -40,7 +40,7 @@ class TileLayer extends FlxTilemap implements WorldLayer {
 			Std.int(tiledLayer.map.tileWidth), Std.int(tiledLayer.map.tileHeight), null, 1, 1, 1);
 		
 		// Setup collisions
-		if (worldLayer.properties.contains("collision")) {
+		if (!worldLayer.properties.contains("noCollision")) {
 			setupCollisions(tiledLayer);
 		}
 		

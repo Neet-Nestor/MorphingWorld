@@ -61,7 +61,7 @@ class TiledWorld extends FlxGroup {
 	public var onLoadingProgressed(default, null) = new FlxTypedSignal<Float->Void>();
 	public var onLoadingComplete(default, null) = new FlxTypedSignal<Void->Void>();
 
-	public function new(scale:Float = 1, defaultCollisionType:WorldCollisionType = ARCADE) {
+	public function new(scale:Float = 1, defaultCollisionType:WorldCollisionType = NONE) {
 		super();
 		collisionLayers = [];
 		this.scale = FlxPoint.get(scale, scale);
@@ -98,10 +98,10 @@ class TiledWorld extends FlxGroup {
 		return false;
 	}
 	
-	public function load(tiledMap:TiledMap, ?objectHandlers:ObjectHandlers, ?layerLoadedHandlers:LayerLoadedHandlers, ?defaultCollisionType:WorldCollisionType):Void {
+	public function load(tiledMap:TiledMap, ?objectHandlers:ObjectHandlers, ?layerLoadedHandlers:LayerLoadedHandlers, ?collisionType:WorldCollisionType):Void {
 		if (objectHandlers == null) objectHandlers = this.objectHandlers;
 		if (layerLoadedHandlers == null) layerLoadedHandlers = this.layerLoadedHandlers;
-		if (defaultCollisionType == null) defaultCollisionType = this.defaultCollisionType;
+		if (defaultCollisionType == null) collisionType = this.defaultCollisionType;
 		
 		properties = tiledMap.properties;
 		width = tiledMap.fullWidth;
@@ -115,6 +115,8 @@ class TiledWorld extends FlxGroup {
 					defaultCollisionType = WorldCollisionType.ARCADE;
 				case WorldCollisionType.PHYSICS:
 					defaultCollisionType = WorldCollisionType.PHYSICS;
+				case WorldCollisionType.NONE:
+					defaultCollisionType = WorldCollisionType.NONE;
 				case _:
 					trace("Invalid deault collision type: " + val);
 			}
@@ -133,7 +135,7 @@ class TiledWorld extends FlxGroup {
 					layer = loadObjectLayer(cast tiledLayer, objectHandlers);
 				}
 				case TiledLayerType.TILE: {
-					layer = loadTileLayer(cast tiledLayer);
+					layer = loadTileLayer(cast tiledLayer, collisionType);
 				}
 				case TiledLayerType.IMAGE: {
 					layer = loadImageLayer(cast tiledLayer);
@@ -201,16 +203,13 @@ class TiledWorld extends FlxGroup {
 		return layer;
 	}
 	
-	private function loadTileLayer(tiledLayer:TiledTileLayer):TileLayer {
-		// By default, use world's physics setting
-		var collisionType:WorldCollisionType = defaultCollisionType;
-		
+	private function loadTileLayer(tiledLayer:TiledTileLayer, collisionType:WorldCollisionType):TileLayer {
 		// But override with physics setting of individual tile layer if set
 		if (tiledLayer.properties.contains("collisionType")) {
 			collisionType = tiledLayer.properties.get("collisionType");
 		}
 		
-		var tileLayer:TileLayer = collisionType == "physics" ? new PhysicsTileLayer(this, tiledLayer, BodyType.STATIC) : new TileLayer(this, tiledLayer);
+		var tileLayer:TileLayer = collisionType == WorldCollisionType.PHYSICS ? new PhysicsTileLayer(this, tiledLayer, BodyType.STATIC) : new TileLayer(this, tiledLayer);
 		if (tileLayer.properties.contains("hidden")) {
 			tileLayer.visible = false;
 		}

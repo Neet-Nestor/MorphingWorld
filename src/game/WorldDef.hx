@@ -38,7 +38,7 @@ class WorldDef implements Named {
 		previewSprite = new LSprite(0, 0);
 		previewSprite.makeGraphic(Config.WORLD_WIDTH, Config.WORLD_HEIGHT, 0, false, "worldPreview_" + name);
 		var world = new MiniWorld();
-		WorldLoader.load(world, tiledMap, PlayState.instance);
+		WorldLoader.load(world, tiledMap, 0, 0, true);
 
 		camSprite.group.add(world); //TODO may need to recursively position stuff to bodies?
 		camSprite.group.forEach((b) -> { b.cameras = camSprite.group.cameras; }, true);

@@ -55,8 +55,6 @@ class WorldLoader {
 	var objectHandlers:ObjectHandlers = new ObjectHandlers();
 	var layerLoadedHandlers:LayerLoadedHandlers = new LayerLoadedHandlers();
 
-	static var playState:PlayState;
-
 	// TODO this is a bit of a hacky way of loading a map in an an offset. These are used within handlers for objects
 	static var offsetX:Float = 0;
 	static var offsetY:Float = 0;
@@ -66,13 +64,12 @@ class WorldLoader {
 		setupLayerHandlers();
 	}
 
-	public static function load(world:MiniWorld, tiledMap:TiledMap, state:PlayState, offsetX:Float = 0, offsetY:Float = 0):TiledWorld {
-		playState = state;
-
+	public static function load(world:MiniWorld, tiledMap:TiledMap, offsetX:Float = 0, offsetY:Float = 0, forPreview:Bool = false):TiledWorld {
 		world.x = offsetX;
 		world.y = offsetY;
 
-		world.load(tiledMap, instance.objectHandlers, instance.layerLoadedHandlers, WorldCollisionType.PHYSICS);
+		world.load(tiledMap, instance.objectHandlers, instance.layerLoadedHandlers,
+			forPreview ? WorldCollisionType.NONE : WorldCollisionType.PHYSICS);
 
 		world.forEachExists((o) -> {
 			if (Std.is(o, PhysicsTileLayer)) {
@@ -204,17 +201,18 @@ class WorldLoader {
 		}
 
 		loadObject("player", (obj, layer, map) -> {
-			var player:Player = playState.player;
-			if (player == null) {
+			var player:Player = null;
+			if (PlayState.instance == null || player == null) {
 				player = new Player(0, 0, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
+			} else {
+				player = PlayState.instance.player;
 			}
 			if (PlayState.instance.reloadPlayerPosition) {
 				PlayState.instance.reloadPlayerPosition = false;
-				player.physics.snapBodyToEntity();
 				player.physics.body.position.setxy(obj.x, obj.y + obj.height / 2 - Config.PLAYER_HEIGHT / 2);
 				player.physics.snapEntityToBody();
 				map.set(obj.gid, player);
-				playState.player = player;
+				PlayState.instance.player = player;
 			}
 		});
 

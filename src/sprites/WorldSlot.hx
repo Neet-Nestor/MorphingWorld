@@ -38,7 +38,6 @@ class WorldSlot extends FlxSpriteGroup {
 	public var universe:Universe;
 	
 	public var outline:PhysSprite;  // TODO: physics should be on it's own object, not borowing outline
-	public var deleteIcon:FlxSprite;
 	
 	public function new(gridX:Int = 0, gridY:Int = 0, universe:Universe) {
 		super(gridX * Config.WORLD_WIDTH, gridY * Config.WORLD_HEIGHT);
@@ -47,9 +46,10 @@ class WorldSlot extends FlxSpriteGroup {
 		gridPos = {x: gridX, y: gridY};
 		
 		outline = new PhysSprite();
-		outline.loadGraphic("assets/images/slotborder.png", true, 336, 336, false);
-		outline.animation.add("main", [0, 1, 2, 3, 4, 5], 15, true);
-        outline.animation.play("main");
+		// outline.loadGraphic("assets/images/slotborder.png", true, 336, 336, false);
+		// outline.animation.add("main", [0, 1, 2, 3, 4, 5], 15, true);
+        // outline.animation.play("main");
+		outline.makeGraphic(448, 448);
 		outline.physics.init(BodyType.STATIC, true, false);
 		outline.physics.setBodyMaterial(0, 1, 2, 1, 1);
         outline.physics.snapBodyToEntity();
@@ -73,7 +73,7 @@ class WorldSlot extends FlxSpriteGroup {
 		
 		world = new MiniWorld();
 		world.worldDef = worldDef;
-		WorldLoader.load(world, new TiledMap(worldDef.path), PlayState.instance, gridPos.x * Config.WORLD_WIDTH, gridPos.y * Config.WORLD_HEIGHT);
+		WorldLoader.load(world, new TiledMap(worldDef.path), gridPos.x * Config.WORLD_WIDTH, gridPos.y * Config.WORLD_HEIGHT);
 		if (world == null) {
             return null;
         }
@@ -137,10 +137,8 @@ class WorldSlot extends FlxSpriteGroup {
 	private function set_world(world:MiniWorld):MiniWorld {
 		if (world == null) {
 			outline.physics.enabled = true;
-			deleteIcon.visible = false;
 		} else {
 			outline.physics.enabled = false;
-			deleteIcon.visible = true;
 		}
 		this.world = world;
 		return world;
