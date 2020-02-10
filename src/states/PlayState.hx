@@ -150,7 +150,26 @@ class PlayState extends LycanState {
         actionReleaseRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.JUST_RELEASED);
         actionReleaseRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.JUST_RELEASED);
 
+        var actionBeginWorldEditing = new FlxActionDigital("BeginWorldEditing", this.beginWorldEditing);
+        actionBeginWorldEditing.addMouseWheel(false, FlxInputState.JUST_PRESSED);
+
+        var actionEndWorldEditing = new FlxActionDigital("EndWorldEditing", this.endWorldEditing);
+        actionEndWorldEditing.addMouseWheel(true, FlxInputState.JUST_PRESSED);
+
+        var actionToggleWorldEditing = new FlxActionDigital("ToggleWorldEditing", this.toggleWorldEditing);
+        actionToggleWorldEditing.addKey(FlxKey.SPACE, FlxInputState.JUST_PRESSED);
+
         actions.addActions([actionLeft, actionRight, actionReleaseLeft, actionReleaseRight, actionJump]);
+        actions.addActions([actionBeginWorldEditing, actionEndWorldEditing, actionToggleWorldEditing]);
+
+        #if cpp
+        var actionExitGame = new FlxActionDigital("ExitGame", (_) -> { Sys.exit(0); });
+        actionExitGame.addKey(FlxKey.ESCAPE, FlxInputState.JUST_PRESSED);
+        var actionToggleFullScreen = new FlxActionDigital("ToggleFullScreen", (_) -> { FlxG.fullscreen = !FlxG.fullscreen; });
+        actionToggleFullScreen.addKey(FlxKey.F, FlxInputState.JUST_PRESSED);
+
+        actions.addActions([actionExitGame, actionToggleFullScreen]);
+        #end
     }
 
     private function initScripts():Void {
@@ -213,20 +232,26 @@ class PlayState extends LycanState {
         @:privateAccess actions.update();
 
         super.update(elapsed);
-
-		#if cpp
-			if (FlxG.keys.justPressed.ESCAPE) {
-                Sys.exit(0);
-            }
-			if (FlxG.keys.justPressed.F) {
-                FlxG.fullscreen = !FlxG.fullscreen;
-            }
-        #end
     }
 
 	override public function draw():Void {
 		cameraFocus.update(FlxG.elapsed);
 		super.draw();
+    }
+
+    public function beginWorldEditing(action:FlxActionDigital):Void {
+    }
+
+    public function endWorldEditing(action:FlxActionDigital):Void {
+
+    }
+
+    public function toggleWorldEditing(action:FlxActionDigital):Void {
+        if (isWorldEditing) {
+            endWorldEditing(action);
+        } else {
+            beginWorldEditing(action);
+        }
     }
     
     // Setters
