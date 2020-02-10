@@ -1,7 +1,5 @@
 package states;
 
-import openfl.display.Tilemap;
-import game.WorldLoader;
 import config.Config;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
@@ -16,6 +14,7 @@ import flixel.input.actions.FlxActionManager;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
+import flixel.math.FlxMath;
 import flixel.tile.FlxBaseTilemap;
 import flixel.tile.FlxTilemap;
 import flixel.tweens.FlxEase;
@@ -24,19 +23,21 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import game.MiniWorld;
 import game.WorldCollection;
+import game.WorldLoader;
 import hscript.Expr;
 import hscript.Interp;
-import lycan.world.layer.PhysicsTileLayer;
 import hscript.Parser;
 import lycan.phys.Phys;
 import lycan.phys.PlatformerPhysics;
 import lycan.states.LycanState;
+import lycan.world.layer.PhysicsTileLayer;
 import nape.callbacks.CbEvent;
 import nape.callbacks.InteractionCallback;
 import nape.callbacks.InteractionListener;
 import nape.callbacks.InteractionType;
 import nape.geom.Vec2;
 import nape.phys.BodyType;
+import openfl.display.Tilemap;
 import sprites.CameraFocus;
 import sprites.PhysSprite;
 import sprites.Player;
@@ -46,6 +47,13 @@ class PlayState extends LycanState {
     public var world:MiniWorld;
 	public var cameraFocus:CameraFocus;
     public var reloadPlayerPosition:Bool;
+
+    // For transition effects
+    public var timeFactor(default, set):Float = 1;
+
+    // World Editing related
+    public var isWorldEditing:Bool = false;
+    public var editingTransitionAmount(default, set):Float = 0;
 
     // For scripts
 	public var parser:Parser;
@@ -230,5 +238,28 @@ class PlayState extends LycanState {
 	override public function draw():Void {
 		cameraFocus.update(FlxG.elapsed);
 		super.draw();
+    }
+    
+    // Setters
+	private function set_timeFactor(val:Float):Float {
+		this.timeFactor = val;
+		// TODO: better solution for this
+		Phys.forceTimestep = (val == 0) ? null : FlxG.elapsed * timeFactor;
+		return val;
+    }
+    
+    private function set_editingTransitionAmount(val:Float):Float {
+		this.editingTransitionAmount = val;
+
+		worldCamera.zoom = FlxMath.lerp(Config.DEFAULT_ZOOM, Config.WORLD_EDITING_ZOOM, val);
+		worldCamera.targetOffset.y = Config.CAMERA_OFFSET_Y - val * 60;
+
+		// music.volume = Math.max(0.01, 1 - val);
+		// musicLowPass.volume = Math.max(0.01, val);
+
+		// TODO: better solution for this
+		Phys.forceTimestep = (val == 0) ? null : FlxG.elapsed * timeFactor;
+
+		return val;
 	}
 }
