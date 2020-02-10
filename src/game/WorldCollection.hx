@@ -11,9 +11,11 @@ class WorldCollection extends NamedCollection<WorldDef> {
 	}
 
 	public static function init():Void {
-		defineWorld("02_00", false);
-		defineWorld("02_01", false);
-		defineWorld("02_02", false);
+		for (world in Config.WORLDS) {
+			if (!instance.exists(world)) {
+				defineWorld(world, false);
+			}
+		}
 	}
 
 	public static function defineWorld(name:String, owned:Bool = false):WorldDef {

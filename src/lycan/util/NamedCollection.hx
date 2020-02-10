@@ -20,4 +20,8 @@ class NamedCollection<T:Named> {
 		map.set(t.name.toLowerCase(), t);
 		list.push(t);
 	}
+		
+	public function exists(key:String):Bool {
+		return map.exists(key);
+	}
 }
