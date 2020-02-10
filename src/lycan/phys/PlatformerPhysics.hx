@@ -74,12 +74,13 @@ class PlatformerPhysics {
 		);
 
 		space.listeners.add(
-			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, CbType.ANY_BODY,
+			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, Phys.TILEMAP_SHAPE_TYPE,
 				function(ic:PreCallback):PreFlag {
 					var b1:Body = ic.int1.castBody;
 					var b2:Body = ic.int2.castBody;
 					trace("b1: " + Type.typeof(b1.userData.entity) + ", " + b1.userData.entity);
-					trace("b2: " + Type.typeof(b2.userData.entity) + ", " + b2.userData.entity);
+					if (b2 != null)
+					trace("shapes:"+ b2.shapes);
 					return PreFlag.ACCEPT;
 				}, 2
 			)

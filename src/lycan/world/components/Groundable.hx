@@ -40,7 +40,7 @@ class GroundableComponent extends Component<Groundable> {
 		if (!currentGrounds.exists(object)) {
 			currentGrounds.set(object, true);
 			currentGroundCount++;
-			clearGroundsSignal.addOnce(()->{
+			clearGroundsSignal.addOnce(() -> {
 				remove(object);
 			});
 		}

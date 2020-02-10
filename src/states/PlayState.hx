@@ -206,7 +206,7 @@ class PlayState extends LycanState {
     }
 
     private function initWorld():Void {
-        var worldDef = WorldCollection.get("02_00_test");
+        var worldDef = WorldCollection.get("02_00");
         for (layer in worldDef.tiledMap.layers) {
             if (Std.is(layer, TiledObjectLayer)) {
                 var ol:TiledObjectLayer = cast layer;
