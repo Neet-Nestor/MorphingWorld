@@ -38,8 +38,8 @@ class PlatformerPhysics {
 	public static var OVERLAPPING_OBJECT_GROUP:InteractionGroup = new InteractionGroup(true);
 
 	// Interaction Filters
-	public static var WORLD_FILTER:InteractionFilter = new InteractionFilter(1, -1, 0, 0, 0, 0);
-	public static var OVERLAPPING_OBJECT_FILTER:InteractionFilter = new InteractionFilter(0, 0, 1, -1, 0, 0);
+	public static var WORLD_FILTER:InteractionFilter = new InteractionFilter();
+	public static var OVERLAPPING_OBJECT_FILTER:InteractionFilter = new InteractionFilter();
 	
 	private static var isSetup:Bool = false;
 	
@@ -53,68 +53,11 @@ class PlatformerPhysics {
 		}
 		
 		space = space == null ? Phys.space : space;
-		
-		// Landing on ground
-		space.listeners.add(
-			new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, GROUNDABLE_TYPE, CbType.ANY_SHAPE,
-				(ic:InteractionCallback) -> {
-					var body:Body = ic.int1.castBody;
-					var groundable:Groundable = cast ic.int1.userData.entity;
-					for (arbiter in ic.arbiters) {
-						if (!arbiter.isCollisionArbiter()) continue;
-						var groundableFirst:Bool = arbiter.body1 == body;
-						var ca:CollisionArbiter = cast arbiter;
-						var angle:Float = FlxAngle.TO_DEG * ca.normal.angle - (groundableFirst ? 90 : -90);
-						if (arbiter.collisionArbiter.totalImpulse().length == 0) {
-							// If we just left the ground
-							groundable.groundable.remove(cast ic.int2.userData.entity);
-						} else if (angle >= -groundable.groundable.groundedAngleLimit && angle <= groundable.groundable.groundedAngleLimit) {
-							groundable.groundable.add(cast ic.int2.userData.entity);
-						}
-					}
-				}
-			)
-		);
-		
-		var threshold:Float = 2;
-		// Attempt to work around ghost edges issue
-		// TODO it's a work in progress
-		space.listeners.add(
-			new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION, CbType.ANY_BODY, Phys.TILEMAP_SHAPE_TYPE,
-				function(ic:InteractionCallback) {
-					var b1:Body = ic.int1.castBody;
-					var b2:Body = ic.int2.castBody;
-					for (a in ic.arbiters) {
-						if (a.isCollisionArbiter()) {
-							var ca:CollisionArbiter = cast a.collisionArbiter;
-							var s1 = ca.shape1;
-							var s2 = ca.shape2;
-							if (s1.body != b1) {
-								var ts = s1;
-								s1 = s2;
-								s2 = ts;
-							}
-							if (Math.abs(ca.normal.y) > 0) {
-								var d:Float;
-								if (s1.bounds.x > s2.bounds.x) {
-									d = s2.bounds.x + s2.bounds.width - s1.bounds.x;
-								} else {
-									d = -(s1.bounds.x + s1.bounds.width - s2.bounds.x);
-								}
-								if (Math.abs(d) > threshold) break;
-								b1.position.x += d;
-								var impulse:Vec3 = ca.contacts.at(0).normalImpulse();
-								trace("impulse: " + impulse);
-								trace("totalImpulse: " + impulse);
-								b1.applyImpulse(Vec2.weak(impulse.x, impulse.y));
-								break;
-							}
-						}
-					}
-				}
-			)
-		);
-		
+		WORLD_FILTER.collisionGroup = 1;
+		WORLD_FILTER.collisionMask  = 1;
+		OVERLAPPING_OBJECT_FILTER.collisionGroup = 2;
+		OVERLAPPING_OBJECT_FILTER.collisionMask  = 1 | 2;
+
 		// Character controller drop-through one way
 		space.listeners.add(
 			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, ONEWAY_TYPE,
@@ -129,11 +72,23 @@ class PlatformerPhysics {
 				}, 1
 			)
 		);
+
+		space.listeners.add(
+			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, CbType.ANY_BODY,
+				function(ic:PreCallback):PreFlag {
+					var b1:Body = ic.int1.castBody;
+					var b2:Body = ic.int2.castBody;
+					trace("b1: " + Type.typeof(b1.userData.entity) + ", " + b1.userData.entity);
+					trace("b2: " + Type.typeof(b2.userData.entity) + ", " + b2.userData.entity);
+					return PreFlag.ACCEPT;
+				}, 2
+			)
+		);
 		
 		// Avoid vertical friction on grounds
 		// TODO could we merge this with groun checks?
 		space.listeners.add(
-			new PreListener(InteractionType.COLLISION, GROUNDABLE_TYPE, CbType.ANY_BODY,
+			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, CbType.ANY_BODY,
 				function(ic:PreCallback):PreFlag {
 					var body:Body = ic.int1.castBody;
 					var groundable:Groundable = cast body.userData.entity;
@@ -149,7 +104,7 @@ class PlatformerPhysics {
 					}
 					
 					// We don't need to change the acceptance
-					return PreFlag.ACCEPT_ONCE;//TODO fights onewyas?
+					return PreFlag.IGNORE;//TODO fights onewyas?
 				}
 			)
 		);

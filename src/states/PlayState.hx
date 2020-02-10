@@ -206,7 +206,7 @@ class PlayState extends LycanState {
     }
 
     private function initWorld():Void {
-        var worldDef = WorldCollection.get("02_00");
+        var worldDef = WorldCollection.get("02_00_test");
         for (layer in worldDef.tiledMap.layers) {
             if (Std.is(layer, TiledObjectLayer)) {
                 var ol:TiledObjectLayer = cast layer;
@@ -252,6 +252,9 @@ class PlayState extends LycanState {
         @:privateAccess actions.update();
 
         super.update(elapsed);
+
+        FlxG.watch.addQuick("player position", player.physics.body.position);
+        FlxG.watch.addQuick("player velocity", player.physics.body.velocity);
     }
 
 	override public function draw():Void {

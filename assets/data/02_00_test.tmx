@@ -25,6 +25,6 @@
  </layer>
  <objectgroup id="4" name="Object Layer 1">
   <object id="6" name="player" type="player" x="300" y="280"/>
-  <object id="9" name="object05" type="piece" world="02_01_test" gid="47" x="128.916" y="128.09" width="32" height="32"/>
+  <object id="9" name="object05" type="piece" gid="2147483695" x="128.916" y="128.09" width="32" height="32"/>
  </objectgroup>
 </map>

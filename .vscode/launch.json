@@ -21,7 +21,7 @@
             "name": "HXCPP",
             "type": "hxcpp",
 			"request": "launch",
-            "program": "${workspaceFolder}/export/windows/bin/src.exe"
+            "program": "${workspaceFolder}/export/macos/bin/src.app"
         }
 	]
 }

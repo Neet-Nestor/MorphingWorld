@@ -25,7 +25,11 @@
  </layer>
  <objectgroup id="4" name="Object Layer 1">
   <object id="6" name="player" type="player" x="300" y="280"/>
-  <object id="9" name="object05" type="piece" world="02_01" gid="47" x="128.916" y="128.09" width="32" height="32"/>
+  <object id="9" name="object05" type="piece" gid="47" x="128.916" y="128.09" width="32" height="32">
+   <properties>
+    <property name="world" value="02_01"/>
+   </properties>
+  </object>
   <object id="10" name="object04" type="spike" gid="41" x="287.444" y="160.116" width="32" height="32"/>
   <object id="11" name="object03" type="spike" gid="41" x="321.071" y="159.315" width="32" height="32"/>
   <object id="12" name="object02" type="spike" gid="41" x="352.296" y="159.315" width="32" height="32"/>
