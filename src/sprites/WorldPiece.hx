@@ -49,7 +49,7 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
 			moves = true;
 			velocity.y = -250;
 			acceleration.y = 550;
-			animation.curAnim.frameRate = 30;
+			// animation.curAnim.frameRate = 30;
 			vanishTween = FlxTween.tween(this, {alpha: 0}, 0.7, {ease: FlxEase.quadIn});
 			scaleTween = FlxTween.tween(this.scale, {x: 0, y: 0}, 0.7, {ease: FlxEase.quadIn});
 			if (!worldDef.owned) {
@@ -61,5 +61,10 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
 			}
 			if (parentWorldDef != null) parentWorldDef.generatePreview();
 		}
+	}
+
+	override public function destroy():Void {
+		super.destroy();
+		physics.destroy();
 	}
 }

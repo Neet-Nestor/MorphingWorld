@@ -4,7 +4,7 @@ import config.Config;
 import lycan.util.NamedCollection;
 
 class WorldCollection extends NamedCollection<WorldDef> {
-	public var collectedCount(get, never):Int;
+	public var collectedCount(get, null):Int;
 
 	public function new() {
 		super();
@@ -24,6 +24,13 @@ class WorldCollection extends NamedCollection<WorldDef> {
 		wd.owned = owned;
 		instance.add(wd);
 		return wd;
+	}
+
+	public static function reset():Void {
+		instance.collectedCount = 0;
+		for (w in instance.list) {
+			w.owned = false;
+		}
 	}
 
 	public function get_collectedCount():Int {

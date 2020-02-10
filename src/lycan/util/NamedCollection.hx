@@ -12,7 +12,7 @@ class NamedCollection<T:Named> {
 	public var map:StringMap<T>;
 	
 	public function new() {
-		list = new Array<T>();
+		list = [];
 		map = new StringMap<T>();
 	}
 	

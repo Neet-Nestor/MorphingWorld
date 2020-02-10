@@ -198,7 +198,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			feetShape.material.staticFriction = 0;
 		}
 		FlxG.watch.addQuick("friction", feetShape.material.dynamicFriction);
-
+		FlxG.watch.addQuick("hasControl", hasControl);
 
 		if (groundable.isGrounded) {
 			currentJumps = 0;

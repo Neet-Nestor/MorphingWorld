@@ -118,6 +118,15 @@ class PlayState extends LycanState {
 
         // Setup gravity
         Phys.space.gravity.setxy(0, Config.GRAVITY);
+        
+        // Game listeners setup
+        // -- Piece Found listener
+        Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.SENSOR,
+            WorldPiece.WORLD_PIECE_TYPE, PlatformerPhysics.CHARACTER_TYPE, (cb:InteractionCallback) -> {
+			var piece:WorldPiece = cast cb.int1.userData.entity;
+			piece.collectable.collect((cb.int2.userData.entity:Player));
+			// Sounds.playSound(SoundAssets.collect, piece.physics.body.position.x, piece.physics.body.position.y);
+		}));
     }
 
     private function initManagers():Void {
@@ -193,6 +202,10 @@ class PlayState extends LycanState {
 
         actions.addActions([actionExitGame, actionToggleFullScreen]);
         #end
+
+        var actionResetGame = new FlxActionDigital("ResetGame", (_) -> { reset(); });
+        actionResetGame.addKey(FlxKey.R, FlxInputState.JUST_PRESSED);
+        actions.addAction(actionResetGame);
     }
 
     private function initScripts():Void {
@@ -220,16 +233,17 @@ class PlayState extends LycanState {
 		fakeGround.physics.body.position.x = 0;
 		fakeGround.physics.body.position.y = 0;
 		fakeGround.physics.snapEntityToBody();
-		player.physics.snapBodyToEntity();
+        player.physics.snapBodyToEntity();
+        player.physics.body.position.x = 0;
 		player.physics.body.position.y = fakeGround.physics.body.position.y - (player.physics.body.shapes.at(0).bounds.height + fakeGround.physics.body.shapes.at(0).bounds.height) / 2;
 		player.physics.snapEntityToBody();
         add(fakeGround);
         
         firstPiece = new WorldPiece();
-		firstPiece.worldDef = WorldCollection.get("02_00");
+		firstPiece.worldDef = WorldCollection.get(Config.START_WORLD);
 		firstPiece.alpha = 1;
 		firstPiece.setCenterX(player.getCenterX() + 50);
-		firstPiece.setCenterY(player.getCenterY());
+        firstPiece.setCenterY(player.getCenterY());
         firstPiece.physics.snapBodyToEntity();
         
         var collectCallback = firstPiece.collectable.onCollect;
@@ -270,9 +284,9 @@ class PlayState extends LycanState {
 				}
 			}
             collectCallback(p);
-
-            add(firstPiece);
         }
+        add(firstPiece);
+        player.characterController.hasControl = true;
     }
 
     private function initCamera():Void {
@@ -306,11 +320,6 @@ class PlayState extends LycanState {
         FlxG.watch.addQuick("player position", player.physics.body.position);
         FlxG.watch.addQuick("player velocity", player.physics.body.velocity);
         FlxG.watch.addQuick("piece position", firstPiece.physics.body.position);
-
-        // Reset Game
-		if (FlxG.keys.justPressed.R) {
-			FlxG.switchState(new RootState());
-		}
     }
 
 	override public function draw():Void {
@@ -375,6 +384,19 @@ class PlayState extends LycanState {
         } else {
             beginWorldEditing();
         }
+    }
+
+    public function reset():Void {
+        if (fakeGround != null) {
+            fakeGround.destroy();
+            fakeGround = null;
+        }
+        if (firstPiece != null) {
+            firstPiece.destroy();
+            firstPiece = null;
+        }
+        WorldCollection.reset();
+        initWorld();
     }
 
     // Helper functions
