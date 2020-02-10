@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="34">
+ <tileset firstgid="1" source="Sprute.tsx"/>
+ <layer id="2" name="Tile Layer 1" width="14" height="14">
+  <properties>
+   <property name="collision" value="true"/>
+   <property name="collisionType" value="physics"/>
+  </properties>
+  <data encoding="csv">
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,19,19,0,0,0,0,0,0,0,0,19,0,
+36,0,0,36,36,36,36,36,36,36,36,36,36,19,
+36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,0,0,0,0,0,19,19,19,0,0,0,0,36,
+36,0,0,0,0,0,36,36,36,19,19,0,0,36,
+36,0,0,0,0,0,36,0,0,0,36,0,0,36,
+36,19,19,19,19,19,36,0,0,0,36,19,19,36,
+0,0,0,0,0,0,0,0,0,0,36,36,0,36,
+0,0,0,0,0,0,0,0,19,0,0,0,0,36,
+0,0,19,0,0,19,19,19,36,0,0,19,19,36,
+19,36,36,36,36,36,36,36,36,19,36,36,36,36
+</data>
+ </layer>
+ <objectgroup id="4" name="Object Layer 1">
+  <object id="20" type="portal" gid="40" x="385.104" y="287.716" width="32" height="32"/>
+  <object id="21" type="spike" gid="41" x="128.052" y="128.137" width="32" height="32"/>
+  <object id="22" type="spike" gid="41" x="160.831" y="128.137" width="32" height="32"/>
+  <object id="23" type="spike" gid="41" x="192.747" y="128.137" width="32" height="32"/>
+  <object id="24" type="spike" gid="41" x="223.8" y="128.137" width="32" height="32"/>
+  <object id="25" type="spike" gid="41" x="255.716" y="128.137" width="32" height="32"/>
+  <object id="26" type="spike" gid="41" x="287.632" y="128.137" width="32" height="32"/>
+  <object id="27" type="spike" gid="41" x="319.547" y="128.137" width="32" height="32"/>
+  <object id="28" type="spike" gid="41" x="351.463" y="128.137" width="32" height="32"/>
+  <object id="29" type="spike" gid="41" x="32.305" y="416.242" width="32" height="32"/>
+  <object id="30" type="spike" gid="41" x="96.1366" y="415.379" width="32" height="32"/>
+  <object id="31" type="spike" gid="41" x="128.052" y="416.242" width="32" height="32"/>
+  <object id="32" type="spike" gid="41" x="320.41" y="416.242" width="32" height="32"/>
+  <object id="33" type="box" gid="29" x="63.3582" y="287.716" width="32" height="32"/>
+ </objectgroup>
+</map>
