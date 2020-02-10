@@ -24,11 +24,11 @@
 </data>
  </layer>
  <objectgroup id="4" name="Object Layer 1">
-  <object id="14" type="spike" gid="41" x="128.359" y="128.701" width="32" height="32"/>
-  <object id="15" type="spike" gid="41" x="95.4347" y="128.701" width="32" height="32"/>
-  <object id="16" type="spike" gid="41" x="65.0434" y="128.701" width="32" height="32"/>
-  <object id="17" type="spike" gid="41" x="319.57" y="351.57" width="32" height="32"/>
-  <object id="18" type="spike" gid="41" x="191.674" y="416.152" width="32" height="32"/>
-  <object id="19" type="collect" gid="47" x="287.913" y="416.152" width="32" height="32"/>
+  <object id="14" name="object06" type="spike" gid="41" x="128.359" y="128.701" width="32" height="32"/>
+  <object id="15" name="object05" type="spike" gid="41" x="95.4347" y="128.701" width="32" height="32"/>
+  <object id="16" name="object04" type="spike" gid="41" x="65.0434" y="128.701" width="32" height="32"/>
+  <object id="17" name="object03" type="spike" gid="41" x="319.57" y="351.57" width="32" height="32"/>
+  <object id="18" name="object02" type="spike" gid="41" x="191.674" y="416.152" width="32" height="32"/>
+  <object id="19" name="object01" type="piece" world="02_02" gid="47" x="287.913" y="416.152" width="32" height="32"/>
  </objectgroup>
 </map>
