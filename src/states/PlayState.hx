@@ -52,7 +52,8 @@ class PlayState extends LycanState {
     public var timeFactor(default, set):Float = 1;
 
     // World Editing related
-    public var isWorldEditing:Bool = false;
+    public var editState:EditState;
+    public var isWorldEditing:Bool;
     public var editingTransitionAmount(default, set):Float = 0;
 
     // For scripts
@@ -68,7 +69,8 @@ class PlayState extends LycanState {
 
     public function new() {
         super();
-		instance = this;
+        instance = this;
+        isWorldEditing = false;
     }
 
     override public function create():Void {
@@ -240,10 +242,25 @@ class PlayState extends LycanState {
     }
 
     public function beginWorldEditing(action:FlxActionDigital):Void {
+        if (isWorldEditing || editState != null || WorldCollection.instance.collectedCount <= 0) {
+            return;
+        }
+        isWorldEditing = true;
+        exclusiveTween("editTransition", this, { editingTransitionAmount: 1 }, 0.7, { ease: FlxEase.quadOut });
+        editState = new EditState();
+        openSubState(editState);
     }
 
-    public function endWorldEditing(action:FlxActionDigital):Void {
-
+    public function endWorldEditing(action:FlxActionDigital, ?callback:Void -> Void, fast:Bool = false):Void {
+        if (!isWorldEditing || editState == null) {
+            return;
+        }
+        isWorldEditing = false;
+        exclusiveTween("editTransition", this, { editingTransitionAmount: 0 }, fast ? 0.4 : 0.6, { ease: FlxEase.quadOut });
+        editState.transitionOut(() -> {
+            editState = null;
+            if (callback != null) callback();
+        }, fast);
     }
 
     public function toggleWorldEditing(action:FlxActionDigital):Void {

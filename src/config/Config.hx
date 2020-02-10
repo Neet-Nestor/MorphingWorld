@@ -33,5 +33,5 @@ class Config {
 	public static inline var WORLD_WIDTH = TILE_SIZE * WORLD_TILE_WIDTH;
     public static inline var WORLD_HEIGHT = TILE_SIZE * WORLD_TILE_HEIGHT;
     public static inline var WORLD_TILE_PADDING:Int = 0; // How many empty tiles pad around the world (and can overlap with over worlds)
-	public static inline var SWATCH_SCALE:Float = 1/4;
+	public static inline var SWATCH_SCALE:Float = 1 / 4;
 }
