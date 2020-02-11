@@ -89,8 +89,8 @@ class EditState extends FlxSubState {
 		add(brush);
 		brush.visible = false;
 		
-		var color:FlxColor = FlxColor.WHITE;
-		swatchBackground = FlxGradient.createGradientFlxSprite(FlxG.width, 155, [FlxColor.GREEN, color, color], 2, 270);
+		var color:FlxColor = 0xFF000000;
+		swatchBackground = FlxGradient.createGradientFlxSprite(FlxG.width, 155, [0x00000000, color, color], 2, 270);
 		swatchBackground.camera = PlayState.instance.uiCamera;
 		swatchBackground.alpha = 0;
 		
