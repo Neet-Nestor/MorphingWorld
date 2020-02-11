@@ -28,16 +28,21 @@ import lycan.world.components.PhysicsEntity;
 import flixel.FlxSprite;
 import states.PlayState;
 import flixel.group.FlxSpriteGroup;
+import flixel.tweens.FlxTween;
 import game.WorldDef;
 import game.WorldCollection;
+import flixel.tweens.FlxEase;
 
 class WorldSlot extends FlxSpriteGroup {
-	
+
 	public var gridPos:GridPosition;
 	public var world(default, set):MiniWorld;
 	public var universe:Universe;
-	
-	public var outline:PhysSprite;  // TODO: physics should be on it's own object, not borowing outline
+
+	public var outline:PhysSprite;
+	public var overlay:FlxSprite;
+	public var tween:FlxTween;
+	public var isHovered:Bool;
 	
 	public function new(gridX:Int = 0, gridY:Int = 0, universe:Universe) {
 		super();
@@ -55,8 +60,16 @@ class WorldSlot extends FlxSpriteGroup {
         outline.physics.snapEntityToBody();
 		outline.visible = true;
 		outline.alpha = 0;
+
+		overlay = new FlxSprite();
+		overlay.makeGraphic(448, 448);
+		overlay.anchorTo(outline, 0, 0, 0, 0);
+		overlay.alpha = 0;
+
 		add(outline);
+		add(overlay);
 		
+		isHovered = false;
 		world = null;
 	}
 	
@@ -98,6 +111,28 @@ class WorldSlot extends FlxSpriteGroup {
 				universe.makeSlot(x, y);
 			}
 		}
+	}
+	
+	public function hover():Void {
+		if (isHovered) {
+            return;
+        }
+		isHovered = true;
+		if (tween != null) {
+            tween.cancel();
+        }
+		tween = FlxTween.tween(overlay, { alpha: 0.25 }, 0.5, {ease: FlxEase.elasticOut});
+	}
+	
+	public function unhover():Void {
+		if (!isHovered) {
+            return;
+        }
+		isHovered = false;
+		if (tween != null) {
+            tween.cancel();
+        }
+		tween = FlxTween.tween(overlay, { alpha: 0 }, 0.5, {ease: FlxEase.elasticOut});
 	}
 	
 	override public function destroy():Void {
