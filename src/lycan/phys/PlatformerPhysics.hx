@@ -74,20 +74,13 @@ class PlatformerPhysics {
 		);
 
 		space.listeners.add(
-			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, Phys.TILEMAP_SHAPE_TYPE,
-				function(ic:PreCallback):PreFlag {
-					var arbiter = ic.arbiter;
-					
-					if (!arbiter.isCollisionArbiter()) return null;
-					var ca:CollisionArbiter = cast arbiter;
-					var angle:Float = FlxAngle.TO_DEG * ca.normal.angle;
-					
-					if (angle > -70 || angle < -110) {
-						trace("normal angle: " + angle);
-					}
-					return PreFlag.ACCEPT;
-				}, 2
-			)
+			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, Phys.TILEMAP_SHAPE_TYPE, (cb:PreCallback) -> {
+					var player:CharacterController = cast cb.int1.userData.entity;
+					player.characterController.stop();
+
+					// We don't need to change the acceptance
+					return PreFlag.ACCEPT_ONCE;
+			})
 		);
 		
 		// Avoid vertical friction on grounds

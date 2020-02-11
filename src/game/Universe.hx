@@ -89,4 +89,10 @@ class Universe extends FlxGroup {
 		removeSlot(slot);
 		return true;
 	}
+
+	public function reset():Void {
+		for (slot in slots) {
+			removeSlot(slot);
+		}
+	}
 }

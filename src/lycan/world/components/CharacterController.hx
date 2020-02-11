@@ -176,7 +176,17 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			}
 			body.velocity.set(oldVel);
 		}
-
+		
+		// Moving Left/Right
+		if (hasControl) {
+			if (leftPressed != rightPressed) {
+				targetMoveVel = leftPressed ? -runSpeed : runSpeed;
+				move();
+			} else {
+				if (Math.abs(currentMoveVel) > 0) stop();
+			}
+		}
+		
 		// Ground friction
 		var groundable:GroundableComponent = entity.groundable;
 		FlxG.watch.addQuick("grounded", groundable.isGrounded);
@@ -188,6 +198,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			feetShape.material.staticFriction = 0;
 		}
 		FlxG.watch.addQuick("friction", feetShape.material.dynamicFriction);
+		FlxG.watch.addQuick("x velocity", currentMoveVel);
 		FlxG.watch.addQuick("hasControl", hasControl);
 
 		if (groundable.isGrounded) {
@@ -217,19 +228,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		anchor.kinematicVel.x = currentMoveVel;
 	}
 
-	public function run():Void {
-		trace("run!");
-		// Moving Left/Right
-		// if (hasControl) {//TODO tidy up control, probably differentiate between hascontrol and input enabled
-		// 	if (leftPressed != rightPressed) {
-		// 		targetMoveVel = leftPressed ? -runSpeed : runSpeed;
-		// 		move();
-		// 	} else {
-		// 		if (Math.abs(currentMoveVel) > 0) stop();
-		// 	}
-		// }
-		physics.body.velocity.x = leftPressed ? -runSpeed : runSpeed;
-	}
+	public function run():Void {}
 
 	public function jump():Void {
 		if (hasControl && canJump) {

@@ -48,12 +48,9 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 		super.update(dt);
 
 		// Update location
-		trace("player update!!");
-		physics.body.position.x += dt * physics.body.velocity.x;
+		physics.body.position.x += dt * characterController.currentMoveVel;
 		physics.body.position.y += dt * physics.body.velocity.y;
 		physics.snapEntityToBody();
-		// trace("Position = " + physics.body.position);
-		// trace("Velocity = " + physics.body.velocity);
 	}
 
 	override private function updateAnimation(dt:Float):Void {
