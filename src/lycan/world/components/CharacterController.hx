@@ -177,16 +177,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			body.velocity.set(oldVel);
 		}
 
-		// Moving Left/Right
-		if (hasControl) {//TODO tidy up control, probably differentiate between hascontrol and input enabled
-			if (leftPressed != rightPressed) {
-				targetMoveVel = leftPressed ? -runSpeed : runSpeed;
-				move();
-			} else {
-				if (Math.abs(currentMoveVel) > 0) stop();
-			}
-		}
-
 		// Ground friction
 		var groundable:GroundableComponent = entity.groundable;
 		FlxG.watch.addQuick("grounded", groundable.isGrounded);
@@ -208,14 +198,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (currentJumps >= maxJumps || (body.velocity.y > maxJumpVelY && !groundable.isGrounded)) {
 			canJump = false;
 		}
-
-		if (hasControl && FlxG.keys.anyJustPressed([FlxKey.W, FlxKey.UP])) {
-			if (canJump) {
-				currentJumps++;
-				physics.body.velocity.y = jumpSpeed;
-			}
-		}
-
 		dropThrough = false;
 		if (hasControl && FlxG.keys.anyPressed([FlxKey.S, FlxKey.DOWN])) {
 			dropThrough = true;
@@ -236,10 +218,23 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	}
 
 	public function run():Void {
-
+		trace("run!");
+		// Moving Left/Right
+		// if (hasControl) {//TODO tidy up control, probably differentiate between hascontrol and input enabled
+		// 	if (leftPressed != rightPressed) {
+		// 		targetMoveVel = leftPressed ? -runSpeed : runSpeed;
+		// 		move();
+		// 	} else {
+		// 		if (Math.abs(currentMoveVel) > 0) stop();
+		// 	}
+		// }
+		physics.body.velocity.x = leftPressed ? -runSpeed : runSpeed;
 	}
 
 	public function jump():Void {
-
+		if (hasControl && canJump) {
+			currentJumps++;
+			physics.body.velocity.y = jumpSpeed;
+		}
 	}
 }

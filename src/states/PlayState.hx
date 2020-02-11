@@ -147,6 +147,7 @@ class PlayState extends LycanState {
 
         var actionLeft = new FlxActionDigital("Left", (_) -> {
             player.characterController.leftPressed = true;
+            player.characterController.run();
         });
         actionLeft.addKey(FlxKey.LEFT, FlxInputState.JUST_PRESSED);
         actionLeft.addKey(FlxKey.A, FlxInputState.JUST_PRESSED);
@@ -155,6 +156,7 @@ class PlayState extends LycanState {
 
         var actionReleaseLeft = new FlxActionDigital("ReleaseLeft", (_) -> {
             player.characterController.leftPressed = false;
+            player.characterController.run();
         });
         actionReleaseLeft.addKey(FlxKey.LEFT, FlxInputState.JUST_RELEASED);
         actionReleaseLeft.addKey(FlxKey.A, FlxInputState.JUST_RELEASED);
@@ -163,6 +165,7 @@ class PlayState extends LycanState {
 
         var actionRight = new FlxActionDigital("Right", (_) -> {
             player.characterController.rightPressed = true;
+            player.characterController.run();
         });
         actionRight.addKey(FlxKey.RIGHT, FlxInputState.JUST_PRESSED);
         actionRight.addKey(FlxKey.D, FlxInputState.JUST_PRESSED);
@@ -171,6 +174,7 @@ class PlayState extends LycanState {
 
        var actionReleaseRight = new FlxActionDigital("ReleaseRight", (_) -> {
             player.characterController.rightPressed = false;
+            player.characterController.run();
         });
         actionReleaseRight.addKey(FlxKey.RIGHT, FlxInputState.JUST_RELEASED);
         actionReleaseRight.addKey(FlxKey.D, FlxInputState.JUST_RELEASED);

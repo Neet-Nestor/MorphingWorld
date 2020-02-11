@@ -48,6 +48,7 @@ class Phys {
 	public static function init():Void {
 		if (space != null) return;
 		space = new Space(Vec2.weak(0, 3));
+		space.gravity.x = 0;
 		space.gravity.y = 2500;
 
 		FlxG.signals.preUpdate.add(update);

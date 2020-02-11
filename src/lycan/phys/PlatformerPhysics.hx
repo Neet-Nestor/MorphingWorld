@@ -54,7 +54,7 @@ class PlatformerPhysics {
 		
 		space = space == null ? Phys.space : space;
 		WORLD_FILTER.collisionGroup = 1;
-		WORLD_FILTER.collisionMask  = 1;
+		WORLD_FILTER.collisionMask  = ~1;
 		OVERLAPPING_OBJECT_FILTER.collisionGroup = 2;
 		OVERLAPPING_OBJECT_FILTER.collisionMask  = 1 | 2;
 
@@ -76,8 +76,15 @@ class PlatformerPhysics {
 		space.listeners.add(
 			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, Phys.TILEMAP_SHAPE_TYPE,
 				function(ic:PreCallback):PreFlag {
-					var b1:Body = ic.int1.castBody;
-					var b2:Body = ic.int2.castBody;
+					var arbiter = ic.arbiter;
+					
+					if (!arbiter.isCollisionArbiter()) return null;
+					var ca:CollisionArbiter = cast arbiter;
+					var angle:Float = FlxAngle.TO_DEG * ca.normal.angle;
+					
+					if (angle > -70 || angle < -110) {
+						trace("normal angle: " + angle);
+					}
 					return PreFlag.ACCEPT;
 				}, 2
 			)
@@ -102,7 +109,7 @@ class PlatformerPhysics {
 					}
 					
 					// We don't need to change the acceptance
-					return PreFlag.IGNORE;//TODO fights onewyas?
+					return PreFlag.IGNORE;  //TODO： fights oneways?
 				}
 			)
 		);
