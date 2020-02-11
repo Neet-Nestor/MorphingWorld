@@ -368,7 +368,7 @@ class WorldLoader {
 		joint.stiff = false;
 		joint.frequency = 60;
 		joint.damping = 1;
-		joint.space = b1.space;//TODO compound?
+		joint.space = b1.space; //TODO compound?
 		var diff = b2.rotation - b1.rotation;
 		var joint2 = new AngleJoint(b1, b2, diff, diff);
 		joint2.stiff = false;

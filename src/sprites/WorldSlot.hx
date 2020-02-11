@@ -40,7 +40,7 @@ class WorldSlot extends FlxSpriteGroup {
 	public var outline:PhysSprite;  // TODO: physics should be on it's own object, not borowing outline
 	
 	public function new(gridX:Int = 0, gridY:Int = 0, universe:Universe) {
-		super(gridX * Config.WORLD_WIDTH, gridY * Config.WORLD_HEIGHT);
+		super();
 		this.universe = universe;
 		
 		gridPos = {x: gridX, y: gridY};
@@ -52,7 +52,9 @@ class WorldSlot extends FlxSpriteGroup {
 		outline.makeGraphic(448, 448);
 		outline.physics.init(BodyType.STATIC, true, false);
 		outline.physics.setBodyMaterial(0, 1, 2, 1, 1);
-        outline.physics.snapBodyToEntity();
+		outline.physics.body.position.setxy(gridX * Config.WORLD_WIDTH  + Config.WORLD_WIDTH  / 2,
+										    gridY * Config.WORLD_HEIGHT + Config.WORLD_HEIGHT / 2);
+        outline.physics.snapEntityToBody();
 		outline.visible = true;
 		outline.alpha = 0;
 		add(outline);
@@ -62,7 +64,6 @@ class WorldSlot extends FlxSpriteGroup {
 	
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-		trace('slot at $gridPos, $x, $y\'s alpha is $alpha');
 		if (outline.visible) {
 			// For Animation
 			outline.alpha = PlayState.instance.editingTransitionAmount * 0.4;
@@ -82,7 +83,6 @@ class WorldSlot extends FlxSpriteGroup {
         }
 		universe.worldLayer.add(world); // TODO: correct layers for loading
 		padWithEmptySlots();
-		trace(universe.slots);
 		outline.visible = false;
 		outline.physics.enabled = false; // TODO: invert for unloading a world
 		
