@@ -36,6 +36,6 @@ class Config {
     public static inline final WORLD_TILE_PADDING:Int = 0; // How many empty tiles pad around the world (and can overlap with over worlds)
     public static inline final SWATCH_SCALE:Float = 1 / 4;
     
-    public static inline final START_WORLD:String = "01_00";
-    public static final WORLDS:Array<String> = ["01_00", "01_01", "02_00", "02_01", "02_02"];
+    public static inline final START_WORLD:String = "00_00";
+    public static final WORLDS:Array<String> = ["00_00", "00_01", "01_00", "01_01", "02_00", "02_01", "02_02"];
 }
