@@ -10,6 +10,7 @@ class Config {
     // Player image dimension in sprite sheet
     public static inline final PLAYER_HEIGHT:Int = 32;
     public static inline final PLAYER_WIDTH:Int = 32;
+    public static inline final PLAYER_SCALE:Float = 1;
 
     // Map Path
     public static inline final MAP_PATH:String = "assets/data/";

@@ -15,6 +15,7 @@ class Player extends LSprite implements CharacterController implements Groundabl
         super();
 
         loadGraphic(AssetPaths.player__png, true, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
+		scale.set(Config.PLAYER_SCALE, Config.PLAYER_SCALE);
 
 		var idleFrames = [for (i in 0...6) i];
 		idleFrames.concat([for (i in 0...Config.PLAYER_FRAME_PER_ROW) i]);

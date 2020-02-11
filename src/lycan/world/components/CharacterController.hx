@@ -73,8 +73,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 
 	public var anchor:Body;
 	public var anchorJoint:LineJoint;
-	public var bodyShape:Shape;
-	public var feetShape:Shape;
 
 	public function new(entity:CharacterController) {
 		super(entity);
@@ -88,13 +86,10 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (height == null) height = _object.height;
 
 		physics.init(BodyType.DYNAMIC, false);
+		physics.createRectangularBody(16, 32);
 		physics.body.position.setxy(x, y);
+		physics.body.userData.entity = entity;
 		physics.body.allowRotation = false;
-		feetShape = new Circle(width / 2, Vec2.weak(0, (height - width) / 2));
-		bodyShape = new Polygon(Polygon.rect(-width / 2, -height / 2, width, height - width / 2));
-		physics.body.shapes.add(feetShape);
-		physics.body.shapes.add(bodyShape);
-		physics.setBodyMaterial();
 		physics.body.group = PlatformerPhysics.OVERLAPPING_OBJECT_GROUP;
 
 		physics.body.isBullet = true;
@@ -137,7 +132,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		var oldVel:Vec2 = body.velocity.copy(true);
 		body.velocity.setxy(0, 1);
 		body.position.y--;
-		var result:ConvexResult = Phys.space.convexCast(feetShape, 1, false, feetShape.filter);
+		var result:ConvexResult = Phys.space.convexCast(body.shapes.at(0), 1, false, body.shapes.at(0).filter);
 		if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
 			entity.groundable.add(result.shape.body.userData.entity);
 		}
@@ -155,7 +150,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			var oldVel:Vec2 = body.velocity.copy(true);
 			body.velocity.setxy(0, groundSuckDistance * 60);//TODO customisable
 			body.position.y--;
-			var result:ConvexResult = Phys.space.convexCast(feetShape, 1/60, false, feetShape.filter);
+			var result:ConvexResult = Phys.space.convexCast(body.shapes.at(0), 1/60, false, body.shapes.at(0).filter);
 			if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90)  <= entity.groundable.groundedAngleLimit) {
 				body.integrate(result.toi);
 				entity.groundable.add(result.shape.body.userData.entity);
@@ -179,11 +174,11 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		var groundable:GroundableComponent = entity.groundable;
 		FlxG.watch.addQuick("grounded", groundable.isGrounded);
 		if (groundable.isGrounded && !isMoving) {
-			feetShape.material.dynamicFriction = 100;
-			feetShape.material.staticFriction = 100;
+			body.shapes.at(0).material.dynamicFriction = 100;
+			body.shapes.at(0).material.staticFriction = 100;
 		} else {
-			feetShape.material.dynamicFriction = 0;
-			feetShape.material.staticFriction = 0;
+			body.shapes.at(0).material.dynamicFriction = 0;
+			body.shapes.at(0).material.staticFriction = 0;
 		}
 
 		if (groundable.isGrounded) {
@@ -198,7 +193,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (hasControl && FlxG.keys.anyPressed([FlxKey.S, FlxKey.DOWN])) {
 			dropThrough = true;
 		}
-		FlxG.watch.addQuick("friction", feetShape.material.dynamicFriction);
+		FlxG.watch.addQuick("friction", body.shapes.at(0).material.dynamicFriction);
 		FlxG.watch.addQuick("x velocity", currentMoveVel);
 		FlxG.watch.addQuick("hasControl", hasControl);
 		FlxG.watch.addQuick("Jumps left", maxJumps - currentJumps);
