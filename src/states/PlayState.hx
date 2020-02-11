@@ -225,7 +225,8 @@ class PlayState extends LycanState {
         if (FlxG.keys.anyJustPressed([FlxKey.F])) FlxG.fullscreen = !FlxG.fullscreen;
         #end
 
-        if (player.physics.body.velocity.y > 3000) {
+        // TODO: better way to detech death
+        if (player.physics.body.velocity.y > 1200) {
             reset();
         }
 
