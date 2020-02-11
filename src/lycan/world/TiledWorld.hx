@@ -89,7 +89,7 @@ class TiledWorld extends FlxGroup {
 		combinedTileset = null;
 		if (collisionLayers != null) {
 			for (cl in collisionLayers) cl.destroy();
-			collisionLayers.splice(0, collisionLayers.length);
+			collisionLayers = [];
 		}
 	}
 	
