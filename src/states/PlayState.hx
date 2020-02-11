@@ -237,6 +237,7 @@ class PlayState extends LycanState {
 
     // Handlers
     public function reset():Void {
+        if (isWorldEditing) endWorldEditing();
         WorldCollection.reset();
         remove(player);
         player.destroy();
@@ -253,6 +254,7 @@ class PlayState extends LycanState {
     }
 
     public function switchWorld(nextWorld:WorldDef):Void {
+        if (isWorldEditing) endWorldEditing();
         // Clean
         WorldCollection.reset();
         remove(player);
