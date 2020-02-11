@@ -212,9 +212,6 @@ class PlayState extends LycanState {
         if (FlxG.keys.anyJustReleased([FlxKey.RIGHT, FlxKey.D])) {
             player.characterController.rightPressed = false;
         }
-        if (FlxG.keys.anyJustPressed([FlxKey.R, FlxKey.D])) {
-            player.characterController.rightPressed = false;
-        }
 
         if (FlxG.mouse.wheel < 0) beginWorldEditing();
         else if (FlxG.mouse.wheel > 0) endWorldEditing();
@@ -343,8 +340,6 @@ class PlayState extends LycanState {
 		t.y = FlxG.height - 50;
 		t.screenCenter(FlxAxes.X);
 		t.alpha = 0;
-
-		if (group == null) group = uiGroup;
 
 		FlxTween.tween(t, {alpha: 1}, 0.6, {onComplete: (_) -> {
             new FlxTimer(timers).start(duration, (_) -> {
