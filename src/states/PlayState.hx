@@ -309,7 +309,7 @@ class PlayState extends LycanState {
         // Hint show once
         if (!dragHintShown) {
             dragHintShown = true;
-            new FlxTimer().start(0.5, (_) -> this.showText("[Drag & Drop]", 2, 10, uiGroup));
+            new FlxTimer().start(0.5, (_) -> this.showText("[Drag & Drop]", 2, uiGroup));
         }
     }
 
@@ -336,7 +336,7 @@ class PlayState extends LycanState {
     // Helper functions
 
     // Create a text on screen
-	public function showText(str:String, showTime:Float = 1.65, duration:Float = 5, ?group:FlxSpriteGroup):Void {
+	public function showText(str:String, showTime:Float = 1.65, duration:Float = 10, ?group:FlxSpriteGroup):Void {
 		var t = new FlxText(0, 0, 0, str, 20);
 		t.font = "fairfax";
 		t.y = FlxG.height - 50;
@@ -345,11 +345,13 @@ class PlayState extends LycanState {
 
 		if (group == null) group = uiGroup;
 
-		FlxTween.tween(t, {alpha: 1}, duration, {onComplete: (_) -> {
-			FlxTween.tween(t, {alpha: 0}, duration, {startDelay: showTime, onComplete: (_) -> {
-				group.remove(t);
-				t.destroy();
-			}});
+		FlxTween.tween(t, {alpha: 1}, 0.6, {onComplete: (_) -> {
+            new FlxTimer(timers).start(duration, (_) -> {
+                FlxTween.tween(t, {alpha: 0}, 0.6, {startDelay: showTime, onComplete: (_) -> {
+                    group.remove(t);
+                    t.destroy();
+                }});
+            });
 		}});
 
 		group.add(t);
