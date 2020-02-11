@@ -23,8 +23,8 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 
 		characterController.init(width, height);
 		characterController.moveAcceleration = 0.2;
-		characterController.runSpeed = 200;
-		characterController.jumpSpeed = -300;
+		characterController.runSpeed = 100;
+		characterController.jumpSpeed = -200;
 		characterController.maxJumpVelY = 50;
 		characterController.minMoveVel = 8;
 		characterController.maxJumps = 3;
