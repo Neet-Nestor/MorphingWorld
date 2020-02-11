@@ -25,7 +25,11 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="7" name="portall2s3" type="portal" x="287.611" y="319.568" width="32.8205" height="31.0931"/>
+  <object id="7" name="portall2s3" type="portal" x="287.611" y="319.568" width="32.8205" height="31.0931">
+   <properties>
+    <property name="world" value="02_00"/>
+   </properties>
+  </object>
   <object id="8" name="player" type="player" x="108.932" y="331.155"/>
   <object id="9" x="-143.791" y="-52.2876" height="1.08932"/>
  </objectgroup>
