@@ -29,6 +29,6 @@
     <property name="world" value="01_01"/>
    </properties>
   </object>
-  <object id="3" name="player" type="player" x="351.482" y="319.457" width="32.0257" height="31.2251"/>
+  <object id="3" name="player" type="player" x="350.605" y="279.136" width="32.0257" height="31.2251"/>
  </objectgroup>
 </map>

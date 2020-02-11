@@ -183,7 +183,7 @@ class PlayState extends LycanState {
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
-
+        
         // actions
         if (FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W])) {
             player.characterController.jump();
@@ -227,8 +227,17 @@ class PlayState extends LycanState {
     // Handlers
     public function reset():Void {
         WorldCollection.reset();
-        universe.reset("01_00");
-        player.resetCc();
+        remove(player);
+        player.destroy();
+        player = null;
+        universe.reset();
+        add(player);
+		FlxG.camera.follow(null);
+        cameraFocus.destroy();
+		cameraFocus = new CameraFocus();
+		cameraFocus.add(new ObjectTargetInfluencer(player));
+		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
+		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
 		FlxG.camera.snapToTarget();
     }
 

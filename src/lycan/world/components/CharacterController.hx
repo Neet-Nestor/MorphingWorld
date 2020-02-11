@@ -232,7 +232,8 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	public function run():Void {}
 
 	public function jump():Void {
-		if (hasControl && canJump) {
+		// if (hasControl && canJump) {
+		if (hasControl) {
 			currentJumps++;
 			physics.body.velocity.y = jumpSpeed;
 		}

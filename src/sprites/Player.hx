@@ -36,18 +36,6 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 		setFacingFlip(FlxObject.LEFT, true, false);
 	}
 
-	public function resetCc():Void {
-		characterController.destroy();
-		characterController = new CharacterControllerComponent(this);
-		characterController.init(width, height);
-		characterController.moveAcceleration = 0.2;
-		characterController.runSpeed = 100;
-		characterController.jumpSpeed = -200;
-		characterController.maxJumpVelY = 50;
-		characterController.minMoveVel = 8;
-		characterController.maxJumps = 2;
-	}
-
 	override public function revive():Void {
 		super.revive();
 	}
