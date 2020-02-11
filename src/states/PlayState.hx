@@ -11,9 +11,6 @@ import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.group.FlxSpriteGroup;
 import flixel.input.FlxInput.FlxInputState;
-import flixel.input.actions.FlxAction;
-import flixel.input.actions.FlxActionManager;
-import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
@@ -48,6 +45,7 @@ import sprites.CameraFocus;
 import sprites.PhysSprite;
 import sprites.Player;
 import sprites.Portal;
+import sprites.PuffEmitter;
 import sprites.WorldPiece;
 
 class PlayState extends LycanState {
@@ -59,6 +57,9 @@ class PlayState extends LycanState {
 
     // For transition effects
     public var timeFactor(default, set):Float = 1;
+
+    // For emitter effects
+	public var puffEmitter:PuffEmitter;
 
     // World Editing related
     public var editState:EditState;
@@ -74,7 +75,6 @@ class PlayState extends LycanState {
 	public var interp:Interp;
 
     // Managers
-    public var actions:FlxActionManager;
 	public var timers:FlxTimerManager;
 	public var tweens:FlxTweenManager;
 
@@ -136,9 +136,10 @@ class PlayState extends LycanState {
     private function initManagers():Void {
 		timers = new FlxTimerManager();
 		tweens = new FlxTweenManager();
-		actions = new FlxActionManager();
+        puffEmitter = new PuffEmitter();
 		add(timers);
         add(tweens);
+        add(puffEmitter);
     }
 
     private function initScripts():Void {

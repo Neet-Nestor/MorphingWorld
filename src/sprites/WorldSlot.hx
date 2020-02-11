@@ -114,12 +114,12 @@ class WorldSlot extends FlxSpriteGroup {
 		
 		universe.worldLayer.remove(world);
 		// Effect
-		// if (animate) {
-		// 	var emitter = PlayState.instance.puffEmitter;
-		// 	emitter.setPosition(world.x, world.y);
-		// 	emitter.setSize(Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
-		// 	emitter.start(true, 0.1, 200);
-		// }
+		if (animate) {
+			var emitter = PlayState.instance.puffEmitter;
+			emitter.setPosition(world.x, world.y);
+			emitter.setSize(Config.WORLD_WIDTH, Config.WORLD_HEIGHT);
+			emitter.start(true, 0.1, 200);
+		}
 
 		world.destroy();
 		world = null;
