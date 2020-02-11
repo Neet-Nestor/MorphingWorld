@@ -294,21 +294,6 @@
             }
         },
         {
-            "type": "NeedBraces",
-            "props":
-            {
-                "allowSingleLineStatement": false,
-                "tokens":
-                [
-                    "FOR",
-                    "ELSE_IF",
-                    "WHILE",
-                    "DO_WHILE"
-                ],
-                "severity": "ERROR"
-            }
-        },
-        {
             "type": "NestedForDepth",
             "props":
             {

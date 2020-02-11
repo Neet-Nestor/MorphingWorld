@@ -216,16 +216,18 @@ interface PhysicsEntity extends Entity {
 	
 	//TODO from old flixel. origin is not correct
 	public function snapEntityToBody():Void {
-		entity.entity_x = position.x - entity.entity_origin.x * entity.entity_scale.x;
-		entity.entity_y = position.y - entity.entity_origin.y * entity.entity_scale.y;
-		
-		if (Phys.FLOOR_POS) {
-			entity.entity_x = Math.floor(entity.entity_x);
-			entity.entity_y = Math.floor(entity.entity_y);
-		}
-		
-		if (body.allowRotation && rotateEntity) {
-			entity.entity_angle = body.rotation * FlxAngle.TO_DEG;
+		if (entity.entity_origin != null) {
+			entity.entity_x = position.x - entity.entity_origin.x * entity.entity_scale.x;
+			entity.entity_y = position.y - entity.entity_origin.y * entity.entity_scale.y;
+			
+			if (Phys.FLOOR_POS) {
+				entity.entity_x = Math.floor(entity.entity_x);
+				entity.entity_y = Math.floor(entity.entity_y);
+			}
+			
+			if (body.allowRotation && rotateEntity) {
+				entity.entity_angle = body.rotation * FlxAngle.TO_DEG;
+			}
 		}
 	}
 	

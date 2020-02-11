@@ -62,7 +62,6 @@ class Phys {
 		FlxG.signals.preStateSwitch.remove(onStateSwitch);
 
 		GroundableComponent.clearGroundsSignal.removeAll();
-
 	}
 
 	/**

@@ -52,14 +52,14 @@ class TiledWorld extends FlxGroup {
 	
 	public var combinedTileset:FlxTileFrames;
 	public var defaultCollisionType:WorldCollisionType;
-	
+
 	/**
 	 *  Array of tilemaps to use for flixel base collision detection
 	 */
-	public var collisionLayers:Array<FlxTilemap>;
+	 public var collisionLayers:Array<FlxTilemap>;
 	
-	public var onLoadingProgressed(default, null) = new FlxTypedSignal<Float->Void>();
-	public var onLoadingComplete(default, null) = new FlxTypedSignal<Void->Void>();
+	 public var onLoadingProgressed(default, null) = new FlxTypedSignal<Float -> Void>();
+	 public var onLoadingComplete(default, null) = new FlxTypedSignal<Void -> Void>();
 
 	public function new(scale:Float = 1, defaultCollisionType:WorldCollisionType = NONE) {
 		super();
@@ -72,17 +72,25 @@ class TiledWorld extends FlxGroup {
 	
 	override public function destroy():Void {
 		super.destroy();
+		if (objects != null) for (obj in objects) obj.destroy();
 		objects = null;
+		if (objectLayers != null) for (objl in objectLayers) objl.destroy();
 		objectLayers = null;
+		if (tileLayers != null) for (tl in tileLayers) tl.destroy();
 		tileLayers = null;
+		if (imageLayers != null) for (il in imageLayers) il.destroy();
 		imageLayers = null;
+		tilesets = null;
 		collisionObjects = null;
 		properties = null;
 		if (scale != null) scale.put();
 		scale = null;
 		if (combinedTileset != null) combinedTileset.destroy();
 		combinedTileset = null;
-		if (collisionLayers != null) collisionLayers.splice(0, collisionLayers.length);
+		if (collisionLayers != null) {
+			for (cl in collisionLayers) cl.destroy();
+			collisionLayers.splice(0, collisionLayers.length);
+		}
 	}
 	
 	public function collideWithLevel<T, U>(obj:FlxBasic, ?notifyCallback:T->U->Void, ?processCallback:T->U->Bool):Bool {
