@@ -34,7 +34,7 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
 		animation.add("open", [0], 0);
 		animation.add("close", [1], 0);
 		animation.play("close");
-		physics.init(BodyType.KINEMATIC, true, false);
+		physics.init(BodyType.STATIC, true, false);
 		physics.body.userData.entity = this;
 		physics.enabled = true;
 		physics.body.shapes.at(0).sensorEnabled = true;
