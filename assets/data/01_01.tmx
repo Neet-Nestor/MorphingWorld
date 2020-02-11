@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="10">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="11">
  <tileset firstgid="1" source="Sprute.tsx"/>
- <tileset firstgid="50" source="portalRings1.tsx"/>
+ <tileset firstgid="50" source="portal.tsx"/>
  <layer id="1" name="Tile Layer 1" width="14" height="14">
   <properties>
    <property name="collision" value="true"/>
@@ -31,6 +31,10 @@
    </properties>
   </object>
   <object id="8" name="player" type="player" x="108.932" y="331.155"/>
-  <object id="9" x="-143.791" y="-52.2876" height="1.08932"/>
+  <object id="10" name="portall2s3" type="portal" gid="50" x="288" y="352" width="32" height="32">
+   <properties>
+    <property name="world" value="02_00"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
