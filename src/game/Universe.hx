@@ -49,6 +49,8 @@ class Universe extends FlxGroup {
 	
 	public function reset(initWorldName:String = Config.START_WORLD):Void {
 		for (slot in slots) removeSlot(slot);
+		for (world in worldLayer) world.destroy();
+		worldLayer.clear();
         PlayState.instance.reloadPlayerPosition = true;
         makeSlot(0, 0).loadWorld(WorldCollection.get(initWorldName));
 	}

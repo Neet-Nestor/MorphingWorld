@@ -94,7 +94,6 @@ class PlayState extends LycanState {
         super.create();
         initPhysics();
         initManagers();
-        initActions();
         initScripts();
         WorldCollection.init();
         initUniverse();
@@ -130,77 +129,6 @@ class PlayState extends LycanState {
         add(tweens);
     }
 
-    private function initActions():Void {
-        // Player actions
-        var actionJump = new FlxActionDigital("Jump", (_) -> {
-            player.characterController.jump();
-        });
-        actionJump.addKey(FlxKey.UP, FlxInputState.JUST_PRESSED);
-        actionJump.addKey(FlxKey.X, FlxInputState.JUST_PRESSED);
-        actionJump.addKey(FlxKey.Z, FlxInputState.JUST_PRESSED);
-        actionJump.addKey(FlxKey.W, FlxInputState.JUST_PRESSED);
-        actionJump.addGamepad(FlxGamepadInputID.DPAD_UP, FlxInputState.JUST_PRESSED);
-        actionJump.addGamepad(FlxGamepadInputID.A, FlxInputState.JUST_PRESSED);
-        actionJump.addGamepad(FlxGamepadInputID.B, FlxInputState.JUST_PRESSED);
-
-        var actionLeft = new FlxActionDigital("Left", (_) -> {
-            player.characterController.leftPressed = true;
-        });
-        actionLeft.addKey(FlxKey.LEFT, FlxInputState.JUST_PRESSED);
-        actionLeft.addKey(FlxKey.A, FlxInputState.JUST_PRESSED);
-        actionLeft.addGamepad(FlxGamepadInputID.DPAD_LEFT, FlxInputState.JUST_PRESSED);
-        actionLeft.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT, FlxInputState.JUST_PRESSED);
-
-        var actionReleaseLeft = new FlxActionDigital("ReleaseLeft", (_) -> {
-            player.characterController.leftPressed = false;
-        });
-        actionReleaseLeft.addKey(FlxKey.LEFT, FlxInputState.JUST_RELEASED);
-        actionReleaseLeft.addKey(FlxKey.A, FlxInputState.JUST_RELEASED);
-        actionReleaseLeft.addGamepad(FlxGamepadInputID.DPAD_LEFT, FlxInputState.JUST_RELEASED);
-        actionReleaseLeft.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT, FlxInputState.JUST_RELEASED);
-
-        var actionRight = new FlxActionDigital("Right", (_) -> {
-            player.characterController.rightPressed = true;
-        });
-        actionRight.addKey(FlxKey.RIGHT, FlxInputState.JUST_PRESSED);
-        actionRight.addKey(FlxKey.D, FlxInputState.JUST_PRESSED);
-        actionRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.JUST_PRESSED);
-        actionRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.JUST_PRESSED);
-
-       var actionReleaseRight = new FlxActionDigital("ReleaseRight", (_) -> {
-            player.characterController.rightPressed = false;
-        });
-        actionReleaseRight.addKey(FlxKey.RIGHT, FlxInputState.JUST_RELEASED);
-        actionReleaseRight.addKey(FlxKey.D, FlxInputState.JUST_RELEASED);
-        actionReleaseRight.addGamepad(FlxGamepadInputID.DPAD_RIGHT, FlxInputState.JUST_RELEASED);
-        actionReleaseRight.addGamepad(FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT, FlxInputState.JUST_RELEASED);
-
-        var actionBeginWorldEditing = new FlxActionDigital("BeginWorldEditing", (_) -> this.beginWorldEditing());
-        actionBeginWorldEditing.addMouseWheel(false, FlxInputState.JUST_PRESSED);
-
-        var actionEndWorldEditing = new FlxActionDigital("EndWorldEditing", (_) -> this.endWorldEditing());
-        actionEndWorldEditing.addMouseWheel(true, FlxInputState.JUST_PRESSED);
-
-        var actionToggleWorldEditing = new FlxActionDigital("ToggleWorldEditing", (_) -> this.toggleWorldEditing());
-        actionToggleWorldEditing.addKey(FlxKey.SPACE, FlxInputState.JUST_PRESSED);
-
-        actions.addActions([actionLeft, actionRight, actionReleaseLeft, actionReleaseRight, actionJump]);
-        actions.addActions([actionBeginWorldEditing, actionEndWorldEditing, actionToggleWorldEditing]);
-
-        #if cpp
-        var actionExitGame = new FlxActionDigital("ExitGame", (_) -> { Sys.exit(0); });
-        actionExitGame.addKey(FlxKey.ESCAPE, FlxInputState.JUST_PRESSED);
-        var actionToggleFullScreen = new FlxActionDigital("ToggleFullScreen", (_) -> { FlxG.fullscreen = !FlxG.fullscreen; });
-        actionToggleFullScreen.addKey(FlxKey.F, FlxInputState.JUST_PRESSED);
-
-        actions.addActions([actionExitGame, actionToggleFullScreen]);
-        #end
-
-        var actionResetGame = new FlxActionDigital("ResetGame", (_) -> { reset(); });
-        actionResetGame.addKey(FlxKey.R, FlxInputState.JUST_PRESSED);
-        actions.addAction(actionResetGame);
-    }
-
     private function initScripts():Void {
         // Scripting Setup
 		parser = new Parser();
@@ -219,7 +147,7 @@ class PlayState extends LycanState {
     private function initUniverse(initWorldName:String = Config.START_WORLD):Void {
         universe = new Universe();
         reloadPlayerPosition = true;
-        
+
         var initWorld = WorldCollection.get(initWorldName);
         universe.makeSlot(0, 0).loadWorld(initWorld);
         initWorld.owned = true;
@@ -254,9 +182,38 @@ class PlayState extends LycanState {
     // FlxSprite Overrides
 
     override public function update(elapsed:Float):Void {
-        @:privateAccess actions.update();
-
         super.update(elapsed);
+
+        // actions
+        if (FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W])) {
+            player.characterController.jump();
+        }
+        if (FlxG.keys.anyJustPressed([FlxKey.LEFT, FlxKey.A])) {
+            player.characterController.leftPressed = true;
+        }
+        if (FlxG.keys.anyJustPressed([FlxKey.RIGHT, FlxKey.D])) {
+            player.characterController.rightPressed = true;
+        }
+        if (FlxG.keys.anyJustReleased([FlxKey.LEFT, FlxKey.A])) {
+            player.characterController.leftPressed = false;
+        }
+        if (FlxG.keys.anyJustReleased([FlxKey.RIGHT, FlxKey.D])) {
+            player.characterController.rightPressed = false;
+        }
+        if (FlxG.keys.anyJustPressed([FlxKey.R, FlxKey.D])) {
+            player.characterController.rightPressed = false;
+        }
+
+        if (FlxG.mouse.wheel < 0) beginWorldEditing();
+        else if (FlxG.mouse.wheel > 0) endWorldEditing();
+        else if (FlxG.keys.anyJustReleased([FlxKey.SPACE])) toggleWorldEditing();
+
+        if (FlxG.keys.anyJustPressed([FlxKey.R])) reset();
+
+        #if cpp
+        if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) Sys.exit(0);
+        if (FlxG.keys.anyJustPressed([FlxKey.F])) FlxG.fullscreen = !FlxG.fullscreen;
+        #end
 
         FlxG.watch.addQuick("player position", player.physics.body.position);
         FlxG.watch.addQuick("player velocity", player.physics.body.velocity);
@@ -270,7 +227,8 @@ class PlayState extends LycanState {
     // Handlers
     public function reset():Void {
         WorldCollection.reset();
-        universe.reset();
+        universe.reset("01_00");
+        player.resetCc();
 		FlxG.camera.snapToTarget();
     }
 
