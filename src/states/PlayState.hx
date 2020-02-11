@@ -224,6 +224,10 @@ class PlayState extends LycanState {
         if (FlxG.keys.anyJustPressed([FlxKey.F])) FlxG.fullscreen = !FlxG.fullscreen;
         #end
 
+        if (player.physics.body.velocity.y > 3000) {
+            reset();
+        }
+
         FlxG.watch.addQuick("player position", player.physics.body.position);
         FlxG.watch.addQuick("player velocity", player.physics.body.velocity);
     }
