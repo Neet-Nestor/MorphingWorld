@@ -27,10 +27,10 @@ class WorldCollection extends NamedCollection<WorldDef> {
 	}
 
 	public static function reset():Void {
-		instance.collectedCount = 0;
 		for (w in instance.list) {
 			w.owned = false;
 		}
+		instance.collectedCount = 0;
 	}
 
 	public function get_collectedCount():Int {

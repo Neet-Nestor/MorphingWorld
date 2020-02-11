@@ -22,6 +22,7 @@ import lycan.world.layer.ObjectLayer;
 import nape.phys.Material;
 import sprites.Player;
 import sprites.WorldSlot;
+import states.PlayState;
 
 typedef GridPosition = {x:Int, y:Int};
 
@@ -40,7 +41,18 @@ class Universe extends FlxGroup {
 		add(worldLayer);
 		add(slots);
 	}
+
+	override public function destroy():Void {
+		for (slot in slots) removeSlot(slot);
+		super.destroy();
+	}
 	
+	public function reset(initWorldName:String = Config.START_WORLD):Void {
+		for (slot in slots) removeSlot(slot);
+        PlayState.instance.reloadPlayerPosition = true;
+        makeSlot(0, 0).loadWorld(WorldCollection.get(initWorldName));
+	}
+
 	public function makeSlot(x:Int, y:Int):WorldSlot {
         if (getSlot(x, y) != null) {
             return null;
@@ -88,11 +100,5 @@ class Universe extends FlxGroup {
 		// If all local slots are empty, remove this slot
 		removeSlot(slot);
 		return true;
-	}
-
-	public function reset():Void {
-		for (slot in slots) {
-			removeSlot(slot);
-		}
 	}
 }

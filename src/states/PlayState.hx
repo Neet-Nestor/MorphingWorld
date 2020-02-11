@@ -51,7 +51,6 @@ import sprites.WorldPiece;
 
 class PlayState extends LycanState {
     public var player:Player;
-    public var world:MiniWorld;
     public var universe:Universe;
 	public var cameraFocus:CameraFocus;
     public var reloadPlayerPosition:Bool;
@@ -100,7 +99,6 @@ class PlayState extends LycanState {
         WorldCollection.init();
         initUniverse();
         initCamera();
-        add(universe);
         add(player);
     }
 
@@ -218,12 +216,18 @@ class PlayState extends LycanState {
 		interp.variables.set("wait", function(delay:Float, cb:Void -> Void) new FlxTimer(timers).start(delay, (_) -> cb()));
     }
 
-    private function initUniverse():Void {
-        if (universe != null) universe.reset();
-        else universe = new Universe();
-        var startWorldDef = WorldCollection.get(Config.START_WORLD);
+    private function initUniverse(initWorldName:String = Config.START_WORLD):Void {
+        universe = new Universe();
         reloadPlayerPosition = true;
-        universe.makeSlot(0, 0).loadWorld(startWorldDef);
+        
+        var initWorld = WorldCollection.get(initWorldName);
+        universe.makeSlot(0, 0).loadWorld(initWorld);
+        initWorld.owned = true;
+        universe.forEachOfType(WorldPiece, (piece) -> {
+            if (piece.worldDef == initWorld) piece.collectable.collect(player);
+        }, true);
+
+        add(universe);
     }
 
     private function initCamera():Void {
@@ -264,6 +268,11 @@ class PlayState extends LycanState {
     }
 
     // Handlers
+    public function reset():Void {
+        WorldCollection.reset();
+        universe.reset();
+		FlxG.camera.snapToTarget();
+    }
 
     public function collectWorld(worldDef:WorldDef):Void {
         var foundState = new PieceFoundState(worldDef);
@@ -320,10 +329,6 @@ class PlayState extends LycanState {
         } else {
             beginWorldEditing();
         }
-    }
-
-    public function reset():Void {
-        FlxG.switchState(new RootState());
     }
 
     // Helper functions
