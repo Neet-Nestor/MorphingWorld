@@ -115,18 +115,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		physics.body.cbTypes.add(PlatformerPhysics.GROUNDABLE_TYPE);
 	}
 
-	public function move():Void {
-		isSliding = false;
-		currentMoveVel -= moveAcceleration * (currentMoveVel - targetMoveVel);
-
-		if (Math.abs(currentMoveVel) < minMoveVel) {
-			currentMoveVel = 0;
-		}
-
-		facing = currentMoveVel < 0 ? FlxObject.LEFT : FlxObject.RIGHT;
-		anchor.kinematicVel.x = currentMoveVel;
-	}
-
 	@:append("destroy")
 	public function destroy():Void {
 		anchor.space = null;
@@ -197,9 +185,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			feetShape.material.dynamicFriction = 0;
 			feetShape.material.staticFriction = 0;
 		}
-		FlxG.watch.addQuick("friction", feetShape.material.dynamicFriction);
-		FlxG.watch.addQuick("x velocity", currentMoveVel);
-		FlxG.watch.addQuick("hasControl", hasControl);
 
 		if (groundable.isGrounded) {
 			currentJumps = 0;
@@ -213,6 +198,22 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (hasControl && FlxG.keys.anyPressed([FlxKey.S, FlxKey.DOWN])) {
 			dropThrough = true;
 		}
+		FlxG.watch.addQuick("friction", feetShape.material.dynamicFriction);
+		FlxG.watch.addQuick("x velocity", currentMoveVel);
+		FlxG.watch.addQuick("hasControl", hasControl);
+		FlxG.watch.addQuick("Jumps left", maxJumps - currentJumps);
+	}
+
+	public function move():Void {
+		isSliding = false;
+		currentMoveVel += moveAcceleration * (targetMoveVel - currentMoveVel);
+
+		if (Math.abs(currentMoveVel) < minMoveVel) {
+			currentMoveVel = 0;
+		}
+
+		facing = currentMoveVel < 0 ? FlxObject.LEFT : FlxObject.RIGHT;
+		anchor.kinematicVel.x = currentMoveVel;
 	}
 
 	public function stop():Void {

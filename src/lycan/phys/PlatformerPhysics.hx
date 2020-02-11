@@ -76,8 +76,15 @@ class PlatformerPhysics {
 		space.listeners.add(
 			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, Phys.TILEMAP_SHAPE_TYPE, (cb:PreCallback) -> {
 					var player:CharacterController = cast cb.int1.userData.entity;
-					player.characterController.stop();
 
+					if (!cb.arbiter.isCollisionArbiter()) return null;
+					var ca:CollisionArbiter = cast cb.arbiter;
+					var angle:Float = Math.abs(FlxAngle.TO_DEG * ca.normal.angle);
+					trace("hit angle " + angle);
+					// TODO: use more appropriate handle way
+					if (angle > 90 + 2 || angle < 90 - 2) {
+						player.characterController.stop();
+					}
 					// We don't need to change the acceptance
 					return PreFlag.ACCEPT_ONCE;
 			})
