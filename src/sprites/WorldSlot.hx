@@ -49,10 +49,11 @@ class WorldSlot extends FlxSpriteGroup {
 		// outline.loadGraphic("assets/images/slotborder.png", true, 336, 336, false);
 		// outline.animation.add("main", [0, 1, 2, 3, 4, 5], 15, true);
         // outline.animation.play("main");
-		outline.makeGraphic(448, 448);
+		outline.makeGraphic(448, 448, FlxColor.WHITE);
 		outline.physics.init(BodyType.STATIC, true, false);
 		outline.physics.setBodyMaterial(0, 1, 2, 1, 1);
         outline.physics.snapBodyToEntity();
+		outline.visible = true;
 		outline.alpha = 0;
 		add(outline);
 		
@@ -61,14 +62,16 @@ class WorldSlot extends FlxSpriteGroup {
 	
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
-        
-        // For Animation
-		outline.alpha = PlayState.instance.editingTransitionAmount * 0.4;
+		trace('slot at $gridPos, $x, $y\'s alpha is $alpha');
+		if (outline.visible) {
+			// For Animation
+			outline.alpha = PlayState.instance.editingTransitionAmount * 0.4;
+		}
 	}
 	
-	public function loadWorld(worldDef:WorldDef):MiniWorld {
+	public function loadWorld(worldDef:WorldDef):WorldSlot {
 		if (world != null) {
-            return null;
+            return this;
         }
 		
 		world = new MiniWorld();
@@ -79,11 +82,11 @@ class WorldSlot extends FlxSpriteGroup {
         }
 		universe.worldLayer.add(world); // TODO: correct layers for loading
 		padWithEmptySlots();
-		
+		trace(universe.slots);
 		outline.visible = false;
 		outline.physics.enabled = false; // TODO: invert for unloading a world
 		
-		return world;
+		return this;
 	}
 	
 	public function padWithEmptySlots():Void {
@@ -121,7 +124,6 @@ class WorldSlot extends FlxSpriteGroup {
 
 		world.destroy();
 		world = null;
-		
 		outline.visible = true;
 		
 		// Check local area in Universe for removing slots

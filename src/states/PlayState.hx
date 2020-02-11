@@ -223,7 +223,7 @@ class PlayState extends LycanState {
         else universe = new Universe();
         var startWorldDef = WorldCollection.get(Config.START_WORLD);
         reloadPlayerPosition = true;
-        universe.makeSlot(0, 0).loadWorld(startWorldDef);
+        universe.makeSlot(0, 0).loadWorld(startWorldDef).padWithEmptySlots();
     }
 
     private function initCamera():Void {

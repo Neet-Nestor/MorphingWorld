@@ -20,7 +20,6 @@ import flixel.math.FlxPoint;
 import flixel.util.FlxGradient;
 import game.WorldDef;
 
-
 class WorldPieceSwatch extends FlxSprite {
 	public var worldDef:WorldDef;
 	public var tween:FlxTween;
@@ -90,8 +89,8 @@ class EditState extends FlxSubState {
 		add(brush);
 		brush.visible = false;
 		
-		var color:FlxColor = 0xFF000000;
-		swatchBackground = FlxGradient.createGradientFlxSprite(FlxG.width, 155, [0x00000000, color, color], 2, 270);
+		var color:FlxColor = FlxColor.WHITE;
+		swatchBackground = FlxGradient.createGradientFlxSprite(FlxG.width, 155, [FlxColor.GREEN, color, color], 2, 270);
 		swatchBackground.camera = PlayState.instance.uiCamera;
 		swatchBackground.alpha = 0;
 		
@@ -123,8 +122,6 @@ class EditState extends FlxSubState {
 		super.update(elapsed);
 		
 		FlxG.mouse.getScreenPosition(PlayState.instance.uiCamera, mousePos);
-		
-		// TODO: organise transition stuff better
 		swatchBackground.alpha = PlayState.instance.editingTransitionAmount;
 		
 		var isHoveringSwatch:Bool = false;

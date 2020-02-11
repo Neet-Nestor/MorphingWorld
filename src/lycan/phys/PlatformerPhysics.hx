@@ -80,7 +80,6 @@ class PlatformerPhysics {
 					if (!cb.arbiter.isCollisionArbiter()) return null;
 					var ca:CollisionArbiter = cast cb.arbiter;
 					var angle:Float = Math.abs(FlxAngle.TO_DEG * ca.normal.angle);
-					trace("hit angle " + angle);
 					// TODO: use more appropriate handle way
 					if (angle > 90 + 2 || angle < 90 - 2) {
 						player.characterController.stop();
