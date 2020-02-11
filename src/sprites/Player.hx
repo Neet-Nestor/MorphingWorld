@@ -7,16 +7,19 @@ import lycan.components.Attachable;
 import lycan.world.components.Groundable;
 import lycan.world.components.PhysicsEntity;
 import lycan.world.components.CharacterController;
+import lycan.entities.LSprite;
 import flixel.FlxObject;
-import flixel.FlxSprite;
 
-class Player extends FlxSprite implements CharacterController implements Groundable implements PhysicsEntity implements Attachable implements CenterPositionable {
+class Player extends LSprite implements CharacterController implements Groundable implements PhysicsEntity {
     public function new(x:Float, y:Float, width:Int, height:Int) {
-        super(x, y);
+        super();
 
         loadGraphic(AssetPaths.player__png, true, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
 
-		animation.add("idle", [for (i in 0...Config.PLAYER_FRAME_PER_ROW) i], 10, true);
+		var idleFrames = [for (i in 0...6) i];
+		idleFrames.concat([for (i in 0...Config.PLAYER_FRAME_PER_ROW) i]);
+		idleFrames.concat([for (i in 0...6) i]);
+		animation.add("idle", idleFrames, 10, true);
 		animation.add("run", [for (i in Config.PLAYER_FRAME_PER_ROW...Config.PLAYER_FRAME_PER_ROW + 8) i], 12, true);
 		animation.add("jump", [for (i in 5 * Config.PLAYER_FRAME_PER_ROW...5 * Config.PLAYER_FRAME_PER_ROW + 6) i], 12);
 		animation.add("fall", [for (i in 6 * Config.PLAYER_FRAME_PER_ROW...6 * Config.PLAYER_FRAME_PER_ROW + 4) i], 12);
@@ -28,7 +31,6 @@ class Player extends FlxSprite implements CharacterController implements Grounda
 		characterController.maxJumpVelY = 50;
 		characterController.minMoveVel = 8;
 		characterController.maxJumps = 2;
-		// origin = FlxPoint.weak(x, y);
 
 		groundable.groundedAngleLimit = 65;
 		
