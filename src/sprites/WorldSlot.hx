@@ -49,7 +49,7 @@ class WorldSlot extends FlxSpriteGroup {
 		// outline.loadGraphic("assets/images/slotborder.png", true, 336, 336, false);
 		// outline.animation.add("main", [0, 1, 2, 3, 4, 5], 15, true);
         // outline.animation.play("main");
-		outline.makeGraphic(448, 448, FlxColor.WHITE);
+		outline.makeGraphic(448, 448);
 		outline.physics.init(BodyType.STATIC, true, false);
 		outline.physics.setBodyMaterial(0, 1, 2, 1, 1);
         outline.physics.snapBodyToEntity();
