@@ -339,7 +339,9 @@ class PlayState extends LycanState {
 		// t.font = "fairfax";
 		t.y = FlxG.height - 50;
 		t.screenCenter(FlxAxes.X);
-		t.alpha = 0;
+        t.alpha = 0;
+        
+        if (group == null) group = uiGroup;
 
 		FlxTween.tween(t, {alpha: 1}, 0.6, {onComplete: (_) -> {
             new FlxTimer(timers).start(duration, (_) -> {
