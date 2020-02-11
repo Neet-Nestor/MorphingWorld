@@ -47,12 +47,16 @@ class Universe extends FlxGroup {
 		super.destroy();
 	}
 	
-	public function reset(initWorldName:String = Config.START_WORLD):Void {
+	public function reset(?initWorldName:String):Void {
 		for (slot in slots) removeSlot(slot);
 		for (world in worldLayer) world.destroy();
 		worldLayer.clear();
-        PlayState.instance.reloadPlayerPosition = true;
-        makeSlot(0, 0).loadWorld(WorldCollection.get(initWorldName));
+		PlayState.instance.reloadPlayerPosition = true;
+		if (initWorldName == null) {
+			makeSlot(0, 0).loadWorld(PlayState.instance.initWorld);
+		} else {
+			makeSlot(0, 0).loadWorld(WorldCollection.get(initWorldName));
+		}
 	}
 
 	public function makeSlot(x:Int, y:Int):WorldSlot {

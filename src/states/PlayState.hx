@@ -55,6 +55,7 @@ class PlayState extends LycanState {
     public var universe:Universe;
 	public var cameraFocus:CameraFocus;
     public var reloadPlayerPosition:Bool;
+    public var initWorld:WorldDef;
 
     // For transition effects
     public var timeFactor(default, set):Float = 1;
@@ -158,7 +159,7 @@ class PlayState extends LycanState {
         universe = new Universe();
         reloadPlayerPosition = true;
 
-        var initWorld = WorldCollection.get(initWorldName);
+        initWorld = WorldCollection.get(initWorldName);
         universe.makeSlot(0, 0).loadWorld(initWorld);
         initWorld.owned = true;
         universe.forEachOfType(WorldPiece, (piece) -> {
@@ -260,6 +261,7 @@ class PlayState extends LycanState {
 
         nextWorld.owned = true;
         universe.reset(nextWorld.name);
+        initWorld = nextWorld;
         add(player);
 		FlxG.camera.follow(null);
         cameraFocus.destroy();
