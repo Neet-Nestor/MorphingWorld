@@ -26,9 +26,5 @@
   <object id="11" name="object03" type="spike" gid="41" x="320" y="160" width="32" height="32"/>
   <object id="12" name="object02" type="spike" gid="41" x="352" y="160" width="32" height="32"/>
   <object id="13" name="object01" type="spike" gid="41" x="96" y="416" width="32" height="32"/>
-   <properties>
-    <property name="world" value="02_01"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>
