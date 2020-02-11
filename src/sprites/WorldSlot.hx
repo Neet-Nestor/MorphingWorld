@@ -69,9 +69,9 @@ class WorldSlot extends FlxSpriteGroup {
 		}
 	}
 	
-	public function loadWorld(worldDef:WorldDef):WorldSlot {
+	public function loadWorld(worldDef:WorldDef):MiniWorld {
 		if (world != null) {
-            return this;
+            return null;
         }
 		
 		world = new MiniWorld();
@@ -86,7 +86,7 @@ class WorldSlot extends FlxSpriteGroup {
 		outline.visible = false;
 		outline.physics.enabled = false; // TODO: invert for unloading a world
 		
-		return this;
+		return world;
 	}
 	
 	public function padWithEmptySlots():Void {
