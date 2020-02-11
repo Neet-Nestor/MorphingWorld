@@ -17,7 +17,7 @@ class FlxObjExt {
 	
 	public static function setCenter(o:FlxObject, ?x:Float, ?y:Float):Void {
 		if (x != null) setCenterX(o, x);
-		if (y != null) setCenterX(o, y);
+		if (y != null) setCenterY(o, y);
 	}
 	
 	public static function scaleTo(spr:FlxSprite, scale:Float, updateHitbox:Bool = true):Void {

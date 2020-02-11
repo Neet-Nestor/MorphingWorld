@@ -33,9 +33,9 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
         // loadGraphic("assets/images/worldpiece.png", true, 25, 26, false);
 		// animation.add("spinning", [0, 1, 2, 3, 4, 5], 10);
 		// animation.play("spinning");
-        makeGraphic(28, 28, FlxColor.WHITE);
+        makeGraphic(32, 32, FlxColor.WHITE);
 		physics.init(BodyType.KINEMATIC, false, false);
-		physics.createRectangularBody(28, 28, BodyType.KINEMATIC);
+		physics.createRectangularBody(32, 32, BodyType.KINEMATIC);
 		physics.body.userData.entity = this;
 		physics.enabled = true;
 		physics.body.shapes.at(0).sensorEnabled = true;
