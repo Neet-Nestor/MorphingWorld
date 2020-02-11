@@ -20,24 +20,47 @@ class MenuState extends LycanState {
 
     override public function create():Void {
         super.create();
-        title = new FlxText(0, 0, 0, "Morphing World", 48);
-        title.screenCenter();
-        // var back = new FlxSprite(0, 0, "assets/images/menubg.jpg");
-        // back.resize(FlxG.stage.stageWidth, FlxG.stage.stageHeight);
-        // back.scale.set(0.5, 0.5);
+    }
+
+    override public function update(elapsed:Float):Void {
+        super.update(elapsed);
+        loadBG();
+        loadTitle();
+        loadStart();
+        loadAboutUS();
+        loadOptions();
+    }
+
+    private function loadBG():Void {
         var back = new FlxSprite();
         back.loadGraphic("assets/images/menubg.jpg");
         back.x = 0;
         back.y = 0;
         add(back);
+    }
+
+    private function loadTitle():Void {
+        title = new FlxText(0, 0, 0, "Morphing World", 48);
+        title.screenCenter();
         add(title);
-        startBtn = new FlxButton(0, title.getScreenPosition().y + 150, "Start", onStart);
+    }
+
+    private function loadStart():Void {
+        startBtn = new FlxButton(0, title.getScreenPosition().y + 100, "Start", onStart);
         startBtn.screenCenter(FlxAxes.X);
         add(startBtn);
     }
 
-    override public function update(elapsed:Float):Void {
-        super.update(elapsed);
+    private function loadAboutUS():Void {
+        var aboutUsBtn = new FlxButton(0, title.getScreenPosition().y + 150, "About Us", onStart);
+        aboutUsBtn.screenCenter(FlxAxes.X);
+        add(aboutUsBtn);
+    }
+
+    private function loadOptions():Void {
+        var optionsBtn = new FlxButton(0, title.getScreenPosition().y + 125, "Options", onStart);
+        optionsBtn.screenCenter(FlxAxes.X);
+        add(optionsBtn);
     }
 
     private function onStart():Void {
