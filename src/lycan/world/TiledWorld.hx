@@ -78,13 +78,11 @@ class TiledWorld extends FlxGroup {
 		imageLayers = null;
 		collisionObjects = null;
 		properties = null;
-		if (scale != null) {
-			scale.put();
-			scale = null;
-		}
-		combinedTileset.destroy();
+		if (scale != null) scale.put();
+		scale = null;
+		if (combinedTileset != null) combinedTileset.destroy();
 		combinedTileset = null;
-		collisionLayers.splice(0, collisionLayers.length);
+		if (collisionLayers != null) collisionLayers.splice(0, collisionLayers.length);
 	}
 	
 	public function collideWithLevel<T, U>(obj:FlxBasic, ?notifyCallback:T->U->Void, ?processCallback:T->U->Bool):Bool {

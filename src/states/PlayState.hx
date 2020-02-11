@@ -323,8 +323,7 @@ class PlayState extends LycanState {
     }
 
     public function reset():Void {
-        WorldCollection.reset();
-        initUniverse();
+        FlxG.switchState(new RootState());
     }
 
     // Helper functions
