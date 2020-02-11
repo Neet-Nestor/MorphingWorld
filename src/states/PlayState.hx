@@ -101,6 +101,7 @@ class PlayState extends LycanState {
         initUniverse();
         initCamera();
         add(player);
+        showText("[WASD to move]");
     }
 
     // Initializers
@@ -338,7 +339,7 @@ class PlayState extends LycanState {
     // Create a text on screen
 	public function showText(str:String, showTime:Float = 1.65, duration:Float = 10, ?group:FlxSpriteGroup):Void {
 		var t = new FlxText(0, 0, 0, str, 20);
-		t.font = "fairfax";
+		// t.font = "fairfax";
 		t.y = FlxG.height - 50;
 		t.screenCenter(FlxAxes.X);
 		t.alpha = 0;
