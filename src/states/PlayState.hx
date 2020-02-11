@@ -272,7 +272,9 @@ class PlayState extends LycanState {
 
     public function collectWorld(worldDef:WorldDef):Void {
         var foundState = new PieceFoundState(worldDef);
-
+        // Reset running status
+        player.characterController.leftPressed = false;
+        player.characterController.rightPressed = false;
 		function collectWorld() {
 			persistentUpdate = false;
 			Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
