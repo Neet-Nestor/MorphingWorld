@@ -46,9 +46,8 @@ class WorldSlot extends FlxSpriteGroup {
 		gridPos = {x: gridX, y: gridY};
 		
 		outline = new PhysSprite();
-		outline.loadGraphic("assets/images/slot_thick.png", true, 448, 448);
-		outline.animation.add("main", [0, 1], 10);
-		outline.animation.play("main");
+		outline.loadGraphic("assets/images/slots.png", true, 448, 448);
+		outline.animation.add("main", [0, 1], 4);
 		outline.physics.init(BodyType.STATIC, true, false);
 		outline.physics.setBodyMaterial(0, 1, 2, 1, 1);
 		outline.physics.body.position.setxy(gridX * Config.WORLD_WIDTH  + Config.WORLD_WIDTH  / 2,
@@ -66,6 +65,7 @@ class WorldSlot extends FlxSpriteGroup {
 		if (outline.visible) {
 			// For Animation
 			outline.alpha = PlayState.instance.editingTransitionAmount * 0.4;
+			outline.animation.play("main");
 		}
 	}
 	
