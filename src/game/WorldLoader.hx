@@ -45,6 +45,7 @@ import sprites.PhysSprite;
 import sprites.Player;
 import sprites.TiledSprite;
 import sprites.WorldPiece;
+import sprites.Portal;
 import states.PlayState;
 
 using lycan.world.TiledPropertyExt;
@@ -235,6 +236,16 @@ class WorldLoader {
 			c.setCenter(obj.x, obj.y);
 			c.physics.snapBodyToEntity();
 			c.worldDef = worldDef;
+			map.set(obj.gid, c);
+			layer.add(c);
+		});
+
+		loadObject("portal", (obj, layer, map) -> {
+			var worldDef = WorldCollection.get(obj.properties.getString("world"));
+			if (worldDef != null && worldDef.owned) return null;
+			var c = new Portal(worldDef);
+			c.setCenter(obj.x, obj.y);
+			c.physics.snapBodyToEntity();
 			map.set(obj.gid, c);
 			layer.add(c);
 		});

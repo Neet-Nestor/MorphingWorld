@@ -47,6 +47,7 @@ import openfl.display.Tilemap;
 import sprites.CameraFocus;
 import sprites.PhysSprite;
 import sprites.Player;
+import sprites.Portal;
 import sprites.WorldPiece;
 
 class PlayState extends LycanState {
@@ -112,11 +113,20 @@ class PlayState extends LycanState {
         Phys.space.gravity.setxy(0, Config.GRAVITY);
         
         // Game listeners setup
+
         // -- Piece Found listener
         Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.SENSOR,
             WorldPiece.WORLD_PIECE_TYPE, PlatformerPhysics.CHARACTER_TYPE, (cb:InteractionCallback) -> {
 			var piece:WorldPiece = cast cb.int1.userData.entity;
 			piece.collectable.collect((cb.int2.userData.entity:Player));
+			// Sounds.playSound(SoundAssets.collect, piece.physics.body.position.x, piece.physics.body.position.y);
+        }));
+        
+        // -- Portal listener
+        Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.SENSOR,
+            Portal.PORTAL_TYPE, PlatformerPhysics.CHARACTER_TYPE, (cb:InteractionCallback) -> {
+			var portal:Portal = cast cb.int1.userData.entity;
+			portal.port((cb.int2.userData.entity:Player));
 			// Sounds.playSound(SoundAssets.collect, piece.physics.body.position.x, piece.physics.body.position.y);
 		}));
     }
@@ -231,6 +241,25 @@ class PlayState extends LycanState {
         player.destroy();
         player = null;
         universe.reset();
+        add(player);
+		FlxG.camera.follow(null);
+        cameraFocus.destroy();
+		cameraFocus = new CameraFocus();
+		cameraFocus.add(new ObjectTargetInfluencer(player));
+		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
+		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
+		FlxG.camera.snapToTarget();
+    }
+
+    public function switchWorld(nextWorld:WorldDef):Void {
+        // Clean
+        WorldCollection.reset();
+        remove(player);
+        player.destroy();
+        player = null;
+
+        nextWorld.owned = true;
+        universe.reset(nextWorld.name);
         add(player);
 		FlxG.camera.follow(null);
         cameraFocus.destroy();

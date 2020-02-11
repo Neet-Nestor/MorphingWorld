@@ -8,7 +8,7 @@ interface Switchable {
 	public var switcher:SwitchComponent;
 }
 
-class SwitchComponent extends Component {
+class SwitchComponent extends Component<Switchable> {
 	
 	public var on(default, set):Bool;
 	
