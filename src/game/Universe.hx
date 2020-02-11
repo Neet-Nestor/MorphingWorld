@@ -78,7 +78,7 @@ class Universe extends FlxGroup {
             return;
         }
 		if (slot.world != null) {
-            slot.unloadWorld();
+            slot.unloadWorld(false);
         }
 		slotMap.remove('${slot.gridPos.x},${slot.gridPos.y}');
 		slots.remove(slot);
