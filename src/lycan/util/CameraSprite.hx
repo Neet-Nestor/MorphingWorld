@@ -29,7 +29,7 @@ class CameraSprite extends FlxSprite {
 		this.width = width;
 		this.height = height;
 		
-		#if !flash
+		#if flash
 		var texture = FlxG.stage.context3D.createRectangleTexture(sourceCamera.width, sourceCamera.height, BGRA, true);
 		pixels = BitmapData.fromTexture(texture);
 		#else

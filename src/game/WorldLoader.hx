@@ -210,7 +210,9 @@ class WorldLoader {
 			}
 			if (PlayState.instance.reloadPlayerPosition) {
 				PlayState.instance.reloadPlayerPosition = false;
-				player.physics.body.position.setxy(obj.x, obj.y + obj.height / 2 - Config.PLAYER_HEIGHT / 2);
+				var initPosition = FlxPoint.get(obj.x, obj.y + obj.height / 2 - Config.PLAYER_HEIGHT / 2);
+				PlayState.instance.initPosition = initPosition;
+				player.physics.body.position.setxy(initPosition.x, initPosition.y);
 				player.physics.snapEntityToBody();
 				map.set(obj.gid, player);
 				PlayState.instance.player = player;

@@ -14,6 +14,7 @@ import flixel.input.FlxInput.FlxInputState;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.tile.FlxBaseTilemap;
 import flixel.tile.FlxTilemap;
@@ -54,6 +55,7 @@ class PlayState extends LycanState {
 	public var cameraFocus:CameraFocus;
     public var reloadPlayerPosition:Bool;
     public var initWorld:WorldDef;
+    public var initPosition:FlxPoint;
 
     // For transition effects
     public var timeFactor(default, set):Float = 1;
@@ -230,7 +232,10 @@ class PlayState extends LycanState {
 
         // TODO: better way to detech death
         if (player.physics.body.velocity.y > 1200) {
-            reset();
+            if (initPosition != null) {
+                player.physics.body.position.setxy(initPosition.x, initPosition.y);
+				player.physics.snapEntityToBody();
+            }
         }
 
         FlxG.watch.addQuick("player position", player.physics.body.position);
@@ -249,6 +254,8 @@ class PlayState extends LycanState {
         remove(player);
         player.destroy();
         player = null;
+        initPosition.put();
+        initPosition = null;
         universe.reset();
         add(player);
 		FlxG.camera.follow(null);
@@ -267,6 +274,8 @@ class PlayState extends LycanState {
         remove(player);
         player.destroy();
         player = null;
+        initPosition.put();
+        initPosition = null;
 
         nextWorld.owned = true;
         universe.reset(nextWorld.name);
