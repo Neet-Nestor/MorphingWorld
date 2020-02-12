@@ -236,6 +236,7 @@ class PlayState extends LycanState {
         if (player.physics.body.velocity.y > 1200) {
             if (initPosition != null) {
                 player.physics.body.position.setxy(initPosition.x, initPosition.y);
+                player.physics.body.velocity.setxy(0, 0);
 				player.physics.snapEntityToBody();
             }
         }
