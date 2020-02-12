@@ -76,7 +76,10 @@ class PlayState extends LycanState {
 
     // Managers
 	public var timers:FlxTimerManager;
-	public var tweens:FlxTweenManager;
+    public var tweens:FlxTweenManager;
+
+    // Tween
+    public var textHint:FlxText;
 
 	public static var instance(default, null):PlayState;
 
@@ -289,6 +292,7 @@ class PlayState extends LycanState {
 			foundState.closeCallback = () -> {
 				Phys.FORCE_TIMESTEP = null;
 				persistentUpdate = true;
+                showText("[SPACE to edit]");
 			}
 			openSubState(foundState);
 		}
@@ -313,7 +317,7 @@ class PlayState extends LycanState {
         // Hint show once
         if (!dragHintShown) {
             dragHintShown = true;
-            new FlxTimer().start(0.5, (_) -> this.showText("[Drag & Drop]", 2, uiGroup));
+            new FlxTimer().start(0.5, (_) -> this.showText("[Drag & Drop]", 2, uiGroup, () -> showText("[Click to reset world]")));
         }
     }
 
@@ -340,7 +344,7 @@ class PlayState extends LycanState {
     // Helper functions
 
     // Create a text on screen
-	public function showText(str:String, showTime:Float = 1.65, ?group:FlxSpriteGroup):Void {
+	public function showText(str:String, showTime:Float = 1.65, ?group:FlxSpriteGroup, ?callback:() -> Void):Void {
 		var t = new FlxText(0, 0, 0, str, 20);
 		// t.font = "fairfax";
 		t.y = FlxG.height - 50;
@@ -349,13 +353,20 @@ class PlayState extends LycanState {
         
         if (group == null) group = uiGroup;
 
-		FlxTween.tween(t, {alpha: 1}, 0.6, {onComplete: (_) -> {
+        if (textHint != null) group.remove(textHint);
+        
+        FlxTween.tween(t, {alpha: 1}, 0.6, {onComplete: (_) -> {
             FlxTween.tween(t, {alpha: 0}, 0.6, {startDelay: showTime, onComplete: (_) -> {
-                group.remove(t);
-                t.destroy();
+                if (PlayState.instance.textHint != null) {
+                    group.remove(PlayState.instance.textHint);
+                    PlayState.instance.textHint.destroy();
+                    PlayState.instance.textHint = null;
+                }
+                if (callback != null) callback();
             }});
-		}});
+        }});
 
+        textHint = t;
 		group.add(t);
 	}
     
