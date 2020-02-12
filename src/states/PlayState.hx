@@ -260,6 +260,12 @@ class PlayState extends LycanState {
         initPosition.put();
         initPosition = null;
         universe.reset();
+        if (initWorld != null) {
+            initWorld.owned = true;
+            universe.forEachOfType(WorldPiece, (piece) -> {
+                if (piece.worldDef == initWorld) piece.collectable.collect(player);
+            }, true);
+        }
         add(player);
 		FlxG.camera.follow(null);
         cameraFocus.destroy();
@@ -287,6 +293,9 @@ class PlayState extends LycanState {
 
         nextWorld.owned = true;
         universe.reset(nextWorld.name);
+        universe.forEachOfType(WorldPiece, (piece) -> {
+            if (piece.worldDef == initWorld) piece.collectable.collect(player);
+        }, true);
         initWorld = nextWorld;
         add(player);
 		FlxG.camera.follow(null);
