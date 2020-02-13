@@ -20,7 +20,11 @@
 </data>
  </layer>
  <objectgroup id="4" name="Object Layer 1">
-  <object id="20" name="object14" type="portal" gid="40" x="384" y="288" width="32" height="32"/>
+  <object id="20" name="object14" type="portal" gid="40" x="384" y="288" width="32" height="32">
+   <properties>
+    <property name="world" value="win"/>
+   </properties>
+  </object>
   <object id="21" name="object13" type="spike" gid="41" x="128" y="128" width="32" height="32"/>
   <object id="22" name="object12" type="spike" gid="41" x="160" y="128" width="32" height="32"/>
   <object id="23" name="object11" type="spike" gid="41" x="192" y="128" width="32" height="32"/>
