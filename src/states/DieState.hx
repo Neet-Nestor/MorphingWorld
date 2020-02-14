@@ -23,9 +23,11 @@ class DieState extends LycanState {
     }
 
     override public function update(elapsed:Float):Void {
-        super.update(elapsed);
-        //loadBG();
-        loadStart();
+		super.update(elapsed);
+		FlxG.camera.follow(null);
+		//loadBG();
+		loadTitle();
+        loadReStart();
     }
 
     private function loadBG():Void {
@@ -34,15 +36,23 @@ class DieState extends LycanState {
         back.x = 0;
         back.y = 0;
         add(back);
+	}
+	
+	private function loadTitle():Void {
+        title = new FlxText(0, 0, 0, "You Died!", 48);
+        title.screenCenter();
+        add(title);
     }
 
-    private function loadStart():Void {
-        restartBtn = new FlxButton(0, 200, "Try Again", onStart);
+    private function loadReStart():Void {
+        restartBtn = new FlxButton(0, 200, "Try Again", onReStart);
         restartBtn.screenCenter(FlxAxes.X);
         add(restartBtn);
     }
 
-    private function onStart():Void {
-        PlayState.instance.reset();
+    private function onReStart():Void {
+		trace("button");
+		close();
+		trace("button end");
     }
 }
