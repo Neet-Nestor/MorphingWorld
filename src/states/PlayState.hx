@@ -68,7 +68,7 @@ class PlayState extends LycanState {
     public var isWorldEditing:Bool;
     public var editingTransitionAmount(default, set):Float = 0;
 
-    public var dieState:DieState;
+    // public var dieState:DieState;
 
     // Hints
 	public var zoomHintShown:Bool;
@@ -225,7 +225,7 @@ class PlayState extends LycanState {
         else if (FlxG.mouse.wheel > 0) endWorldEditing();
         else if (FlxG.keys.anyJustReleased([FlxKey.SPACE])) toggleWorldEditing();
 
-        if (FlxG.keys.anyJustPressed([FlxKey.R])) die();
+        if (FlxG.keys.anyJustPressed([FlxKey.R])) reset();
 
         #if cpp
         if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) Sys.exit(0);
@@ -252,7 +252,6 @@ class PlayState extends LycanState {
 
     // Handlers
     public function reset():Void {
-        trace("aaa");
         if (isWorldEditing) endWorldEditing();
         WorldCollection.reset();
         remove(player);
@@ -277,10 +276,10 @@ class PlayState extends LycanState {
 		FlxG.camera.snapToTarget();
     }
 
-    public function die():Void {
-        dieState = new DieState();
-        openSubState(dieState);
-    }
+    // public function die():Void {
+    //     dieState = new DieState();
+    //     openSubState(dieState);
+    // }
 
     public function switchWorld(nextWorld:WorldDef):Void {
         if (isWorldEditing) endWorldEditing();
