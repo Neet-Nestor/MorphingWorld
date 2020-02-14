@@ -20,14 +20,14 @@ class DieState extends LycanState {
 
     override public function create():Void {
         super.create();
-    }
-
-    override public function update(elapsed:Float):Void {
-		super.update(elapsed);
 		FlxG.camera.follow(null);
 		//loadBG();
 		loadTitle();
         loadReStart();
+    }
+
+    override public function update(elapsed:Float):Void {
+		super.update(elapsed);
     }
 
     private function loadBG():Void {

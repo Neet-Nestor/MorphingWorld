@@ -20,15 +20,15 @@ class MenuState extends LycanState {
 
     override public function create():Void {
         super.create();
-    }
-
-    override public function update(elapsed:Float):Void {
-        super.update(elapsed);
         loadBG();
         loadTitle();
         loadStart();
         loadAboutUS();
         loadOptions();
+    }
+
+    override public function update(elapsed:Float):Void {
+        super.update(elapsed);
     }
 
     private function loadBG():Void {
