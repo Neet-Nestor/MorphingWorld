@@ -17,7 +17,8 @@ import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUIText;
 
 class DieState extends FlxSubState {
-    private var restartBtn:FlxButton;
+	private var restartBtn:FlxButton;
+	private var menuBtn:FlxButton;
     private var title:FlxText;
 
     public var uiGroup:FlxSpriteGroup;
@@ -29,6 +30,7 @@ class DieState extends FlxSubState {
 		uiGroup.camera = PlayState.instance.uiCamera;
 		loadBG();
 		loadTitle();
+		loadMenu();
         loadReStart();
         uiGroup.screenCenter(FlxAxes.XY);
         add(uiGroup);
@@ -53,12 +55,22 @@ class DieState extends FlxSubState {
     }
 
     private function loadReStart():Void {
-        restartBtn = new FlxButton(0, 200, "Try Again", onReStart);
+        restartBtn = new FlxButton(0, title.getScreenPosition().y + 100, "Try Again", onReStart);
         restartBtn.screenCenter(FlxAxes.X);
         uiGroup.add(restartBtn);
+	}
+	
+	private function loadMenu():Void {
+        menuBtn = new FlxButton(0, title.getScreenPosition().y + 150, "Main Menu", onMenu);
+        menuBtn.screenCenter(FlxAxes.X);
+        uiGroup.add(menuBtn);
     }
 
     private function onReStart():Void {
 		close();
+	}
+	
+	private function onMenu():Void {
+		FlxG.switchState(new MenuState());
     }
 }

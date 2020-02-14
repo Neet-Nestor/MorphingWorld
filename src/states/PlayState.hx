@@ -233,11 +233,9 @@ class PlayState extends LycanState {
         #end
 
         // TODO: better way to detech death
-        if (player.physics.body.velocity.y > 1200) {
+        if (player.physics.body.velocity.y > 800) {
             if (initPosition != null) {
-                player.physics.body.position.setxy(initPosition.x, initPosition.y);
-                player.physics.body.velocity.setxy(0, 0);
-				player.physics.snapEntityToBody();
+                die();
             }
         }
 
