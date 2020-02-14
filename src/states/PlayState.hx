@@ -276,9 +276,14 @@ class PlayState extends LycanState {
 
     public function die():Void {
         persistentUpdate = false;
+        player.characterController.leftPressed = false;
+        player.characterController.rightPressed = false;
+        player.physics.body.velocity.y = 0;
+        Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
         dieState = new DieState();
         dieState.closeCallback = () -> {
             reset();
+            Phys.FORCE_TIMESTEP = 1;
             persistentUpdate = true;
         }
         openSubState(dieState);

@@ -25,14 +25,18 @@ class DieState extends FlxSubState {
 
     override public function create():Void {
         super.create();
-		FlxG.camera.follow(null);
 		uiGroup = new FlxSpriteGroup();
 		uiGroup.camera = PlayState.instance.uiCamera;
 		loadBG();
 		loadTitle();
 		loadMenu();
         loadReStart();
-        uiGroup.screenCenter(FlxAxes.XY);
+        trace(FlxG.camera.scroll);
+        trace(uiGroup.x);
+        trace(uiGroup.y);
+        for (el in uiGroup) {
+            trace(el.x + ", " + el.y);
+        }
         add(uiGroup);
     }
 
@@ -55,13 +59,13 @@ class DieState extends FlxSubState {
     }
 
     private function loadReStart():Void {
-        restartBtn = new FlxButton(0, title.getScreenPosition().y + 100, "Try Again", onReStart);
+        restartBtn = new FlxButton(0, title.y + 100, "Try Again", onReStart);
         restartBtn.screenCenter(FlxAxes.X);
         uiGroup.add(restartBtn);
 	}
 	
 	private function loadMenu():Void {
-        menuBtn = new FlxButton(0, title.getScreenPosition().y + 150, "Main Menu", onMenu);
+        menuBtn = new FlxButton(0, title.y + 150, "Main Menu", onMenu);
         menuBtn.screenCenter(FlxAxes.X);
         uiGroup.add(menuBtn);
     }
