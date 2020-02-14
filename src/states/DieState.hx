@@ -1,5 +1,6 @@
 package states;
 
+import flixel.math.FlxPoint;
 import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
@@ -31,12 +32,6 @@ class DieState extends FlxSubState {
 		loadTitle();
 		loadMenu();
         loadReStart();
-        trace(FlxG.camera.scroll);
-        trace(uiGroup.x);
-        trace(uiGroup.y);
-        for (el in uiGroup) {
-            trace(el.x + ", " + el.y);
-        }
         add(uiGroup);
     }
 
