@@ -277,15 +277,13 @@ class PlayState extends LycanState {
     }
 
     public function die():Void {
-        trace("die start");
+        persistentUpdate = false;
         dieState = new DieState();
         dieState.closeCallback = () -> {
-            trace("die call back");
             reset();
-            trace("after reset");
+            persistentUpdate = true;
         }
         openSubState(dieState);
-        trace("die end");
     }
 
     public function switchWorld(nextWorld:WorldDef):Void {
