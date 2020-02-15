@@ -342,26 +342,26 @@ class WorldLoader {
 			}
 		});
 
-		lateLoad((obj, layer, map) -> {
-			if (obj.properties.getBool("oneway")) {
-				var po:PhysicsEntity = cast map.get(obj.gid);
-				po.physics.body.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE);
-			}
-		});
+		// lateLoad((obj, layer, map) -> {
+		// 	if (obj.properties.getBool("oneway")) {
+		// 		var po:PhysicsEntity = cast map.get(obj.gid);
+		// 		po.physics.body.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE);
+		// 	}
+		// });
 
-		lateLoad((obj, layer, map) -> {
-			if (obj.properties.contains("weldTo")) {
-				var weldTarget:PhysicsEntity = cast map.get(obj.properties.getInt("weldTo"));
-				var weldee:PhysicsEntity = cast map.get(obj.gid);
-				weld(weldTarget, weldee);
-			}
-		});
+		// lateLoad((obj, layer, map) -> {
+		// 	if (obj.properties.contains("weldTo")) {
+		// 		var weldTarget:PhysicsEntity = cast map.get(obj.properties.getInt("weldTo"));
+		// 		var weldee:PhysicsEntity = cast map.get(obj.gid);
+		// 		weld(weldTarget, weldee);
+		// 	}
+		// });
 
-		lateLoad((obj, layer, map) -> {
-			if (obj.properties.contains("onLoad")) {
-				runobjectscript(map.get(obj.gid), PlayState.instance.parser.parseString(obj.properties.get("onLoad")), layer.worldLayer.world);
-			}
-		});
+		// lateLoad((obj, layer, map) -> {
+		// 	if (obj.properties.contains("onLoad")) {
+		// 		runobjectscript(map.get(obj.gid), PlayState.instance.parser.parseString(obj.properties.get("onLoad")), layer.worldLayer.world);
+		// 	}
+		// });
 
 	}
 

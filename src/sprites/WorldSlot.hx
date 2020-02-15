@@ -51,7 +51,7 @@ class WorldSlot extends FlxSpriteGroup {
 		gridPos = {x: gridX, y: gridY};
 		
 		outline = new PhysSprite();
-		outline.loadGraphic("assets/images/slots.png", true, 448, 448);
+		outline.loadGraphic(AssetPaths.slots__png, true, 448, 448);
 		outline.animation.add("main", [0, 1], 4);
 		outline.physics.init(BodyType.STATIC, true, false);
 		outline.physics.setBodyMaterial(0, 1, 2, 1, 1);

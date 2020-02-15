@@ -31,7 +31,7 @@ class Portal extends LSprite implements PhysicsEntity {
 	public function new(destinationWorldDef:WorldDef) {
 		super();
 		
-		loadGraphic("assets/images/portal.png", true, 32, 32);
+		loadGraphic(AssetPaths.portal__png, true, 32, 32);
         animation.add("main", [for (i in 0...17) 16 - i], 10, true);
 		animation.play("main");
 		

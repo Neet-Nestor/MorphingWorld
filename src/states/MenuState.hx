@@ -40,7 +40,7 @@ class MenuState extends LycanState {
 
     private function loadBG():Void {
         var back = new FlxSprite();
-        back.loadGraphic("assets/images/menubg.jpg");
+        back.loadGraphic(AssetPaths.menubg__jpg);
         back.x = 0;
         back.y = 0;
         add(back);

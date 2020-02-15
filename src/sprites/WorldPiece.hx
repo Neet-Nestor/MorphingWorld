@@ -30,7 +30,7 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
 	public function new() {
 		super();
 		
-        loadGraphic("assets/images/chest.png", true, 32, 32, false);
+        loadGraphic(AssetPaths.chest__png, true, 32, 32, false);
 		animation.add("open", [0], 0);
 		animation.add("close", [1], 0);
 		animation.play("close");

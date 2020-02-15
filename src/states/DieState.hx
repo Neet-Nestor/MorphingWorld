@@ -4,6 +4,7 @@ import flixel.math.FlxPoint;
 import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
+import flixel.util.FlxColor;
 import flixel.ui.FlxButton;
 import flixel.FlxG;
 import lycan.states.LycanState;
@@ -46,7 +47,7 @@ class DieState extends FlxSubState {
 
     private function loadBG():Void {
         var back = new FlxSprite();
-        back.loadGraphic("assets/images/red.jpg");
+        back.makeGraphic(FlxG.width, FlxG.height, FlxColor.RED);
         back.x = 0;
 		back.y = 0;
 		back.alpha = 0.4;
