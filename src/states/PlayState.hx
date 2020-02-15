@@ -48,6 +48,7 @@ import sprites.Player;
 import sprites.Portal;
 import sprites.PuffEmitter;
 import sprites.WorldPiece;
+import components.Damager;
 
 class PlayState extends LycanState {
     public var player:Player;
@@ -137,6 +138,28 @@ class PlayState extends LycanState {
 			var portal:Portal = cast cb.int1.userData.entity;
 			portal.port((cb.int2.userData.entity:Player));
 			// Sounds.playSound(SoundAssets.collect, piece.physics.body.position.x, piece.physics.body.position.y);
+        }));
+        
+        // -- Damage listener
+        Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.ANY,
+            PlatformerPhysics.CHARACTER_TYPE, DamagerComponent.DAMAGER_TYPE, function(cb:InteractionCallback) {
+                var damager:Damager = cast cb.int2.userData.entity;
+                var player:Player = cast cb.int1.userData.entity;
+                if (damager.damager.active) {
+                    FlxG.signals.postUpdate.addOnce(function(){
+
+                        for (slot in universe.slots) {
+                            slot.unloadWorld(false);
+
+                        }
+
+                        reloadPlayerPosition = true;
+
+                        // Sounds.playSound(SoundAssets.delete);
+
+                        die();
+                    });
+                }
 		}));
     }
 

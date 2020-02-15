@@ -162,10 +162,9 @@ interface PhysicsEntity extends Entity {
 		
 		if (Std.is(entity, FlxSprite)) {
 			var iso = new BitmapDataIso(bmp, alphaThreshold);
-			var isoFunc = #if flash iso #else (x:Float, y:Float)->{return iso.iso(x, y);}#end;
+			var isoFunc = #if flash iso #else (x:Float, y:Float) -> iso.iso(x, y) #end;
 			var body:Body = IsoBody.run(isoFunc, iso.bounds);
 			addPremadeBody(body);
-			setBodyMaterial();
 			var s:FlxSprite = cast entity;
 			var o:Vec2 = body.userData.graphicOffset;
 			s.origin.set(-o.x, -o.y);
