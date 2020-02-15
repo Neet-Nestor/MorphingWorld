@@ -23,6 +23,7 @@ import nape.space.Space;
 import nape.dynamics.InteractionGroup;
 import nape.geom.Vec2;
 import nape.geom.Vec3;
+import sprites.DamagerSprite;
 
 // TODO could be PhysicsPresets?
 class PlatformerPhysics {

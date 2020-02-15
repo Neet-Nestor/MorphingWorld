@@ -48,7 +48,7 @@ import sprites.Player;
 import sprites.Portal;
 import sprites.PuffEmitter;
 import sprites.WorldPiece;
-import components.Damager;
+import sprites.DamagerSprite;
 
 class PlayState extends LycanState {
     public var player:Player;
@@ -142,25 +142,8 @@ class PlayState extends LycanState {
         
         // -- Damage listener
         Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.ANY,
-            PlatformerPhysics.CHARACTER_TYPE, DamagerComponent.DAMAGER_TYPE, function(cb:InteractionCallback) {
-                trace("damaged!");
-                var damager:Damager = cast cb.int2.userData.entity;
-                var player:Player = cast cb.int1.userData.entity;
-                if (damager.damager.active) {
-                    FlxG.signals.postUpdate.addOnce(function(){
-
-                        for (slot in universe.slots) {
-                            slot.unloadWorld(false);
-
-                        }
-
-                        reloadPlayerPosition = true;
-
-                        // Sounds.playSound(SoundAssets.delete);
-
-                        die();
-                    });
-                }
+            PlatformerPhysics.CHARACTER_TYPE, DamagerSprite.DAMAGER_TYPE, function(cb:InteractionCallback) {
+                die();
 		}));
     }
 

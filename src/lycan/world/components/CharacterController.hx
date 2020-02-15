@@ -119,7 +119,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 
 		physics.body.cbTypes.add(PlatformerPhysics.CHARACTER_TYPE);
 		physics.body.cbTypes.add(PlatformerPhysics.GROUNDABLE_TYPE);
-        trace("Character type = " + PlatformerPhysics.CHARACTER_TYPE);
 	}
 
 	@:append("destroy")

@@ -1,6 +1,5 @@
 package sprites;
 
-import components.Damager;
 import flixel.FlxG;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
@@ -20,22 +19,17 @@ import nape.geom.Vec2;
 import nape.phys.BodyType;
 import nape.space.Space;
 
-class Spike extends LSprite implements PhysicsEntity implements Damager {
+class Spike extends DamagerSprite {
 	public var showing(default, set):Bool;
     public var animate:Bool;
     
 	public var tweens:FlxTweenManager;
     
 	public function new(?bodyType:BodyType) {
-        if (bodyType == null) bodyType = BodyType.STATIC;
-
-		super();
-		loadGraphic("assets/images/spike.png");
-		
-        physics.init(bodyType);
-        physics.createRectangularBody(32, 20);
-		damager.init();
-		
+        super(bodyType);
+		loadGraphic(AssetPaths.spike__png);
+		physics.createBodyFromBitmap(pixels);
+        
 		tweens = new FlxTweenManager();
 		
 		showing = true;
@@ -54,7 +48,6 @@ class Spike extends LSprite implements PhysicsEntity implements Damager {
 	
 	override public function kill():Void {
 		alive = false;
-		damager.active = false;
 		tweens.tween(this, {alpha: 0}, 1, {onComplete: (_) -> {
 			exists = false;
 			// TODO physics is disabled by component, which we will change, but this looks okay for now
@@ -67,10 +60,10 @@ class Spike extends LSprite implements PhysicsEntity implements Damager {
 		this.showing = s;
 		
 		if (s) {
-			damager.active = true;
+			alive = true;
 			physics.enabled = true;
 		} else {
-			damager.active = false;
+			alive = false;
 			physics.enabled = false;
 		}
 		

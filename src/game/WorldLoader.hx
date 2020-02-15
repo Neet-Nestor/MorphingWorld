@@ -48,6 +48,7 @@ import sprites.WorldPiece;
 import sprites.Portal;
 import states.PlayState;
 import sprites.Spike;
+import sprites.DamagerSprite;
 
 using lycan.world.TiledPropertyExt;
 
@@ -259,6 +260,7 @@ class WorldLoader {
 			spike.setCenter(obj.x, obj.y);
 			spike.angle = obj.angle;
 			spike.physics.snapBodyToEntity();
+			spike.physics.body.cbTypes.add(DamagerSprite.DAMAGER_TYPE);
 
 			if (obj.properties.contains("showing")) {
 				spike.animate = false;
