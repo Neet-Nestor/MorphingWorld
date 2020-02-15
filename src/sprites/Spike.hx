@@ -27,12 +27,13 @@ class Spike extends LSprite implements PhysicsEntity implements Damager {
 	public var tweens:FlxTweenManager;
     
 	public function new(?bodyType:BodyType) {
+        if (bodyType == null) bodyType = BodyType.STATIC;
+
 		super();
 		loadGraphic("assets/images/spike.png");
 		
-		physics.init();
-		physics.createBodyFromBitmap(pixels, 0x08);
-		physics.body.type = bodyType == null ? BodyType.STATIC : bodyType;
+        physics.init(bodyType);
+        physics.createRectangularBody(32, 20);
 		damager.init();
 		
 		tweens = new FlxTweenManager();

@@ -47,6 +47,7 @@ import sprites.TiledSprite;
 import sprites.WorldPiece;
 import sprites.Portal;
 import states.PlayState;
+import sprites.Spike;
 
 using lycan.world.TiledPropertyExt;
 
@@ -250,6 +251,23 @@ class WorldLoader {
 			c.physics.snapBodyToEntity();
 			map.set(obj.gid, c);
 			layer.add(c);
+		});
+
+		loadObject("spike", (obj, layer, map) -> {
+			var spike:Spike = new Spike();
+			spike.physics.body.allowRotation = true;
+			spike.setCenter(obj.x, obj.y);
+			spike.angle = obj.angle;
+			spike.physics.snapBodyToEntity();
+
+			if (obj.properties.contains("showing")) {
+				spike.animate = false;
+				spike.showing = obj.properties.getBool("showing");
+				spike.animate = true;
+			}
+			
+			map.set(obj.gid, spike);
+			layer.add(spike);
 		});
 
 		objectHandlers.add((obj, layer, map) -> {

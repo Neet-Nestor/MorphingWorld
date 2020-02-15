@@ -21,7 +21,8 @@ class DamagerComponent extends Component<Damager> {
 	}
 	
 	public function init(active:Bool = true):Void {
-		this.entity.physics.body.cbTypes.add(DAMAGE_TYPE);
+        this.entity.physics.body.cbTypes.add(DAMAGER_TYPE);
+        trace("Damager_type = " + DAMAGER_TYPE);
+        trace(this.entity.physics.body.cbTypes);
 	}
-	
 }

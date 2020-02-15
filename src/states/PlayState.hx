@@ -143,6 +143,7 @@ class PlayState extends LycanState {
         // -- Damage listener
         Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.ANY,
             PlatformerPhysics.CHARACTER_TYPE, DamagerComponent.DAMAGER_TYPE, function(cb:InteractionCallback) {
+                trace("damaged!");
                 var damager:Damager = cast cb.int2.userData.entity;
                 var player:Player = cast cb.int1.userData.entity;
                 if (damager.damager.active) {

@@ -75,6 +75,7 @@ class PlatformerPhysics {
 
 		space.listeners.add(
 			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, Phys.TILEMAP_SHAPE_TYPE, (cb:PreCallback) -> {
+				if (cb.int1.userData.entity != null && Std.is(cb.int1.userData.entity, CharacterController)) {
 					var player:CharacterController = cast cb.int1.userData.entity;
 
 					if (!cb.arbiter.isCollisionArbiter()) return null;
@@ -84,8 +85,9 @@ class PlatformerPhysics {
 					if (angle > 90 + 2 || angle < 90 - 2) {
 						player.characterController.stop();
 					}
-					// We don't need to change the acceptance
-					return PreFlag.ACCEPT_ONCE;
+				}
+				// We don't need to change the acceptance
+				return PreFlag.ACCEPT_ONCE;
 			})
 		);
 		
