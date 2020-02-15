@@ -17,19 +17,25 @@ import nape.shape.Polygon;
 import nape.shape.Shape;
 import lycan.phys.PlatformerPhysics;
 import states.PlayState;
+import flixel.system.FlxSound;
+import flixel.FlxG;
 
 class Portal extends LSprite implements PhysicsEntity {
 	public static var PORTAL_TYPE:CbType = new CbType();
 
     public var port:(p:Player) -> Void;
-    public var destinationWorldDef:WorldDef;
+	public var destinationWorldDef:WorldDef;
+	
+	public var _sndPass:FlxSound;
 	
 	public function new(destinationWorldDef:WorldDef) {
 		super();
 		
 		loadGraphic("assets/images/portal.png", true, 32, 32);
         animation.add("main", [for (i in 0...17) 16 - i], 10, true);
-        animation.play("main");
+		animation.play("main");
+		
+		_sndPass = FlxG.sound.load(AssetPaths.pass__wav);
 		
 		physics.init(BodyType.STATIC, true, false);
 		physics.createRectangularBody(14, 5, BodyType.STATIC);
@@ -40,6 +46,9 @@ class Portal extends LSprite implements PhysicsEntity {
 		physics.body.cbTypes.add(PORTAL_TYPE);
         
         this.destinationWorldDef = destinationWorldDef;
-        port = (p) -> { PlayState.instance.switchWorld(destinationWorldDef); }
+        port = (p) -> { 
+			_sndPass.play();
+			PlayState.instance.switchWorld(destinationWorldDef); 
+		}
 	}
 }
