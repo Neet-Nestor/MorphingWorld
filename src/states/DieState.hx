@@ -26,14 +26,10 @@ class DieState extends FlxSubState {
 
     public var uiGroup:FlxSpriteGroup;
 
-    public var _sndDie:FlxSound;
-
     override public function create():Void {
         super.create();
 		uiGroup = new FlxSpriteGroup();
         uiGroup.camera = PlayState.instance.uiCamera;
-        _sndDie = FlxG.sound.load(AssetPaths.die__wav);
-        _sndDie.play();
 		loadBG();
 		loadTitle();
 		loadMenu();

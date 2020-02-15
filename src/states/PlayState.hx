@@ -282,18 +282,25 @@ class PlayState extends LycanState {
     }
 
     public function die():Void {
-        persistentUpdate = false;
-        //player.characterController.leftPressed = false;
-        //player.characterController.rightPressed = false;
-        //player.physics.body.velocity.y = 0;
-        //Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
-        dieState = new DieState();
-        dieState.closeCallback = () -> {
-            reset();
-            //Phys.FORCE_TIMESTEP = 1;
-            persistentUpdate = true;
-        }
-        openSubState(dieState);
+        player.characterController.hasControl = false;
+        player.characterController.stop();
+        player.physics.body.velocity.y = 0;
+        player.dead = true;
+        FlxG.sound.load(AssetPaths.die__wav).play();
+        Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
+        player.animation.finishCallback = (_) -> {
+            persistentUpdate = false;
+            //player.characterController.leftPressed = false;
+            //player.characterController.rightPressed = false;
+            //player.physics.body.velocity.y = 0;
+            dieState = new DieState();
+            dieState.closeCallback = () -> {
+                reset();
+                Phys.FORCE_TIMESTEP = null;
+                persistentUpdate = true;
+            }
+            openSubState(dieState);
+        };
     }
 
     public function switchWorld(nextWorld:WorldDef):Void {

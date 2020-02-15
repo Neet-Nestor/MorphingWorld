@@ -11,19 +11,22 @@ import lycan.entities.LSprite;
 import flixel.FlxObject;
 
 class Player extends LSprite implements CharacterController implements Groundable implements PhysicsEntity {
+	public var dead:Bool;
+
     public function new(x:Float, y:Float, width:Int, height:Int) {
         super();
 
         loadGraphic(AssetPaths.player__png, true, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
 		scale.set(Config.PLAYER_SCALE, Config.PLAYER_SCALE);
 
-		var idleFrames = [for (i in 0...6) i];
+		var idleFrames = [for (_ in 0...6) 0];
 		idleFrames.concat([for (i in 0...Config.PLAYER_FRAME_PER_ROW) i]);
-		idleFrames.concat([for (i in 0...6) i]);
+		idleFrames.concat([for (_ in 0...6) 0]);
 		animation.add("idle", idleFrames, 10, true);
 		animation.add("run", [for (i in Config.PLAYER_FRAME_PER_ROW...Config.PLAYER_FRAME_PER_ROW + 8) i], 12, true);
 		animation.add("jump", [for (i in 5 * Config.PLAYER_FRAME_PER_ROW...5 * Config.PLAYER_FRAME_PER_ROW + 6) i], 12);
 		animation.add("fall", [for (i in 6 * Config.PLAYER_FRAME_PER_ROW...6 * Config.PLAYER_FRAME_PER_ROW + 4) i], 12);
+		animation.add("die", [for (i in 7 * Config.PLAYER_FRAME_PER_ROW...7 * Config.PLAYER_FRAME_PER_ROW + 7) i], 10, false);
 
 		characterController.init(width, height);
 		characterController.moveAcceleration = 0.2;
@@ -34,17 +37,11 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		characterController.maxJumps = 3;
 
 		groundable.groundedAngleLimit = 65;
+
+		dead = false;
 		
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
-	}
-
-	override public function revive():Void {
-		super.revive();
-	}
-
-	override public function destroy():Void {
-		super.destroy();
 	}
 
 	override public function update(dt:Float):Void {
@@ -61,7 +58,9 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		var velocity = body.velocity;
 
 		var cc = characterController;
-		if (groundable.isGrounded) {
+		if (dead) {
+			animation.play("die");
+		} else if (groundable.isGrounded) {
 			if (cc.currentMoveVel > 0) {
 				animation.play("run");
 			} else if (cc.currentMoveVel < 0) {
