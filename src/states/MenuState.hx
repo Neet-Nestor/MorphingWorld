@@ -27,8 +27,9 @@ class MenuState extends LycanState {
         loadBG();
         loadTitle();
         loadStart();
-        loadAboutUS();
         loadOptions();
+        loadAboutUS();
+        loadQuit();
     }
 
     override public function update(elapsed:Float):Void {
@@ -55,19 +56,30 @@ class MenuState extends LycanState {
         add(startBtn);
     }
 
-    private function loadAboutUS():Void {
-        var aboutUsBtn = new FlxButton(0, title.getScreenPosition().y + 150, "About Us", onStart);
-        aboutUsBtn.screenCenter(FlxAxes.X);
-        add(aboutUsBtn);
-    }
-
     private function loadOptions():Void {
         var optionsBtn = new FlxButton(0, title.getScreenPosition().y + 125, "Options", onStart);
         optionsBtn.screenCenter(FlxAxes.X);
         add(optionsBtn);
     }
 
+    private function loadAboutUS():Void {
+        var aboutUsBtn = new FlxButton(0, title.getScreenPosition().y + 150, "About Us", onStart);
+        aboutUsBtn.screenCenter(FlxAxes.X);
+        add(aboutUsBtn);
+    }
+
+    private function loadQuit():Void {
+        var quitUsBtn = new FlxButton(0, title.getScreenPosition().y + 175, "Quit Game", onQuit);
+        quitUsBtn.screenCenter(FlxAxes.X);
+        add(quitUsBtn);
+    }
+
     private function onStart():Void {
+        FlxG.switchState(new PlayState());
+    }
+
+    private function onQuit():Void {
+        // TODO quit
         FlxG.switchState(new PlayState());
     }
 }

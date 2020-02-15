@@ -1,5 +1,6 @@
 package states;
 
+import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.FlxSubState;
 import flixel.text.FlxText;
@@ -17,6 +18,7 @@ import flixel.addons.ui.FlxUIRadioGroup;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUIText;
 import flixel.system.FlxSound;
+
 
 class DieState extends FlxSubState {
 	private var restartBtn:FlxButton;
@@ -45,11 +47,12 @@ class DieState extends FlxSubState {
     }
 
     private function loadBG():Void {
-        var back = new FlxSprite();
+		var back = new FlxSprite();
         back.loadGraphic("assets/images/menubg.jpg");
         back.x = 0;
-        back.y = 0;
-        uiGroup.add(back);
+		back.y = 0;
+		//back.alpha = 0.5;
+        add(back);
 	}
 	
 	private function loadTitle():Void {
