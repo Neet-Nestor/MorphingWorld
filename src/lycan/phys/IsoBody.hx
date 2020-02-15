@@ -40,9 +40,9 @@ import flash.display.Sprite;
 import flash.display.StageQuality;
 
 class IsoBody {
-	public static function run(iso:IsoFunctionDef, bounds:AABB, granularity:Vec2=null, quality:Int=2, simplification:Float=1.5) {
-		var body = new Body();
-		if (granularity==null) granularity = Vec2.weak(8, 8);
+	public static function run(iso:IsoFunctionDef, bounds:AABB, ?bodyType:BodyType, granularity:Vec2 = null, quality:Int = 2, simplification:Float = 1.5):Body {
+		var body = new Body(bodyType == null ? BodyType.DYNAMIC : bodyType);
+		if (granularity == null) granularity = Vec2.weak(8, 8);
 		var polys = MarchingSquares.run(iso, bounds, granularity, quality);
 		for (p in polys) {
 			var qolys = p.simplify(simplification).convexDecomposition(true);

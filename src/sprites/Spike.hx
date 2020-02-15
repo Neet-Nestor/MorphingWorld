@@ -28,8 +28,9 @@ class Spike extends DamagerSprite {
 	public function new(?bodyType:BodyType) {
         super(bodyType);
 		loadGraphic(AssetPaths.spike__png);
-		physics.createBodyFromBitmap(pixels);
-        
+		physics.createBodyFromBitmap(pixels, BodyType.STATIC);
+		physics.body.shapes.at(0).sensorEnabled = true;
+		physics.body.setShapeFilters(PlatformerPhysics.NON_COLLISION_FILTER);
 		tweens = new FlxTweenManager();
 		
 		showing = true;

@@ -141,7 +141,7 @@ class PlayState extends LycanState {
         }));
         
         // -- Damage listener
-        Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.ANY,
+        Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.SENSOR,
             PlatformerPhysics.CHARACTER_TYPE, DamagerSprite.DAMAGER_TYPE, function(cb:InteractionCallback) {
                 die();
 		}));

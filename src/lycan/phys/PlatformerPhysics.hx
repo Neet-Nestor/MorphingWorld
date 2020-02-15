@@ -40,7 +40,7 @@ class PlatformerPhysics {
 
 	// Interaction Filters
 	public static var WORLD_FILTER:InteractionFilter = new InteractionFilter();
-	public static var OVERLAPPING_OBJECT_FILTER:InteractionFilter = new InteractionFilter();
+	public static var NON_COLLISION_FILTER:InteractionFilter = new InteractionFilter();
 	
 	private static var isSetup:Bool = false;
 	
@@ -56,8 +56,8 @@ class PlatformerPhysics {
 		space = space == null ? Phys.space : space;
 		WORLD_FILTER.collisionGroup = 1;
 		WORLD_FILTER.collisionMask  = ~1;
-		OVERLAPPING_OBJECT_FILTER.collisionGroup = 2;
-		OVERLAPPING_OBJECT_FILTER.collisionMask  = 1 | 2;
+		NON_COLLISION_FILTER.collisionGroup = 999;
+		NON_COLLISION_FILTER.collisionMask  = 0;
 
 		// Character controller drop-through one way
 		space.listeners.add(
@@ -91,7 +91,7 @@ class PlatformerPhysics {
 				return PreFlag.ACCEPT_ONCE;
 			})
 		);
-		
+
 		// Avoid vertical friction on grounds
 		// TODO could we merge this with groun checks?
 		space.listeners.add(

@@ -157,13 +157,13 @@ interface PhysicsEntity extends Entity {
 		}
 	}
 	
-	public function createBodyFromBitmap(bmp:BitmapData, alphaThreshold:Float = 0x80):Void {
+	public function createBodyFromBitmap(bmp:BitmapData, alphaThreshold:Float = 0x80, ?bodyType:BodyType):Void {
 		if (body != null) destroyPhysObjects();
 		
 		if (Std.is(entity, FlxSprite)) {
 			var iso = new BitmapDataIso(bmp, alphaThreshold);
 			var isoFunc = #if flash iso #else (x:Float, y:Float) -> iso.iso(x, y) #end;
-			var body:Body = IsoBody.run(isoFunc, iso.bounds);
+			var body:Body = IsoBody.run(isoFunc, iso.bounds, bodyType);
 			addPremadeBody(body);
 			var s:FlxSprite = cast entity;
 			var o:Vec2 = body.userData.graphicOffset;
