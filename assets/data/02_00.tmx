@@ -35,7 +35,14 @@
     <property name="oneway" value="true"/>
    </properties>
   </object>
-  <object id="15" name="elevator01_s" type="elevator" gid="38" x="32" y="320" width="32" height="32"/>
-  <object id="16" name="elevator01_e" type="elevator" gid="38" x="32" y="160" width="32" height="32"/>
+  <object id="15" name="elevator01_s" type="elevator" gid="38" x="32" y="320" width="32" height="32">
+   <properties>
+    <property name="endX" value="32"/>
+    <property name="endY" value="160"/>
+    <property name="oneway" value="true"/>
+    <property name="startX" value="32"/>
+    <property name="startY" value="320"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
