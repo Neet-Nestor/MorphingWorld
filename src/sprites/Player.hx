@@ -77,4 +77,9 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		}
 		super.updateAnimation(dt);
 	}
+    
+    override public function destroy():Void {
+		super.destroy();
+		physics.destroy();
+	}
 }

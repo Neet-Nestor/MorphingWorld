@@ -51,4 +51,9 @@ class Portal extends LSprite implements PhysicsEntity {
 			PlayState.instance.switchWorld(destinationWorldDef); 
 		}
 	}
+    
+    override public function destroy():Void {
+		super.destroy();
+		physics.destroy();
+	}
 }

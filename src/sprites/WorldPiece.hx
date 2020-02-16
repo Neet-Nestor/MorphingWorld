@@ -57,7 +57,7 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
 		}
 	}
 
-	override public function destroy():Void {
+    override public function destroy():Void {
 		super.destroy();
 		physics.destroy();
 	}

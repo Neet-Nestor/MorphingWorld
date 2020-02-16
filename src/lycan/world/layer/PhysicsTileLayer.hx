@@ -271,4 +271,9 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 		}
 		return FlxRect.get(startX - 1, startY, widthInTiles - 1, endY);
 	}
+
+	override public function destroy():Void {
+		super.destroy();
+		physics.destroy();
+	}
 }

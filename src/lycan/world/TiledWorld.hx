@@ -78,13 +78,7 @@ class TiledWorld extends FlxGroup {
 		objectLayers = null;
 		// Magic Code
 		if (tileLayers != null) {
-			for (tl in tileLayers) {
-				tl.destroy();
-				if (Std.is(tl, PhysicsTileLayer)) {
-					var ptl:PhysicsTileLayer = cast tl;
-					ptl.physics.destroyPhysObjects();
-				}
-			}
+			for (tl in tileLayers) tl.destroy();
 		}
 		tileLayers = null;
 

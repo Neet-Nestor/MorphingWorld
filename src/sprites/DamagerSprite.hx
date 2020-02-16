@@ -19,6 +19,10 @@ class DamagerSprite extends LSprite implements PhysicsEntity {
         physics.enabled = true;
 		physics.body.userData.entity = this;
         physics.body.cbTypes.add(DAMAGER_TYPE);
+    }
+    
+    override public function destroy():Void {
+		super.destroy();
+		physics.destroy();
 	}
-	
 }
