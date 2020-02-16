@@ -20,13 +20,13 @@ class Board extends PhysSprite {
         if (bodyType == null) bodyType = BodyType.DYNAMIC;
         super();
         loadGraphic("assets/images/board.png", 32, 32);
+        origin.set(16, 23);
         physics.init(bodyType, false, false);
         physics.createRectangularBody(32, 32, bodyType);
         physics.enabled = true;
         physics.body.userData.entity = this;
         physics.body.shapes.at(0).sensorEnabled = false;
         physics.body.shapes.at(0).fluidEnabled = false;
-        physics.body.setShapeFilters(PlatformerPhysics.OVERLAPPING_FILTER);
         physics.body.cbTypes.add(PlatformerPhysics.MOVING_PLATFORM_TYPE);
     	// offset.set(0, -4);
     }
