@@ -119,6 +119,22 @@ class PlatformerPhysics {
 		);
 		
 		// One way platforms
+		// -- Character controller drop-through one way
+		space.listeners.add(
+			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, ONEWAY_TYPE,
+				function(ic:PreCallback):PreFlag {
+					var body:Body = ic.int1.castBody;
+					var p:CharacterController = cast body.userData.entity;
+					if (p.characterController.dropThrough) {
+						return PreFlag.IGNORE;
+					} else {
+						return null;
+					}
+				}, 1
+			)
+		);
+
+		// -- Jump beyond one way platforms
 		// TODO should use accept/ignore_once?
 		// TODO don't hardcode the angles
 		space.listeners.push(

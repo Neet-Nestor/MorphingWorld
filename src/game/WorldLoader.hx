@@ -94,42 +94,17 @@ class WorldLoader {
 			if (layer.worldLayer.type == TiledLayerType.TILE && Std.is(layer, PhysicsTileLayer)) {
 				var tl:PhysicsTileLayer = cast layer;
 				tl.body.shapes.foreach(s -> s.filter = PlatformerPhysics.WORLD_FILTER);
-				// if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s -> s.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE));
 			}
 		});
 
-		// layerLoadedHandlers.add(function(tiledLayer, layer) {
-		// 	if (layer.worldLayer.type == TiledLayerType.TILE) {
-		// 		var tl:TileLayer = cast layer;
-		// 		tl.alpha = tiledLayer.opacity;
-		// 		var scrollFactor = tiledLayer.properties.contains("scrollFactor") ? tiledLayer.properties.getFloat("scrollFactor") : 1;
-		// 		tl.scrollFactor.set(scrollFactor, scrollFactor);
-		// 	}
-		// });
-
-		// layerLoadedHandlers.add(function(tiledLayer, layer) {
-		// 	if (layer.worldLayer.type == TiledLayerType.TILE && tiledLayer.properties.contains("sprite")) {
-		// 		var tl:PhysicsTileLayer = cast layer;
-		// 		var spr = new TiledSprite();
-		// 		spr.initFromLayer(tl);
-		// 		tl.worldLayer.world.insert(tl.worldLayer.world.members.indexOf(tl), spr);
-		// 		tl.worldLayer.world.remove(tl);
-		// 		layer.worldLayer.world.objects.set(tiledLayer.id, spr);
-
-		// 		// TODO better unification of layer and object loading
-		// 		setCollisionGroup(tiledLayer, layer, layer.worldLayer.world.objects);
-
-		// 		var bodyType:Null<String> = tiledLayer.properties.get("bodyType");
-		// 		if (bodyType != null) setBodyType(tl, bodyType);
-
-		// 		var weldId:Null<Int> = tiledLayer.properties.getInt("weldTo");
-		// 		if (weldId != null) {
-		// 			layer.worldLayer.world.onLoadingComplete.addOnce(() -> {
-		// 				weld(tl, cast (layer.worldLayer.world.objects.get(weldId)));
-		// 			});
-		// 		}
-		// 	}
-		// });
+		layerLoadedHandlers.add(function(tiledLayer, layer) {
+			if (layer.worldLayer.type == TiledLayerType.TILE) {
+				var tl:TileLayer = cast layer;
+				tl.alpha = tiledLayer.opacity;
+				var scrollFactor = tiledLayer.properties.contains("scrollFactor") ? tiledLayer.properties.getFloat("scrollFactor") : 1;
+				tl.scrollFactor.set(scrollFactor, scrollFactor);
+			}
+		});
 
 		// TODO duplicated, implement for objects and objects at same time
 		layerLoadedHandlers.add(function(tiledLayer, layer) {
@@ -343,26 +318,26 @@ class WorldLoader {
 			}
 		});
 
-		// lateLoad((obj, layer, map) -> {
-		// 	if (obj.properties.getBool("oneway")) {
-		// 		var po:PhysicsEntity = cast map.get(obj.gid);
-		// 		po.physics.body.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE);
-		// 	}
-		// });
+		lateLoad((obj, layer, map) -> {
+			if (obj.properties.getBool("oneway")) {
+				var po:PhysicsEntity = cast map.get(obj.gid);
+				po.physics.body.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE);
+			}
+		});
 
-		// lateLoad((obj, layer, map) -> {
-		// 	if (obj.properties.contains("weldTo")) {
-		// 		var weldTarget:PhysicsEntity = cast map.get(obj.properties.getInt("weldTo"));
-		// 		var weldee:PhysicsEntity = cast map.get(obj.gid);
-		// 		weld(weldTarget, weldee);
-		// 	}
-		// });
+		lateLoad((obj, layer, map) -> {
+			if (obj.properties.contains("weldTo")) {
+				var weldTarget:PhysicsEntity = cast map.get(obj.properties.getInt("weldTo"));
+				var weldee:PhysicsEntity = cast map.get(obj.gid);
+				weld(weldTarget, weldee);
+			}
+		});
 
-		// lateLoad((obj, layer, map) -> {
-		// 	if (obj.properties.contains("onLoad")) {
-		// 		runobjectscript(map.get(obj.gid), PlayState.instance.parser.parseString(obj.properties.get("onLoad")), layer.worldLayer.world);
-		// 	}
-		// });
+		lateLoad((obj, layer, map) -> {
+			if (obj.properties.contains("onLoad")) {
+				runobjectscript(map.get(obj.gid), PlayState.instance.parser.parseString(obj.properties.get("onLoad")), layer.worldLayer.world);
+			}
+		});
 
 	}
 
