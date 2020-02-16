@@ -284,11 +284,11 @@ class PlayState extends LycanState {
     public function die():Void {
         player.characterController.hasControl = false;
         player.dead = true;
+        player.characterController.stop();
         FlxG.sound.load(AssetPaths.die__wav).play();
         player.animation.finishCallback = (_) -> {
             persistentUpdate = false;
             player.physics.body.velocity.y = 0;
-            player.characterController.stop();
             Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
             //player.characterController.leftPressed = false;
             //player.characterController.rightPressed = false;
