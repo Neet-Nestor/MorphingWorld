@@ -123,9 +123,8 @@ class PlayState extends LycanState {
 
         // Setup gravity
         Phys.space.gravity.setxy(0, Config.GRAVITY);
-        trace(Phys.space.gravity);
-        // Game listeners setup
 
+        // Game listeners setup
         // -- Piece Found listener
         Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.SENSOR,
             WorldPiece.WORLD_PIECE_TYPE, PlatformerPhysics.CHARACTER_TYPE, (cb:InteractionCallback) -> {

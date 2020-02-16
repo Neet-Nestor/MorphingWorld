@@ -33,8 +33,6 @@ class GroundableComponent extends Component<Groundable> {
 
 	@:append("update")
 	public function update(dt:Float):Void {
-		if (wasGrounded != isGrounded)
-			trace('changed from $wasGrounded to $isGrounded');
 		wasGrounded = isGrounded;
 	}
 

@@ -120,9 +120,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 
 		physics.body.cbTypes.add(PlatformerPhysics.CHARACTER_TYPE);
 		physics.body.cbTypes.add(PlatformerPhysics.GROUNDABLE_TYPE);
-
-		trace(physics.body.shapes.at(0).filter.collisionGroup);
-		trace(physics.body.shapes.at(0).filter.collisionMask);
 	}
 
 	@:append("destroy")
@@ -149,9 +146,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		body.position.y--;
 		var result:ConvexResult = Phys.space.convexCast(body.shapes.at(0), 1, false, body.shapes.at(0).filter);
 		if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
-			if (!Std.is(result.shape.body.userData.entity, PhysicsTileLayer)) {
-				trace("s");
-			}
 			entity.groundable.add(result.shape.body.userData.entity);
 		}
 		body.position.y++;
