@@ -97,7 +97,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (height == null) height = _object.height;
 
 		physics.init(BodyType.DYNAMIC, false);
-		physics.createRectangularBody(16, 24);
+		physics.createRectangularBody(width, height);
 		physics.body.position.setxy(x, y);
 		physics.body.userData.entity = entity;
 		physics.body.allowRotation = false;

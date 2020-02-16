@@ -19,6 +19,7 @@ class Player extends LSprite implements CharacterController implements Groundabl
 
         loadGraphic(AssetPaths.player__png, true, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
 		scale.set(Config.PLAYER_SCALE, Config.PLAYER_SCALE);
+		origin.set(15, 19);
 
 		var idleFrames = [for (_ in 0...6) 0];
 		idleFrames.concat([for (i in 0...Config.PLAYER_FRAME_PER_ROW) i]);
@@ -29,7 +30,7 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		animation.add("fall", [for (i in 6 * Config.PLAYER_FRAME_PER_ROW...6 * Config.PLAYER_FRAME_PER_ROW + 4) i], 12);
 		animation.add("die", [for (i in 7 * Config.PLAYER_FRAME_PER_ROW...7 * Config.PLAYER_FRAME_PER_ROW + 7) i], 10, false);
 
-		characterController.init(width, height);
+		characterController.init(16, 24);
 		characterController.moveAcceleration = 0.2;
 		characterController.runSpeed = 60;
 		characterController.jumpSpeed = -200;
