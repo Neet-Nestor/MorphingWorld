@@ -41,8 +41,9 @@ import nape.geom.Vec2;
 import nape.phys.Body;
 import nape.phys.BodyType;
 import nape.phys.Material;
-import sprites.PhysSprite;
+import sprites.Board;
 import sprites.Player;
+import sprites.PhysSprite;
 import sprites.TiledSprite;
 import sprites.WorldPiece;
 import sprites.Portal;
@@ -270,6 +271,14 @@ class WorldLoader {
 			
 			map.set(obj.gid, spike);
 			layer.add(spike);
+		});
+
+		loadObject("board", (obj, layer, map) -> {
+			var b:Board = new Board();
+			b.setCenter(obj.x, obj.y);
+			b.physics.snapBodyToEntity();
+			map.set(obj.gid, b);
+			layer.add(b);
 		});
 
 		objectHandlers.add((obj, layer, map) -> {
