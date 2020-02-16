@@ -21,7 +21,7 @@ class Board extends PhysSprite {
         loadGraphic("assets/images/board.png", 32, 32);
         origin.set(16, 23);
         physics.init(bodyType, false, false);
-        physics.createRectangularBody(32, 32, bodyType);
+        physics.createRectangularBody(32, 6, bodyType);
         physics.enabled = true;
         physics.body.userData.entity = this;
         physics.body.shapes.at(0).sensorEnabled = false;
