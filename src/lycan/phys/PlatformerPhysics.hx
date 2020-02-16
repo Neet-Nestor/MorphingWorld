@@ -1,5 +1,6 @@
 package lycan.phys;
 
+import sprites.Board;
 import nape.geom.Geom;
 import nape.dynamics.Contact;
 import nape.shape.Polygon;
@@ -36,11 +37,11 @@ class PlatformerPhysics {
 	public static var MOVING_PLATFORM_TYPE:CbType = new CbType();
 	
 	// Interaction groups
-	public static var OVERLAPPING_OBJECT_GROUP:InteractionGroup = new InteractionGroup(true);
+	public static var OVERLAPPING_GROUP:InteractionGroup = new InteractionGroup(true);
 
 	// Interaction Filters
+	public static var OVERLAPPING_FILTER:InteractionFilter = new InteractionFilter();
 	public static var WORLD_FILTER:InteractionFilter = new InteractionFilter();
-	public static var NON_COLLISION_FILTER:InteractionFilter = new InteractionFilter();
 	
 	private static var isSetup:Bool = false;
 	
@@ -54,10 +55,10 @@ class PlatformerPhysics {
 		}
 		
 		space = space == null ? Phys.space : space;
-		WORLD_FILTER.collisionGroup = 1;
-		WORLD_FILTER.collisionMask  = ~1;
-		NON_COLLISION_FILTER.collisionGroup = 999;
-		NON_COLLISION_FILTER.collisionMask  = 0;
+		OVERLAPPING_FILTER.collisionGroup = (1 << 5);
+		OVERLAPPING_FILTER.collisionMask  = ~(1 << 5);
+		WORLD_FILTER.collisionGroup = (1 << 2);
+		WORLD_FILTER.collisionMask = 1 | (1 << 5);
 
 		// Character controller drop-through one way
 		space.listeners.add(
@@ -86,6 +87,17 @@ class PlatformerPhysics {
 					if (angle > 90 + 2 || angle < 90 - 2) {
 						player.characterController.stop();
 					}
+				}
+				// We don't need to change the acceptance
+				return PreFlag.ACCEPT_ONCE;
+			})
+		);
+
+		space.listeners.add(
+			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, MOVING_PLATFORM_TYPE, (cb:PreCallback) -> {
+				var e2 = cb.int2.userData;
+				if (Std.is(e2, Board)) {
+					trace("collision occures2");
 				}
 				// We don't need to change the acceptance
 				return PreFlag.ACCEPT_ONCE;

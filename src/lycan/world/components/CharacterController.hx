@@ -16,6 +16,7 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxVector;
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
+import lycan.world.layer.PhysicsTileLayer;
 import flixel.util.FlxColor;
 import lycan.entities.LSprite;
 import lycan.util.GraphicUtil;
@@ -101,7 +102,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		physics.body.position.setxy(x, y);
 		physics.body.userData.entity = entity;
 		physics.body.allowRotation = false;
-		physics.body.group = PlatformerPhysics.OVERLAPPING_OBJECT_GROUP;
+		physics.body.group = PlatformerPhysics.OVERLAPPING_GROUP;
 
 		physics.body.isBullet = true;
 
@@ -119,6 +120,9 @@ class CharacterControllerComponent extends Component<CharacterController> {
 
 		physics.body.cbTypes.add(PlatformerPhysics.CHARACTER_TYPE);
 		physics.body.cbTypes.add(PlatformerPhysics.GROUNDABLE_TYPE);
+
+		trace(physics.body.shapes.at(0).filter.collisionGroup);
+		trace(physics.body.shapes.at(0).filter.collisionMask);
 	}
 
 	@:append("destroy")
@@ -145,6 +149,9 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		body.position.y--;
 		var result:ConvexResult = Phys.space.convexCast(body.shapes.at(0), 1, false, body.shapes.at(0).filter);
 		if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
+			if (!Std.is(result.shape.body.userData.entity, PhysicsTileLayer)) {
+				trace("s");
+			}
 			entity.groundable.add(result.shape.body.userData.entity);
 		}
 		body.position.y++;

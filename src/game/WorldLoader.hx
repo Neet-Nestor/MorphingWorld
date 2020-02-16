@@ -90,21 +90,13 @@ class WorldLoader {
 	}
 
 	public function setupLayerHandlers():Void {
-		// layerLoadedHandlers.add(function(tiledLayer, layer) {
-		// 	if (layer.worldLayer.type == TiledLayerType.TILE) {
-		// 		var tl:PhysicsTileLayer = cast layer;
-		// 		tl.body.shapes.foreach(s -> s.filter = PlatformerPhysics.WORLD_FILTER);
-		// 		if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s -> s.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE));
-		// 	}
-		// });
-
-		// layerLoadedHandlers.add(function(tiledLayer, layer) {
-		// 	if (layer.worldLayer.type == TiledLayerType.TILE && Std.is(layer, PhysicsTileLayer)) {
-		// 		var tl:PhysicsTileLayer = cast layer;
-		// 		tl.body.shapes.foreach(s -> s.filter = PlatformerPhysics.WORLD_FILTER);
-		// 		if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s -> s.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE));
-		// 	}
-		// });
+		layerLoadedHandlers.add(function(tiledLayer, layer) {
+			if (layer.worldLayer.type == TiledLayerType.TILE && Std.is(layer, PhysicsTileLayer)) {
+				var tl:PhysicsTileLayer = cast layer;
+				tl.body.shapes.foreach(s -> s.filter = PlatformerPhysics.WORLD_FILTER);
+				// if (tl.properties.getBool("oneway", false)) tl.body.shapes.foreach(s -> s.cbTypes.add(PlatformerPhysics.ONEWAY_TYPE));
+			}
+		});
 
 		// layerLoadedHandlers.add(function(tiledLayer, layer) {
 		// 	if (layer.worldLayer.type == TiledLayerType.TILE) {

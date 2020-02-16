@@ -24,6 +24,7 @@ import nape.dynamics.InteractionFilter;
 import openfl.geom.Matrix3D;
 import lycan.game3D.Point3D;
 import lycan.game3D.PerspectiveProjection;
+import flixel.addons.nape.FlxNapeSpace;
 
 class Phys {
 	public static var space:Space;
@@ -48,8 +49,10 @@ class Phys {
 	public static function init():Void {
 		if (space != null) return;
 		space = new Space(Vec2.weak(0, 3));
+		// FlxNapeSpace.init();
+		// space = FlxNapeSpace.space;
 		space.gravity.x = 0;
-		space.gravity.y = 2500;
+		space.gravity.y = 200;
 
 		FlxG.signals.preUpdate.add(update);
 		FlxG.signals.preStateSwitch.add(onStateSwitch);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="17">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="18">
  <tileset firstgid="1" source="Sprute.tsx"/>
  <layer id="2" name="Tile Layer 1" width="14" height="14">
   <data encoding="csv">
@@ -42,6 +42,11 @@
     <property name="oneway" value="true"/>
     <property name="startX" value="32"/>
     <property name="startY" value="320"/>
+   </properties>
+  </object>
+  <object id="17" name="board01" type="board" gid="38" x="287.798" y="260.106" width="32" height="32">
+   <properties>
+    <property name="oneway" value="true"/>
    </properties>
   </object>
  </objectgroup>

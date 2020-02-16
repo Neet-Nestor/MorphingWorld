@@ -9,6 +9,7 @@ import flixel.FlxState;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
+import sprites.Board;
 import flixel.group.FlxSpriteGroup;
 import flixel.input.FlxInput.FlxInputState;
 import flixel.input.gamepad.FlxGamepadInputID;
@@ -36,6 +37,7 @@ import lycan.phys.PlatformerPhysics;
 import lycan.states.LycanState;
 import lycan.world.layer.PhysicsTileLayer;
 import nape.callbacks.CbEvent;
+import nape.callbacks.CbType;
 import nape.callbacks.InteractionCallback;
 import nape.callbacks.InteractionListener;
 import nape.callbacks.InteractionType;
@@ -121,7 +123,7 @@ class PlayState extends LycanState {
 
         // Setup gravity
         Phys.space.gravity.setxy(0, Config.GRAVITY);
-        
+        trace(Phys.space.gravity);
         // Game listeners setup
 
         // -- Piece Found listener

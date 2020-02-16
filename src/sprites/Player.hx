@@ -8,6 +8,7 @@ import lycan.world.components.Groundable;
 import lycan.world.components.PhysicsEntity;
 import lycan.world.components.CharacterController;
 import lycan.entities.LSprite;
+import lycan.phys.PlatformerPhysics;
 import flixel.FlxObject;
 
 class Player extends LSprite implements CharacterController implements Groundable implements PhysicsEntity {

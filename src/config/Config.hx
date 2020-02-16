@@ -16,7 +16,7 @@ class Config {
     public static inline final MAP_PATH:String = "assets/data/";
 
 	// Physics
-    public static inline final GRAVITY:Float = 500;
+    public static inline final GRAVITY:Float = 200;
 
 	// Zoom
     public static inline final SPRITE_ZOOM:Int = 1;
