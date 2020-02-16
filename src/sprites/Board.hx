@@ -10,14 +10,13 @@ import lycan.components.Attachable;
 import lycan.world.components.Groundable;
 import lycan.world.components.PhysicsEntity;
 import lycan.world.components.CharacterController;
-import lycan.entities.LSprite;
 import lycan.phys.PlatformerPhysics;
 import flixel.FlxObject;
 import states.PlayState;
 
 class Board extends PhysSprite {
-	public function new(?bodyType:BodyType) {
-        if (bodyType == null) bodyType = BodyType.DYNAMIC;
+    public function new(?bodyType:BodyType) {
+        if (bodyType == null) bodyType = BodyType.STATIC;
         super();
         loadGraphic("assets/images/board.png", 32, 32);
         origin.set(16, 23);
@@ -28,6 +27,5 @@ class Board extends PhysSprite {
         physics.body.shapes.at(0).sensorEnabled = false;
         physics.body.shapes.at(0).fluidEnabled = false;
         physics.body.cbTypes.add(PlatformerPhysics.MOVING_PLATFORM_TYPE);
-    	// offset.set(0, -4);
     }
 }
