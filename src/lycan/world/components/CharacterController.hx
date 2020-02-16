@@ -52,7 +52,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	public var jumpSpeed:Float = -900;
 	public var runSpeed:Float = 600;
 	public var maxJumps:Int = 2;
-	public var maxJumpVelY:Float = 500;
 	public var airDrag:Float = 5000;
 	public var groundSuckDistance:Float = 2;
 
@@ -199,7 +198,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			canJump = true;
 		}
 
-		if (currentJumps >= maxJumps || (body.velocity.y > maxJumpVelY && !groundable.isGrounded)) {
+		if (currentJumps >= maxJumps) {
 			canJump = false;
 		}
 		dropThrough = false;
