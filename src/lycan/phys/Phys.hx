@@ -48,11 +48,11 @@ class Phys {
 
 	public static function init():Void {
 		if (space != null) return;
-		space = new Space(Vec2.weak(0, 3));
-		// FlxNapeSpace.init();
-		// space = FlxNapeSpace.space;
+		// space = new Space(Vec2.weak(0, 3));
+		FlxNapeSpace.init();
+		space = FlxNapeSpace.space;
 		space.gravity.x = 0;
-		space.gravity.y = 200;
+		space.gravity.y = 2500;
 
 		FlxG.signals.preUpdate.add(update);
 		FlxG.signals.preStateSwitch.add(onStateSwitch);
