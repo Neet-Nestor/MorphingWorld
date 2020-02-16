@@ -44,10 +44,5 @@
     <property name="startY" value="320"/>
    </properties>
   </object>
-  <object id="17" name="board01" type="board" gid="38" x="287.798" y="260.106" width="32" height="32">
-   <properties>
-    <property name="oneway" value="true"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>
