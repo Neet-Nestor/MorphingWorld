@@ -56,9 +56,10 @@ class PlatformerPhysics {
 		
 		space = space == null ? Phys.space : space;
 		OVERLAPPING_FILTER.collisionGroup = (1 << 5);
-		OVERLAPPING_FILTER.collisionMask  = ~(1 << 5);
+		OVERLAPPING_FILTER.collisionMask  = -1;
+		// OVERLAPPING_FILTER.collisionMask  = ~(1 << 5);
 		WORLD_FILTER.collisionGroup = (1 << 2);
-		WORLD_FILTER.collisionMask = 1 | (1 << 5);
+		WORLD_FILTER.collisionMask = -1;
 
 		// Character controller drop-through one way
 		space.listeners.add(
@@ -93,17 +94,6 @@ class PlatformerPhysics {
 			})
 		);
 
-		space.listeners.add(
-			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, MOVING_PLATFORM_TYPE, (cb:PreCallback) -> {
-				var e2 = cb.int2.userData;
-				if (Std.is(e2, Board)) {
-					trace("collision occures2");
-				}
-				// We don't need to change the acceptance
-				return PreFlag.ACCEPT_ONCE;
-			})
-		);
-
 		// Avoid vertical friction on grounds
 		// TODO could we merge this with groun checks?
 		space.listeners.add(
@@ -123,7 +113,7 @@ class PlatformerPhysics {
 					}
 					
 					// We don't need to change the acceptance
-					return PreFlag.IGNORE;  //TODO： fights oneways?
+					return null;
 				}
 			)
 		);
