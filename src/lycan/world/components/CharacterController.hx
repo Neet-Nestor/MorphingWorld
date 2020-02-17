@@ -1,5 +1,6 @@
 package lycan.world.components;
 
+import sprites.MovingBoard;
 import flixel.system.FlxSound;
 import nape.dynamics.InteractionFilter;
 import flixel.FlxBasic.FlxType;
@@ -42,7 +43,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	@:forward var _object:FlxSprite;
 	@:calc var physics:PhysicsComponent = entity.physics;
 
-	public var baseMoveVel:FlxPoint;
 	public var targetMoveVel:Float = 0;
 	public var currentMoveVel:Float = 0;
 	public var moveAcceleration:Float = 0.4;
@@ -62,6 +62,10 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	public var hasControl:Bool;
 	public var currentJumps:Int;
 	public var canJump:Bool;
+
+	// About on moving platform
+	public var onMovingPlatform:Bool;
+	public var movingPlatform:MovingBoard;
 
 	// Whether left or right key is pressed
 	public var leftPressed:Bool = false;
@@ -90,8 +94,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		_sndJump2 = FlxG.sound.load(AssetPaths.jump2__wav);
 
 		_object = cast entity;
-		baseMoveVel = FlxPoint.get(0, 0);
-		targetMoveVel = baseMoveVel.x;
 	}
 
 	public function init(?width:Float, ?height:Float):Void {
@@ -128,7 +130,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		anchor.space = null;
 		anchorJoint.space = null;
 		_object = null;
-		baseMoveVel.put();
 	}
 
 	@:prepend("update")
@@ -173,16 +174,20 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			}
 			body.velocity.set(oldVel);
 		}
-		
+
 		// Moving Left/Right
 		if (hasControl) {
 			if (leftPressed != rightPressed) {
 				if (groundable.isGrounded) _sndStep.play();
-				targetMoveVel = baseMoveVel.x + (leftPressed ? -runSpeed : runSpeed);
+				targetMoveVel = leftPressed ? -runSpeed : runSpeed;
 				move();
 			} else {
 				if (Math.abs(currentMoveVel) > 0) stop();
 			}
+		}
+		if (groundable.isGrounded) {
+			physics.body.velocity.x = onMovingPlatform ? movingPlatform.velocity.x : 0;
+			physics.body.velocity.y = onMovingPlatform ? movingPlatform.velocity.y : 0;
 		}
 		
 		// Ground friction
@@ -208,8 +213,10 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (hasControl && FlxG.keys.anyPressed([FlxKey.S, FlxKey.DOWN])) {
 			dropThrough = true;
 		}
+		FlxG.watch.addQuick("onMovingPlatform", onMovingPlatform);
+		FlxG.watch.addQuick("targetMoveVel", targetMoveVel);
+		FlxG.watch.addQuick("currentMoveVel", currentMoveVel);
 		FlxG.watch.addQuick("friction", body.shapes.at(0).material.dynamicFriction);
-		FlxG.watch.addQuick("x velocity", currentMoveVel);
 		FlxG.watch.addQuick("hasControl", hasControl);
 		FlxG.watch.addQuick("Jumps left", maxJumps - currentJumps);
 	}
@@ -227,12 +234,12 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	}
 
 	public function stop():Void {
-		targetMoveVel = baseMoveVel.x;
+		targetMoveVel = 0;
 		// TODO probably issues with this method when running into a wall as walls don't zero it
-		currentMoveVel = baseMoveVel.x;
+		currentMoveVel = 0;
 
 		if (Math.abs(currentMoveVel) < minMoveVel) {
-			currentMoveVel = baseMoveVel.x;
+			currentMoveVel = 0;
 			isSliding = false;
 		}
 
@@ -249,7 +256,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 				_sndJump2.play();
 			}
 			currentJumps++;
-			physics.body.velocity.y = jumpSpeed;
+			physics.body.velocity.y += jumpSpeed;
 		}
 	}
 }

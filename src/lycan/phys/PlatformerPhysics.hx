@@ -20,11 +20,14 @@ import nape.phys.Body;
 import nape.dynamics.CollisionArbiter;
 import flixel.math.FlxAngle;
 import lycan.world.components.CharacterController;
+import lycan.world.components.PhysicsEntity;
 import nape.space.Space;
 import nape.dynamics.InteractionGroup;
 import nape.geom.Vec2;
 import nape.geom.Vec3;
 import sprites.DamagerSprite;
+import sprites.Player;
+import sprites.MovingBoard;
 
 // TODO could be PhysicsPresets?
 class PlatformerPhysics {
@@ -117,6 +120,65 @@ class PlatformerPhysics {
 				}
 			)
 		);
+
+        // TEst
+        space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.COLLISION,
+            CHARACTER_TYPE, MOVING_PLATFORM_TYPE, (cb:InteractionCallback) -> {
+			trace("begin");
+			var player:Player = cast cb.int1.userData.entity;
+			var platform:MovingBoard = cast cb.int2.userData.entity;
+			for (a in cb.arbiters) {
+				if (a.isCollisionArbiter()) {
+					var ca:CollisionArbiter = cast a;
+					var angle:Float = FlxAngle.TO_DEG * ca.normal.angle - (a.body1 == player.physics.body ? 90 : -90);
+					
+					if (angle >= -player.groundable.groundedAngleLimit && angle <= player.groundable.groundedAngleLimit) {
+						player.characterController.onMovingPlatform = true;
+						player.characterController.movingPlatform = platform;
+					}
+				}
+			}
+		}));
+
+		space.listeners.add(new InteractionListener(CbEvent.END, InteractionType.COLLISION,
+            CHARACTER_TYPE, MOVING_PLATFORM_TYPE, (cb:InteractionCallback) -> {
+			trace("begin");
+			var player:Player = cast cb.int1.userData.entity;
+			var platform:MovingBoard = cast cb.int2.userData.entity;
+			player.characterController.onMovingPlatform = false;
+			player.characterController.movingPlatform = null;
+		}));
+		
+        space.listeners.add(new InteractionListener(CbEvent.ONGOING, InteractionType.COLLISION,
+            CHARACTER_TYPE, MOVING_PLATFORM_TYPE, (cb:InteractionCallback) -> {
+			trace("ongoing");
+        }));
+        space.listeners.add(new InteractionListener(CbEvent.END, InteractionType.COLLISION,
+            CHARACTER_TYPE, MOVING_PLATFORM_TYPE, (cb:InteractionCallback) -> {
+			trace("end");
+        }));
+        
+		// TODO could we merge this with groun checks?
+		// space.listeners.add(
+		// 	new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, MOVING_PLATFORM_TYPE,
+		// 		function(cb:PreCallback):PreFlag {
+		// 			var player:Player = cast cb.int1.userData.entity;
+		// 			var platform:MovingBoard = cast cb.int2.userData.entity;
+		// 			var arbiter = cb.arbiter;
+					
+		// 			if (!arbiter.isCollisionArbiter()) return null;
+		// 			var ca:CollisionArbiter = cast arbiter;
+		// 			var angle:Float = FlxAngle.TO_DEG * ca.normal.angle - (arbiter.body1 == player.physics.body ? 90 : -90);
+					
+		// 			if (angle >= -player.groundable.groundedAngleLimit && angle <= player.groundable.groundedAngleLimit) {
+
+		// 			}
+					
+		// 			// We don't need to change the acceptance
+		// 			return null;
+		// 		}
+		// 	)
+		// );
 		
 		// One way platforms
 		// -- Character controller drop-through one way
