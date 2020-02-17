@@ -38,7 +38,7 @@
   <object id="31" name="object03" type="spike" gid="41" x="128" y="416" width="32" height="32"/>
   <object id="32" name="object02" type="spike" gid="41" x="320" y="416" width="32" height="32"/>
   <object id="33" name="object01" type="box" gid="29" x="64" y="288" width="32" height="32"/>
-  <object id="34" name="movingboard01" type="movingboard" gid="38" x="319.547" y="123.824" width="32" height="32">
+  <object id="34" name="movingboard01" type="movingboard" gid="38" x="351.582" y="107.396" width="32" height="32">
    <properties>
     <property name="oneway" value="true"/>
     <property name="path" value="elevator02_path"/>
