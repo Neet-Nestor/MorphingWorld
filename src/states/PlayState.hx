@@ -142,7 +142,7 @@ class PlayState extends LycanState {
         }));
         
         // -- Damage listener
-        Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.SENSOR,
+        Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.COLLISION,
             PlatformerPhysics.CHARACTER_TYPE, DamagerSprite.DAMAGER_TYPE, function(cb:InteractionCallback) {
                 die();
 		}));
@@ -195,16 +195,6 @@ class PlayState extends LycanState {
 		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
 		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
 		FlxG.camera.snapToTarget();
-    }
-
-    // helper function for putting the player at the correct position.
-    private function placeEntities(entityName:String, entityData:Xml):Void {
-        var x:Int = Std.parseInt(entityData.get("x"));
-        var y:Int = Std.parseInt(entityData.get("y"));
-        if (entityName == "player") {
-            player.x = x;
-            player.y = y;
-        }
     }
 
     // FlxSprite Overrides
