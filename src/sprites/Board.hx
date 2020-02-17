@@ -24,8 +24,5 @@ class Board extends PhysSprite {
         physics.createRectangularBody(32, 6, bodyType);
         physics.enabled = true;
         physics.body.userData.entity = this;
-        physics.body.shapes.at(0).sensorEnabled = false;
-        physics.body.shapes.at(0).fluidEnabled = false;
-        physics.body.cbTypes.add(PlatformerPhysics.MOVING_PLATFORM_TYPE);
     }
 }
