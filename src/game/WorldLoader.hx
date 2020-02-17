@@ -173,7 +173,7 @@ class WorldLoader {
 
 		loadObject("player", (obj, layer, map) -> {
 			var player:Player = null;
-			if (PlayState.instance == null || player == null) {
+			if (PlayState.instance == null || PlayState.instance.player == null) {
 				player = new Player(0, 0, Config.PLAYER_WIDTH, Config.PLAYER_HEIGHT);
 			} else {
 				player = PlayState.instance.player;
@@ -247,6 +247,38 @@ class WorldLoader {
 			map.set(obj.gid, b);
 			layer.add(b);
 		});
+
+		loadObject("path", (obj, layer, map) -> {
+			var p:FlxPath = new FlxPath(obj.points.map(p -> FlxPoint.get(p.x + obj.x, p.y + obj.y)));
+			var pathModeString = obj.properties.get("mode");
+			var pathMode:Int = switch(pathModeString.toLowerCase()) {
+				case "forward" : FlxPath.FORWARD;
+				case "loop_forward" : FlxPath.LOOP_FORWARD;
+				case "horizontal_only" : FlxPath.HORIZONTAL_ONLY;
+				case "loop_backward" : FlxPath.LOOP_BACKWARD;
+				case "vertical_only" : FlxPath.VERTICAL_ONLY;
+				case "backward" : FlxPath.BACKWARD;
+				case _: FlxPath.YOYO;
+			}
+			p.start(null, 40, pathMode);
+			map.set(obj.gid, p);
+		});
+
+		// loadObject("movingplatform", (obj, layer, map) -> {
+		// 	var p:FlxPath = new FlxPath(obj.points.map(p -> FlxPoint.get(p.x + obj.x, p.y + obj.y)));
+		// 	var pathModeString = obj.properties.get("mode");
+		// 	var pathMode:Int = switch(pathModeString.toLowerCase()) {
+		// 		case "forward" : FlxPath.FORWARD;
+		// 		case "loop_forward" : FlxPath.LOOP_FORWARD;
+		// 		case "horizontal_only" : FlxPath.HORIZONTAL_ONLY;
+		// 		case "loop_backward" : FlxPath.LOOP_BACKWARD;
+		// 		case "vertical_only" : FlxPath.VERTICAL_ONLY;
+		// 		case "backward" : FlxPath.BACKWARD;
+		// 		case _: FlxPath.YOYO;
+		// 	}
+		// 	p.start(null, 40, pathMode);
+		// 	map.set(obj.gid, p);
+		// });
 
 		objectHandlers.add((obj, layer, map) -> {
 			if (!obj.properties.getBool("visible", true)) {

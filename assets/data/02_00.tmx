@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="18">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="19">
  <tileset firstgid="1" source="Sprute.tsx"/>
  <layer id="2" name="Tile Layer 1" width="14" height="14">
   <data encoding="csv">
@@ -35,14 +35,17 @@
     <property name="oneway" value="true"/>
    </properties>
   </object>
-  <object id="15" name="elevator01_s" type="elevator" gid="38" x="32" y="320" width="32" height="32">
+  <object id="15" name="elevator01_s" type="movingplatform" gid="38" x="32" y="320" width="32" height="32">
    <properties>
-    <property name="endX" value="32"/>
-    <property name="endY" value="160"/>
     <property name="oneway" value="true"/>
-    <property name="startX" value="32"/>
-    <property name="startY" value="320"/>
+    <property name="path" value="18"/>
    </properties>
+  </object>
+  <object id="18" name="elevator01_path" type="path" x="48" y="288">
+   <properties>
+    <property name="mode" value="vertical_only"/>
+   </properties>
+   <polyline points="-0.208333,0.125 -0.125534,-160.674"/>
   </object>
  </objectgroup>
 </map>
