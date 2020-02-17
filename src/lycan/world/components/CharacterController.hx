@@ -154,27 +154,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		body.position.y++;
 		body.velocity.set(oldVel);
 
-		var isGrounded:Bool = groundable.isGrounded;
-
-		// Ground sucking
-		// Dont apply to very edges (like in Chris' original method)
-		// TODO replace groundedness with something like this?
-		// TODO is this a bad method? Fires leave listeners that shouldnt...
-		// TODO no friction on moving platforms that are moving down... we need friction! (or specil moving platforms)
-		if (groundable.wasGrounded && !isGrounded) {
-			var oldVel:Vec2 = body.velocity.copy(true);
-			body.velocity.setxy(0, groundSuckDistance * 60);//TODO customisable
-			body.position.y--;
-			var result:ConvexResult = Phys.space.convexCast(body.shapes.at(0), 1/60, false, body.shapes.at(0).filter);
-			if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90)  <= entity.groundable.groundedAngleLimit) {
-				body.integrate(result.toi);
-				entity.groundable.add(result.shape.body.userData.entity);
-			} else {
-				body.position.y++;
-			}
-			body.velocity.set(oldVel);
-		}
-
 		// Moving Left/Right
 		if (hasControl) {
 			if (leftPressed != rightPressed) {
