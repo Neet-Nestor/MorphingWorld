@@ -25,9 +25,4 @@ class Board extends PhysSprite {
         physics.enabled = true;
         physics.body.userData.entity = this;
     }
-
-    override public function destroy():Void {
-        super.destroy();
-		physics.destroy();
-    }
 }
