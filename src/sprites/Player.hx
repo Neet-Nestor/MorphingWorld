@@ -1,5 +1,9 @@
 package sprites;
 
+import nape.geom.ConvexResult;
+import nape.geom.Vec2;
+import lycan.phys.Phys;
+import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import config.Config;
 import lycan.components.CenterPositionable;
@@ -68,7 +72,7 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		var cc = characterController;
 		if (dead) {
 			animation.play("die");
-		} else if (groundable.isGrounded) {
+		} else if (groundable.isGrounded || cc.onMovingPlatform) {
 			if (cc.currentMoveVel > 0) {
 				animation.play("run");
 			} else if (cc.currentMoveVel < 0) {
