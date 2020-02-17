@@ -21,7 +21,5 @@ class MovingBoard extends Board {
 	override public function update(dt:Float):Void {
         super.update(dt);
         physics.snapBodyToEntity();
-		// physics.body.velocity.setxy((this.getCenterX() - physics.body.position.x) / dt, (this.getCenterY() - physics.body.position.y) / dt);
-		// physics.body.setVelocityFromTarget(Vec2.weak(this.getCenterX(), this.getCenterY()), angle * FlxAngle.TO_RAD, dt);
 	}
 }

@@ -45,7 +45,6 @@ import nape.geom.Vec2;
 import nape.phys.BodyType;
 import openfl.display.Tilemap;
 import sprites.CameraFocus;
-import sprites.PhysSprite;
 import sprites.Player;
 import sprites.Portal;
 import sprites.PuffEmitter;

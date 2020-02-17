@@ -138,6 +138,7 @@ class WorldSlot extends FlxSpriteGroup {
 	override public function destroy():Void {
 		super.destroy();
 		if (world != null) world.destroy();
+		outline.physics.destroy();
 	}
 	
 	public function unloadWorld(animate:Bool = true):Void {

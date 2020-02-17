@@ -178,7 +178,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (hasControl) {
 			if (leftPressed != rightPressed) {
 				if (groundable.isGrounded) _sndStep.play();
-				targetMoveVel = baseMoveVel.x + leftPressed ? -runSpeed : runSpeed;
+				targetMoveVel = baseMoveVel.x + (leftPressed ? -runSpeed : runSpeed);
 				move();
 			} else {
 				if (Math.abs(currentMoveVel) > 0) stop();
@@ -227,12 +227,12 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	}
 
 	public function stop():Void {
-		targetMoveVel = baseMoveVel;
+		targetMoveVel = baseMoveVel.x;
 		// TODO probably issues with this method when running into a wall as walls don't zero it
-		currentMoveVel = baseMoveVel;
+		currentMoveVel = baseMoveVel.x;
 
 		if (Math.abs(currentMoveVel) < minMoveVel) {
-			currentMoveVel = baseMoveVel;
+			currentMoveVel = baseMoveVel.x;
 			isSliding = false;
 		}
 

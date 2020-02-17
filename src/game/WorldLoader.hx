@@ -191,17 +191,6 @@ class WorldLoader {
 			}
 		});
 
-		loadObject("block", (obj, layer, map) -> {
-			var block = new PhysSprite();
-			block.loadGraphic(getGraphicFromTile(obj));
-			block.updateHitbox();
-			block.physics.init(BodyType.STATIC);
-			block.setCenter(obj.x, obj.y);
-			block.physics.snapBodyToEntity();
-			map.set(obj.name, block);
-			layer.add(block);
-		});
-
 		loadObject("piece", (obj, layer, map) -> {
 			var worldDef = WorldCollection.get(obj.properties.getString("world"));
 			if (worldDef != null && worldDef.owned) return null;
