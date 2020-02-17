@@ -97,7 +97,7 @@ class PlatformerPhysics {
 		// Avoid vertical friction on grounds
 		// TODO could we merge this with groun checks?
 		space.listeners.add(
-			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, CbType.ANY_BODY,
+			new PreListener(InteractionType.COLLISION, GROUNDABLE_TYPE, CbType.ANY_BODY,
 				function(ic:PreCallback):PreFlag {
 					var body:Body = ic.int1.castBody;
 					var groundable:Groundable = cast body.userData.entity;

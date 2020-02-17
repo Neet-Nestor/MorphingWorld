@@ -42,6 +42,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	@:forward var _object:FlxSprite;
 	@:calc var physics:PhysicsComponent = entity.physics;
 
+	public var baseMoveVel:FlxPoint;
 	public var targetMoveVel:Float = 0;
 	public var currentMoveVel:Float = 0;
 	public var moveAcceleration:Float = 0.4;
@@ -89,7 +90,8 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		_sndJump2 = FlxG.sound.load(AssetPaths.jump2__wav);
 
 		_object = cast entity;
-		targetMoveVel = 0;
+		baseMoveVel = FlxPoint.get(0, 0);
+		targetMoveVel = baseMoveVel.x;
 	}
 
 	public function init(?width:Float, ?height:Float):Void {
@@ -126,6 +128,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		anchor.space = null;
 		anchorJoint.space = null;
 		_object = null;
+		baseMoveVel.put();
 	}
 
 	@:prepend("update")
@@ -175,7 +178,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (hasControl) {
 			if (leftPressed != rightPressed) {
 				if (groundable.isGrounded) _sndStep.play();
-				targetMoveVel = leftPressed ? -runSpeed : runSpeed;
+				targetMoveVel = baseMoveVel.x + leftPressed ? -runSpeed : runSpeed;
 				move();
 			} else {
 				if (Math.abs(currentMoveVel) > 0) stop();
@@ -224,12 +227,12 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	}
 
 	public function stop():Void {
-		targetMoveVel = 0;
+		targetMoveVel = baseMoveVel;
 		// TODO probably issues with this method when running into a wall as walls don't zero it
-		currentMoveVel = 0;
+		currentMoveVel = baseMoveVel;
 
 		if (Math.abs(currentMoveVel) < minMoveVel) {
-			currentMoveVel = 0;
+			currentMoveVel = baseMoveVel;
 			isSliding = false;
 		}
 
