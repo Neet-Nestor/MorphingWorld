@@ -185,10 +185,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 				if (Math.abs(currentMoveVel) > 0) stop();
 			}
 		}
-		if (groundable.isGrounded) {
-			physics.body.velocity.x = onMovingPlatform ? movingPlatform.velocity.x : 0;
-			physics.body.velocity.y = onMovingPlatform ? movingPlatform.velocity.y : 0;
-		}
 		
 		// Ground friction
 		var groundable:GroundableComponent = entity.groundable;

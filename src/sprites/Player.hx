@@ -52,6 +52,13 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		physics.body.position.x += dt * characterController.currentMoveVel;
 		physics.body.position.y += dt * physics.body.velocity.y;
 		physics.snapEntityToBody();
+
+		var cc = characterController;
+		if (groundable.isGrounded && cc.onMovingPlatform) {
+			x += cc.movingPlatform.velocity.x * dt;
+			y += cc.movingPlatform.velocity.y * dt;
+			physics.snapBodyToEntity();
+		}
 	}
 
 	override private function updateAnimation(dt:Float):Void {
