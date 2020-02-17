@@ -271,11 +271,8 @@ class WorldLoader {
 			m.setCenter(obj.x, obj.y);
 			m.physics.snapBodyToEntity();
 			var pathName:String = obj.properties.getString("path");
-			trace(pathName);
 			layer.worldLayer.world.onLoadingComplete.addOnce(function() {
-				trace(map);
 				m.path = cast map.get(pathName);
-				trace(m.path);
 				m.path.speed = obj.properties.getInt("speed", 73);
 			});
 			map.set(obj.name, m);
