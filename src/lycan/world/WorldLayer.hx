@@ -18,7 +18,7 @@ class WorldLayerComponent extends Component<WorldLayer> {
 		super(entity);
 	}
 	
-	public function init(tiledLayer:TiledLayer, world:TiledWorld) {
+	public function init(tiledLayer:TiledLayer, world:TiledWorld):Void {
 		this.world = world;
 		properties = tiledLayer.properties;
 		type = tiledLayer.type;
