@@ -146,8 +146,10 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		// TODO make this the proper method instead of a quick hack for LD readiness
 		var oldVel:Vec2 = physics.body.velocity.copy(true);
 		physics.body.velocity.setxy(0, 1);
+
+		var result:ConvexResult = null;
 		physics.body.position.y--;
-		var result:ConvexResult = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
+		result = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
 		if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
 			var groundEntity = result.shape.body.userData.entity;
 			groundable.add(groundEntity);
@@ -205,7 +207,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			onMovingPlatform = false;
 			movingPlatform = null;
 		}
-
 		physics.body.velocity.set(oldVel);
 
 		// Moving Left/Right
@@ -285,7 +286,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 				_sndJump2.play();
 			}
 			currentJumps++;
-			physics.body.velocity.y += jumpSpeed;
+			physics.body.velocity.y = jumpSpeed;
 		}
 	}
 }
