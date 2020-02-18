@@ -272,6 +272,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (hasControl && canJump) {
 			if (currentJumps % 2 == 0) {
 				Main.sound.playSound(Effect.Jump1, Main.user.getSettings().sound);
+				trace(Main.user.getSettings().sound);
 			} else {
 				Main.sound.playSound(Effect.Jump2, Main.user.getSettings().sound);
 			}

@@ -331,8 +331,11 @@ class PlayState extends LycanState {
 			Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
 			foundState.closeCallback = () -> {
 				Phys.FORCE_TIMESTEP = null;
-				persistentUpdate = true;
-                showText("[SPACE to edit]");
+                persistentUpdate = true;
+                if (!zoomHintShown) {
+                    zoomHintShown = true;
+                    showText("[Space or Scroll Up to Edit]");
+                }
 			}
 			openSubState(foundState);
 		}
@@ -357,7 +360,7 @@ class PlayState extends LycanState {
         // Hint show once
         if (!dragHintShown) {
             dragHintShown = true;
-            new FlxTimer().start(0.5, (_) -> this.showText("[Drag & Drop]", 2, uiGroup, () -> showText("[Click to reset world]")));
+            new FlxTimer().start(0.5, (_) -> this.showText("[Drag & Drop]", 2, uiGroup, () -> showText("[Click to destroy world]")));
         }
     }
 
@@ -397,9 +400,9 @@ class PlayState extends LycanState {
         
         FlxTween.tween(t, {alpha: 1}, 0.6, {onComplete: (_) -> {
             FlxTween.tween(t, {alpha: 0}, 0.6, {startDelay: showTime, onComplete: (_) -> {
-                if (PlayState.instance.textHint != null) {
-                    group.remove(PlayState.instance.textHint);
-                    PlayState.instance.textHint.destroy();
+                if (PlayState.instance.textHint == t) {
+                    group.remove(t);
+                    t.destroy();
                     PlayState.instance.textHint = null;
                 }
                 if (callback != null) callback();
