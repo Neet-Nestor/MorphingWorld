@@ -5,18 +5,52 @@ const { redisConfig } = require("./config");
 var router = express.Router();
 const client = redis.createClient(redisConfig);
 
-// middleware that is specific to this router
-router.use(function timeLog (req, res, next) {
-    console.log("Time: ", Date.now());
-    next();
-});
 // define the home page route
-router.get("/", function (req, res) {
-    res.send("Birds home page");
-});
-// define the about route
-router.get("/about", function (req, res) {
-    res.send("About birds");
+router.post("/mwlog", function (req, res) {
+    try {
+        const body = req.body;
+        if (!("user" in body) || !("timestamp" in body) || !("data" in body)) {
+            res.status(400).json({ "msg": "Missing Required Params in body" });
+            return;
+        }
+        const { user, timestamp } = body;
+        const data = body.data;
+        if (Object.keys(data).length === 0) {
+            res.status(400).json({ "msg": "Data cannot be empty" });
+            return;
+        }
+        
+        client.SADD("users", `${user}`, (err) => {
+            if (err) {
+                res.status(400).json({ "msg": "Error occured during Redis SADD" });
+                return;
+            }
+            client.ZADD(`${user}`, timestamp, `${user}:${timestamp}`, (err) => {
+                if (err) {
+                    res.status(400).json({ "msg": "Error occured during Redis ZADD" });
+                    return;
+                }
+                const eventData = [];
+                Object.keys(data).forEach(k => {
+                    eventData.push(k);
+                    if (typeof data[k] === "object") {
+                        eventData.push(JSON.stringify(data[k]));
+                    } else {
+                        eventData.push(`${data[k]}`);
+                    }
+                });
+                client.HMSET(`${user}:${timestamp}`, eventData, (err) => {
+                    if (err) {
+                        res.status(400).json({ "msg": "Error occured during Redis HMSET" });
+                        return;
+                    }
+                    res.status(200).json({ "msg": "Logging successful" });
+                });
+            });
+        });
+    } catch (e) {
+        res.status(500).json({ "msg": e.message });
+    }
 });
 
 module.exports = router;
