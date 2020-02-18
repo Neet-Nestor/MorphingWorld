@@ -272,6 +272,7 @@ class PlayState extends LycanState {
     }
 
     public function die():Void {
+        endWorldEditing();
         player.characterController.hasControl = false;
         player.dead = true;
         player.characterController.stop();
