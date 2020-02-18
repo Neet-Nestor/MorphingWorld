@@ -31,6 +31,7 @@ import lycan.components.Component;
 import flixel.FlxObject;
 import nape.constraint.LineJoint;
 import flixel.FlxSprite;
+import Sound;
 
 interface CharacterController extends Entity {
 	public var characterController:CharacterControllerComponent;
@@ -80,19 +81,8 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	public var anchor:Body;
 	public var anchorJoint:LineJoint;
 
-	// Sounds
-	public var _sndStep:FlxSound;
-	public var _sndJump1:FlxSound;
-	public var _sndJump2:FlxSound;
-
 	public function new(entity:CharacterController) {
 		super(entity);
-
-		// sound
-		_sndStep = FlxG.sound.load(AssetPaths.step__wav);
-		_sndJump1 = FlxG.sound.load(AssetPaths.jump1__wav);
-		_sndJump2 = FlxG.sound.load(AssetPaths.jump2__wav);
-
 		_object = cast entity;
 	}
 
@@ -212,7 +202,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		// Moving Left/Right
 		if (hasControl) {
 			if (leftPressed != rightPressed) {
-				if (groundable.isGrounded) _sndStep.play();
+				if (groundable.isGrounded) Main.sound.playSound(Effect.Step, Main.user.getSettings().sound);
 				targetMoveVel = leftPressed ? -runSpeed : runSpeed;
 				move();
 			} else {
@@ -281,9 +271,9 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	public function jump():Void {
 		if (hasControl && canJump) {
 			if (currentJumps % 2 == 0) {
-				_sndJump1.play();
+				Main.sound.playSound(Effect.Jump1, Main.user.getSettings().sound);
 			} else {
-				_sndJump2.play();
+				Main.sound.playSound(Effect.Jump2, Main.user.getSettings().sound);
 			}
 			currentJumps++;
 			physics.body.velocity.y = jumpSpeed;

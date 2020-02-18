@@ -20,11 +20,10 @@ class MenuState extends LycanState {
 
     override public function create():Void {
         super.create();
-        if (FlxG.sound.music == null) { // don't restart the music if it's already playing
-            {
-                //FlxG.sound.playMusic(AssetPaths.bgmtemp2__ogg, 0.65, true);
-            }
-        }
+        // if (FlxG.sound.music == null) { // don't restart the music if it's already playing
+        //     //FlxG.sound.playMusic(AssetPaths.bgmtemp2__ogg, 0.65, true);
+        // }
+        Main.sound.playMusic();
         loadBG();
         loadTitle();
         loadStart();

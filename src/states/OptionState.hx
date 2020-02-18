@@ -19,10 +19,12 @@ class OptionState extends LycanState {
     private var startBtn:FlxButton;
     private var title:FlxText;
     public var prevState:LycanState;
+    public var settings:{volume: Int, music: Bool, sound: Bool};
 
     override public function create():Void {
         super.create();
         // TODO: set value reflect to their current value;
+        settings = Main.user.getSettings();
         loadBG();
         loadTitle();
         loadVolumeOption();
@@ -53,10 +55,13 @@ class OptionState extends LycanState {
         var txt = new FlxText(title.getScreenPosition().x - 50, title.getScreenPosition().y + 100, 0, "Volume", 16);
         add(txt);
         var slide = new FlxSlider(null, "", title.getScreenPosition().x + 130, title.getScreenPosition().y + 80, 0, 100, 100, 20, 3, 0x66CCFF66, 0xFF828282);
+        slide.value = settings.volume;
         slide.callback = function(newValue:Float) {
             slide.value = 100 * newValue;
             // TODO: change music volume
             FlxG.sound.changeVolume(newValue - FlxG.sound.volume);
+            var iv:Int = cast slide.value;
+            settings.volume = iv;
         }
         add(slide);
     }
@@ -65,8 +70,14 @@ class OptionState extends LycanState {
         var txt = new FlxText(title.getScreenPosition().x - 50, title.getScreenPosition().y + 135, 0, "Music", 16);
         add(txt);
         var check = new FlxUICheckBox(title.getScreenPosition().x + 180, title.getScreenPosition().y + 140, null, null, "", 100, [], null);
+        check.checked = Main.user.getSettings().music;
         check.callback = function() {
-            trace("Checked");
+            settings.music = check.checked;
+            if (!check.checked) {
+                Main.sound.pauseMusic();
+            } else {
+                Main.sound.resumeMusic();
+            }
         }
         add(check);
     }
@@ -75,8 +86,9 @@ class OptionState extends LycanState {
         var txt = new FlxText(title.getScreenPosition().x - 50, title.getScreenPosition().y + 170, 0, "Sound Effects", 16);
         add(txt);
         var check = new FlxUICheckBox(title.getScreenPosition().x + 180, title.getScreenPosition().y + 175, null, null, "", 100, [], null);
+        check.checked = settings.sound;
         check.callback = function() {
-            trace("Checked");
+            settings.sound = check.checked;
         }
         add(check);
     }
@@ -101,5 +113,6 @@ class OptionState extends LycanState {
             this.prevState = new MenuState();
         }
         FlxG.switchState(prevState);
+        Main.user.save(settings);
     }
 }

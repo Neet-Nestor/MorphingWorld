@@ -50,6 +50,7 @@ import sprites.Portal;
 import sprites.PuffEmitter;
 import sprites.WorldPiece;
 import sprites.DamagerSprite;
+import Sound;
 
 class PlayState extends LycanState {
     public var player:Player;
@@ -275,7 +276,7 @@ class PlayState extends LycanState {
         player.characterController.hasControl = false;
         player.dead = true;
         player.characterController.stop();
-        FlxG.sound.load(AssetPaths.die__wav).play();
+        Main.sound.playSound(Effect.Die, Main.user.getSettings().sound);
         player.animation.finishCallback = (_) -> {
             persistentUpdate = false;
             player.physics.body.velocity.y = 0;

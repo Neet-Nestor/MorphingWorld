@@ -19,6 +19,7 @@ import lycan.phys.PlatformerPhysics;
 import states.PlayState;
 import flixel.system.FlxSound;
 import flixel.FlxG;
+import Sound;
 
 class Portal extends LSprite implements PhysicsEntity {
 	public static var PORTAL_TYPE:CbType = new CbType();
@@ -26,16 +27,12 @@ class Portal extends LSprite implements PhysicsEntity {
     public var port:(p:Player) -> Void;
 	public var destinationWorldDef:WorldDef;
 	
-	public var _sndPass:FlxSound;
-	
 	public function new(destinationWorldDef:WorldDef) {
 		super();
 		
 		loadGraphic(AssetPaths.portal__png, true, 32, 32);
         animation.add("main", [for (i in 0...17) 16 - i], 10, true);
 		animation.play("main");
-		
-		_sndPass = FlxG.sound.load(AssetPaths.pass__wav);
 		
 		physics.init(BodyType.STATIC, true, false);
 		physics.createRectangularBody(14, 5, BodyType.STATIC);
@@ -47,7 +44,7 @@ class Portal extends LSprite implements PhysicsEntity {
         
         this.destinationWorldDef = destinationWorldDef;
         port = (p) -> { 
-			_sndPass.play();
+			Main.sound.playSound(Effect.Pass, Main.user.getSettings().sound);
 			PlayState.instance.switchWorld(destinationWorldDef); 
 		}
 	}
