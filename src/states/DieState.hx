@@ -39,6 +39,10 @@ class DieState extends FlxSubState {
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
+
+        if (FlxKey.keys.justPressed.R) {
+            onRestart();
+        }
     }
 
     private function loadBG():Void {
@@ -57,7 +61,7 @@ class DieState extends FlxSubState {
     }
 
     private function loadReStart():Void {
-        restartBtn = new FlxButton(0, title.y + 100, "Try Again", onReStart);
+        restartBtn = new FlxButton(0, title.y + 100, "Try Again", onRestart);
         restartBtn.screenCenter(FlxAxes.X);
         uiGroup.add(restartBtn);
 	}
@@ -68,7 +72,7 @@ class DieState extends FlxSubState {
         uiGroup.add(menuBtn);
     }
 
-    private function onReStart():Void {
+    private function onRestart():Void {
 		close();
 	}
 	
