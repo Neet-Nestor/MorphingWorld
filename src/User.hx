@@ -18,7 +18,7 @@ class User {
         }
         #else
         _uuid = Uuid.v4();
-        trace("sys not available, generating new uuid")
+        trace("sys not available, generating new uuid");
         #end
     }
 

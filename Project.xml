@@ -49,6 +49,9 @@
 
 	<!-- Debug Server -->
 	<haxelib name="hxcpp-debug-server" />
+	
+	<!-- UI Components -->
+	<!-- <haxelib name = "prime-components" /> -->
 
 	<!-- Include in this repo instead -->
 	<!-- <haxelib name="lycan" /> -->

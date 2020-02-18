@@ -14,7 +14,6 @@ import flixel.addons.ui.FlxUIRadioGroup;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUIText;
 
-
 class MenuState extends LycanState {
     private var startBtn:FlxButton;
     private var title:FlxText;
@@ -59,7 +58,7 @@ class MenuState extends LycanState {
     }
 
     private function loadOptions():Void {
-        var optionsBtn = new FlxButton(0, title.getScreenPosition().y + 125, "Options", onStart);
+        var optionsBtn = new FlxButton(0, title.getScreenPosition().y + 125, "Options", onOption);
         optionsBtn.screenCenter(FlxAxes.X);
         add(optionsBtn);
     }
@@ -78,6 +77,12 @@ class MenuState extends LycanState {
 
     private function onStart():Void {
         FlxG.switchState(new PlayState());
+    }
+
+    private function onOption():Void {
+        var options = new OptionState();
+        options.prevState = this;
+        FlxG.switchState(new OptionState());
     }
 
     private function onQuit():Void {
