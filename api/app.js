@@ -10,6 +10,15 @@ const port = 4596;
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
+// Parsing Error Handling
+app.use(function (err, req, res, next) {
+    // logic
+    if (err) {
+        console.error(err.stack);
+        res.status(500).json({ "msg": err.message });
+    }
+});
+
 // logger
 app.use(expressWinston.logger({
     transports: [

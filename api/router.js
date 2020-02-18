@@ -13,12 +13,13 @@ router.post("/mwlog", function (req, res) {
             res.status(400).json({ "msg": "Missing Required Params in body" });
             return;
         }
-        const { user, timestamp } = body;
-        const data = body.data;
+        const { user, timestamp, data } = body;
         if (Object.keys(data).length === 0) {
             res.status(400).json({ "msg": "Data cannot be empty" });
             return;
         }
+        console.log(`user: ${user}, timestamp: ${timestamp}`);
+        console.log(`data: ${JSON.stringify(data)}`);
         
         client.SADD("users", `${user}`, (err) => {
             if (err) {
