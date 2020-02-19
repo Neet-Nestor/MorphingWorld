@@ -7,14 +7,17 @@ const client = redis.createClient(redisConfig);
 
 // define the home page route
 router.post("/mwlog", function (req, res) {
+    console.log(`[POST /mwlog] Received Request at ${new Date().toISOString()}`);
     try {
         const body = req.body;
         if (!("user" in body) || !("timestamp" in body) || !("data" in body)) {
+            console.error("[POST /mwlog] Missing Required Params in body");
             res.status(400).json({ "msg": "Missing Required Params in body" });
             return;
         }
         const { user, timestamp, data } = body;
         if (Object.keys(data).length === 0) {
+            console.error("[POST /mwlog] Data is empty");
             res.status(400).json({ "msg": "Data cannot be empty" });
             return;
         }
@@ -23,11 +26,13 @@ router.post("/mwlog", function (req, res) {
         
         client.SADD("users", `${user}`, (err) => {
             if (err) {
+                console.error("[POST /mwlog] Error occured during Redis SADD");
                 res.status(400).json({ "msg": "Error occured during Redis SADD" });
                 return;
             }
             client.ZADD(`${user}`, timestamp, `${user}:${timestamp}`, (err) => {
                 if (err) {
+                    console.error("[POST /mwlog] Error occured during Redis ZADD");
                     res.status(400).json({ "msg": "Error occured during Redis ZADD" });
                     return;
                 }
@@ -42,9 +47,11 @@ router.post("/mwlog", function (req, res) {
                 });
                 client.HMSET(`${user}:${timestamp}`, eventData, (err) => {
                     if (err) {
+                        console.error("[POST /mwlog] Error occured during Redis HMSET");
                         res.status(400).json({ "msg": "Error occured during Redis HMSET" });
                         return;
                     }
+                    console.info(`[POST /mwlog] Logging successful for key "${user}:${timestamp}"`);
                     res.status(200).json({ "msg": "Logging successful" });
                 });
             });

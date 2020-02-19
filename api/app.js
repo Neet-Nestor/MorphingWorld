@@ -25,10 +25,10 @@ app.use(expressWinston.logger({
         new winston.transports.Console()
     ],
     format: winston.format.combine(
-        winston.format.colorize(),
+        // winston.format.colorize(),
         winston.format.json()
     ),
-    meta: false,
+    meta: true,
     expressFormat: true,
     colorize: true
 }));
