@@ -10,6 +10,7 @@ router.post("/mwlog", function (req, res) {
     console.log(`[POST /mwlog] Received Request at ${new Date().toISOString()}`);
     try {
         const body = req.body;
+        console.error(`[POST /mwlog] ${JSON.stringify(body)}`);
         if (!("user" in body) || !("timestamp" in body) || !("data" in body)) {
             console.error("[POST /mwlog] Missing Required Params in body");
             res.status(400).json({ "msg": "Missing Required Params in body" });
