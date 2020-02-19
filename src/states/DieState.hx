@@ -40,7 +40,7 @@ class DieState extends FlxSubState {
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
 
-        if (FlxKey.keys.justPressed.R) {
+        if (FlxG.keys.justPressed.R) {
             onRestart();
         }
     }
