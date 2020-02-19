@@ -45,6 +45,11 @@ class Portal extends LSprite implements PhysicsEntity {
         this.destinationWorldDef = destinationWorldDef;
         port = (p) -> { 
 			Main.sound.playSound(Effect.Pass, Main.user.getSettings().sound);
+			Main.logger.logPass(Main.user.getLast());
+			Main.user.setLast(destinationWorldDef.name);
+			if (destinationWorldDef.name == "win") {
+				Main.logger.logWin();
+			}
 			PlayState.instance.switchWorld(destinationWorldDef); 
 		}
 	}

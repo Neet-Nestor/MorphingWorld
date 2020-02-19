@@ -35,6 +35,7 @@ class DieState extends FlxSubState {
 		loadMenu();
         loadReStart();
         add(uiGroup);
+        Main.logger.logDie(Main.user.getLast());
     }
 
     override public function update(elapsed:Float):Void {

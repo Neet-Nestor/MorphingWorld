@@ -75,6 +75,7 @@ class MenuState extends LycanState {
     }
 
     private function onStart():Void {
+        Main.logger.logStart(Main.user.getTimes());
         FlxG.switchState(new PlayState());
     }
 

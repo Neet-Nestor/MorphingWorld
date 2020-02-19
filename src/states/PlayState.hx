@@ -226,7 +226,7 @@ class PlayState extends LycanState {
         if (FlxG.keys.anyJustPressed([FlxKey.R])) die();
 
         #if cpp
-        if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) Sys.exit(0);
+        if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) FlxG.switchState(new MenuState());
         if (FlxG.keys.anyJustPressed([FlxKey.F])) FlxG.fullscreen = !FlxG.fullscreen;
         #end
 
