@@ -1,10 +1,10 @@
 var express = require("express");
 const redis = require("redis");
 const moment = require("moment");
-const { redisConfig } = require("./config");
+const redisConfig = require("./config");
 
 var router = express.Router();
-const client = redis.createClient(redisConfig);
+const client = redis.createClient(redisConfig.remoteConfig);
 
 // define the home page route
 router.post("/", function (req, res) {
