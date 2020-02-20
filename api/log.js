@@ -7,7 +7,7 @@ var router = express.Router();
 const client = redis.createClient(redisConfig);
 
 // define the home page route
-router.post("/mwlog", function (req, res) {
+router.post("/", function (req, res) {
     console.log(`[POST /mwlog] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
     try {
         const body = req.body;
@@ -59,6 +59,7 @@ router.post("/mwlog", function (req, res) {
             });
         });
     } catch (e) {
+        console.error(e.stack);
         res.status(500).json({ "msg": e.message });
     }
 });

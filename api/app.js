@@ -2,7 +2,8 @@ const express = require("express");
 const winston = require("winston");
 const bodyParser  = require("body-parser");
 const expressWinston = require("express-winston");
-const router = require("./router");
+const logRouter = require("./log");
+const queryRouter = require("./query");
 
 const app = express();
 const port = 4596;
@@ -33,6 +34,7 @@ app.use(expressWinston.logger({
     colorize: true
 }));
 
-app.use("/api", router);
+app.use("/api/mwlog", logRouter);
+app.use("/api/data", queryRouter);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
