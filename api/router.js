@@ -1,5 +1,6 @@
 var express = require("express");
 const redis = require("redis");
+const moment = require("moment");
 const { redisConfig } = require("./config");
 
 var router = express.Router();
@@ -7,7 +8,7 @@ const client = redis.createClient(redisConfig);
 
 // define the home page route
 router.post("/mwlog", function (req, res) {
-    console.log(`[POST /mwlog] Received Request at ${new Date().toISOString()}`);
+    console.log(`[POST /mwlog] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
     try {
         const body = req.body;
         console.log(`[POST /mwlog] ${JSON.stringify(body)}`);
