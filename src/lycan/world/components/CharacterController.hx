@@ -78,6 +78,10 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	//var movingPlatforms:Array<MovingPlatform>;
 	//var currentMovingPlatform:MovingPlatform;
 
+	public var _sndStep:FlxSound;
+	public var _sndJump1:FlxSound;
+    public var _sndJump2:FlxSound;
+
 	public var anchor:Body;
 	public var anchorJoint:LineJoint;
 
@@ -113,6 +117,10 @@ class CharacterControllerComponent extends Component<CharacterController> {
 
 		physics.body.cbTypes.add(PlatformerPhysics.CHARACTER_TYPE);
 		physics.body.cbTypes.add(PlatformerPhysics.GROUNDABLE_TYPE);
+
+		_sndStep = _sndStep = FlxG.sound.load(AssetPaths.step__wav);
+		_sndJump1 = FlxG.sound.load(AssetPaths.jump1__wav);
+		_sndJump2 = FlxG.sound.load(AssetPaths.jump2__wav);
 	}
 
 	@:append("destroy")
@@ -202,7 +210,10 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		// Moving Left/Right
 		if (hasControl) {
 			if (leftPressed != rightPressed) {
-				if (groundable.isGrounded) Main.sound.playSound(Effect.Step, Main.user.getSettings().sound);
+				// if (groundable.isGrounded) Main.sound.playSound(Effect.Step, Main.user.getSettings().sound);
+				if (groundable.isGrounded && Main.user.getSettings().sound) {
+					_sndStep.play();
+				}
 				targetMoveVel = leftPressed ? -runSpeed : runSpeed;
 				move();
 			} else {
@@ -270,11 +281,15 @@ class CharacterControllerComponent extends Component<CharacterController> {
 
 	public function jump():Void {
 		if (hasControl && canJump) {
-			if (currentJumps % 2 == 0) {
-				Main.sound.playSound(Effect.Jump1, Main.user.getSettings().sound);
-				trace(Main.user.getSettings().sound);
-			} else {
-				Main.sound.playSound(Effect.Jump2, Main.user.getSettings().sound);
+			if (Main.user.getSettings().sound) {
+				if (currentJumps % 2 == 0) {
+					// Main.sound.playSound(Effect.Jump1, Main.user.getSettings().sound);
+					// trace(Main.user.getSettings().sound);
+					_sndJump1.play();
+				} else {
+					// Main.sound.playSound(Effect.Jump2, Main.user.getSettings().sound);
+					_sndJump2.play();
+				}
 			}
 			currentJumps++;
 			physics.body.velocity.y = jumpSpeed;

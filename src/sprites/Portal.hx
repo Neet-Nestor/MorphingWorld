@@ -26,6 +26,8 @@ class Portal extends LSprite implements PhysicsEntity {
 
     public var port:(p:Player) -> Void;
 	public var destinationWorldDef:WorldDef;
+
+	public var _sndPass:FlxSound;
 	
 	public function new(destinationWorldDef:WorldDef) {
 		super();
@@ -41,10 +43,13 @@ class Portal extends LSprite implements PhysicsEntity {
 		physics.body.shapes.at(0).sensorEnabled = true;
 		physics.body.shapes.at(0).filter = PlatformerPhysics.OVERLAPPING_FILTER;
 		physics.body.cbTypes.add(PORTAL_TYPE);
-        
+		
+		_sndPass = FlxG.sound.load(AssetPaths.pass__wav);
+		
         this.destinationWorldDef = destinationWorldDef;
         port = (p) -> { 
-			Main.sound.playSound(Effect.Pass, Main.user.getSettings().sound);
+			// Main.sound.playSound(Effect.Pass, Main.user.getSettings().sound);
+			if (Main.user.getSettings().sound) _sndPass.play();
 			Main.logger.logPass(Main.user.getLast());
 			Main.user.setLast(destinationWorldDef.name);
 			if (destinationWorldDef.name == "win") {

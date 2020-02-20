@@ -51,6 +51,7 @@ import sprites.PuffEmitter;
 import sprites.WorldPiece;
 import sprites.DamagerSprite;
 import Sound;
+import flixel.system.FlxSound;
 
 class PlayState extends LycanState {
     public var player:Player;
@@ -85,6 +86,9 @@ class PlayState extends LycanState {
 	public var timers:FlxTimerManager;
     public var tweens:FlxTweenManager;
 
+    // Sound
+    public var _sndDie:FlxSound;
+
     // Tween
     public var textHint:FlxText;
 
@@ -96,6 +100,7 @@ class PlayState extends LycanState {
         isWorldEditing = false;
         zoomHintShown = false;
         dragHintShown = false;
+        _sndDie = FlxG.sound.load(AssetPaths.die__wav);
     }
 
     override public function create():Void {
@@ -277,7 +282,8 @@ class PlayState extends LycanState {
         player.characterController.hasControl = false;
         player.dead = true;
         player.characterController.stop();
-        Main.sound.playSound(Effect.Die, Main.user.getSettings().sound);
+        // Main.sound.playSound(Effect.Die, Main.user.getSettings().sound);
+        if (Main.user.getSettings().sound) _sndDie.play();
         player.animation.finishCallback = (_) -> {
             persistentUpdate = false;
             player.physics.body.velocity.y = 0;
