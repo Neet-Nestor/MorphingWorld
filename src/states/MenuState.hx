@@ -4,6 +4,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.ui.FlxButton;
 import flixel.FlxG;
+import lime.system.System;
 import lycan.states.LycanState;
 import flixel.FlxSprite;
 import flixel.addons.ui.FlxUI;
@@ -63,7 +64,8 @@ class MenuState extends LycanState {
     }
 
     private function loadAboutUS():Void {
-        var aboutUsBtn = new FlxButton(0, title.getScreenPosition().y + 150, "About Us", onStart);
+        // TODO: about us page
+        var aboutUsBtn = new FlxButton(0, title.getScreenPosition().y + 150, "About Us", () -> {});
         aboutUsBtn.screenCenter(FlxAxes.X);
         add(aboutUsBtn);
     }
@@ -86,7 +88,6 @@ class MenuState extends LycanState {
     }
 
     private function onQuit():Void {
-        // TODO quit
-        FlxG.switchState(new PlayState());
+        System.exit(0);
     }
 }
