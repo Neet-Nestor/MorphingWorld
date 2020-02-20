@@ -5,7 +5,7 @@ const { promisify } = require("util");
 const redisConfig = require("./config");
 
 var router = express.Router();
-const client = redis.createClient(redisConfig.remoteConfig);
+const client = redis.createClient(redisConfig.localConfig);
 
 // Promises
 const smembersAsync = promisify(client.SMEMBERS).bind(client);
