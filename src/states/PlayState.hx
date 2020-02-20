@@ -244,6 +244,7 @@ class PlayState extends LycanState {
 
         FlxG.watch.addQuick("player position", player.physics.body.position);
         FlxG.watch.addQuick("player velocity", player.physics.body.velocity);
+        FlxG.watch.addQuick("Space Gravity", Phys.space.gravity);
     }
 
 	override public function draw():Void {
