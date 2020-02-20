@@ -53,6 +53,29 @@ router.get("/time/start", function (req, res) {
     }
 });
 
+
+// Get start time for every users
+router.get("/time/exit", function (req, res) {
+    console.log(`[GET /data/time/end] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
+    try {
+        queryAllData().then((data) => {
+            const starts = data.filter((el) => el[1].type === "Exit");
+            const startTimes = starts.map((el) => {
+                const [key, values] = el;
+                const [user, timestamp] = key.split(":");
+                return { user, timestamp, ...values };
+            });
+            res.status(200).json(startTimes);
+        }).catch((err) => {
+            console.error(err);
+            res.status(500).json({ "msg": "Error occured during Redis querying" });
+        });
+    } catch (e) {
+        console.error(e.stack);
+        res.status(500).json({ "msg": e.message });
+    }
+});
+
 const queryAllEntries = () => {
     return smembersAsync("users").then((users) => Promise.all(users.map((user) => zrangeAsync(user, 0, -1))));
 };
