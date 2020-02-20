@@ -11,6 +11,7 @@ class WorldCollection extends NamedCollection<WorldDef> {
 	}
 
 	public static function init():Void {
+		instance.clear();
 		for (world in Config.WORLDS) {
 			if (!instance.exists(world)) {
 				defineWorld(world, false);

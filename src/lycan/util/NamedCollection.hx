@@ -17,11 +17,21 @@ class NamedCollection<T:Named> {
 	}
 	
 	public function add(t:T):Void {
-		map.set(t.name.toLowerCase(), t);
 		list.push(t);
+		map.set(t.name.toLowerCase(), t);
 	}
 		
 	public function exists(key:String):Bool {
 		return map.exists(key);
+	}
+
+	public function remove(key:String):Void {
+		list.filter(t -> t.name.toLowerCase() != key.toLowerCase());
+		map.remove(key);
+	}
+
+	public function clear():Void {
+		list = [];
+		map.clear();
 	}
 }
