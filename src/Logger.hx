@@ -8,10 +8,11 @@ class Logger {
         
     }
 
-    public function logExit(last: String):Void {
+    public function logExit(last: String, times: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
             "type" : "EXIT",
             "lastStage" : last,
+            "times" : times,
             "settings" : Main.user.getSettings()
         }};
         var content:String = haxe.Json.stringify(log);
