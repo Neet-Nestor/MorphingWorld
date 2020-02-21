@@ -21,7 +21,7 @@
  </layer>
  <objectgroup id="4" name="Object Layer 1">
   <object id="6" name="player" type="player" x="288" y="288" width="32" height="32"/>
-  <object id="9" name="piece" type="piece" gid="47" x="128" y="128" width="32" height="32">
+  <object id="9" name="piece" type="piece" gid="2147483695" x="128" y="128" width="32" height="32">
    <properties>
     <property name="world" value="02_01"/>
    </properties>

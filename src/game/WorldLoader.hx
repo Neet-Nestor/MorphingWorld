@@ -1,17 +1,17 @@
 package game;
 
 import config.Config;
+import flixel.addons.editors.tiled.TiledLayer;
+import flixel.addons.editors.tiled.TiledLayer.TiledLayerType;
+import flixel.addons.editors.tiled.TiledMap;
+import flixel.addons.editors.tiled.TiledObject;
+import flixel.addons.editors.tiled.TiledObjectLayer;
+import flixel.addons.nape.FlxNapeSpace;
+import flixel.addons.nape.FlxNapeTilemap;
 import flixel.FlxBasic;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.editors.tiled.TiledLayer.TiledLayerType;
-import flixel.addons.editors.tiled.TiledLayer;
-import flixel.addons.editors.tiled.TiledObjectLayer;
-import flixel.addons.editors.tiled.TiledMap;
-import flixel.addons.editors.tiled.TiledObject;
-import flixel.addons.nape.FlxNapeSpace;
-import flixel.addons.nape.FlxNapeTilemap;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -27,13 +27,13 @@ import lycan.phys.Phys;
 import lycan.phys.PlatformerPhysics;
 import lycan.states.LycanState;
 import lycan.system.FpsText;
-import lycan.world.TiledWorld;
-import lycan.world.WorldHandlers;
-import lycan.world.WorldLayer;
 import lycan.world.components.PhysicsEntity;
 import lycan.world.layer.ObjectLayer;
 import lycan.world.layer.PhysicsTileLayer;
 import lycan.world.layer.TileLayer;
+import lycan.world.TiledWorld;
+import lycan.world.WorldHandlers;
+import lycan.world.WorldLayer;
 import nape.constraint.AngleJoint;
 import nape.constraint.PivotJoint;
 import nape.constraint.WeldJoint;
@@ -43,15 +43,16 @@ import nape.phys.Body;
 import nape.phys.BodyType;
 import nape.phys.Material;
 import sprites.Board;
-import sprites.Player;
-import sprites.PhysSprite;
-import sprites.TiledSprite;
-import sprites.WorldPiece;
-import sprites.Portal;
-import states.PlayState;
-import sprites.Spike;
+import sprites.Crate;
 import sprites.DamagerSprite;
 import sprites.MovingBoard;
+import sprites.PhysSprite;
+import sprites.Player;
+import sprites.Portal;
+import sprites.Spike;
+import sprites.TiledSprite;
+import sprites.WorldPiece;
+import states.PlayState;
 
 using lycan.world.TiledPropertyExt;
 
@@ -213,6 +214,14 @@ class WorldLoader {
 			layer.add(c);
 		});
 
+		loadObject("crate", (obj, layer, map) -> {
+			var c:Crate = new Crate();
+			c.setCenter(obj.x, obj.y);
+			c.physics.snapBodyToEntity();
+			map.set(obj.name, c);
+			layer.add(c);
+		});
+
 		loadObject("spike", (obj, layer, map) -> {
 			var spike:Spike = new Spike();
 			spike.physics.body.allowRotation = true;
@@ -286,11 +295,11 @@ class WorldLoader {
 
 		lateLoad((obj, layer, map) -> {
 			var o = map.get(obj.name);
-			if (!Std.is(o, FlxSprite)) return;
-			var s:FlxSprite = cast o;
-			s.flipX = obj.flippedHorizontally;
-			s.flipY = obj.flippedVertically;
-			null;
+			if (Std.is(o, FlxSprite)) {
+				var s:FlxSprite = cast o;
+				s.flipX = obj.flippedHorizontally;
+				s.flipY = obj.flippedVertically;
+			}
 		});
 
 		// TODO better way to do for both objects and tilemaps
