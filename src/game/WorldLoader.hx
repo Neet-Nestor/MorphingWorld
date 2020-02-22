@@ -227,6 +227,8 @@ class WorldLoader {
 			spike.physics.body.allowRotation = true;
 			spike.setCenter(obj.x, obj.y);
 			spike.angle = obj.angle;
+			// bury it down
+			spike.y += 6;
 			spike.physics.snapBodyToEntity();
 			spike.physics.body.cbTypes.add(DamagerSprite.DAMAGER_TYPE);
 
