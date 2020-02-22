@@ -244,7 +244,7 @@ class WorldLoader {
 		});
 		
 		loadObject("door", (obj, layer, map) -> {
-			var d:Door = new Door();
+			var d:Door = new Door(obj.name);
 			d.setCenter(obj.x, obj.y);
 			d.physics.snapBodyToEntity();
 			map.set(obj.name, d);
