@@ -193,9 +193,14 @@ class EditState extends FlxSubState {
 	public function transitionOut(?callback:Void -> Void, fast:Bool = false):Void {
 		tweens.clear();
 		var delay:Float = 0;
+		
 		for (swatch in swatchGroup) {
 			tweens.tween(swatch, {y: -swatch.height}, 0.3, {ease: FlxEase.expoIn, startDelay: delay});
 			delay += fast ? 0 : 0.07;
+		}
+
+		for (slot in PlayState.instance.universe.slots) {
+			slot.unhover();
 		}
 		
 		var endTime = fast ? 0.4 : 1 + (swatchGroup.length - 1) * 0.1;

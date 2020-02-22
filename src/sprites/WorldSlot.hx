@@ -114,7 +114,7 @@ class WorldSlot extends FlxSpriteGroup {
 	}
 	
 	public function hover():Void {
-		if (isHovered) {
+		if (isHovered || !PlayState.instance.isWorldEditing) {
             return;
         }
 		isHovered = true;
