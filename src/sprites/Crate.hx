@@ -33,10 +33,6 @@ class Crate extends LSprite implements PhysicsEntity implements Groundable {
 		physics.body.cbTypes.add(PUSHABLE_TYPE);
 		physics.body.cbTypes.add(CRATE_TYPE);
 		physics.body.cbTypes.add(PlatformerPhysics.GROUNDABLE_TYPE);
-		
-		//TODO remove
-		FlxG.debugger.addTrackerProfile(new TrackerProfile(Material, ["density", "staticFriction", "dynamicFriction", "elasticity"]));
-		FlxG.console.registerObject("crateMat", CRATE_MATERIAL);
 	}
 	
 	override public function update(elapsed:Float):Void {
