@@ -38,13 +38,23 @@ class Switch extends LSprite implements PhysicsEntity implements Switchable {
         physics.body.shapes.at(0).sensorEnabled = true;
 
         switcher.onCallback = (s) -> {
+            makeGraphic(Config.TILE_SIZE, Config.TILE_SIZE, FlxColor.BLUE);
             for (slot in PlayState.instance.universe.slots) {
                 if (slot.world == null) continue;
                 for (obj in slot.world.objects) {
-                    if (!Std.is(obj, Door)) continue;
-                    var d:Door = cast obj;
-                    if (d.name == targetName) {
-                        d.kill();
+                    if (Std.is(obj, Door)) {
+                        // Open corresponding door
+                        var d:Door = cast obj;
+                        if (d.name == targetName) {
+                            d.kill();
+                        }
+                    }
+                    if (Std.is(obj, Switch)) {
+                        // On other switches
+                        var sw:Switch = cast obj;
+                        if (sw.targetName == targetName) {
+                            sw.switcher.on = switcher.on;
+                        }
                     }
                 }
             }
