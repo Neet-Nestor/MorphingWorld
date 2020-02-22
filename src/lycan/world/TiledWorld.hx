@@ -40,12 +40,12 @@ class TiledWorld extends FlxGroup {
 	public var scale:FlxPoint;
 	public var properties:TiledPropertySet;
 
-	public var objects = new Map<Int, FlxBasic>();
-	public var objectLayers = new Map<String, ObjectLayer>();
-	public var tileLayers = new Map<String, TileLayer>();
-	public var imageLayers = new Map<String, ImageLayer>();
-	public var tilesets = new Map<String, Tileset>();
-	public var collisionObjects = new Map<Int, InteractionGroup>();
+	public var objects:Map<String, FlxBasic>;
+	public var objectLayers:Map<String, ObjectLayer>;
+	public var tileLayers:Map<String, TileLayer>;
+	public var imageLayers:Map<String, ImageLayer>;
+	public var tilesets:Map<String, Tileset>;
+	public var collisionGroups:Map<String, InteractionGroup>;
 	
 	public var objectHandlers:ObjectHandlers;
 	public var layerLoadedHandlers:LayerLoadedHandlers;
@@ -68,29 +68,24 @@ class TiledWorld extends FlxGroup {
 		objectHandlers = new ObjectHandlers();
 		layerLoadedHandlers = new LayerLoadedHandlers();
 		this.defaultCollisionType = defaultCollisionType;
+		objects = new Map<String, FlxBasic>();
+		objectLayers = new Map<String, ObjectLayer>();
+		tileLayers = new Map<String, TileLayer>();
+		imageLayers = new Map<String, ImageLayer>();
+		tilesets = new Map<String, Tileset>();
+		collisionGroups = new Map<String, InteractionGroup>();
 	}
 	
 	override public function destroy():Void {
 		super.destroy();
 		if (objects != null) for (obj in objects) obj.destroy();
-		objects = null;
 		if (objectLayers != null) for (objl in objectLayers) objl.destroy();
-		objectLayers = null;
-		// Magic Code
 		if (tileLayers != null) {
 			for (tl in tileLayers) tl.destroy();
 		}
-		tileLayers = null;
-
 		if (imageLayers != null) for (il in imageLayers) il.destroy();
-		imageLayers = null;
-		tilesets = null;
-		collisionObjects = null;
-		properties = null;
 		if (scale != null) scale.put();
-		scale = null;
 		if (combinedTileset != null) combinedTileset.destroy();
-		combinedTileset = null;
 		if (collisionLayers != null) {
 			for (cl in collisionLayers) cl.destroy();
 			collisionLayers = [];
@@ -209,7 +204,7 @@ class TiledWorld extends FlxGroup {
 	
 	private function loadObjectLayer(tiledLayer:TiledObjectLayer, handlers:ObjectHandlers):ObjectLayer {
 		var layer = new ObjectLayer(this, tiledLayer);
-		layer.loadObjects(tiledLayer, handlers);
+		layer.loadObjects(tiledLayer, handlers, objects);
 		objectLayers.set(tiledLayer.name, layer);
 		add(layer);
 		return layer;
