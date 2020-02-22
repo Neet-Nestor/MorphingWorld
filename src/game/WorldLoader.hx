@@ -1,5 +1,6 @@
 package game;
 
+import sprites.Switch;
 import config.Config;
 import flixel.addons.editors.tiled.TiledLayer;
 import flixel.addons.editors.tiled.TiledLayer.TiledLayerType;
@@ -220,6 +221,15 @@ class WorldLoader {
 			c.physics.snapBodyToEntity();
 			map.set(obj.name, c);
 			layer.add(c);
+		});
+
+		loadObject("switch", (obj, layer, map) -> {
+			var targetName = obj.properties.getString("world");
+			var sw:Switch = new Switch(targetName);
+			sw.setCenter(obj.x, obj.y);
+			sw.physics.snapBodyToEntity();
+			map.set(obj.name, sw);
+			layer.add(sw);
 		});
 
 		loadObject("spike", (obj, layer, map) -> {

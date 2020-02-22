@@ -21,7 +21,7 @@ class Switch extends LSprite implements PhysicsEntity implements Switchable {
     public var type:SwitchType;
     public var targetName:String;
 	
-	public function new(type:SwitchType = ONCE, targetName:String) {
+	public function new(targetName:String, type:SwitchType = ONCE) {
 		super();
 		
         this.type = type;

@@ -78,18 +78,12 @@ class TiledWorld extends FlxGroup {
 	
 	override public function destroy():Void {
 		super.destroy();
-		if (objects != null) for (obj in objects) obj.destroy();
 		if (objectLayers != null) for (objl in objectLayers) objl.destroy();
-		if (tileLayers != null) {
-			for (tl in tileLayers) tl.destroy();
-		}
+		if (tileLayers != null) for (tl in tileLayers) tl.destroy();
 		if (imageLayers != null) for (il in imageLayers) il.destroy();
 		if (scale != null) scale.put();
 		if (combinedTileset != null) combinedTileset.destroy();
-		if (collisionLayers != null) {
-			for (cl in collisionLayers) cl.destroy();
-			collisionLayers = [];
-		}
+		if (collisionLayers != null) for (cl in collisionLayers) cl.destroy();
 	}
 	
 	public function collideWithLevel<T, U>(obj:FlxBasic, ?notifyCallback:T->U->Void, ?processCallback:T->U->Bool):Bool {
