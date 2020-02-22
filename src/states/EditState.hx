@@ -157,6 +157,7 @@ class EditState extends FlxSubState {
 				if (FlxG.mouse.overlaps(slot)) {
 					// If dropping piece into slot
 					if (selectedSwatch != null) {
+						if (slot.world != null) slot.unloadWorld();
 						slot.loadWorld(selectedSwatch.worldDef);
 						// Sounds.playSound(SoundAssets.snapin);
 						break;
@@ -193,7 +194,7 @@ class EditState extends FlxSubState {
 	public function transitionOut(?callback:Void -> Void, fast:Bool = false):Void {
 		tweens.clear();
 		var delay:Float = 0;
-		
+
 		for (swatch in swatchGroup) {
 			tweens.tween(swatch, {y: -swatch.height}, 0.3, {ease: FlxEase.expoIn, startDelay: delay});
 			delay += fast ? 0 : 0.07;

@@ -82,25 +82,6 @@ class WorldSlot extends FlxSpriteGroup {
 		}
 	}
 	
-	public function loadWorld(worldDef:WorldDef):MiniWorld {
-		if (world != null) {
-            return null;
-        }
-		
-		world = new MiniWorld();
-		world.worldDef = worldDef;
-		WorldLoader.load(world, new TiledMap(worldDef.path), gridPos.x * Config.WORLD_WIDTH, gridPos.y * Config.WORLD_HEIGHT);
-		if (world == null) {
-            return null;
-        }
-		universe.worldLayer.add(world); // TODO: correct layers for loading
-		padWithEmptySlots();
-		outline.visible = false;
-		outline.physics.enabled = false; // TODO: invert for unloading a world
-		
-		return world;
-	}
-	
 	public function padWithEmptySlots():Void {
 		for (xy in [{x: -1, y: 0}, {x: 0, y: -1}, {x: 1, y: 0}, {x: 0, y: 1}]) {
 			var x = gridPos.x + xy.x;
@@ -138,6 +119,25 @@ class WorldSlot extends FlxSpriteGroup {
 	override public function destroy():Void {
 		super.destroy();
 		if (world != null) world.destroy();
+	}
+	
+	public function loadWorld(worldDef:WorldDef):MiniWorld {
+		if (world != null) {
+            return null;
+        }
+		
+		world = new MiniWorld();
+		world.worldDef = worldDef;
+		WorldLoader.load(world, new TiledMap(worldDef.path), gridPos.x * Config.WORLD_WIDTH, gridPos.y * Config.WORLD_HEIGHT);
+		if (world == null) {
+            return null;
+        }
+		universe.worldLayer.add(world); // TODO: correct layers for loading
+		padWithEmptySlots();
+		outline.visible = false;
+		outline.physics.enabled = false; // TODO: invert for unloading a world
+		
+		return world;
 	}
 	
 	public function unloadWorld(animate:Bool = true):Void {
