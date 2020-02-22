@@ -224,7 +224,7 @@ class WorldLoader {
 		});
 
 		loadObject("switch", (obj, layer, map) -> {
-			var targetName = obj.properties.getString("world");
+			var targetName = obj.properties.getString("target");
 			var sw:Switch = new Switch(targetName);
 			sw.setCenter(obj.x, obj.y);
 			sw.physics.snapBodyToEntity();
