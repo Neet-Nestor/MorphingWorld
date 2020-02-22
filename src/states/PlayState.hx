@@ -1,21 +1,21 @@
 package states;
 
 import config.Config;
-import flixel.FlxCamera.FlxCameraFollowStyle;
-import flixel.FlxG;
-import flixel.FlxObject;
 import flixel.addons.editors.tiled.TiledLayer.TiledLayerType;
-import flixel.FlxState;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
-import sprites.Board;
+import flixel.FlxCamera.FlxCameraFollowStyle;
+import flixel.FlxG;
+import flixel.FlxObject;
+import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
 import flixel.input.FlxInput.FlxInputState;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
+import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tile.FlxBaseTilemap;
 import flixel.tile.FlxTilemap;
@@ -43,15 +43,15 @@ import nape.callbacks.InteractionListener;
 import nape.callbacks.InteractionType;
 import nape.geom.Vec2;
 import nape.phys.BodyType;
-import openfl.display.Tilemap;
+import Sound;
+import sprites.Board;
 import sprites.CameraFocus;
+import sprites.DamagerSprite;
 import sprites.Player;
 import sprites.Portal;
 import sprites.PuffEmitter;
+import sprites.Switch;
 import sprites.WorldPiece;
-import sprites.DamagerSprite;
-import Sound;
-import flixel.system.FlxSound;
 
 class PlayState extends LycanState {
     public var player:Player;
@@ -150,6 +150,13 @@ class PlayState extends LycanState {
         Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.COLLISION,
             PlatformerPhysics.CHARACTER_TYPE, DamagerSprite.DAMAGER_TYPE, function(cb:InteractionCallback) {
                 die();
+        }));
+        
+        // -- Switch listener
+        Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.SENSOR,
+            PlatformerPhysics.CHARACTER_TYPE, Switch.SWITCH_TYPE, function(cb:InteractionCallback) {
+                var s:Switch = cast cb.int2.userData.entity;
+                s.switcher.on = true;
 		}));
     }
 
