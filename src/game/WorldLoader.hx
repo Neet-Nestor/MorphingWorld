@@ -45,6 +45,7 @@ import nape.phys.Material;
 import sprites.Board;
 import sprites.Crate;
 import sprites.DamagerSprite;
+import sprites.Door;
 import sprites.MovingBoard;
 import sprites.PhysSprite;
 import sprites.Player;
@@ -240,6 +241,14 @@ class WorldLoader {
 			
 			map.set(obj.name, spike);
 			layer.add(spike);
+		});
+		
+		loadObject("door", (obj, layer, map) -> {
+			var d:Door = new Door();
+			d.setCenter(obj.x, obj.y);
+			d.physics.snapBodyToEntity();
+			map.set(obj.name, d);
+			layer.add(d);
 		});
 
 		loadObject("board", (obj, layer, map) -> {
