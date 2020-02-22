@@ -59,7 +59,7 @@ interface PhysicsEntity extends Entity {
 		super(entity);
 	}
 	
-	public function init(?bodyType:BodyType, createRectBody:Bool = true, enabled:Bool = true, enableUpdate:Bool = true) {
+	public function init(?bodyType:BodyType, createRectBody:Bool = true, enabled:Bool = true, enableUpdate:Bool = true):Void {
 		if (bodyType == null) bodyType = BodyType.DYNAMIC;
 		
 		body = new Body(bodyType);

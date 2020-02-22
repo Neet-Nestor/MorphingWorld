@@ -47,7 +47,6 @@ import sprites.Crate;
 import sprites.DamagerSprite;
 import sprites.Door;
 import sprites.MovingBoard;
-import sprites.PhysSprite;
 import sprites.Player;
 import sprites.Portal;
 import sprites.Spike;
@@ -60,12 +59,12 @@ using lycan.world.TiledPropertyExt;
 class WorldLoader {
 	public static var instance(default, never):WorldLoader = new WorldLoader();
 
-	var objectHandlers:ObjectHandlers = new ObjectHandlers();
-	var layerLoadedHandlers:LayerLoadedHandlers = new LayerLoadedHandlers();
+	private var objectHandlers:ObjectHandlers = new ObjectHandlers();
+	private var layerLoadedHandlers:LayerLoadedHandlers = new LayerLoadedHandlers();
 
 	// TODO this is a bit of a hacky way of loading a map in an an offset. These are used within handlers for objects
-	static var offsetX:Float = 0;
-	static var offsetY:Float = 0;
+	public static var offsetX:Float = 0;
+	public static var offsetY:Float = 0;
 
 	public function new() {
 		setupObjectHandlers();
@@ -429,9 +428,9 @@ class WorldLoader {
 	}
 
 	public function setCollisionGroup(obj:Dynamic, layer:WorldLayer, map:Map<String, Dynamic>):Void {
-		if (obj.properties.contains("collisionObjects")) {
-			var groupName = obj.properties.get("collisionObjects");
-			var groups = layer.worldLayer.world.collisionObjects;
+		if (obj.properties.contains("collisionGroups")) {
+			var groupName = obj.properties.get("collisionGroups");
+			var groups = layer.worldLayer.world.collisionGroups;
 			var group = groups.get(groupName);
 			if (group == null) {
 				group = new InteractionGroup(true);
