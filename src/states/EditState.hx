@@ -1,5 +1,9 @@
 package states;
 
+import flixel.input.keyboard.FlxKey;
+import flixel.util.FlxPath;
+import lycan.components.CenterPositionable;
+import lycan.util.ParallaxUtil;
 import flixel.util.FlxColor;
 import flixel.util.FlxAxes;
 import flixel.util.FlxTimer;
@@ -20,6 +24,33 @@ import flixel.math.FlxPoint;
 import flixel.util.FlxGradient;
 import game.WorldDef;
 
+class MouseCursor extends FlxSprite implements CenterPositionable {
+	public var scheduled:Bool;
+
+    public function new() {
+		super();
+		scheduled = false;
+
+        loadGraphic(AssetPaths.mouse_cursor__png);
+        scale.set(0.1, 0.1);
+		updateHitbox();
+	}
+	
+	override public function update(dt:Float):Void {
+		super.update(dt);
+		
+		// Check path finished and restart it
+		if (path != null && path.finished && !scheduled) {
+			scheduled = true;
+			new FlxTimer().start(0.6, (_) -> {
+				scheduled = false;
+				setPosition(path.head().x - width / 2, path.head().y - height / 2);
+				path.restart();
+			});
+		}
+	}
+}
+
 class WorldPieceSwatch extends FlxSprite {
 	public var worldDef:WorldDef;
 	public var tween:FlxTween;
@@ -29,7 +60,7 @@ class WorldPieceSwatch extends FlxSprite {
 		super();
 		
         this.worldDef = worldDef;
-        isHovered = false;
+		isHovered = false;
 		loadGraphicFromSprite(worldDef.previewSprite);
 	}
 	
@@ -96,6 +127,7 @@ class EditState extends FlxSubState {
 		
 		mousePos = FlxPoint.get();
 		
+		var lastSwatch = null;
 		for (piece in WorldCollection.instance.list) {
 			if (!piece.owned) continue;  // Don't add pieces we haven't collected yet
 			var swatch = new WorldPieceSwatch(piece);
@@ -103,12 +135,51 @@ class EditState extends FlxSubState {
 			swatch.setPosition(xOffset, 15);
 			swatch.scale.set(Config.SWATCH_SCALE, Config.SWATCH_SCALE);
 			swatch.updateHitbox();
+			lastSwatch = swatch;
 			xOffset += Std.int(swatch.width) + 20;
 		}
 		
 		swatchGroup.screenCenter(FlxAxes.X);
 		
 		swatchGroup.camera = PlayState.instance.uiCamera;
+
+		// Drag hint
+		if (!PlayState.instance.dragHintShown) {
+			PlayState.instance.dragHintShown = true;
+			// Get screen location of the path
+			// Magic: 400, 225 in uiCamera = 0, 0 in WorldCamera
+
+			var mouseCursor = new MouseCursor();
+			var departure = lastSwatch.getPosition();
+			var destinationSlot = PlayState.instance.universe.getSlot(1, 0).outline;
+			var destination = destinationSlot.getPosition();
+			destination.x = (destination.x - destinationSlot.camera.scroll.x) / destinationSlot.camera.zoom + 400;
+			destination.y = (destination.y - destinationSlot.camera.scroll.y) / destinationSlot.camera.zoom + 225;
+
+			// Add offsets
+			departure.x += lastSwatch.width / 2 + mouseCursor.width / 2;
+			departure.y += lastSwatch.height / 2 + mouseCursor.height / 2;
+			destination.x += (destinationSlot.width / 2)  / destinationSlot.camera.zoom + mouseCursor.width  / 2;
+			destination.y += (destinationSlot.height / 2) / destinationSlot.camera.zoom + mouseCursor.height / 2;
+
+			mouseCursor.setPosition(departure.x, departure.y);
+			mouseCursor.path = new FlxPath().start([departure, destination], 200, FlxPath.FORWARD);
+			// mouseCursor.path.onComplete = (_) -> {
+			// 	mouseCursor.setPosition(destination.x, destination.y);
+			// }
+			uiGroup.add(mouseCursor);
+			// don't allow the user to exit editing mode
+			PlayState.instance.worldEditingDisabled = true;
+			PlayState.instance.showHint("[Drag & Drop]",
+				() -> (PlayState.instance.universe.slots.length > 5),
+				() -> {
+					uiGroup.remove(mouseCursor);
+					PlayState.instance.worldEditingDisabled = false;
+					PlayState.instance.showHint("[Scroll Down or E again to finish]",
+						() -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel < 0,
+						() -> { PlayState.instance.player.characterController.hasControl = true; });
+				});
+		}
 		
 		add(swatchBackground);
 		add(swatchGroup);
@@ -123,6 +194,8 @@ class EditState extends FlxSubState {
 		
 		FlxG.mouse.getScreenPosition(PlayState.instance.uiCamera, mousePos);
 		swatchBackground.alpha = PlayState.instance.editingTransitionAmount;
+		if (FlxG.mouse.justPressed) trace(mousePos);
+		if (FlxG.mouse.justPressed) trace(FlxG.mouse.getScreenPosition(PlayState.instance.worldCamera));
 		
 		var isHoveringSwatch:Bool = false;
 		
@@ -194,6 +267,10 @@ class EditState extends FlxSubState {
 	public function transitionOut(?callback:Void -> Void, fast:Bool = false):Void {
 		tweens.clear();
 		var delay:Float = 0;
+
+		for (ui in uiGroup) {
+			tweens.tween(ui, {alpha: 0}, 0.3, {ease: FlxEase.elasticOut, startDelay: delay});
+		}
 
 		for (swatch in swatchGroup) {
 			tweens.tween(swatch, {y: -swatch.height}, 0.3, {ease: FlxEase.expoIn, startDelay: delay});

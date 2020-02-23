@@ -86,8 +86,8 @@ class PlayState extends LycanState {
     public var worldEditingDisabled:Bool;
 
     // Hints
-	public var zoomHintShown:Bool;
-	public var dragHintShown:Bool;
+    public var zoomHintShown:Bool;
+    public var dragHintShown:Bool;
 
     // For scripts
 	public var parser:Parser;
@@ -110,7 +110,6 @@ class PlayState extends LycanState {
         instance = this;
         isWorldEditing = false;
         zoomHintShown = false;
-        dragHintShown = false;
         worldEditingDisabled = true;
         hintList = new List<Hint>();
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
@@ -120,6 +119,8 @@ class PlayState extends LycanState {
 		persistentDraw = true;
         persistentUpdate = true;
         reloadPlayerPosition = false;
+        zoomHintShown = false;
+        dragHintShown = false;
         // In case it was set before by fault
         Phys.FORCE_TIMESTEP = null;
 
@@ -279,6 +280,7 @@ class PlayState extends LycanState {
             }
         }
 
+        FlxG.watch.addQuick("player xy", FlxPoint.weak(player.x, player.y));
         FlxG.watch.addQuick("player position", player.physics.body.position);
         FlxG.watch.addQuick("player velocity", player.physics.body.velocity);
         FlxG.watch.addQuick("Space Gravity", Phys.space.gravity);
@@ -378,8 +380,7 @@ class PlayState extends LycanState {
                     worldEditingDisabled = false;
                     player.characterController.hasControl = false;
                     showHint("[Scroll Up or E to change the world]",
-                        () -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel > 0,
-                        () -> { player.characterController.hasControl = true; });
+                        () -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel > 0);
                 }
 			}
 			openSubState(foundState);
@@ -402,13 +403,6 @@ class PlayState extends LycanState {
         exclusiveTween("editTransition", this, { editingTransitionAmount: 1 }, 0.7, { ease: FlxEase.quadOut });
         editState = new EditState();
         openSubState(editState);
-        // Hint show once
-        if (!dragHintShown) {
-            dragHintShown = true;
-            showHint("[Scroll Down or E to zoom in]",
-            () -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel < 0,
-            () -> { player.characterController.hasControl = true; });
-        }
     }
 
     public function endWorldEditing(?callback:Void -> Void, fast:Bool = false):Void {
@@ -420,6 +414,7 @@ class PlayState extends LycanState {
         editState.transitionOut(() -> {
             editState = null;
             if (callback != null) callback();
+			var destinationSlot = PlayState.instance.universe.getSlot(1, 0).outline;
         }, fast);
     }
 
