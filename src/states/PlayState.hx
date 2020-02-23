@@ -445,10 +445,10 @@ class PlayState extends LycanState {
             hint.triggerCondition = triggerCondition;
             hint.callback = () -> {
                 if (!hint.tween.finished) hint.tween.cancel();
+                if (cb != null) cb();
+                hintList.remove(hint);
                 FlxTween.tween(hint.text, {alpha: 0}, 0.6, { onComplete: (_) -> {
                     uiGroup.remove(hint.text);
-                    if (cb != null) cb();
-                    hintList.remove(hint);
                 }});
             };
             hint.tween = FlxTween.tween(hint.text, {alpha: 1}, 0.6);
