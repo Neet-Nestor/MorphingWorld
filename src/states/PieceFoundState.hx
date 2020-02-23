@@ -38,10 +38,8 @@ class PieceFoundState extends FlxSubState {
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
 		
-		if (exitEnabled) {
-			if (FlxG.keys.justPressed.ANY || FlxG.mouse.justPressed) {
-				transitionOut();
-			}
+		if (FlxG.keys.justPressed.ANY || FlxG.mouse.justPressed) {
+			transitionOut();
 		}
     }
 
@@ -77,8 +75,6 @@ class PieceFoundState extends FlxSubState {
 		add(group);
 		add(pieceSprite);
 		add(tweens);
-		
-		new FlxTimer().start(1.4, (_) -> exitEnabled = true);
 		
 		transitionIn();
 	}
