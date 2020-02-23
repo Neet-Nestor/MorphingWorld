@@ -27,14 +27,18 @@ class HintState extends FlxSubState {
     public var uiGroup:FlxSpriteGroup;
     public var triggerKeys:Array<FlxKey>;
     public var hasTriggerd:Bool;
+    public var untilMouseWheelUp:Bool;
+    public var untilMouseWheelDown:Bool;
 
-    public function new(hint:String, untilKeys:Array<FlxKey>) {
+    public function new(hint:String, untilKeys:Array<FlxKey>, untilMouseWheelUp:Bool = false, untilMouseWheelDown:Bool = false) {
         super();
         hintText = new FlxText(0, FlxG.height - 50, 0, hint, 20);
 		hintText.screenCenter(FlxAxes.X);
         hintText.alpha = 0;
         triggerKeys = untilKeys;
         hasTriggerd = false;
+        this.untilMouseWheelUp = untilMouseWheelUp;
+        this.untilMouseWheelDown = untilMouseWheelDown;
     }
 
     override public function create():Void {
@@ -50,6 +54,14 @@ class HintState extends FlxSubState {
         super.update(elapsed);
 
         if (!hasTriggerd && FlxG.keys.anyJustPressed(triggerKeys)) {
+            hasTriggerd = true;
+            if (tween != null) tween.cancel();
+            FlxTween.tween(hintText, {alpha: 0}, 0.6, {onComplete: (_) -> {
+                close();
+            }});
+        }
+
+        if (!hasTriggerd && ((untilMouseWheelUp && FlxG.mouse.wheel > 0) || (untilMouseWheelDown && FlxG.mouse.wheel < 0))) {
             hasTriggerd = true;
             if (tween != null) tween.cancel();
             FlxTween.tween(hintText, {alpha: 0}, 0.6, {onComplete: (_) -> {

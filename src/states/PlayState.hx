@@ -101,7 +101,7 @@ class PlayState extends LycanState {
         isWorldEditing = false;
         zoomHintShown = false;
         dragHintShown = false;
-        worldEditingDisabled = false;
+        worldEditingDisabled = true;
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
     }
 
@@ -239,9 +239,9 @@ class PlayState extends LycanState {
         }
 
         if (!worldEditingDisabled) {
-            if (FlxG.mouse.wheel < 0) beginWorldEditing();
-            else if (FlxG.mouse.wheel > 0) endWorldEditing();
-            else if (FlxG.keys.anyJustReleased([FlxKey.SHIFT])) toggleWorldEditing();
+            if (FlxG.mouse.wheel > 0) beginWorldEditing();
+            else if (FlxG.mouse.wheel < 0) endWorldEditing();
+            // else if (FlxG.keys.anyJustReleased([FlxKey.SHIFT])) toggleWorldEditing();
         }
 
         if (FlxG.keys.anyJustPressed([FlxKey.R])) die();
@@ -352,9 +352,13 @@ class PlayState extends LycanState {
 			foundState.closeCallback = () -> {
 				Phys.FORCE_TIMESTEP = null;
                 persistentUpdate = true;
+                player.characterController.hasControl = false;
                 if (!zoomHintShown) {
                     zoomHintShown = true;
-                    showText("[Space or Scroll Up to Edit]");
+                    worldEditingDisabled = false;
+                    showHint("[Scroll Up to change the world]", [], true, false, () -> {
+                        player.characterController.hasControl = true;
+                    });
                 }
 			}
 			openSubState(foundState);
@@ -406,14 +410,14 @@ class PlayState extends LycanState {
 
     // Helper functions
     // Transfer to hint state
-    public function showHint(hint:String, untilKeys:Array<FlxKey>, ?cb:Void -> Void):Void {
-        var hintState = new HintState(hint, untilKeys);
-        persistentUpdate = true;
-        hintState.closeCallback = () -> {
-            player.characterController.hasControl = true;
-            if(cb != null) cb();
-        }
-        openSubState(hintState);
+    public function showHint(hint:String, untilKeys:Array<FlxKey>, untilMouseWheelUp:Bool = false, untilMouseWheelDown:Bool = false,
+        ?cb:Void -> Void):Void {
+            var hintState = new HintState(hint, untilKeys, untilMouseWheelUp, untilMouseWheelDown);
+            persistentUpdate = true;
+            hintState.closeCallback = () -> {
+                if(cb != null) cb();
+            }
+            openSubState(hintState);
     }
 
     // Create a text on screen
