@@ -346,8 +346,25 @@ class PlayState extends LycanState {
         };
     }
 
-    public function switchWorld(nextWorld:WorldDef):Void {
+    public function passLevelTo(nextWorld:WorldDef):Void {
         if (isWorldEditing) endWorldEditing();
+        var passState = new PassState(nextWorld);
+        persistentUpdate = false;
+        player.characterController.hasControl = false;
+        player.characterController.leftPressed = false;
+        player.characterController.rightPressed = false;
+        player.characterController.stop();
+        player.physics.body.velocity.y = 0;
+        Phys.FORCE_TIMESTEP = 0;
+        passState.closeCallback = () -> {
+            Phys.FORCE_TIMESTEP = null;
+            player.characterController.hasControl = true;
+            persistentUpdate = true;
+        };
+        openSubState(passState);
+    }
+
+    public function switchWorld(nextWorld:WorldDef):Void {
         // Clean
         WorldCollection.reset();
         remove(player);
@@ -361,13 +378,13 @@ class PlayState extends LycanState {
         }, true);
         initWorld = nextWorld;
         add(player);
-		FlxG.camera.follow(null);
+        FlxG.camera.follow(null);
         cameraFocus.destroy();
-		cameraFocus = new CameraFocus();
-		cameraFocus.add(new ObjectTargetInfluencer(player));
-		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
-		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
-		FlxG.camera.snapToTarget();
+        cameraFocus = new CameraFocus();
+        cameraFocus.add(new ObjectTargetInfluencer(player));
+        FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
+        FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
+        FlxG.camera.snapToTarget();
     }
 
     public function collectWorld(worldDef:WorldDef):Void {

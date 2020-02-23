@@ -55,7 +55,7 @@ class Portal extends LSprite implements PhysicsEntity {
 			if (destinationWorldDef.name == "win") {
 				Main.logger.logWin();
 			}
-			PlayState.instance.switchWorld(destinationWorldDef); 
+			PlayState.instance.passLevelTo(destinationWorldDef); 
 		}
 	}
     
