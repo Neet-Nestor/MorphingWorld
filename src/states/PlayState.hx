@@ -108,8 +108,9 @@ class PlayState extends LycanState {
         super();
         instance = this;
         isWorldEditing = false;
-        zoomHintShown = false;
-        worldEditingDisabled = true;
+        zoomHintShown = #if FLX_NO_DEBUG false #else true #end;
+        dragHintShown = #if FLX_NO_DEBUG false #else true #end;
+        worldEditingDisabled = #if FLX_NO_DEBUG true #else false #end;
         hintList = new List<Hint>();
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
     }
@@ -118,8 +119,6 @@ class PlayState extends LycanState {
 		persistentDraw = true;
         persistentUpdate = true;
         reloadPlayerPosition = false;
-        zoomHintShown = false;
-        dragHintShown = false;
         // In case it was set before by fault
         Phys.FORCE_TIMESTEP = null;
 
@@ -373,14 +372,23 @@ class PlayState extends LycanState {
 
     public function collectWorld(worldDef:WorldDef):Void {
         var foundState = new PieceFoundState(worldDef);
-        // Reset running status
         player.characterController.leftPressed = false;
         player.characterController.rightPressed = false;
-		function collectWorld() {
-			persistentUpdate = false;
-			Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
-			foundState.closeCallback = () -> {
-				Phys.FORCE_TIMESTEP = null;
+        Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
+        if (isWorldEditing) {
+            var editState:EditState = cast subState;
+            editState.persistentUpdate = false;
+            foundState.closeCallback = () -> {
+                Phys.FORCE_TIMESTEP = null;
+                editState.persistentUpdate = true;
+                editState.addNewWorldPiece(worldDef);
+            };
+            editState.openSubState(foundState);
+        } else {
+            // Reset running status
+            persistentUpdate = false;
+            foundState.closeCallback = () -> {
+                Phys.FORCE_TIMESTEP = null;
                 persistentUpdate = true;
                 if (!zoomHintShown) {
                     zoomHintShown = true;
@@ -389,17 +397,9 @@ class PlayState extends LycanState {
                     showHint("[Scroll Up or E to change the world]",
                         () -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel > 0);
                 }
-			}
-			openSubState(foundState);
-		}
-
-		if (isWorldEditing) {
-			endWorldEditing(() -> {
-				collectWorld();
-			}, true);
-		} else {
-			collectWorld();
-		}
+            };
+            openSubState(foundState);
+        }
     }
 
     public function beginWorldEditing():Void {

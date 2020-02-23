@@ -100,6 +100,7 @@ class EditState extends FlxSubState {
 	public var tweens:FlxTweenManager;
 	public var mousePos:FlxPoint;
 	public var uiGroup:FlxSpriteGroup;
+	public var lastSwatch:WorldPieceSwatch;
 	
 	public function new() {
 		super();
@@ -127,12 +128,11 @@ class EditState extends FlxSubState {
 		
 		mousePos = FlxPoint.get();
 		
-		var lastSwatch = null;
 		for (piece in WorldCollection.instance.list) {
 			if (!piece.owned) continue;  // Don't add pieces we haven't collected yet
 			var swatch = new WorldPieceSwatch(piece);
 			swatchGroup.add(swatch);
-			swatch.setPosition(xOffset, 15);
+			swatch.setPosition(xOffset, 20);
 			swatch.scale.set(Config.SWATCH_SCALE, Config.SWATCH_SCALE);
 			swatch.updateHitbox();
 			lastSwatch = swatch;
@@ -194,8 +194,6 @@ class EditState extends FlxSubState {
 		
 		FlxG.mouse.getScreenPosition(PlayState.instance.uiCamera, mousePos);
 		swatchBackground.alpha = PlayState.instance.editingTransitionAmount;
-		if (FlxG.mouse.justPressed) trace(mousePos);
-		if (FlxG.mouse.justPressed) trace(FlxG.mouse.getScreenPosition(PlayState.instance.worldCamera));
 		
 		var isHoveringSwatch:Bool = false;
 		
@@ -254,14 +252,31 @@ class EditState extends FlxSubState {
 		brush.setPosition(FlxG.mouse.x - brush.width / 2, FlxG.mouse.y - brush.height / 2);
 	}
 	
+	public function addNewWorldPiece(piece:WorldDef):Void {
+		if (!piece.owned) return;  // Don't add pieces we haven't collected yet
+		for (swatch in swatchGroup) {
+			if (swatch.worldDef == piece) return; // Don't duplicate adding
+		}
+		var swatch = new WorldPieceSwatch(piece);
+		swatchGroup.add(swatch);
+		swatch.setPosition(lastSwatch.x + Std.int(lastSwatch.width) + 20, lastSwatch.y);
+		swatch.scale.set(Config.SWATCH_SCALE, Config.SWATCH_SCALE);
+		swatch.updateHitbox();
+		lastSwatch = swatch;
+
+		// Transit new piece in
+		swatch.y = -swatch.height;
+		tweens.tween(swatch, {y: 15}, 0.3, {ease: FlxEase.circOut });
+		tweens.tween(swatchGroup, {x: FlxG.width / 2 - swatchGroup.width / 2}, 0.6, { ease: FlxEase.circOut });
+	}
+
 	public function transitionIn():Void {
 		var delay = 0.3;
 		for (swatch in swatchGroup) {
 			swatch.y = -swatch.height;
-			tweens.tween(swatch, {y: 15}, 1.3, {ease: FlxEase.elasticOut, startDelay: delay});
+			tweens.tween(swatch, {y: 15}, 0.3, {ease: FlxEase.circOut, startDelay: delay});
 			delay += 0.15;
 		}
-		
 	}
 	
 	public function transitionOut(?callback:Void -> Void, fast:Bool = false):Void {
