@@ -57,9 +57,7 @@ class Hint {
     public var triggered:Bool;
     public var tween:FlxTween;
     public var text:FlxText;
-    public var triggerKeys:Array<FlxKey>;
-    public var triggerMouseUp:Bool;
-    public var triggerMouseDown:Bool;
+    public var triggerCondition:Void -> Bool;
     public var callback:Void -> Void;
 
     public function new() { }
@@ -134,9 +132,11 @@ class PlayState extends LycanState {
         initCamera();
         add(player);
         // Move hint
-        showHint("[WASD or Arrows to move]",
-            [FlxKey.W, FlxKey.A, FlxKey.S, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT],
-            () -> { showHint("[W or UP or SPACE to jump]", [FlxKey.UP, FlxKey.W, FlxKey.SPACE]); });
+        showHint("[A/D or LEFT/RIGHT to move]",
+            () -> FlxG.keys.anyJustPressed([FlxKey.A, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT]),
+            () -> {
+                showHint("[W/UP/SPACE to jump]", () -> FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W, FlxKey.SPACE]));
+            });
     }
 
     // Initializers
@@ -234,12 +234,9 @@ class PlayState extends LycanState {
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
 
-        // Hint related actions
+        // Check any hint has been triggered
         for (hint in hintList) {
-            if (!hint.triggered && FlxG.keys.anyJustPressed(hint.triggerKeys)) {
-                hint.triggered = true;
-                hint.callback();
-            } else if (!hint.triggered && ((hint.triggerMouseUp && FlxG.mouse.wheel > 0) || (hint.triggerMouseDown && FlxG.mouse.wheel < 0))) {
+            if (!hint.triggered && hint.triggerCondition()) {
                 hint.triggered = true;
                 hint.callback();
             }
@@ -265,7 +262,7 @@ class PlayState extends LycanState {
         if (!worldEditingDisabled) {
             if (FlxG.mouse.wheel > 0) beginWorldEditing();
             else if (FlxG.mouse.wheel < 0) endWorldEditing();
-            else if (FlxG.keys.anyJustReleased([FlxKey.TAB])) toggleWorldEditing();
+            else if (FlxG.keys.anyJustReleased([FlxKey.E])) toggleWorldEditing();
         }
 
         if (FlxG.keys.anyJustPressed([FlxKey.R])) die();
@@ -380,9 +377,9 @@ class PlayState extends LycanState {
                     zoomHintShown = true;
                     worldEditingDisabled = false;
                     player.characterController.hasControl = false;
-                    showHint("[Scroll Up or TAB to change the world]", [FlxKey.TAB], true, false, () -> {
-                        player.characterController.hasControl = true;
-                    });
+                    showHint("[Scroll Up or E to change the world]",
+                        () -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel > 0,
+                        () -> { player.characterController.hasControl = true; });
                 }
 			}
 			openSubState(foundState);
@@ -408,7 +405,9 @@ class PlayState extends LycanState {
         // Hint show once
         if (!dragHintShown) {
             dragHintShown = true;
-            showHint("[Scroll Down or TAB to zoom in]", [FlxKey.TAB], false, true);
+            showHint("[Scroll Down or E to zoom in]",
+            () -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel < 0,
+            () -> { player.characterController.hasControl = true; });
         }
     }
 
@@ -434,17 +433,14 @@ class PlayState extends LycanState {
 
     // Helper functions
     // Transfer to hint state
-    public function showHint(text:String, untilKeys:Array<FlxKey>, untilMouseWheelUp:Bool = false, untilMouseWheelDown:Bool = false,
-        ?cb:Void -> Void):Void {
+    public function showHint(text:String, triggerCondition:Void -> Bool, ?cb:Void -> Void):Void {
             // cancel previous hint
             var hint = new Hint();
             hint.triggered = false;
             hint.text = new FlxText(0, FlxG.height - 50, 0, text, 20);
             hint.text.screenCenter(FlxAxes.X);
             hint.text.alpha = 0;
-            hint.triggerKeys = untilKeys;
-            hint.triggerMouseUp = untilMouseWheelUp;
-            hint.triggerMouseDown = untilMouseWheelDown;
+            hint.triggerCondition = triggerCondition;
             hint.callback = () -> {
                 if (!hint.tween.finished) hint.tween.cancel();
                 FlxTween.tween(hint.text, {alpha: 0}, 0.6, { onComplete: (_) -> {
