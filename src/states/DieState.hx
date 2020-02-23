@@ -23,6 +23,7 @@ class DieState extends FlxSubState {
 	private var restartBtn:FlxButton;
 	private var menuBtn:FlxButton;
     private var title:FlxText;
+    private var hint:FlxText;
 
     public var uiGroup:FlxSpriteGroup;
 
@@ -33,7 +34,7 @@ class DieState extends FlxSubState {
 		loadBG();
 		loadTitle();
 		loadMenu();
-        loadReStart();
+        loadRestart();
         add(uiGroup);
         Main.logger.logDie(Main.user.getLast());
     }
@@ -58,17 +59,21 @@ class DieState extends FlxSubState {
 	private function loadTitle():Void {
         title = new FlxText(0, 0, 0, "You Died!", 48);
         title.screenCenter();
+        title.x -= 30;
+        hint = new FlxText(0, title.y + 80, 0, "Press [R] to restart", 24);
+        hint.screenCenter(FlxAxes.X);
         uiGroup.add(title);
+        uiGroup.add(hint);
     }
 
-    private function loadReStart():Void {
-        restartBtn = new FlxButton(0, title.y + 100, "Try Again", onRestart);
+    private function loadRestart():Void {
+        restartBtn = new FlxButton(0, hint.y + 100, "Try Again", onRestart);
         restartBtn.screenCenter(FlxAxes.X);
         uiGroup.add(restartBtn);
 	}
 	
 	private function loadMenu():Void {
-        menuBtn = new FlxButton(0, title.y + 150, "Main Menu", onMenu);
+        menuBtn = new FlxButton(0, restartBtn.y + 25, "Main Menu", onMenu);
         menuBtn.screenCenter(FlxAxes.X);
         uiGroup.add(menuBtn);
     }

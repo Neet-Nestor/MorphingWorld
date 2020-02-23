@@ -69,7 +69,6 @@ class PlayState extends LycanState {
 	public var cameraFocus:CameraFocus;
     public var reloadPlayerPosition:Bool;
     public var initWorld:WorldDef;
-    public var initPosition:FlxPoint;
 
     // For transition effects
     public var timeFactor(default, set):Float = 1;
@@ -266,8 +265,6 @@ class PlayState extends LycanState {
             else if (FlxG.keys.anyJustReleased([FlxKey.E])) toggleWorldEditing();
         }
 
-        if (FlxG.keys.anyJustPressed([FlxKey.R])) die();
-
         #if cpp
         if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) FlxG.switchState(new MenuState());
         if (FlxG.keys.anyJustPressed([FlxKey.F])) FlxG.fullscreen = !FlxG.fullscreen;
@@ -275,9 +272,7 @@ class PlayState extends LycanState {
 
         // TODO: better way to detech death
         if (player.physics.body.velocity.y > 800) {
-            if (initPosition != null) {
-                die();
-            }
+            die();
         }
 
         FlxG.watch.addQuick("player xy", FlxPoint.weak(player.x, player.y));
@@ -293,13 +288,11 @@ class PlayState extends LycanState {
 
     // Handlers
     public function reset():Void {
-        if (isWorldEditing) endWorldEditing();
+        endWorldEditing();
         WorldCollection.reset();
         remove(player);
         player.destroy();
         player = null;
-        initPosition.put();
-        initPosition = null;
         universe.reset();
         if (initWorld != null) {
             initWorld.owned = true;
@@ -330,7 +323,23 @@ class PlayState extends LycanState {
             Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
             var dieState = new DieState();
             dieState.closeCallback = () -> {
-                reset();
+                remove(player);
+                player.destroy();
+                player = null;
+                universe.reset();
+                if (initWorld != null) {
+                    universe.forEachOfType(WorldPiece, (piece) -> {
+                        if (piece.worldDef == initWorld) piece.collectable.collect(player);
+                    }, true);
+                }
+                add(player);
+                FlxG.camera.follow(null);
+                cameraFocus.destroy();
+                cameraFocus = new CameraFocus();
+                cameraFocus.add(new ObjectTargetInfluencer(player));
+                FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
+                FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
+                FlxG.camera.snapToTarget();
                 Phys.FORCE_TIMESTEP = null;
                 persistentUpdate = true;
             }
@@ -345,8 +354,6 @@ class PlayState extends LycanState {
         remove(player);
         player.destroy();
         player = null;
-        initPosition.put();
-        initPosition = null;
 
         nextWorld.owned = true;
         universe.reset(nextWorld.name);
