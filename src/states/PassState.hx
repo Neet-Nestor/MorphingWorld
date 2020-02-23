@@ -21,8 +21,6 @@ class PassState extends FlxSubState {
     public var alphaMask:FlxSprite;
     public var radius:Float;
     public var screenRadius:Float;
-    public var tween:FlxTween;
-    public var animating:Bool;
     public var nextWorld:WorldDef;
     public var maskShader:BitmapMaskShader;
 
@@ -34,7 +32,6 @@ class PassState extends FlxSubState {
     override public function create():Void {
         super.create();
 
-        animating = false;
         screenRadius = Math.ceil(Math.sqrt(Math.pow(FlxG.width, 2) + Math.pow(FlxG.height, 2))) / 2;
         radius = screenRadius;
 
@@ -48,23 +45,23 @@ class PassState extends FlxSubState {
         alphaMask.camera = PlayState.instance.uiCamera;
         alphaMask.screenCenter();
         alphaMask.drawCircle(alphaMask.width / 2, alphaMask.height / 2, screenRadius, FlxColor.WHITE, null, { smoothing: true });
-        
+
         maskShader = new BitmapMaskShader();
         maskShader.maskImage.input = alphaMask.pixels.clone();
         backGround.shader = maskShader;
         
-        FlxTween.tween(this, { radius: 0 }, 0.8, { ease: FlxEase.linear, onComplete: (_) -> {
+        FlxTween.tween(this, { radius: 0 }, 1.2, { ease: FlxEase.quintOut, onComplete: (_) -> {
             PlayState.instance.switchWorld(nextWorld);
             FlxTween.tween(this, { radius: screenRadius },
-                0.8, { ease: FlxEase.quadInOut, onComplete: (_) -> { close(); }});
+                1.2, { ease: FlxEase.quintIn, onComplete: (_) -> { close(); }});
         }});
 
         add(backGround);
     }
 
     override public function draw():Void {
-        trace(radius);
-        if (radius > 0 && radius < screenRadius) {
+        // Weird race condition
+        if (radius > 2 && radius < screenRadius) {
             alphaMask.fill(FlxColor.TRANSPARENT);
             alphaMask.drawCircle(alphaMask.width / 2, alphaMask.height / 2, radius, FlxColor.WHITE, null, { smoothing: true });
             maskShader.maskImage.input = alphaMask.pixels.clone();
