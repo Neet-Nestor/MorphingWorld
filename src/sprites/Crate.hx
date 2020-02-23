@@ -41,4 +41,9 @@ class Crate extends LSprite implements PhysicsEntity implements Groundable {
 			physics.body.velocity.x = 0;
 		}
 	}
+
+	override public function destroy():Void {
+		super.destroy();
+		physics.destroy();
+	}
 }

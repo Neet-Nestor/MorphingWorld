@@ -76,7 +76,7 @@ class TiledSprite extends LSprite implements PhysicsEntity {
 		physics.enabled = true;
 	}
 	
-	override function destroy() {
+	override function destroy():Void {
 		super.destroy();
 		layer.destroy();
 	}

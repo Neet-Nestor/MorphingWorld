@@ -1,5 +1,6 @@
 package lycan.world.components;
 
+import sprites.Player;
 import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.math.FlxAngle;
@@ -96,6 +97,9 @@ interface PhysicsEntity extends Entity {
 	public function update(dt:Float):Void {
 		if (!entity.entity_alive) return;
 		
+		if (Std.is(entity, Player)) {
+			trace(entity.entity_moves);
+		}
 		if (body != null && entity.entity_moves) {
 			updatePhysObjects();
 		}

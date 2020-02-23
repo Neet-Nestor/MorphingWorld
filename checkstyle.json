@@ -305,7 +305,7 @@
             "type": "NestedIfDepth",
             "props":
             {
-                "max": 3,
+                "max": 4,
                 "severity": "ERROR"
             }
         },

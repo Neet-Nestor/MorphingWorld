@@ -45,6 +45,7 @@ class Spike extends DamagerSprite {
 	override public function destroy():Void {
 		super.destroy();
 		tweens.destroy();
+		physics.destroy();
 	}
 	
 	override public function kill():Void {
