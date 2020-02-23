@@ -117,7 +117,7 @@ class PlatformerPhysics {
 					var arbiter:CollisionArbiter = cast ic.arbiter;
 					var angle:Float = FlxAngle.TO_DEG * arbiter.normal.angle;
 					if (p.characterController.dropThrough || p.physics.body.velocity.y < 0 || angle != 90) {
-						return PreFlag.IGNORE;
+						return PreFlag.IGNORE_ONCE;
 					} else {
 						return null;
 					}

@@ -1,5 +1,6 @@
 package lycan.world.components;
 
+import flixel.util.FlxTimer;
 import sprites.MovingBoard;
 import flixel.system.FlxSound;
 import nape.dynamics.InteractionFilter;
@@ -58,6 +59,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 	public var groundSuckDistance:Float = 2;
 
 	public var dropThrough:Bool = false;
+	public var dropThroughCancelTimer:FlxTimer;
 
 	/** Indicates how in control the character is. Applies high drag while in air. */
 	public var hasControl:Bool;
@@ -241,9 +243,22 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		if (currentJumps >= maxJumps) {
 			canJump = false;
 		}
-		dropThrough = false;
 		if (hasControl && FlxG.keys.anyPressed([FlxKey.S, FlxKey.DOWN])) {
+			if (dropThroughCancelTimer != null) {
+				// Cancel it
+				dropThroughCancelTimer.cancel();
+				dropThroughCancelTimer.destroy();
+				dropThroughCancelTimer = null;
+			}
 			dropThrough = true;
+		} else {
+			if (dropThrough && dropThroughCancelTimer == null) {
+				// Give it a little bit delay to avoid bouncing back
+				dropThroughCancelTimer = new FlxTimer().start(0.2, (_) -> {
+					dropThrough = false;
+					dropThroughCancelTimer = null;
+				});
+			} 
 		}
 		FlxG.watch.addQuick("onMovingPlatform", onMovingPlatform);
 		FlxG.watch.addQuick("targetMoveVel", targetMoveVel);
