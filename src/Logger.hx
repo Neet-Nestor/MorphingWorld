@@ -4,8 +4,10 @@ import sys.Http;
 import haxe.Json;
 
 class Logger {
+    public var enabled:Bool;
+
     public function new() {
-        
+        enabled = #if FLX_NO_DEBUG true #else false #end;
     }
 
     public function logExit(last: String, times: Int):Void {
@@ -68,20 +70,22 @@ class Logger {
     }
 
     private function commit(content:String):Void {
-        trace("content: " + content);
-        var req = new Http("45.32.231.66:4596/api/mwlog");
-        req.addHeader("Content-Type", "application/json");
-        req.setPostData(content);
-        req.onStatus = function(status:Int) {
-            if (status == 200) {
-                trace ("Logging successful");
-            } else {
-                trace ("Logginig Unsuccessful, error: " + status);
+        if (enabled) {
+            trace("content: " + content);
+            var req = new Http("45.32.231.66:4596/api/mwlog");
+            req.addHeader("Content-Type", "application/json");
+            req.setPostData(content);
+            req.onStatus = function(status:Int) {
+                if (status == 200) {
+                    trace ("Logging successful");
+                } else {
+                    trace ("Logginig Unsuccessful, error: " + status);
+                }
             }
+            req.onError = function(msg: String) {
+                trace("Error: msg: " + msg);
+            }
+            req.request(true);
         }
-        req.onError = function(msg: String) {
-            trace("Error: msg: " + msg);
-        }
-        req.request(true);
     }
 }
