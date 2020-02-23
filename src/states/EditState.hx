@@ -215,8 +215,10 @@ class EditState extends FlxSubState {
 		
 		// Hover effect of slot
 		for (slot in PlayState.instance.universe.slots) {
-			if (FlxG.mouse.overlaps(slot) && slot.world != null && !slot.world.bodyOverlaps(PlayState.instance.player.physics.body)) {
-				slot.hover();
+			if (FlxG.mouse.overlaps(slot) &&
+				((slot.world == null && FlxG.mouse.pressed && selectedSwatch != null) ||
+				 (slot.world != null && !slot.world.bodyOverlaps(PlayState.instance.player.physics.body)))) {
+					slot.hover();
 			} else {
 				slot.unhover();
 			}
