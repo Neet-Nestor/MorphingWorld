@@ -37,5 +37,5 @@ class Config {
     public static inline final SWATCH_SCALE:Float = 1 / 4;
     
     public static inline final START_WORLD:String = "00_00";
-    public static final WORLDS:Array<String> = ["00_00", "01_00", "01_01", "02_00", "02_01", "03_00", "03_01", "04_00", "04_01", "04_02", "win", "test"];
+    public static final WORLDS:Array<String> = ["00_00", "01_00", "01_01", "02_00", "02_01", "03_00", "03_01", "04_00", "04_01", "04_02", "05_00", "win", "test"];
 }
