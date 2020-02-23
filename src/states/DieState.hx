@@ -59,7 +59,7 @@ class DieState extends FlxSubState {
 	private function loadTitle():Void {
         title = new FlxText(0, 0, 0, "You Died!", 48);
         title.screenCenter();
-        title.x -= 30;
+        title.y -= 30;
         hint = new FlxText(0, title.y + 80, 0, "Press [R] to restart", 24);
         hint.screenCenter(FlxAxes.X);
         uiGroup.add(title);
