@@ -93,7 +93,7 @@ class PlatformerPhysics {
 					}
 				}
 				// We don't need to change the acceptance
-				return PreFlag.ACCEPT_ONCE;
+				return null;
 			})
 		);
 
