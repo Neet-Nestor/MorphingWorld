@@ -10,10 +10,10 @@ class Logger {
         enabled = #if FLX_NO_DEBUG true #else false #end;
     }
 
-    public function logExit(last: String, times: Int):Void {
+    public function logExit(lastStage: Int, times: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
             "type" : "EXIT",
-            "lastStage" : last,
+            "lastStage" : lastStage,
             "times" : times,
             "settings" : Main.user.getSettings()
         }};
@@ -30,20 +30,20 @@ class Logger {
         commit(content);
     }
 
-    public function logPass(level: String):Void {
+    public function logPass(stage: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
             "type" : "Pass",
-            "level" : level
+            "stage" : stage
         }};
         var content:String = haxe.Json.stringify(log);
         commit(content);
     }
 
     // on collect
-    public function logCollect(level:String, gem:String):Void {
+    public function logCollect(stage:Int, gem:String):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
             "type" : "Collect",
-            "level" : level,
+            "stage" : stage,
             "gem" : gem
         }};
         var content:String = haxe.Json.stringify(log);
@@ -60,10 +60,10 @@ class Logger {
     }
 
     // on die
-    public function logDie(level:String):Void {
+    public function logDie(stage:Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
             "type" : "Die",
-            "level" : level
+            "stage" : stage
         }};
         var content:String = haxe.Json.stringify(log);
         commit(content);

@@ -16,7 +16,7 @@ class Main extends Sprite {
         logger = new Logger();
         Main.logger.logStart(Main.user.getTimes());
         stage.application.onExit.add (function (exitCode) {
-            logger.logExit(Main.user.getLast(), Main.user.getTimes());
+            logger.logExit(Main.user.getLastStage(), Main.user.getTimes());
         });
     }
 }

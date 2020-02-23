@@ -21,13 +21,7 @@ class PassState extends FlxSubState {
     public var alphaMask:FlxSprite;
     public var radius:Float;
     public var screenRadius:Float;
-    public var nextWorld:WorldDef;
     public var maskShader:BitmapMaskShader;
-
-    public function new(nextWorld:WorldDef) {
-        super();
-        this.nextWorld = nextWorld;
-    }
     
     override public function create():Void {
         super.create();
@@ -51,7 +45,7 @@ class PassState extends FlxSubState {
         backGround.shader = maskShader;
         
         FlxTween.tween(this, { radius: 0 }, 1.2, { ease: FlxEase.quintOut, onComplete: (_) -> {
-            PlayState.instance.switchWorld(nextWorld);
+            PlayState.instance.toNextStage();
             FlxTween.tween(this, { radius: screenRadius },
                 1.2, { ease: FlxEase.quintIn, onComplete: (_) -> { close(); }});
         }});

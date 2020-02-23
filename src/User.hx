@@ -4,7 +4,8 @@ import haxe.Json;
 
 class User {
     private var res:{uuid: String, volume: Int, music: Bool, sound: Bool, times: Int};
-    private var last:String;
+    private var lastStage:Int;
+
     public function new() {
         var _uuid = Uuid.v4();
         #if sys
@@ -26,7 +27,7 @@ class User {
         res = {uuid: _uuid, volume: 1, music: true, sound: true, times: 1};
         trace("sys not available, generating new uuid");
         #end
-        this.last = "Menu";
+        this.lastStage = -1;
     }
 
     public function getUUID():String {
@@ -47,12 +48,12 @@ class User {
         #end
     }
 
-    public function setLast(_last:String):Void {
-        last = _last;
+    public function setLastStage(_lastStage:Int):Void {
+        lastStage = _lastStage;
     }
 
-    public function getLast():String {
-        return last;
+    public function getLastStage():Int {
+        return lastStage;
     }
 
     public function getTimes():Int {

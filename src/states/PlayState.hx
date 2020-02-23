@@ -68,7 +68,7 @@ class PlayState extends LycanState {
     public var universe:Universe;
 	public var cameraFocus:CameraFocus;
     public var reloadPlayerPosition:Bool;
-    public var initWorld:WorldDef;
+	public var curStage:Int;
 
     // For transition effects
     public var timeFactor(default, set):Float = 1;
@@ -112,6 +112,7 @@ class PlayState extends LycanState {
         dragHintShown = #if FLX_NO_DEBUG false #else true #end;
         worldEditingDisabled = #if FLX_NO_DEBUG true #else false #end;
         hintList = new List<Hint>();
+        curStage = 0;
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
     }
 
@@ -203,11 +204,13 @@ class PlayState extends LycanState {
 		interp.variables.set("wait", function(delay:Float, cb:Void -> Void) new FlxTimer(timers).start(delay, (_) -> cb()));
     }
 
-    private function initUniverse(initWorldName:String = Config.START_WORLD):Void {
+    private function initUniverse():Void {
         universe = new Universe();
         reloadPlayerPosition = true;
 
-        initWorld = WorldCollection.get(initWorldName);
+        curStage = 0;
+        WorldCollection.defineWorlds(curStage);
+        var initWorld = WorldCollection.get(Config.STAGES[curStage][0]);
         universe.makeSlot(0, 0).loadWorld(initWorld);
         initWorld.owned = true;
         universe.forEachOfType(WorldPiece, (piece) -> {
@@ -286,29 +289,6 @@ class PlayState extends LycanState {
     }
 
     // Handlers
-    public function reset():Void {
-        endWorldEditing();
-        WorldCollection.reset();
-        remove(player);
-        player.destroy();
-        player = null;
-        universe.reset();
-        if (initWorld != null) {
-            initWorld.owned = true;
-            universe.forEachOfType(WorldPiece, (piece) -> {
-                if (piece.worldDef == initWorld) piece.collectable.collect(player);
-            }, true);
-        }
-        add(player);
-		FlxG.camera.follow(null);
-        cameraFocus.destroy();
-		cameraFocus = new CameraFocus();
-		cameraFocus.add(new ObjectTargetInfluencer(player));
-		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
-		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
-		FlxG.camera.snapToTarget();
-    }
-
     public function die():Void {
         endWorldEditing();
         player.characterController.hasControl = false;
@@ -326,11 +306,6 @@ class PlayState extends LycanState {
                 player.destroy();
                 player = null;
                 universe.reset();
-                if (initWorld != null) {
-                    universe.forEachOfType(WorldPiece, (piece) -> {
-                        if (piece.worldDef == initWorld) piece.collectable.collect(player);
-                    }, true);
-                }
                 add(player);
                 FlxG.camera.follow(null);
                 cameraFocus.destroy();
@@ -346,9 +321,13 @@ class PlayState extends LycanState {
         };
     }
 
-    public function passLevelTo(nextWorld:WorldDef):Void {
+    public function passLevel():Void {
         if (isWorldEditing) endWorldEditing();
-        var passState = new PassState(nextWorld);
+        // logging
+        Main.logger.logPass(curStage);
+        Main.user.setLastStage(curStage);
+
+        var passState = new PassState();
         persistentUpdate = false;
         player.characterController.hasControl = false;
         player.characterController.leftPressed = false;
@@ -364,19 +343,19 @@ class PlayState extends LycanState {
         openSubState(passState);
     }
 
-    public function switchWorld(nextWorld:WorldDef):Void {
+    public function toNextStage():Void {
         // Clean
+        curStage++;
         WorldCollection.reset();
+        WorldCollection.defineWorlds(curStage);
         remove(player);
         player.destroy();
         player = null;
 
+        var nextWorld = WorldCollection.get(Config.STAGES[curStage][0]);
+        if (nextWorld.name == "win") Main.logger.logWin();
         nextWorld.owned = true;
-        universe.reset(nextWorld.name);
-        universe.forEachOfType(WorldPiece, (piece) -> {
-            if (piece.worldDef == initWorld) piece.collectable.collect(player);
-        }, true);
-        initWorld = nextWorld;
+        universe.reset();
         add(player);
         FlxG.camera.follow(null);
         cameraFocus.destroy();

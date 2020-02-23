@@ -12,7 +12,15 @@ class WorldCollection extends NamedCollection<WorldDef> {
 
 	public static function init():Void {
 		instance.clear();
-		for (world in Config.WORLDS) {
+	}
+
+	public static function defineWorlds(forStage:Int):Void {
+		if (forStage > Config.STAGES.length) {
+			trace("!!!! ERROR !!!!!, stage not exists");
+			return;
+		}
+		instance.clear();
+		for (world in Config.STAGES[forStage]) {
 			if (!instance.exists(world)) {
 				defineWorld(world, false);
 			}
@@ -21,7 +29,6 @@ class WorldCollection extends NamedCollection<WorldDef> {
 
 	public static function defineWorld(name:String, owned:Bool = false):WorldDef {
 		var wd = new WorldDef(name, Config.MAP_PATH + name + ".tmx");
-		trace("Adding world def for " + name);
 		wd.owned = owned;
 		instance.add(wd);
 		return wd;

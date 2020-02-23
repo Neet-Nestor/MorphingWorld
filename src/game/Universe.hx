@@ -1,5 +1,6 @@
 package game;
 
+import sprites.WorldPiece;
 import config.Config;
 import flixel.FlxBasic;
 import flixel.FlxCamera.FlxCameraFollowStyle;
@@ -48,15 +49,16 @@ class Universe extends FlxGroup {
 	}
 	
 	public function reset(?initWorldName:String):Void {
+		if (initWorldName == null) initWorldName = Config.STAGES[PlayState.instance.curStage][0];
 		for (slot in slots) removeSlot(slot);
 		for (world in worldLayer) world.destroy();
 		worldLayer.clear();
 		PlayState.instance.reloadPlayerPosition = true;
-		if (initWorldName == null) {
-			makeSlot(0, 0).loadWorld(PlayState.instance.initWorld);
-		} else {
-			makeSlot(0, 0).loadWorld(WorldCollection.get(initWorldName));
-		}
+		var initWorld = WorldCollection.get(initWorldName);
+		makeSlot(0, 0).loadWorld(initWorld);
+		forEachOfType(WorldPiece, (piece) -> {
+			if (piece.worldDef == initWorld) piece.collectable.collect(PlayState.instance.player);
+		}, true);
 	}
 
 	public function makeSlot(x:Int, y:Int):WorldSlot {
