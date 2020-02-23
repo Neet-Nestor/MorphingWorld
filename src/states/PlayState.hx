@@ -109,6 +109,8 @@ class PlayState extends LycanState {
 		persistentDraw = true;
         persistentUpdate = true;
         reloadPlayerPosition = false;
+        // In case it was set before by fault
+        Phys.FORCE_TIMESTEP = null;
 
         super.create();
         initPhysics();
@@ -120,7 +122,8 @@ class PlayState extends LycanState {
         add(player);
         // Move hint
         showHint("[WASD or Arrows to move]",
-            [FlxKey.W, FlxKey.A, FlxKey.S, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT]);
+            [FlxKey.W, FlxKey.A, FlxKey.S, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT],
+            () -> { showHint("[W or UP or SPACE to jump]", [FlxKey.UP, FlxKey.W, FlxKey.SPACE]); });
     }
 
     // Initializers
