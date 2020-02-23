@@ -90,8 +90,15 @@ class PlayState extends LycanState {
     // Sound
     public var _sndDie:FlxSound;
 
-    // Tween
-    public var textHint:FlxText;
+    // Hint related
+    public var hintShowing:Bool;
+    public var hintTriggered:Bool;
+    public var hintText:FlxText;
+    public var hintTween:FlxTween;
+    public var hintTriggerKeys:Array<FlxKey>;
+    public var hintTriggerMouseUp:Bool;
+    public var hintTriggerMouseDown:Bool;
+    public var hintCallback:Void -> Void;
 
 	public static var instance(default, null):PlayState;
 
@@ -102,6 +109,10 @@ class PlayState extends LycanState {
         zoomHintShown = false;
         dragHintShown = false;
         worldEditingDisabled = true;
+        hintTriggerKeys = [];
+        hintTriggerMouseUp = false;
+        hintTriggerMouseDown = false;
+        hintTriggered = false;
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
     }
 
@@ -220,6 +231,33 @@ class PlayState extends LycanState {
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
+
+        // Hint related actions
+        if (hintShowing && !hintTriggered && FlxG.keys.anyJustPressed(hintTriggerKeys)) {
+            hintTriggered = true;
+            if (hintTween != null) hintTween.cancel();
+            hintTween = FlxTween.tween(hintText, {alpha: 0}, 0.6, { onComplete: (_) -> {
+                hintTween = null;
+                hintShowing = false;
+                if (hintCallback != null) {
+                    hintCallback();
+                    hintCallback = null;
+                }
+            }});
+        }
+
+        if (hintShowing && !hintTriggered && ((hintTriggerMouseUp && FlxG.mouse.wheel > 0) || (hintTriggerMouseDown && FlxG.mouse.wheel < 0))) {
+            hintTriggered = true;
+            if (hintTween != null) hintTween.cancel();
+            hintTween = FlxTween.tween(hintText, {alpha: 0}, 0.6, { onComplete: (_) -> {
+                hintTween = null;
+                hintShowing = false;
+                if (hintCallback != null) {
+                    hintCallback();
+                    hintCallback = null;
+                }
+            }});
+        }
         
         // actions
         if (FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W, FlxKey.SPACE])) {
@@ -384,7 +422,7 @@ class PlayState extends LycanState {
         // Hint show once
         if (!dragHintShown) {
             dragHintShown = true;
-            new FlxTimer().start(0.5, (_) -> this.showText("[Drag & Drop]", 2, uiGroup, () -> showText("[Click to destroy world]")));
+            showHint("[Scroll Down to zoom in]", [], false, true);
         }
     }
 
@@ -412,40 +450,22 @@ class PlayState extends LycanState {
     // Transfer to hint state
     public function showHint(hint:String, untilKeys:Array<FlxKey>, untilMouseWheelUp:Bool = false, untilMouseWheelDown:Bool = false,
         ?cb:Void -> Void):Void {
-            var hintState = new HintState(hint, untilKeys, untilMouseWheelUp, untilMouseWheelDown);
-            persistentUpdate = true;
-            hintState.closeCallback = () -> {
-                if(cb != null) cb();
+            if (hintShowing) {
+                return;
             }
-            openSubState(hintState);
+            hintShowing = true;
+            hintTriggered = false;
+            hintText = new FlxText(0, FlxG.height - 50, 0, hint, 20);
+            hintText.screenCenter(FlxAxes.X);
+            hintText.alpha = 0;
+            hintTriggerKeys = untilKeys;
+            hintTriggerMouseUp = untilMouseWheelUp;
+            hintTriggerMouseDown = untilMouseWheelDown;
+            hintCallback = cb;
+            if (hintTween != null) hintTween.cancel();
+            hintTween = FlxTween.tween(hintText, {alpha: 1}, 0.6);
+            uiGroup.add(hintText);
     }
-
-    // Create a text on screen
-	public function showText(str:String, showTime:Float = 1.65, ?group:FlxSpriteGroup, ?callback:() -> Void):Void {
-		var t = new FlxText(0, 0, 0, str, 20);
-		// t.font = "fairfax";
-		t.y = FlxG.height - 50;
-		t.screenCenter(FlxAxes.X);
-        t.alpha = 0;
-        
-        if (group == null) group = uiGroup;
-
-        if (textHint != null) group.remove(textHint);
-        
-        FlxTween.tween(t, {alpha: 1}, 0.6, {onComplete: (_) -> {
-            FlxTween.tween(t, {alpha: 0}, 0.6, {startDelay: showTime, onComplete: (_) -> {
-                if (PlayState.instance.textHint == t) {
-                    group.remove(t);
-                    t.destroy();
-                    PlayState.instance.textHint = null;
-                }
-                if (callback != null) callback();
-            }});
-        }});
-
-        textHint = t;
-		group.add(t);
-	}
     
     // Setters
 
