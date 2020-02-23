@@ -33,8 +33,8 @@ class DieState extends FlxSubState {
         uiGroup.camera = PlayState.instance.uiCamera;
 		loadBG();
 		loadTitle();
-		loadMenu();
         loadRestart();
+		loadMenu();
         add(uiGroup);
         Main.logger.logDie(Main.user.getLast());
     }
@@ -73,7 +73,7 @@ class DieState extends FlxSubState {
 	}
 	
 	private function loadMenu():Void {
-        menuBtn = new FlxButton(0, restartBtn.y + 25, "Main Menu", onMenu);
+        menuBtn = new FlxButton(0, hint.y + 125, "Main Menu", onMenu);
         menuBtn.screenCenter(FlxAxes.X);
         uiGroup.add(menuBtn);
     }

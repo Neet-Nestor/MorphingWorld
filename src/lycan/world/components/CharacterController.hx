@@ -139,73 +139,74 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		//TODO stop is duplicating airdrag functionality! oops
 		anchorJoint.active = hasControl && Math.abs(currentMoveVel) > 0;
 
-		// Compute groundedness
+		// Compute groundedness only when not jumpping
 		// Clear previous grounds
-		// TODO make this the proper method instead of a quick hack for LD readiness
-		var oldVel:Vec2 = physics.body.velocity.copy(true);
-		physics.body.velocity.setxy(0, 1);
+		if (body.velocity.y >= 0) {
+			var oldVel:Vec2 = physics.body.velocity.copy(true);
+			physics.body.velocity.setxy(0, 1);
 
-		var result:ConvexResult = null;
-		physics.body.position.y--;
-		result = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
-		if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
-			var groundEntity = result.shape.body.userData.entity;
-			groundable.add(groundEntity);
-			if (Std.is(result.shape.body.userData.entity, MovingBoard)) {
-				var mb:MovingBoard = cast result.shape.body.userData.entity;
-				onMovingPlatform = true;
-				movingPlatform = mb;
-			} else {
+			var result:ConvexResult = null;
+			physics.body.position.y--;
+			result = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
+			if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
+				var groundEntity = result.shape.body.userData.entity;
+				groundable.add(groundEntity);
+				if (Std.is(result.shape.body.userData.entity, MovingBoard)) {
+					var mb:MovingBoard = cast result.shape.body.userData.entity;
+					onMovingPlatform = true;
+					movingPlatform = mb;
+				} else {
+					onMovingPlatform = false;
+					movingPlatform = null;
+				}
+			}
+			physics.body.position.y++;
+
+			if (result == null) {
+				// For moving down platforms
+				physics.body.position.y++;
+				result = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
+				if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
+					var groundEntity = result.shape.body.userData.entity;
+					groundable.add(groundEntity);
+					if (Std.is(result.shape.body.userData.entity, MovingBoard)) {
+						var mb:MovingBoard = cast result.shape.body.userData.entity;
+						onMovingPlatform = true;
+						movingPlatform = mb;
+					} else {
+						onMovingPlatform = false;
+						movingPlatform = null;
+					}
+				}
+				physics.body.position.y--;
+			}
+
+			if (result == null) {
+				// For moving up platforms
+				physics.body.position.y -= 2;
+				result = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
+				if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
+					var groundEntity = result.shape.body.userData.entity;
+					groundable.add(groundEntity);
+					if (Std.is(result.shape.body.userData.entity, MovingBoard)) {
+						var mb:MovingBoard = cast result.shape.body.userData.entity;
+						onMovingPlatform = true;
+						movingPlatform = mb;
+					} else {
+						onMovingPlatform = false;
+						movingPlatform = null;
+					}
+				}
+				physics.body.position.y += 2;
+			}
+
+			if (result == null) {
+				// we failed :(
 				onMovingPlatform = false;
 				movingPlatform = null;
 			}
+			physics.body.velocity.set(oldVel);
 		}
-		physics.body.position.y++;
-
-		if (result == null) {
-			// For moving down platforms
-			physics.body.position.y++;
-			result = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
-			if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
-				var groundEntity = result.shape.body.userData.entity;
-				groundable.add(groundEntity);
-				if (Std.is(result.shape.body.userData.entity, MovingBoard)) {
-					var mb:MovingBoard = cast result.shape.body.userData.entity;
-					onMovingPlatform = true;
-					movingPlatform = mb;
-				} else {
-					onMovingPlatform = false;
-					movingPlatform = null;
-				}
-			}
-			physics.body.position.y--;
-		}
-
-		if (result == null) {
-			// For moving up platforms
-			physics.body.position.y -= 2;
-			result = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
-			if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
-				var groundEntity = result.shape.body.userData.entity;
-				groundable.add(groundEntity);
-				if (Std.is(result.shape.body.userData.entity, MovingBoard)) {
-					var mb:MovingBoard = cast result.shape.body.userData.entity;
-					onMovingPlatform = true;
-					movingPlatform = mb;
-				} else {
-					onMovingPlatform = false;
-					movingPlatform = null;
-				}
-			}
-			physics.body.position.y += 2;
-		}
-
-		if (result == null) {
-			// we failed :(
-			onMovingPlatform = false;
-			movingPlatform = null;
-		}
-		physics.body.velocity.set(oldVel);
 
 		// Moving Left/Right
 		if (hasControl) {
