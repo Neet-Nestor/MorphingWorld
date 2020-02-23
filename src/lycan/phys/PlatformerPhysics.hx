@@ -64,21 +64,6 @@ class PlatformerPhysics {
 		WORLD_FILTER.collisionGroup = (1 << 2);
 		WORLD_FILTER.collisionMask = -1;
 
-		// Character controller drop-through one way
-		space.listeners.add(
-			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, ONEWAY_TYPE,
-				function(ic:PreCallback):PreFlag {
-					var body:Body = ic.int1.castBody;
-					var p:CharacterController = cast body.userData.entity;
-					if (p.characterController.dropThrough) {
-						return PreFlag.IGNORE;
-					} else {
-						return null;
-					}
-				}, 1
-			)
-		);
-
 		space.listeners.add(
 			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, Phys.TILEMAP_SHAPE_TYPE, (cb:PreCallback) -> {
 				if (cb.int1.userData.entity != null && Std.is(cb.int1.userData.entity, CharacterController)) {
@@ -122,13 +107,16 @@ class PlatformerPhysics {
 		);
 		
 		// One way platforms
-		// -- Character controller drop-through one way
+		// -- Character controller drop-through / Jump on one way
 		space.listeners.add(
 			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, ONEWAY_TYPE,
 				function(ic:PreCallback):PreFlag {
-					var body:Body = ic.int1.castBody;
-					var p:CharacterController = cast body.userData.entity;
-					if (p.characterController.dropThrough) {
+					var b1:Body = ic.int1.castBody;
+					var b2:Body = ic.int2.castBody;
+					var p:CharacterController = cast b1.userData.entity;
+					var arbiter:CollisionArbiter = cast ic.arbiter;
+					var angle:Float = FlxAngle.TO_DEG * arbiter.normal.angle;
+					if (p.characterController.dropThrough || p.physics.body.velocity.y < 0 || angle != 90) {
 						return PreFlag.IGNORE;
 					} else {
 						return null;
@@ -136,23 +124,5 @@ class PlatformerPhysics {
 				}, 1
 			)
 		);
-
-		// -- Jump beyond one way platforms
-		// TODO should use accept/ignore_once?
-		// TODO don't hardcode the angles
-		space.listeners.push(
-			new PreListener(InteractionType.COLLISION, CbType.ANY_BODY, ONEWAY_TYPE,
-				function(ic:PreCallback):PreFlag {
-					var groundable:Groundable = ic.int1.userData.sprite;
-					var arbiter:CollisionArbiter = cast ic.arbiter;
-					var angle:Float = FlxAngle.TO_DEG * arbiter.normal.angle;
-					if (angle >= 45 && angle <= 135 ) {
-						return null;
-					}
-					return PreFlag.IGNORE;
-				}, 2
-			)
-		);
-		
 	}
 }
