@@ -39,7 +39,7 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		characterController.runSpeed = 80;
 		characterController.jumpSpeed = -150;
 		characterController.minMoveVel = 8;
-		characterController.maxJumps = 3;
+		characterController.maxJumps = 1;
 
 		groundable.groundedAngleLimit = 65;
 

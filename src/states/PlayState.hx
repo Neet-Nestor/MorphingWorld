@@ -265,7 +265,7 @@ class PlayState extends LycanState {
         if (!worldEditingDisabled) {
             if (FlxG.mouse.wheel > 0) beginWorldEditing();
             else if (FlxG.mouse.wheel < 0) endWorldEditing();
-            // else if (FlxG.keys.anyJustReleased([FlxKey.SHIFT])) toggleWorldEditing();
+            else if (FlxG.keys.anyJustReleased([FlxKey.TAB])) toggleWorldEditing();
         }
 
         if (FlxG.keys.anyJustPressed([FlxKey.R])) die();
@@ -376,11 +376,11 @@ class PlayState extends LycanState {
 			foundState.closeCallback = () -> {
 				Phys.FORCE_TIMESTEP = null;
                 persistentUpdate = true;
-                player.characterController.hasControl = false;
                 if (!zoomHintShown) {
                     zoomHintShown = true;
                     worldEditingDisabled = false;
-                    showHint("[Scroll Up to change the world]", [], true, false, () -> {
+                    player.characterController.hasControl = false;
+                    showHint("[Scroll Up or TAB to change the world]", [FlxKey.TAB], true, false, () -> {
                         player.characterController.hasControl = true;
                     });
                 }
@@ -408,7 +408,7 @@ class PlayState extends LycanState {
         // Hint show once
         if (!dragHintShown) {
             dragHintShown = true;
-            showHint("[Scroll Down to zoom in]", [], false, true);
+            showHint("[Scroll Down or TAB to zoom in]", [FlxKey.TAB], false, true);
         }
     }
 
