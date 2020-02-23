@@ -72,7 +72,8 @@ class PlayState extends LycanState {
     public var isWorldEditing:Bool;
     public var editingTransitionAmount(default, set):Float = 0;
 
-    public var dieState:DieState;
+    // Disabled actions
+    public var worldEditingDisabled:Bool;
 
     // Hints
 	public var zoomHintShown:Bool;
@@ -100,6 +101,7 @@ class PlayState extends LycanState {
         isWorldEditing = false;
         zoomHintShown = false;
         dragHintShown = false;
+        worldEditingDisabled = false;
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
     }
 
@@ -116,7 +118,9 @@ class PlayState extends LycanState {
         initUniverse();
         initCamera();
         add(player);
-        showText("[WASD to move]");
+        // Move hint
+        showHint("[WASD or Arrows to move]",
+            [FlxKey.W, FlxKey.A, FlxKey.S, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT]);
     }
 
     // Initializers
@@ -215,7 +219,7 @@ class PlayState extends LycanState {
         super.update(elapsed);
         
         // actions
-        if (FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W])) {
+        if (FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W, FlxKey.SPACE])) {
             player.characterController.jump();
         }
         if (FlxG.keys.anyJustPressed([FlxKey.LEFT, FlxKey.A])) {
@@ -231,9 +235,11 @@ class PlayState extends LycanState {
             player.characterController.rightPressed = false;
         }
 
-        if (FlxG.mouse.wheel < 0) beginWorldEditing();
-        else if (FlxG.mouse.wheel > 0) endWorldEditing();
-        else if (FlxG.keys.anyJustReleased([FlxKey.SPACE])) toggleWorldEditing();
+        if (!worldEditingDisabled) {
+            if (FlxG.mouse.wheel < 0) beginWorldEditing();
+            else if (FlxG.mouse.wheel > 0) endWorldEditing();
+            else if (FlxG.keys.anyJustReleased([FlxKey.SHIFT])) toggleWorldEditing();
+        }
 
         if (FlxG.keys.anyJustPressed([FlxKey.R])) die();
 
@@ -296,10 +302,7 @@ class PlayState extends LycanState {
             persistentUpdate = false;
             player.physics.body.velocity.y = 0;
             Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
-            //player.characterController.leftPressed = false;
-            //player.characterController.rightPressed = false;
-            //player.physics.body.velocity.y = 0;
-            dieState = new DieState();
+            var dieState = new DieState();
             dieState.closeCallback = () -> {
                 reset();
                 Phys.FORCE_TIMESTEP = null;
@@ -399,6 +402,16 @@ class PlayState extends LycanState {
     }
 
     // Helper functions
+    // Transfer to hint state
+    public function showHint(hint:String, untilKeys:Array<FlxKey>, ?cb:Void -> Void):Void {
+        var hintState = new HintState(hint, untilKeys);
+        persistentUpdate = true;
+        hintState.closeCallback = () -> {
+            player.characterController.hasControl = true;
+            if(cb != null) cb();
+        }
+        openSubState(hintState);
+    }
 
     // Create a text on screen
 	public function showText(str:String, showTime:Float = 1.65, ?group:FlxSpriteGroup, ?callback:() -> Void):Void {
