@@ -343,6 +343,9 @@ class PlayState extends LycanState {
     public function toNextStage():Void {
         // Clean
         curStage++;
+        if (curStage >= Config.STAGES.length) {
+            FlxG.switchState(new MenuState());
+        } 
         WorldCollection.reset();
         WorldCollection.defineWorlds(curStage);
         remove(player);
