@@ -49,12 +49,11 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
 			animation.play("open");
 			if (!worldDef.owned) {
 				worldDef.owned = true;
-				new FlxTimer().start(0.22, (_) -> {PlayState.instance.collectWorld(worldDef);});
+				new FlxTimer().start(0.22, (_) -> { PlayState.instance.collectWorld(worldDef); });
 				PlayState.instance.universe.forEachOfType(WorldPiece, (piece) -> {
 					if (piece.worldDef == worldDef && piece != this) piece.collectable.collect(player);
 				}, true);
 			}
-			if (parentWorldDef != null) parentWorldDef.generatePreview();
 		}
 	}
 
