@@ -15,7 +15,7 @@ import states.PlayState;
 	public var ONCE = "once";
 }
 
-class Switch extends LSprite implements PhysicsEntity implements Switchable {
+class Button extends LSprite implements PhysicsEntity implements Switchable {
     public static var SWITCH_TYPE:CbType = new CbType();
 
     public var type:SwitchType;
@@ -27,18 +27,18 @@ class Switch extends LSprite implements PhysicsEntity implements Switchable {
         this.type = type;
         this.targetName = targetName;
 		
-        // loadGraphic("AssetPaths.switch__png", true, Config.TILE_SIZE, Config.TILE_SIZE);
-		// animation.add("off", [0], 0, false);
-        // animation.add("on", [1], 0, false);
-        makeGraphic(Config.TILE_SIZE, Config.TILE_SIZE, FlxColor.RED);
+        loadGraphic(AssetPaths.button__png, true, Config.TILE_SIZE, Config.TILE_SIZE);
+		animation.add("off", [0], 0, false);
+        animation.add("on", [1], 0, false);
+        animation.play("off");
 		
 		physics.init(BodyType.STATIC);
         physics.body.userData.entity = this;
         physics.body.cbTypes.add(SWITCH_TYPE);
         physics.body.shapes.at(0).sensorEnabled = true;
 
-        switcher.onCallback = (s) -> {
-            makeGraphic(Config.TILE_SIZE, Config.TILE_SIZE, FlxColor.BLUE);
+        switcher.onCallback = (b) -> {
+            animation.play("on");
             for (slot in PlayState.instance.universe.slots) {
                 if (slot.world == null) continue;
                 for (obj in slot.world.objects) {
@@ -49,11 +49,11 @@ class Switch extends LSprite implements PhysicsEntity implements Switchable {
                             d.open();
                         }
                     }
-                    if (Std.is(obj, Switch)) {
+                    if (Std.is(obj, Button)) {
                         // On other switches
-                        var sw:Switch = cast obj;
-                        if (sw.targetName == targetName) {
-                            sw.switcher.on = switcher.on;
+                        var bt:Button = cast obj;
+                        if (bt.targetName == targetName) {
+                            bt.switcher.on = switcher.on;
                         }
                     }
                 }
