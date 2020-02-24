@@ -85,8 +85,8 @@ class PlayState extends LycanState {
     public var worldEditingDisabled:Bool;
 
     // Hints
-    public var zoomHintShown:Bool;
-    public var dragHintShown:Bool;
+    public var editHintShown:Bool;
+    public var removeHintShown:Bool;
 
     // For scripts
 	public var parser:Parser;
@@ -108,8 +108,8 @@ class PlayState extends LycanState {
         super();
         instance = this;
         isWorldEditing = false;
-        zoomHintShown = #if FLX_NO_DEBUG false #else true #end;
-        dragHintShown = #if FLX_NO_DEBUG false #else true #end;
+        editHintShown = #if FLX_NO_DEBUG false #else true #end;
+        removeHintShown = #if FLX_NO_DEBUG false #else true #end;
         worldEditingDisabled = #if FLX_NO_DEBUG true #else false #end;
         hintList = new List<Hint>();
         curStage = 0;
@@ -133,10 +133,7 @@ class PlayState extends LycanState {
         add(player);
         // Move hint
         showHint("[A/D or LEFT/RIGHT to move]",
-            () -> FlxG.keys.anyJustPressed([FlxKey.A, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT]),
-            () -> {
-                showHint("[W/UP/SPACE to jump]", () -> FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W, FlxKey.SPACE]));
-            });
+            () -> FlxG.keys.anyJustPressed([FlxKey.A, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT]));
     }
 
     // Initializers
@@ -364,6 +361,11 @@ class PlayState extends LycanState {
         FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
         FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
         FlxG.camera.snapToTarget();
+
+        // Hint Setup
+        if (curStage == 1) {
+            showHint("[W/UP/SPACE to jump]", () -> FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W, FlxKey.SPACE]));
+        }
     }
 
     public function collectWorld(worldDef:WorldDef):Void {
@@ -386,8 +388,7 @@ class PlayState extends LycanState {
             foundState.closeCallback = () -> {
                 Phys.FORCE_TIMESTEP = null;
                 persistentUpdate = true;
-                if (!zoomHintShown) {
-                    zoomHintShown = true;
+                if (curStage == 1 && !editHintShown) {
                     worldEditingDisabled = false;
                     player.characterController.hasControl = false;
                     showHint("[Scroll Up or E to change the world]",

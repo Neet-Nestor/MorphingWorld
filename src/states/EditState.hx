@@ -144,8 +144,8 @@ class EditState extends FlxSubState {
 		swatchGroup.camera = PlayState.instance.uiCamera;
 
 		// Drag hint
-		if (!PlayState.instance.dragHintShown) {
-			PlayState.instance.dragHintShown = true;
+		if (PlayState.instance.curStage == 1 && !PlayState.instance.editHintShown) {
+			PlayState.instance.editHintShown = true;
 			// Get screen location of the path
 			// Magic: 400, 225 in uiCamera = 0, 0 in WorldCamera
 
@@ -164,20 +164,51 @@ class EditState extends FlxSubState {
 
 			mouseCursor.setPosition(departure.x, departure.y);
 			mouseCursor.path = new FlxPath().start([departure, destination], 200, FlxPath.FORWARD);
-			// mouseCursor.path.onComplete = (_) -> {
-			// 	mouseCursor.setPosition(destination.x, destination.y);
-			// }
 			uiGroup.add(mouseCursor);
 			// don't allow the user to exit editing mode
 			PlayState.instance.worldEditingDisabled = true;
+
+			var previousSlots = PlayState.instance.universe.slots.length;
 			PlayState.instance.showHint("[Drag & Drop]",
-				() -> (PlayState.instance.universe.slots.length > 5),
+				() -> (PlayState.instance.universe.slots.length > previousSlots),
 				() -> {
 					uiGroup.remove(mouseCursor);
 					PlayState.instance.worldEditingDisabled = false;
 					PlayState.instance.showHint("[Scroll Down or E again to finish]",
 						() -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel < 0,
 						() -> { PlayState.instance.player.characterController.hasControl = true; });
+				});
+		}
+
+		if (PlayState.instance.curStage == 2 && !PlayState.instance.removeHintShown) {
+			PlayState.instance.removeHintShown = true;
+			// Get screen location of the path
+			// Magic: 400, 225 in uiCamera = 0, 0 in WorldCamera
+
+			var mouseCursor = new MouseCursor();
+			var destinationSlot = PlayState.instance.universe.getSlot(-1, 0).outline;
+			var destination = destinationSlot.getPosition();
+			destination.x = (destination.x - destinationSlot.camera.scroll.x) / destinationSlot.camera.zoom + 400;
+			destination.y = (destination.y - destinationSlot.camera.scroll.y) / destinationSlot.camera.zoom + 225;
+
+			// Add offsets
+			destination.x += (destinationSlot.width / 2)  / destinationSlot.camera.zoom + mouseCursor.width  / 2;
+			destination.y += (destinationSlot.height / 2) / destinationSlot.camera.zoom + mouseCursor.height / 2;
+
+			var departure = FlxPoint.get(destination.x - 50, destination.x - 50);
+
+			mouseCursor.setPosition(departure.x, departure.y);
+			mouseCursor.path = new FlxPath().start([departure, destination], 200, FlxPath.FORWARD);
+			uiGroup.add(mouseCursor);
+
+			var previousSlots = PlayState.instance.universe.slots.length;
+			// don't allow the user to exit editing mode
+			PlayState.instance.worldEditingDisabled = true;
+			PlayState.instance.showHint("[Click to destroy world]",
+				() -> (PlayState.instance.universe.slots.length > previousSlots),
+				() -> {
+					uiGroup.remove(mouseCursor);
+					PlayState.instance.worldEditingDisabled = false;
 				});
 		}
 		
