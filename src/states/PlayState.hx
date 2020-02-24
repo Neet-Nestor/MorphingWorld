@@ -45,12 +45,12 @@ import nape.geom.Vec2;
 import nape.phys.BodyType;
 import Sound;
 import sprites.Board;
+import sprites.Button;
 import sprites.CameraFocus;
 import sprites.DamagerSprite;
 import sprites.Player;
 import sprites.Portal;
 import sprites.PuffEmitter;
-import sprites.Switch;
 import sprites.WorldPiece;
 
 class Hint {
@@ -168,9 +168,9 @@ class PlayState extends LycanState {
         
         // -- Switch listener
         Phys.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.SENSOR,
-            PlatformerPhysics.CHARACTER_TYPE, Switch.SWITCH_TYPE, function(cb:InteractionCallback) {
-                var s:Switch = cast cb.int2.userData.entity;
-                s.switcher.on = true;
+            PlatformerPhysics.CHARACTER_TYPE, Button.SWITCH_TYPE, function(cb:InteractionCallback) {
+                var bt:Button = cast cb.int2.userData.entity;
+                bt.switcher.on = true;
 		}));
     }
 
