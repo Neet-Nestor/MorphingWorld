@@ -12,19 +12,24 @@ class Door extends LSprite implements PhysicsEntity {
     public function new(name:String) {
         super();
         this.name = name;
-        makeGraphic(Config.TILE_SIZE, Config.TILE_SIZE * 2, FlxColor.WHITE);
+        loadGraphic(AssetPaths.door__png, true, Config.TILE_SIZE, Config.TILE_SIZE * 2);
+        animation.add("opened", [0], 0);
+        animation.add("closed", [1], 0);
         physics.init(BodyType.KINEMATIC);
         physics.body.userData.entity = this;
+        animation.play("closed");
     }
 
     override public function kill():Void {
         super.kill();
         physics.enabled = false;
+        animation.play("open");
     }
 
     override public function revive():Void {
         super.revive();
         physics.enabled = true;
+        animation.play("closed");
     }
 
     override public function destroy():Void {
