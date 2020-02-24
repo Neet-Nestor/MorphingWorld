@@ -45,6 +45,8 @@ class PlatformerPhysics {
 	// Interaction Filters
 	public static var OVERLAPPING_FILTER:InteractionFilter = new InteractionFilter();
 	public static var WORLD_FILTER:InteractionFilter = new InteractionFilter();
+	public static var SLOT_FILTER:InteractionFilter = new InteractionFilter();
+	public static var CHARACTER_FILTER:InteractionFilter = new InteractionFilter();
 	
 	private static var isSetup:Bool = false;
 	
@@ -58,11 +60,16 @@ class PlatformerPhysics {
 		}
 		
 		space = space == null ? Phys.space : space;
-		OVERLAPPING_FILTER.collisionGroup = (1 << 5);
-		OVERLAPPING_FILTER.collisionMask  = -1;
-		// OVERLAPPING_FILTER.collisionMask  = ~(1 << 5);
-		WORLD_FILTER.collisionGroup = (1 << 2);
+		WORLD_FILTER.collisionGroup = 1;
 		WORLD_FILTER.collisionMask = -1;
+		OVERLAPPING_FILTER.collisionGroup = (1 << 2);
+		OVERLAPPING_FILTER.collisionMask  = -1;
+		CHARACTER_FILTER.collisionGroup = (1 << 3);
+		CHARACTER_FILTER.collisionMask = -1;
+
+		// SLOT only interact with player
+		SLOT_FILTER.collisionGroup = (1 << 4);
+		SLOT_FILTER.collisionMask = (1 << 3);
 
 		space.listeners.add(
 			new PreListener(InteractionType.COLLISION, CHARACTER_TYPE, Phys.TILEMAP_SHAPE_TYPE, (cb:PreCallback) -> {

@@ -60,6 +60,7 @@ class WorldSlot extends FlxSpriteGroup {
         outline.physics.snapEntityToBody();
 		outline.visible = true;
 		outline.alpha = 0;
+		outline.physics.body.setShapeFilters(PlatformerPhysics.SLOT_FILTER);
 
 		overlay = new FlxSprite();
 		overlay.makeGraphic(448, 448);

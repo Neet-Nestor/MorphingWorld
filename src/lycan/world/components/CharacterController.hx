@@ -102,6 +102,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		physics.body.userData.entity = entity;
 		physics.body.allowRotation = false;
 		physics.body.group = PlatformerPhysics.OVERLAPPING_GROUP;
+		physics.body.setShapeFilters(PlatformerPhysics.CHARACTER_FILTER);
 
 		physics.body.isBullet = true;
 

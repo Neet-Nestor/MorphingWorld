@@ -40,6 +40,18 @@ class Crate extends LSprite implements PhysicsEntity implements Groundable {
 		if (!groundable.isGrounded) {
 			physics.body.velocity.x = 0;
 		}
+
+		if (physics.body.velocity.y > 1000) kill();
+	}
+
+	override public function kill():Void {
+		super.kill();
+		physics.enabled = false;
+	}
+
+	override public function revive():Void {
+		super.revive();
+		physics.enabled = true;
 	}
 
 	override public function destroy():Void {
