@@ -259,9 +259,25 @@ class PlayState extends LycanState {
             else if (FlxG.mouse.wheel < 0) endWorldEditing();
             else if (FlxG.keys.anyJustReleased([FlxKey.E])) toggleWorldEditing();
         }
+        
+        if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) {
+            var pauseState = new PauseState();
+            var prevPersistentUpdate = persistentUpdate;
+            persistentUpdate = false;
+            if (subState != null) {
+                subState.persistentUpdate = false;
+                pauseState.closeCallback = () -> {
+                    subState.persistentUpdate = true;
+                    persistentUpdate = prevPersistentUpdate;
+                }
+                subState.openSubState(pauseState);
+            } else {
+                pauseState.closeCallback = () -> { persistentUpdate = prevPersistentUpdate; }
+                openSubState(pauseState);
+            }
+        }
 
         #if cpp
-        if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) FlxG.switchState(new MenuState());
         if (FlxG.keys.anyJustPressed([FlxKey.F])) FlxG.fullscreen = !FlxG.fullscreen;
         #end
 

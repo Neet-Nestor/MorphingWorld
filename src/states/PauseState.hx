@@ -46,34 +46,33 @@ class PauseState extends FlxSubState {
 
     private function loadBG():Void {
         var back = new FlxSprite();
-        back.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLUE);
+        back.makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
         back.x = 0;
 		back.y = 0;
-		back.alpha = 0.4;
+		back.alpha = 0.2;
         uiGroup.add(back);
 	}
 	
 	private function loadTitle():Void {
         title = new FlxText(0, 0, 0, "PAUSE", 48);
         title.screenCenter();
-        title.y -= 30;
         uiGroup.add(title);
     }
 
     private function loadBack():Void {
-        restartBtn = new FlxButton(0, hint.y + 100, "Back", onBack);
+        restartBtn = new FlxButton(0, title.y + 100, "Back", onBack);
         restartBtn.screenCenter(FlxAxes.X);
         uiGroup.add(restartBtn);
 	}
-	
-	private function loadMenu():Void {
-        menuBtn = new FlxButton(0, hint.y + 125, "Main Menu", onMenu);
+
+    private function loadSettings():Void {
+        menuBtn = new FlxButton(0, title.y + 125, "Settings", onSetting);
         menuBtn.screenCenter(FlxAxes.X);
         uiGroup.add(menuBtn);
     }
-
-    private function loadSettings():Void {
-        menuBtn = new FlxButton(0, hint.y + 150, "Settings", onSetting);
+	
+	private function loadMenu():Void {
+        menuBtn = new FlxButton(0, title.y + 150, "Main Menu", onMenu);
         menuBtn.screenCenter(FlxAxes.X);
         uiGroup.add(menuBtn);
     }
@@ -89,6 +88,6 @@ class PauseState extends FlxSubState {
     private function onSetting():Void {
         var option = new OptionState();
         option.prevState = this;
-        FlxG.switchState(option);
+        openSubState(option);
     }
 }
