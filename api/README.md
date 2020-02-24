@@ -13,13 +13,36 @@ port: 4596
   return: { msg }
 
 ## Data Query API
-- User number
+- Get user number
 
   HTTP/1.1 GET
   
   /api/data/users
   
   return: user number
+
+- Get games statistic
+
+  HTTP/1.1 GET
+  
+  /api/data/games
+  
+  return:
+  
+  ```json
+  [
+    {
+        "user": "17aa4072-90bb-426e-b586-e53e9a77e9d0",
+        "start": 1582532191.517,
+        "stage0": {
+            "time": 70.5460000038147,   // Time used in this stage, unit is second
+            "death": 0,
+            "reset": 0
+        },
+        ...
+    }
+  ]
+  ```
 
 - Get Start data
 
@@ -65,3 +88,11 @@ port: 4596
       ...
   ]
   ```
+
+- Get raw data
+
+  HTTP/1.1 GET
+  
+  /api/data/raw/all
+  
+  return: raw data
