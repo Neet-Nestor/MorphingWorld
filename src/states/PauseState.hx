@@ -10,6 +10,7 @@ import flixel.FlxG;
 import lycan.states.LycanState;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUIButton;
@@ -41,6 +42,8 @@ class PauseState extends FlxSubState {
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
+
+        if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) close();
     }
 
     private function loadBG():Void {
