@@ -369,15 +369,19 @@ class PlayState extends LycanState {
 
     public function collectWorld(worldDef:WorldDef):Void {
         var foundState = new PieceFoundState(worldDef);
+        var oldVel = player.physics.body.velocity.copy(true);
+        player.characterController.stop();
+        player.physics.body.velocity.setxy(0, 0);
+        Phys.space.gravity.y = 0;
         Phys.FORCE_TIMESTEP = 0;
-        player.characterController.physEnabled = false;
         if (isWorldEditing) {
             var editState:EditState = cast subState;
             editState.persistentUpdate = false;
             foundState.closeCallback = () -> {
+                Phys.space.gravity.y = Config.GRAVITY;
                 Phys.FORCE_TIMESTEP = null;
-                player.characterController.physEnabled = true;
                 editState.persistentUpdate = true;
+                player.physics.body.velocity.set(oldVel);
                 editState.addNewWorldPiece(worldDef);
             };
             editState.openSubState(foundState);
@@ -385,9 +389,10 @@ class PlayState extends LycanState {
             // Reset running status
             persistentUpdate = false;
             foundState.closeCallback = () -> {
+                Phys.space.gravity.y = Config.GRAVITY;
                 Phys.FORCE_TIMESTEP = null;
                 persistentUpdate = true;
-                player.characterController.physEnabled = true;
+                player.physics.body.velocity.set(oldVel);
                 if (curStage == 1 && !editHintShown) {
                     worldEditingDisabled = false;
                     player.characterController.hasControl = false;
