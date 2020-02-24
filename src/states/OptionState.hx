@@ -1,5 +1,6 @@
 package states;
 
+import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.ui.FlxButton;
@@ -18,7 +19,7 @@ import flixel.addons.ui.FlxSlider;
 class OptionState extends LycanState {
     private var startBtn:FlxButton;
     private var title:FlxText;
-    public var prevState:LycanState;
+    public var prevState:FlxSubState;
     public var settings:{volume: Int, music: Bool, sound: Bool};
 
     override public function create():Void {
@@ -112,7 +113,7 @@ class OptionState extends LycanState {
         if (this.prevState == null) {
             this.prevState = new MenuState();
         }
-        FlxG.switchState(prevState);
         Main.user.save(settings);
+        FlxG.switchState(prevState);
     }
 }
