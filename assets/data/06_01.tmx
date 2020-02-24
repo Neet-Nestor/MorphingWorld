@@ -24,7 +24,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="5" name="switch" type="switch" x="352" y="128" width="32" height="32">
+  <object id="5" name="button" type="button" x="352" y="128" width="32" height="32">
    <properties>
     <property name="target" value="door0600"/>
    </properties>

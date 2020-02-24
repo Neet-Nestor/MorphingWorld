@@ -30,12 +30,12 @@
     <property name="world" value="09_02"/>
    </properties>
   </object>
-  <object id="16" name="switch1" type="switch" x="32" y="128" width="32" height="32">
+  <object id="16" name="button1" type="button" x="32" y="128" width="32" height="32">
    <properties>
     <property name="target" value="door090001"/>
    </properties>
   </object>
-  <object id="17" name="switch2" type="switch" x="288" y="64" width="32" height="32">
+  <object id="17" name="button2" type="button" x="288" y="64" width="32" height="32">
    <properties>
     <property name="target" value="door090002"/>
    </properties>
