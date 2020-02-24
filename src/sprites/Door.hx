@@ -17,6 +17,16 @@ class Door extends LSprite implements PhysicsEntity {
         physics.body.userData.entity = this;
     }
 
+    override public function kill():Void {
+        super.kill();
+        physics.enabled = false;
+    }
+
+    override public function revive():Void {
+        super.revive();
+        physics.enabled = true;
+    }
+
     override public function destroy():Void {
         super.destroy();
         physics.destroy();
