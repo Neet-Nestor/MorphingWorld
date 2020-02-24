@@ -180,7 +180,7 @@ class EditState extends FlxSubState {
 				});
 		}
 
-		if (PlayState.instance.curStage == 1 && !PlayState.instance.removeHintShown) {
+		if (PlayState.instance.curStage == 2 && !PlayState.instance.removeHintShown) {
 			PlayState.instance.removeHintShown = true;
 			// Get screen location of the path
 			// Magic: 400, 225 in uiCamera = 0, 0 in WorldCamera
