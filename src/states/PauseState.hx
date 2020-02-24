@@ -37,7 +37,6 @@ class PauseState extends FlxSubState {
 		loadTitle();
         loadButtons();
         add(uiGroup);
-        // Main.logger.logDie(Main.user.getLastStage());
     }
 
     override public function update(elapsed:Float):Void {

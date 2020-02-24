@@ -39,6 +39,16 @@ class Logger {
         commit(content);
     }
 
+    
+    public function logReset(stage: Int):Void {
+        var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "type" : "Reset",
+            "stage" : stage
+        }};
+        var content:String = haxe.Json.stringify(log);
+        commit(content);
+    }
+
     // on collect
     public function logCollect(stage:Int, gem:String):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {

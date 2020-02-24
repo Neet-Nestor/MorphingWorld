@@ -344,7 +344,9 @@ class PlayState extends LycanState {
         if (isWorldEditing) endWorldEditing();
         if (subState != null) subState.close();
         // logging
-        Main.logger.logPass(curStage);
+        if (pass) Main.logger.logPass(curStage);
+        else Main.logger.logReset(curStage);
+        
         Main.user.setLastStage(curStage);
 
         var passState = new BreakSplashState(pass);
