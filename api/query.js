@@ -89,8 +89,8 @@ router.get("/games", function (req, res) {
                 var game = {};
                 for (const entry of userData) {
                     const [key, value] = entry;
-                    const timestamp = parseFloat(key.split(":")[1]);
-
+                    const [user, timestampStr] = key.split(":");
+                    const timestamp = parseFloat(timestampStr);
                     if (value.type === "Start") {
                         startTime = timestamp;
                     } else if (value.type === "Die") {
@@ -98,7 +98,7 @@ router.get("/games", function (req, res) {
                     } else if (value.type === "Reset") {
                         reset++;
                     } else if (value.type === "Pass") {
-                        game[`stage${value.stage}`] = { time: timestamp - startTime, death, reset };
+                        game[`stage${value.stage}`] = { user, time: timestamp - startTime, death, reset };
                         startTime = timestamp;
                         death = 0;
                         reset = 0;
