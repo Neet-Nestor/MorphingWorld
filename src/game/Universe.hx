@@ -60,8 +60,6 @@ class Universe extends FlxGroup {
 		if (Config.INIT_UNIVERSE.exists(PlayState.instance.curStage)) {
 			var initConfig = Config.INIT_UNIVERSE[PlayState.instance.curStage];
 			for (slot in initConfig.keys()) {
-				trace(slot);
-				trace(initConfig[slot]);
 				makeSlot(slot.x, slot.y).loadWorld(WorldCollection.get(initConfig[slot]));
 			}
 		} else {

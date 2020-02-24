@@ -180,25 +180,22 @@ class EditState extends FlxSubState {
 				});
 		}
 
-		if (PlayState.instance.curStage == 2 && !PlayState.instance.removeHintShown) {
+		if (PlayState.instance.curStage == 1 && !PlayState.instance.removeHintShown) {
 			PlayState.instance.removeHintShown = true;
 			// Get screen location of the path
 			// Magic: 400, 225 in uiCamera = 0, 0 in WorldCamera
 
 			var mouseCursor = new MouseCursor();
-			var destinationSlot = PlayState.instance.universe.getSlot(-1, 0).outline;
-			var destination = destinationSlot.getPosition();
-			destination.x = (destination.x - destinationSlot.camera.scroll.x) / destinationSlot.camera.zoom + 400;
-			destination.y = (destination.y - destinationSlot.camera.scroll.y) / destinationSlot.camera.zoom + 225;
+			var slotToRemove = PlayState.instance.universe.getSlot(-1, 0).outline;
+			var pos = slotToRemove.getPosition();
+			pos.x = (pos.x - slotToRemove.camera.scroll.x) / slotToRemove.camera.zoom + 400;
+			pos.y = (pos.y - slotToRemove.camera.scroll.y) / slotToRemove.camera.zoom + 225;
 
 			// Add offsets
-			destination.x += (destinationSlot.width / 2)  / destinationSlot.camera.zoom + mouseCursor.width  / 2;
-			destination.y += (destinationSlot.height / 2) / destinationSlot.camera.zoom + mouseCursor.height / 2;
+			pos.x += (slotToRemove.width / 2)  / slotToRemove.camera.zoom + mouseCursor.width  / 2;
+			pos.y += (slotToRemove.height / 2) / slotToRemove.camera.zoom + mouseCursor.height / 2;
 
-			var departure = FlxPoint.get(destination.x - 50, destination.x - 50);
-
-			mouseCursor.setPosition(departure.x, departure.y);
-			mouseCursor.path = new FlxPath().start([departure, destination], 200, FlxPath.FORWARD);
+			mouseCursor.setPosition(pos.x, pos.y);
 			uiGroup.add(mouseCursor);
 
 			// don't allow the user to exit editing mode

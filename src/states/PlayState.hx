@@ -110,6 +110,7 @@ class PlayState extends LycanState {
         isWorldEditing = false;
         editHintShown = #if FLX_NO_DEBUG false #else true #end;
         removeHintShown = #if FLX_NO_DEBUG false #else true #end;
+        removeHintShown = false;
         worldEditingDisabled = #if FLX_NO_DEBUG true #else false #end;
         hintList = new List<Hint>();
         curStage = 0;
