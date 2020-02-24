@@ -77,7 +77,6 @@ class PlayState extends LycanState {
 	public var puffEmitter:PuffEmitter;
 
     // World Editing related
-    public var editState:EditState;
     public var isWorldEditing:Bool;
     public var editingTransitionAmount(default, set):Float = 0;
 
@@ -247,14 +246,12 @@ class PlayState extends LycanState {
         }
         if (FlxG.keys.anyPressed([FlxKey.LEFT, FlxKey.A])) {
             player.characterController.leftPressed = true;
+        } else {
+            player.characterController.leftPressed = false;
         }
         if (FlxG.keys.anyPressed([FlxKey.RIGHT, FlxKey.D])) {
             player.characterController.rightPressed = true;
-        }
-        if (FlxG.keys.anyJustReleased([FlxKey.LEFT, FlxKey.A])) {
-            player.characterController.leftPressed = false;
-        }
-        if (FlxG.keys.anyJustReleased([FlxKey.RIGHT, FlxKey.D])) {
+        } else {
             player.characterController.rightPressed = false;
         }
 
@@ -373,8 +370,6 @@ class PlayState extends LycanState {
 
     public function collectWorld(worldDef:WorldDef):Void {
         var foundState = new PieceFoundState(worldDef);
-        player.characterController.leftPressed = false;
-        player.characterController.rightPressed = false;
         Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
         if (isWorldEditing) {
             var editState:EditState = cast subState;
@@ -403,25 +398,24 @@ class PlayState extends LycanState {
     }
 
     public function beginWorldEditing():Void {
-        if (isWorldEditing || editState != null || WorldCollection.instance.collectedCount <= 0) {
+        if (isWorldEditing || WorldCollection.instance.collectedCount <= 0) {
             return;
         }
         isWorldEditing = true;
         exclusiveTween("editTransition", this, { editingTransitionAmount: 1 }, 0.7, { ease: FlxEase.quadOut });
-        editState = new EditState();
-        openSubState(editState);
+        openSubState(new EditState());
     }
 
     public function endWorldEditing(?callback:Void -> Void, fast:Bool = false):Void {
-        if (!isWorldEditing || editState == null) {
+        if (!isWorldEditing) {
             return;
         }
         isWorldEditing = false;
         exclusiveTween("editTransition", this, { editingTransitionAmount: 0 }, fast ? 0.4 : 0.6, { ease: FlxEase.quadOut });
+        var editState:EditState = cast subState;
         editState.transitionOut(() -> {
             editState = null;
             if (callback != null) callback();
-			var destinationSlot = PlayState.instance.universe.getSlot(1, 0).outline;
         }, fast);
     }
 
