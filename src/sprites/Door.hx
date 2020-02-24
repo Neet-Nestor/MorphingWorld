@@ -15,7 +15,10 @@ class Door extends LSprite implements PhysicsEntity {
         loadGraphic(AssetPaths.door__png, true, Config.TILE_SIZE, Config.TILE_SIZE * 2);
         animation.add("opened", [0], 0);
         animation.add("closed", [1], 0);
-        physics.init(BodyType.KINEMATIC);
+        origin.set(3, 32);
+        physics.init(BodyType.KINEMATIC, false, false);
+        physics.createRectangularBody(6, 64, BodyType.KINEMATIC);
+        physics.enabled = true;
         physics.body.userData.entity = this;
         animation.play("closed");
     }
