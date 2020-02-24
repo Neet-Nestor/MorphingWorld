@@ -170,7 +170,7 @@ class EditState extends FlxSubState {
 
 			var previousSlots = PlayState.instance.universe.slots.length;
 			PlayState.instance.showHint("[Drag & Drop]",
-				() -> (PlayState.instance.universe.slots.length > previousSlots),
+				() -> PlayState.instance.universe.slots.length > previousSlots,
 				() -> {
 					uiGroup.remove(mouseCursor);
 					PlayState.instance.worldEditingDisabled = false;
@@ -201,11 +201,10 @@ class EditState extends FlxSubState {
 			mouseCursor.path = new FlxPath().start([departure, destination], 200, FlxPath.FORWARD);
 			uiGroup.add(mouseCursor);
 
-			var previousSlots = PlayState.instance.universe.slots.length;
 			// don't allow the user to exit editing mode
 			PlayState.instance.worldEditingDisabled = true;
 			PlayState.instance.showHint("[Click to destroy world]",
-				() -> (PlayState.instance.universe.slots.length > previousSlots),
+				() -> PlayState.instance.universe.getSlot(-1, 0) == null || PlayState.instance.universe.getSlot(-1, 0).world == null,
 				() -> {
 					uiGroup.remove(mouseCursor);
 					PlayState.instance.worldEditingDisabled = false;
