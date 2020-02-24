@@ -35,7 +35,7 @@ router.get("/users", function (req, res) {
 router.get("/time/start", function (req, res) {
     console.log(`[GET /data/time/start] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
     try {
-        smembersAsync("Start")
+        zrangeAsync("Start", 0, -1)
             .then((data) => Promise.all(data.map((entry) => hgetallAsync(entry).then((data) => [entry, data]))))
             .then((data) => {
                 res.status(200).json(data.map((el) => {
@@ -58,7 +58,7 @@ router.get("/time/start", function (req, res) {
 router.get("/time/exit", function (req, res) {
     console.log(`[GET /data/time/end] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
     try {
-        smembersAsync("EXIT")
+        zrangeAsync("EXIT", 0, -1)
             .then((data) => Promise.all(data.map((entry) => hgetallAsync(entry).then((data) => [entry, data]))))
             .then((data) => {
                 res.status(200).json(data.map((el) => {
