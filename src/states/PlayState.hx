@@ -369,7 +369,9 @@ class PlayState extends LycanState {
         curStage++;
         if (curStage >= Config.STAGES.length) {
             FlxG.switchState(new MenuState());
-        } 
+            close();
+            return;
+        }
         reloadStage();
     }
 
