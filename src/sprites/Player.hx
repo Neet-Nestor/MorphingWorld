@@ -48,14 +48,6 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
-		
-		// FlxG.signals.postUpdate.add(() -> {
-		// 	trace("onMovingPlatform", characterController.onMovingPlatform);
-		// 	if (characterController.onMovingPlatform) {
-		// 		physics.entity.entity_y = characterController.movingPlatform.origin.y;
-		// 		physics.snapBodyToEntity();
-		// 	}
-		// });
 	}
 
 	override public function update(dt:Float):Void {
@@ -63,6 +55,7 @@ class Player extends LSprite implements CharacterController implements Groundabl
 
 		var cc = characterController;
 		// Update location
+		if (Phys.FORCE_TIMESTEP != null) dt = Phys.FORCE_TIMESTEP;
 		physics.body.position.x += dt * characterController.currentMoveVel;
 		physics.body.position.y += dt * physics.body.velocity.y;
 		physics.snapEntityToBody();

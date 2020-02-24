@@ -100,7 +100,7 @@ class PieceFoundState extends FlxSubState {
 		tweens.tween(bg, {alpha: 0}, 0.3, {ease: FlxEase.quadIn});
 		tweens.tween(beams, {alpha: 0}, 0.3, {ease: FlxEase.quadIn});
 		tweens.tween(pieceSprite, {alpha: 1}, 0, {ease: FlxEase.quadIn});
-		tweens.tween(pieceSprite.scale, {x: 0, y: 0}, 0.2, {ease: FlxEase.quadIn, onComplete: (_)->{
+		tweens.tween(pieceSprite.scale, {x: 0, y: 0}, 0.2, {ease: FlxEase.quadIn, onComplete: (_) -> {
 			close();
 		}});
 	}

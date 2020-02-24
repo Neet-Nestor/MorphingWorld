@@ -151,7 +151,6 @@ class PlayState extends LycanState {
             WorldPiece.WORLD_PIECE_TYPE, PlatformerPhysics.CHARACTER_TYPE, (cb:InteractionCallback) -> {
 			var piece:WorldPiece = cast cb.int1.userData.entity;
 			piece.collectable.collect((cb.int2.userData.entity:Player));
-			// Sounds.playSound(SoundAssets.collect, piece.physics.body.position.x, piece.physics.body.position.y);
         }));
         
         // -- Portal listener
@@ -159,7 +158,6 @@ class PlayState extends LycanState {
             Portal.PORTAL_TYPE, PlatformerPhysics.CHARACTER_TYPE, (cb:InteractionCallback) -> {
 			var portal:Portal = cast cb.int1.userData.entity;
 			portal.port((cb.int2.userData.entity:Player));
-			// Sounds.playSound(SoundAssets.collect, piece.physics.body.position.x, piece.physics.body.position.y);
         }));
         
         // -- Damage listener
@@ -197,6 +195,7 @@ class PlayState extends LycanState {
 		interp.variables.set("FlxEase", FlxEase);
 		interp.variables.set("BodyType", BodyType);
 		interp.variables.set("ObjectTargetInfluencer", ObjectTargetInfluencer);
+		interp.variables.set("Phys", Phys);
 		interp.variables.set("wait", function(delay:Float, cb:Void -> Void) new FlxTimer(timers).start(delay, (_) -> cb()));
     }
 
@@ -370,12 +369,14 @@ class PlayState extends LycanState {
 
     public function collectWorld(worldDef:WorldDef):Void {
         var foundState = new PieceFoundState(worldDef);
-        Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
+        Phys.FORCE_TIMESTEP = 0;
+        player.characterController.physEnabled = false;
         if (isWorldEditing) {
             var editState:EditState = cast subState;
             editState.persistentUpdate = false;
             foundState.closeCallback = () -> {
                 Phys.FORCE_TIMESTEP = null;
+                player.characterController.physEnabled = true;
                 editState.persistentUpdate = true;
                 editState.addNewWorldPiece(worldDef);
             };
@@ -386,6 +387,7 @@ class PlayState extends LycanState {
             foundState.closeCallback = () -> {
                 Phys.FORCE_TIMESTEP = null;
                 persistentUpdate = true;
+                player.characterController.physEnabled = true;
                 if (curStage == 1 && !editHintShown) {
                     worldEditingDisabled = false;
                     player.characterController.hasControl = false;
