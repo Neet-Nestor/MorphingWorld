@@ -77,7 +77,7 @@ router.get("/time/exit", function (req, res) {
     }
 });
 
-// Get exit time for every users
+// Get game stats
 router.get("/games", function (req, res) {
     console.log(`[GET /data/games] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
     try {
@@ -112,6 +112,27 @@ router.get("/games", function (req, res) {
             console.error(err);
             res.status(500).json({ "msg": "Error occured during Redis querying" });
         });
+    } catch (e) {
+        console.error(e.stack);
+        res.status(500).json({ "msg": e.message });
+    }
+});
+
+// Direct request all raw data
+router.get("/raw/all", function (req, res) {
+    console.log(`[GET /data/raw/all] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
+    try {
+        queryAllData()
+            .then((data) => {
+                res.status(200).json(data.map((el) => {
+                    const [key, values] = el;
+                    const [user, timestamp] = key.split(":");
+                    return { user, timestamp, ...values };
+                }));
+            }).catch((err) => {
+                console.error(err);
+                res.status(500).json({ "msg": "Error occured during Redis querying" });
+            });
     } catch (e) {
         console.error(e.stack);
         res.status(500).json({ "msg": e.message });
