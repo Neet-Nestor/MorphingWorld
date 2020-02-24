@@ -196,7 +196,10 @@ class EditState extends FlxSubState {
 			pos.y += (slotToRemove.height / 2) / slotToRemove.camera.zoom + mouseCursor.height / 2;
 
 			mouseCursor.setPosition(pos.x, pos.y);
+			mouseCursor.alpha = 0;
 			uiGroup.add(mouseCursor);
+
+			FlxTween.tween(mouseCursor, { alpha: 1 }, 1);
 
 			// don't allow the user to exit editing mode
 			PlayState.instance.worldEditingDisabled = true;
