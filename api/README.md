@@ -1,4 +1,7 @@
 # Morphing World Logging API
+Server IP: 45.32.231.66
+
+port: 4596
 
 ## Log API
 - HTTP/1.1 POST
