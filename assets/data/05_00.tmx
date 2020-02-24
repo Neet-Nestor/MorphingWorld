@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="8">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="9">
  <tileset firstgid="1" source="Sprute.tsx"/>
  <layer id="1" name="Tile Layer 1" width="14" height="14">
   <properties>
@@ -18,7 +18,7 @@
 36,0,0,0,19,36,0,0,0,0,36,0,0,36,
 36,0,0,0,0,0,0,0,0,0,0,0,0,36,
 36,0,0,0,0,0,0,0,0,0,0,0,0,36,
-36,14,19,19,19,19,19,19,19,19,14,14,14,36,
+36,36,19,19,19,19,19,19,19,19,14,14,14,36,
 36,36,36,36,36,36,36,36,36,36,36,36,36,36,
 36,36,36,36,36,36,36,36,36,36,36,36,36,36
 </data>
@@ -38,5 +38,6 @@
   </object>
   <object id="6" name="crate" type="crate" gid="29" x="224" y="352" width="32" height="32"/>
   <object id="7" name="spike" type="spike" gid="41" x="287.444" y="160.916" width="32" height="32"/>
+  <object id="8" name="spike2" type="spike" gid="41" x="32" y="352" width="32" height="32"/>
  </objectgroup>
 </map>
