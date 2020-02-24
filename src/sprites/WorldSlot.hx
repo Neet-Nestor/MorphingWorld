@@ -122,6 +122,7 @@ class WorldSlot extends FlxSpriteGroup {
 	}
 	
 	public function loadWorld(worldDef:WorldDef):MiniWorld {
+		trace(world);
 		if (world != null) {
             return null;
         }

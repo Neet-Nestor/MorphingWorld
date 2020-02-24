@@ -149,7 +149,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 
 			var result:ConvexResult = null;
 			physics.body.position.y--;
-			result = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
+			result = Phys.space.convexCast(physics.body.shapes.at(0), 2, false, physics.body.shapes.at(0).filter);
 			if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
 				var groundEntity = result.shape.body.userData.entity;
 				groundable.add(groundEntity);

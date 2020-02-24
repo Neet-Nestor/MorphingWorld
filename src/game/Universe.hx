@@ -48,6 +48,7 @@ class Universe extends FlxGroup {
 		super.destroy();
 	}
 	
+	// reset the universe according to init config for this stage
 	public function reset(?initWorldName:String):Void {
 		if (initWorldName == null) initWorldName = Config.STAGES[PlayState.instance.curStage][0];
 		for (slot in slots) removeSlot(slot);
@@ -55,7 +56,18 @@ class Universe extends FlxGroup {
 		worldLayer.clear();
 		PlayState.instance.reloadPlayerPosition = true;
 		var initWorld = WorldCollection.get(initWorldName);
-		makeSlot(0, 0).loadWorld(initWorld);
+
+		if (Config.INIT_UNIVERSE.exists(PlayState.instance.curStage)) {
+			var initConfig = Config.INIT_UNIVERSE[PlayState.instance.curStage];
+			for (slot in initConfig.keys()) {
+				trace(slot);
+				trace(initConfig[slot]);
+				makeSlot(slot.x, slot.y).loadWorld(WorldCollection.get(initConfig[slot]));
+			}
+		} else {
+			makeSlot(0, 0).loadWorld(initWorld);
+		}
+		
 		forEachOfType(WorldPiece, (piece) -> {
 			if (piece.worldDef == initWorld) piece.collectable.collect(PlayState.instance.player);
 		}, true);
@@ -63,7 +75,7 @@ class Universe extends FlxGroup {
 
 	public function makeSlot(x:Int, y:Int):WorldSlot {
         if (getSlot(x, y) != null) {
-            return null;
+            return getSlot(x, y);
         }
 		var slot = new WorldSlot(x, y, this);
 		slotMap.set('$x,$y', slot);
