@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="19">
+ <tileset firstgid="1" source="Sprute.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="14" height="14">
+  <properties>
+   <property name="collision" value="true"/>
+   <property name="collisionType" value="physics"/>
+  </properties>
+  <data encoding="csv">
+36,36,0,0,36,36,0,0,36,36,36,36,36,36,
+36,36,0,0,0,0,0,0,0,0,0,36,36,36,
+36,36,14,14,14,14,14,0,0,0,14,36,36,36,
+0,0,0,0,0,0,36,14,14,14,36,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+14,14,14,0,0,0,0,0,0,0,0,0,14,14,
+0,0,0,0,0,0,0,0,0,0,0,14,36,36,
+0,0,0,0,0,14,14,0,0,0,14,36,36,36,
+14,14,14,14,14,36,36,36,14,14,36,36,36,36,
+0,36,0,0,36,36,36,36,36,0,0,0,0,0,
+0,0,0,0,0,36,36,36,0,0,0,0,0,0,
+0,0,0,0,0,36,36,36,0,0,0,0,0,0,
+14,14,0,0,14,36,36,36,0,0,14,36,14,14,
+36,36,0,0,36,36,36,36,14,14,36,36,36,36
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="211" name="spike" type="spike" gid="41" x="224.194" y="256.193" width="32" height="32"/>
+  <object id="14" name="piece" type="piece" gid="47" x="256.103" y="416" width="32" height="32">
+   <properties>
+    <property name="world" value="09_02"/>
+   </properties>
+  </object>
+  <object id="16" name="switch1" type="switch" x="32" y="128" width="32" height="32">
+   <properties>
+    <property name="target" value="door090001"/>
+   </properties>
+  </object>
+  <object id="17" name="switch2" type="switch" x="288" y="64" width="32" height="32">
+   <properties>
+    <property name="target" value="door090002"/>
+   </properties>
+  </object>
+  <object id="18" name="spike2" type="spike" gid="41" x="352" y="384" width="32" height="32"/>
+  <object id="500" name="fakedoo2" type="door" x="32" y="320" width="32" height="64"/>
+ </objectgroup>
+</map>

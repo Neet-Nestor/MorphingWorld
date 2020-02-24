@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="17">
+ <tileset firstgid="1" source="Sprute.tsx"/>
+ <tileset firstgid="50" source="portal.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="14" height="14">
+  <properties>
+   <property name="collision" value="true"/>
+   <property name="collisionType" value="physics"/>
+  </properties>
+  <data encoding="csv">
+36,36,36,36,36,36,36,36,36,0,0,36,36,36,
+36,36,36,36,36,0,0,0,0,0,0,36,36,0,
+36,36,36,36,36,0,0,0,0,0,0,36,36,0,
+36,0,0,36,36,14,0,0,0,0,36,36,36,14,
+0,0,0,0,0,36,14,0,0,0,0,0,0,0,
+14,14,0,0,0,0,36,36,14,14,14,14,14,14,
+36,36,14,0,0,0,36,36,36,0,0,0,0,0,
+36,36,36,14,0,0,0,36,36,0,0,0,0,0,
+36,36,36,36,14,0,0,36,36,0,0,0,14,14,
+36,36,36,0,0,0,0,36,36,0,0,0,0,0,
+36,36,0,0,0,0,14,36,36,0,0,0,0,0,
+36,36,0,0,0,14,36,36,36,0,0,0,0,0,
+36,36,0,0,0,36,36,36,36,14,14,36,14,14,
+36,36,0,0,14,36,36,36,36,36,36,36,36,36
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="12" name="board020103" type="board" gid="38" x="319.293" y="40.1157" width="32" height="32">
+   <properties>
+    <property name="oneway" value="true"/>
+   </properties>
+  </object>
+  <object id="13" name="board020102" type="board" gid="38" x="64.8494" y="448.286" width="32" height="32">
+   <properties>
+    <property name="oneway" value="true"/>
+   </properties>
+  </object>
+  <object id="14" name="board020101" type="board" gid="38" x="288.067" y="328.299" width="32" height="32">
+   <properties>
+    <property name="oneway" value="true"/>
+   </properties>
+  </object>
+  <object id="15" name="spike030101" type="spike" gid="41" x="352.154" y="384.981" width="32" height="32"/>
+  <object id="16" name="spike030102" type="spike" gid="41" x="224" y="160" width="32" height="32"/>
+  <object id="400" name="fakedoor" type="door" x="404" y="192" width="32" height="64"/>
+ </objectgroup>
+</map>
