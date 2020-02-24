@@ -246,10 +246,10 @@ class PlayState extends LycanState {
         if (FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W, FlxKey.SPACE])) {
             player.characterController.jump();
         }
-        if (FlxG.keys.anyJustPressed([FlxKey.LEFT, FlxKey.A])) {
+        if (FlxG.keys.anyPressed([FlxKey.LEFT, FlxKey.A])) {
             player.characterController.leftPressed = true;
         }
-        if (FlxG.keys.anyJustPressed([FlxKey.RIGHT, FlxKey.D])) {
+        if (FlxG.keys.anyPressed([FlxKey.RIGHT, FlxKey.D])) {
             player.characterController.rightPressed = true;
         }
         if (FlxG.keys.anyJustReleased([FlxKey.LEFT, FlxKey.A])) {
