@@ -35,17 +35,18 @@ router.get("/users", function (req, res) {
 router.get("/time/start", function (req, res) {
     console.log(`[GET /data/time/start] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
     try {
-        queryAllData().then((data) => {
-            const starts = data.filter((el) => el[1].type === "Start");
-            res.status(200).json(starts.map((el) => {
-                const [key, values] = el;
-                const [user, timestamp] = key.split(":");
-                return { user, timestamp, ...values };
-            }));
-        }).catch((err) => {
-            console.error(err);
-            res.status(500).json({ "msg": "Error occured during Redis querying" });
-        });
+        smembersAsync("Start")
+            .then((data) => Promise.all(data.map((entry) => hgetallAsync(entry).then((data) => [entry, data]))))
+            .then((data) => {
+                res.status(200).json(data.map((el) => {
+                    const [key, values] = el;
+                    const [user, timestamp] = key.split(":");
+                    return { user, timestamp, ...values };
+                }));
+            }).catch((err) => {
+                console.error(err);
+                res.status(500).json({ "msg": "Error occured during Redis querying" });
+            });
     } catch (e) {
         console.error(e.stack);
         res.status(500).json({ "msg": e.message });
@@ -57,17 +58,18 @@ router.get("/time/start", function (req, res) {
 router.get("/time/exit", function (req, res) {
     console.log(`[GET /data/time/end] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
     try {
-        queryAllData().then((data) => {
-            const exits = data.filter((el) => el[1].type === "EXIT");
-            res.status(200).json(exits.map((el) => {
-                const [key, values] = el;
-                const [user, timestamp] = key.split(":");
-                return { user, timestamp, ...values };
-            }));
-        }).catch((err) => {
-            console.error(err);
-            res.status(500).json({ "msg": "Error occured during Redis querying" });
-        });
+        smembersAsync("EXIT")
+            .then((data) => Promise.all(data.map((entry) => hgetallAsync(entry).then((data) => [entry, data]))))
+            .then((data) => {
+                res.status(200).json(data.map((el) => {
+                    const [key, values] = el;
+                    const [user, timestamp] = key.split(":");
+                    return { user, timestamp, ...values };
+                }));
+            }).catch((err) => {
+                console.error(err);
+                res.status(500).json({ "msg": "Error occured during Redis querying" });
+            });
     } catch (e) {
         console.error(e.stack);
         res.status(500).json({ "msg": e.message });
