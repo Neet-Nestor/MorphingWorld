@@ -260,9 +260,10 @@ class EditState extends FlxSubState {
 				if (FlxG.mouse.overlaps(slot)) {
 					// If dropping piece into slot
 					if (selectedSwatch != null) {
-						if (slot.world != null) slot.unloadWorld();
-						slot.loadWorld(selectedSwatch.worldDef);
-						// Sounds.playSound(SoundAssets.snapin);
+						if (slot.world == null || !slot.world.bodyOverlaps(PlayState.instance.player.physics.body)) {
+							if (slot.world != null) slot.unloadWorld();
+							slot.loadWorld(selectedSwatch.worldDef);
+						}
 						break;
 					}
 				}
