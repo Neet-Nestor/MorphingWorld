@@ -25,36 +25,54 @@ router.post("/", function (req, res) {
         }
         console.log(`user: ${user}, timestamp: ${timestamp}`);
         console.log(`data: ${JSON.stringify(data)}`);
+        if (!("type" in data)) {
+            console.error("[POST /mwlog] Data is empty");
+            res.status(400).json({ "msg": "Type cannot be missing" });
+            return;
+        }
         
         client.SADD("users", `${user}`, (err) => {
             if (err) {
                 console.error("[POST /mwlog] Error occured during Redis SADD");
+                console.error(err);
                 res.status(400).json({ "msg": "Error occured during Redis SADD" });
                 return;
             }
             client.ZADD(`${user}`, timestamp, `${user}:${timestamp}`, (err) => {
                 if (err) {
                     console.error("[POST /mwlog] Error occured during Redis ZADD");
+                    console.error(err);
                     res.status(400).json({ "msg": "Error occured during Redis ZADD" });
                     return;
                 }
-                const eventData = [];
-                Object.keys(data).forEach(k => {
-                    eventData.push(k);
-                    if (typeof data[k] === "object") {
-                        eventData.push(JSON.stringify(data[k]));
-                    } else {
-                        eventData.push(`${data[k]}`);
-                    }
-                });
-                client.HMSET(`${user}:${timestamp}`, eventData, (err) => {
+                
+                client.ZADD(`${data.type}`, timestamp, `${user}:${timestamp}`, (err) => {
                     if (err) {
-                        console.error("[POST /mwlog] Error occured during Redis HMSET");
-                        res.status(400).json({ "msg": "Error occured during Redis HMSET" });
+                        console.error("[POST /mwlog] Error occured during Redis ZADD");
+                        console.error(err);
+                        res.status(400).json({ "msg": "Error occured during Redis ZADD" });
                         return;
                     }
-                    console.info(`[POST /mwlog] Logging successful for key "${user}:${timestamp}"`);
-                    res.status(200).json({ "msg": "Logging successful" });
+
+                    const eventData = [];
+                    Object.keys(data).forEach((k) => {
+                        eventData.push(k);
+                        if (typeof data[k] === "object") {
+                            eventData.push(JSON.stringify(data[k]));
+                        } else {
+                            eventData.push(`${data[k]}`);
+                        }
+                    });
+                    client.HMSET(`${user}:${timestamp}`, eventData, (err) => {
+                        if (err) {
+                            console.error("[POST /mwlog] Error occured during Redis HMSET");
+                            console.error(err);
+                            res.status(400).json({ "msg": "Error occured during Redis HMSET" });
+                            return;
+                        }
+                        console.info(`[POST /mwlog] Logging successful for key "${user}:${timestamp}"`);
+                        res.status(200).json({ "msg": "Logging successful" });
+                    });
                 });
             });
         });
