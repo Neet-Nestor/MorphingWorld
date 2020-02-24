@@ -5,6 +5,7 @@ const { promisify } = require("util");
 const redisConfig = require("./config");
 
 var router = express.Router();
+// const client = redis.createClient(redisConfig.remoteConfig);
 const client = redis.createClient(redisConfig.localConfig);
 
 // Promises
@@ -76,11 +77,56 @@ router.get("/time/exit", function (req, res) {
     }
 });
 
+// Get exit time for every users
+router.get("/games", function (req, res) {
+    console.log(`[GET /data/games] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
+    try {
+        queryAllData().then((data) => {
+            const games = [];
+            for (const userData of data) {
+                var death = 0;
+                var reset = 0;
+                var startTime = null;
+                var game = {};
+                for (const entry of userData) {
+                    const [key, value] = entry;
+                    const timestamp = parseFloat(key.split(":")[1]);
+
+                    if (value.type === "Start") {
+                        startTime = timestamp;
+                    } else if (value.type === "Die") {
+                        death++;
+                    } else if (value.type === "Reset") {
+                        reset++;
+                    } else if (value.type === "Pass") {
+                        game[`stage${value.stage}`] = { time: timestamp - startTime, death, reset };
+                        startTime = timestamp;
+                        death = 0;
+                        reset = 0;
+                    }
+                }
+                games.push(game);
+            }
+            res.status(200).json(games);
+        }).catch((err) => {
+            console.error(err);
+            res.status(500).json({ "msg": "Error occured during Redis querying" });
+        });
+    } catch (e) {
+        console.error(e.stack);
+        res.status(500).json({ "msg": e.message });
+    }
+});
+
 const queryAllEntries = () => {
     return smembersAsync("users").then((users) => Promise.all(users.map((user) => zrangeAsync(user, 0, -1))));
 };
 
-const queryAllData = () => {
+const queryAllData = () => 
+    queryAllEntries().then((entryGroups) =>
+        Promise.all(entryGroups.map((group) => Promise.all(group.map((entry) => hgetallAsync(entry).then((data) => [entry, data]))))));
+
+const queryAllDataFlatten = () => {
     return queryAllEntries().then((entries) => {
         const flatten = entries.reduce((prev, cur) => prev.concat(cur), []);
         return Promise.all(flatten.map((entry) => hgetallAsync(entry).then((data) => [entry, data])));

@@ -4,6 +4,7 @@ const moment = require("moment");
 const redisConfig = require("./config");
 
 var router = express.Router();
+// const client = redis.createClient(redisConfig.remoteConfig);
 const client = redis.createClient(redisConfig.localConfig);
 
 // define the home page route
