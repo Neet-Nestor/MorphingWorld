@@ -5,8 +5,7 @@ const { promisify } = require("util");
 const redisConfig = require("./config");
 
 var router = express.Router();
-// const client = redis.createClient(redisConfig.remoteConfig);
-const client = redis.createClient(redisConfig.localConfig);
+const client = redis.createClient(redisConfig);
 
 // Promises
 const smembersAsync = promisify(client.SMEMBERS).bind(client);
@@ -124,11 +123,11 @@ router.get("/raw/all", function (req, res) {
     try {
         queryAllData()
             .then((data) => {
-                res.status(200).json(data.map((el) => {
+                res.status(200).json(data.map((group) => group.map((el) => {
                     const [key, values] = el;
                     const [user, timestamp] = key.split(":");
                     return { user, timestamp, ...values };
-                }));
+                })));
             }).catch((err) => {
                 console.error(err);
                 res.status(500).json({ "msg": "Error occured during Redis querying" });
