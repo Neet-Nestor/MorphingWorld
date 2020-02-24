@@ -26,7 +26,7 @@ class PassState extends FlxSubState {
     override public function create():Void {
         super.create();
 
-        screenRadius = Math.ceil(Math.sqrt(Math.pow(FlxG.width, 2) + Math.pow(FlxG.height, 2))) / 2;
+        screenRadius = Math.ceil(Math.sqrt(Math.pow(FlxG.width, 2) + Math.pow(FlxG.height, 2))) / 2.2;
         radius = screenRadius;
 
         backGround = new FlxSprite();
@@ -44,10 +44,10 @@ class PassState extends FlxSubState {
         maskShader.maskImage.input = alphaMask.pixels.clone();
         backGround.shader = maskShader;
         
-        FlxTween.tween(this, { radius: 0 }, 1.2, { ease: FlxEase.quintOut, onComplete: (_) -> {
+        FlxTween.tween(this, { radius: 0 }, 1.2, { ease: FlxEase.cubeIn, onComplete: (_) -> {
             PlayState.instance.toNextStage();
             FlxTween.tween(this, { radius: screenRadius },
-                1.2, { ease: FlxEase.quintIn, onComplete: (_) -> { close(); }});
+                1.2, { ease: FlxEase.cubeOut, onComplete: (_) -> { close(); }});
         }});
 
         add(backGround);
