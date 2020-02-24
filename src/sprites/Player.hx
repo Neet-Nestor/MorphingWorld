@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.FlxG;
 import nape.geom.ConvexResult;
 import nape.geom.Vec2;
 import lycan.phys.Phys;
@@ -47,6 +48,14 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
+		
+		// FlxG.signals.postUpdate.add(() -> {
+		// 	trace("onMovingPlatform", characterController.onMovingPlatform);
+		// 	if (characterController.onMovingPlatform) {
+		// 		physics.entity.entity_y = characterController.movingPlatform.origin.y;
+		// 		physics.snapBodyToEntity();
+		// 	}
+		// });
 	}
 
 	override public function update(dt:Float):Void {
@@ -60,8 +69,10 @@ class Player extends LSprite implements CharacterController implements Groundabl
 		
 		if (groundable.isGrounded && cc.onMovingPlatform) {
 			x += cc.movingPlatform.velocity.x * dt;
-			y += cc.movingPlatform.velocity.y * dt;
 			physics.snapBodyToEntity();
+
+			physics.body.position.y = cc.movingPlatform.physics.body.position.y - 3 - 12;	// TODO: not hard code number
+			physics.snapEntityToBody();
 		}
 	}
 
