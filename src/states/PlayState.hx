@@ -330,13 +330,14 @@ class PlayState extends LycanState {
         };
     }
 
-    public function passLevel():Void {
+    public function onReload(pass:Bool = false):Void {
         if (isWorldEditing) endWorldEditing();
+        if (subState != null) subState.close();
         // logging
         Main.logger.logPass(curStage);
         Main.user.setLastStage(curStage);
 
-        var passState = new PassState();
+        var passState = new BreakSplashState(pass);
         persistentUpdate = false;
         player.characterController.hasControl = false;
         player.characterController.leftPressed = false;
@@ -358,6 +359,10 @@ class PlayState extends LycanState {
         if (curStage >= Config.STAGES.length) {
             FlxG.switchState(new MenuState());
         } 
+        reloadStage();
+    }
+
+    public function reloadStage():Void {
         WorldCollection.reset();
         WorldCollection.defineWorlds(curStage);
         remove(player);

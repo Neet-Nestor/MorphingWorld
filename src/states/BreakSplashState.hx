@@ -16,12 +16,19 @@ using flixel.util.FlxSpriteUtil;
 import flixel.system.FlxAssets.FlxShader;
 
 // Passing Animation State
-class PassState extends FlxSubState {
+class BreakSplashState extends FlxSubState {
+    public var toNextStage:Bool; // if false, reload this stage instead of going to next one
+
     public var backGround:FlxSprite;
     public var alphaMask:FlxSprite;
     public var radius:Float;
     public var screenRadius:Float;
     public var maskShader:BitmapMaskShader;
+
+    public function new(pass:Bool = false) {
+        super();
+        this.toNextStage = pass;
+    }
     
     override public function create():Void {
         super.create();
@@ -45,7 +52,8 @@ class PassState extends FlxSubState {
         backGround.shader = maskShader;
         
         FlxTween.tween(this, { radius: 0 }, 1.2, { ease: FlxEase.cubeIn, onComplete: (_) -> {
-            PlayState.instance.toNextStage();
+            if (toNextStage) PlayState.instance.toNextStage();
+            else PlayState.instance.reloadStage();
             FlxTween.tween(this, { radius: screenRadius },
                 1.2, { ease: FlxEase.cubeOut, onComplete: (_) -> { close(); }});
         }});

@@ -23,7 +23,8 @@ class PauseState extends FlxSubState {
 	private var backBtn:FlxButton;
 	private var menuBtn:FlxButton;
     private var title:FlxText;
-    private var settingBtn:FlxButton;
+    private var optionsBtn:FlxButton;
+    private var retryBtn:FlxButton;
 
     public var uiGroup:FlxSpriteGroup;
 
@@ -33,9 +34,7 @@ class PauseState extends FlxSubState {
         uiGroup.camera = PlayState.instance.uiCamera;
 		loadBG();
 		loadTitle();
-        loadBack();
-        loadMenu();
-        loadSettings();
+        loadButtons();
         add(uiGroup);
         // Main.logger.logDie(Main.user.getLastStage());
     }
@@ -59,23 +58,27 @@ class PauseState extends FlxSubState {
         uiGroup.add(title);
     }
 
-    private function loadBack():Void {
-        backBtn = new FlxButton(0, title.y + 100, "Back", onBack);
+    private function loadButtons():Void {
+        var vOffset = 100;
+        backBtn = new FlxButton(0, title.y + vOffset, "Back", onBack);
         backBtn.screenCenter(FlxAxes.X);
         uiGroup.add(backBtn);
-	}
+        
+        vOffset += 25;
+        retryBtn = new FlxButton(0, title.y + vOffset, "Retry", onRetry);
+        retryBtn.screenCenter(FlxAxes.X);
+        uiGroup.add(retryBtn);
 
-    private function loadSettings():Void {
-        settingBtn = new FlxButton(0, title.y + 125, "Settings", onSetting);
-        settingBtn.screenCenter(FlxAxes.X);
-        uiGroup.add(settingBtn);
-    }
-	
-	private function loadMenu():Void {
-        menuBtn = new FlxButton(0, title.y + 150, "Main Menu", onMenu);
+        vOffset += 25;
+        optionsBtn = new FlxButton(0, title.y + vOffset, "Options", onOptions);
+        optionsBtn.screenCenter(FlxAxes.X);
+        uiGroup.add(optionsBtn);
+
+        vOffset += 25;
+        menuBtn = new FlxButton(0, title.y + vOffset, "Main Menu", onMenu);
         menuBtn.screenCenter(FlxAxes.X);
         uiGroup.add(menuBtn);
-    }
+	}
 
     private function onBack():Void {
 		close();
@@ -85,7 +88,12 @@ class PauseState extends FlxSubState {
 		FlxG.switchState(new MenuState());
     }
 
-    private function onSetting():Void {
+    private function onRetry():Void {
+        var cb = this.closeCallback;
+        PlayState.instance.onReload(false);
+    }
+
+    private function onOptions():Void {
         var option = new OptionPauseState();
         // option.loadCamera();
         openSubState(option);
