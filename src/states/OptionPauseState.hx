@@ -18,7 +18,7 @@ import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUIText;
 import flixel.addons.ui.FlxSlider;
 
-class OptionState extends FlxSubState {
+class OptionPauseState extends FlxSubState {
     private var startBtn:FlxButton;
     private var title:FlxText;
     // public var prevState:FlxSubState;
@@ -30,6 +30,7 @@ class OptionState extends FlxSubState {
         // TODO: set value reflect to their current value;
         settings = Main.user.getSettings();
         uiGroup = new FlxSpriteGroup();
+        uiGroup.camera = PlayState.instance.uiCamera;
         loadBG();
         loadTitle();
         loadVolumeOption();

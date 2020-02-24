@@ -82,9 +82,10 @@ class MenuState extends LycanState {
     }
 
     private function onOption():Void {
-        var options = new OptionState();
-        options.prevState = this;
-        FlxG.switchState(new OptionState());
+        // var options = new OptionState();
+        // options.prevState = this;
+        // FlxG.switchState(options);
+        openSubState(new OptionState());
     }
 
     private function onQuit():Void {

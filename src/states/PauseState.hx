@@ -20,10 +20,10 @@ import flixel.addons.ui.FlxUIText;
 import flixel.system.FlxSound;
 
 class PauseState extends FlxSubState {
-	private var restartBtn:FlxButton;
+	private var backBtn:FlxButton;
 	private var menuBtn:FlxButton;
     private var title:FlxText;
-    private var hint:FlxText;
+    private var settingBtn:FlxButton;
 
     public var uiGroup:FlxSpriteGroup;
 
@@ -37,7 +37,7 @@ class PauseState extends FlxSubState {
         loadMenu();
         loadSettings();
         add(uiGroup);
-        Main.logger.logDie(Main.user.getLastStage());
+        // Main.logger.logDie(Main.user.getLastStage());
     }
 
     override public function update(elapsed:Float):Void {
@@ -60,15 +60,15 @@ class PauseState extends FlxSubState {
     }
 
     private function loadBack():Void {
-        restartBtn = new FlxButton(0, title.y + 100, "Back", onBack);
-        restartBtn.screenCenter(FlxAxes.X);
-        uiGroup.add(restartBtn);
+        backBtn = new FlxButton(0, title.y + 100, "Back", onBack);
+        backBtn.screenCenter(FlxAxes.X);
+        uiGroup.add(backBtn);
 	}
 
     private function loadSettings():Void {
-        menuBtn = new FlxButton(0, title.y + 125, "Settings", onSetting);
-        menuBtn.screenCenter(FlxAxes.X);
-        uiGroup.add(menuBtn);
+        settingBtn = new FlxButton(0, title.y + 125, "Settings", onSetting);
+        settingBtn.screenCenter(FlxAxes.X);
+        uiGroup.add(settingBtn);
     }
 	
 	private function loadMenu():Void {
@@ -86,8 +86,8 @@ class PauseState extends FlxSubState {
     }
 
     private function onSetting():Void {
-        var option = new OptionState();
-        option.prevState = this;
+        var option = new OptionPauseState();
+        // option.loadCamera();
         openSubState(option);
     }
 }
