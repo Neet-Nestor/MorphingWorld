@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="10">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="11">
  <tileset firstgid="1" source="Sprute.tsx"/>
  <layer id="1" name="Tile Layer 1" width="14" height="14">
   <properties>
@@ -24,11 +24,6 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="5" name="button" type="button" x="352" y="128" width="32" height="32">
-   <properties>
-    <property name="target" value="door0600"/>
-   </properties>
-  </object>
   <object id="8" name="movingboard0601" type="movingboard" gid="38" x="319.47" y="225.769" width="32" height="32">
    <properties>
     <property name="oneway" value="true"/>
@@ -37,6 +32,11 @@
   </object>
   <object id="9" name="path0601" type="path" x="212.971" y="210.569">
    <polyline points="0,0 108.087,0"/>
+  </object>
+  <object id="10" name="button" type="button" gid="1073741864" x="352" y="160" width="32" height="32">
+   <properties>
+    <property name="target" value="door0600"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
