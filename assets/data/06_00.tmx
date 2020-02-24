@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="11">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="13">
  <tileset firstgid="1" source="Sprute.tsx"/>
  <layer id="1" name="Tile Layer 1" width="14" height="14">
   <properties>
@@ -19,7 +19,7 @@
 36,36,0,0,0,0,0,0,0,0,0,0,0,36,
 36,36,0,0,0,0,0,0,0,0,0,0,0,36,
 36,36,0,0,0,0,0,0,0,19,19,19,19,36,
-36,36,14,14,14,19,19,19,19,36,36,36,36,36,
+36,36,14,36,36,19,19,19,19,36,36,36,36,36,
 36,36,36,36,36,36,36,36,36,36,36,36,36,36
 </data>
  </layer>
@@ -46,5 +46,7 @@
     <property name="world" value="06_01"/>
    </properties>
   </object>
+  <object id="11" name="spike3" type="spike" gid="41" x="96" y="384" width="32" height="32"/>
+  <object id="12" name="spike2" type="spike" gid="41" x="128" y="384" width="32" height="32"/>
  </objectgroup>
 </map>
