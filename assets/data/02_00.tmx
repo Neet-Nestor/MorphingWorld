@@ -29,7 +29,7 @@
     <property name="world" value="02_01"/>
    </properties>
   </object>
-  <object id="3" name="player" type="player" x="64" y="320" width="32" height="32"/>
+  <object id="3" name="player" type="player" x="64" y="328" width="16" height="24"/>
   <object id="4" name="spike020001" type="spike" gid="41" x="160" y="160" width="32" height="32"/>
   <object id="5" name="movingboard020001" type="movingboard" gid="38" x="352.296" y="322.646" width="32" height="32">
    <properties>
