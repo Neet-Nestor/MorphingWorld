@@ -46,7 +46,7 @@ class Switch extends LSprite implements PhysicsEntity implements Switchable {
                         // Open corresponding door
                         var d:Door = cast obj;
                         if (d.name == targetName) {
-                            d.kill();
+                            d.open();
                         }
                     }
                     if (Std.is(obj, Switch)) {

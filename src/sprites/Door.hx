@@ -20,10 +20,19 @@ class Door extends LSprite implements PhysicsEntity {
         animation.play("closed");
     }
 
+    public function open():Void {
+        animation.play("open");
+        physics.enabled = false;
+    }
+
+    public function close():Void {
+        animation.play("closed");
+        physics.enabled = false;
+    }
+
     override public function kill():Void {
         super.kill();
         physics.enabled = false;
-        animation.play("open");
     }
 
     override public function revive():Void {
