@@ -24,7 +24,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="8" name="player" type="player" x="224" y="320"/>
+  <object id="8" name="player" type="player" x="214" y="360" width="16" height="24"/>
   <object id="20" name="object14" type="portal" gid="40" x="384" y="384" width="32" height="32">
    <properties>
     <property name="world" value="00_00"/>

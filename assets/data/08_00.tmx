@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="22">
+ <tileset firstgid="1" source="Sprute.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="14" height="14">
+  <properties>
+   <property name="collision" value="true"/>
+   <property name="collisionType" value="physics"/>
+  </properties>
+  <data encoding="csv">
+36,36,36,36,0,0,0,0,0,0,36,36,36,36,
+36,36,36,36,0,0,0,0,0,0,36,36,36,36,
+36,36,36,36,0,0,0,0,0,0,36,36,36,36,
+36,36,36,36,0,0,0,0,0,0,36,36,36,36,
+36,36,36,36,0,0,0,0,0,0,36,36,36,36,
+36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,14,14,14,36,36,36,36,14,0,0,0,36,36,
+36,36,36,36,36,36,36,36,36,0,0,0,0,36,
+36,36,36,36,36,36,36,36,36,0,0,0,0,36,
+36,36,36,36,36,36,36,36,36,0,0,0,0,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="8" name="player" type="player" x="70" y="264" width="16" height="24"/>
+  <object id="10" name="piece" type="piece" gid="47" x="32" y="288" width="32" height="32">
+   <properties>
+    <property name="world" value="07_01"/>
+   </properties>
+  </object>
+  <object id="13" name="board04" type="board" gid="38" x="287.444" y="118.482" width="32" height="32">
+   <properties>
+    <property name="oneway" value="true"/>
+   </properties>
+  </object>
+  <object id="14" name="board03" type="board" gid="38" x="288.244" y="43.2219" width="32" height="32">
+   <properties>
+    <property name="oneway" value="true"/>
+   </properties>
+  </object>
+  <object id="15" name="board02" type="board" gid="38" x="128.116" y="135.296" width="32" height="32">
+   <properties>
+    <property name="oneway" value="true"/>
+   </properties>
+  </object>
+  <object id="17" name="crate04" type="crate" gid="29" x="124.113" y="288.219" width="32" height="32"/>
+  <object id="18" name="crate03" type="crate" gid="29" x="172.151" y="289.019" width="32" height="32"/>
+  <object id="19" name="crate02" type="crate" gid="29" x="216.987" y="288.219" width="32" height="32"/>
+  <object id="20" name="crate01" type="crate" gid="29" x="262.624" y="288.219" width="32" height="32"/>
+  <object id="21" name="spike" type="spike" gid="41" x="384.322" y="288.219" width="32" height="32"/>
+ </objectgroup>
+</map>
