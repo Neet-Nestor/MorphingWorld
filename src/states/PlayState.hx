@@ -73,6 +73,9 @@ class PlayState extends LycanState {
     // For transition effects
     public var timeFactor(default, set):Float = 1;
 
+    // For phys pausing
+    public var oldVel:Vec2;
+
     // For emitter effects
 	public var puffEmitter:PuffEmitter;
 
@@ -262,17 +265,25 @@ class PlayState extends LycanState {
         
         if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) {
             var pauseState = new PauseState();
+
             var prevPersistentUpdate = persistentUpdate;
             persistentUpdate = false;
+            player.characterController.stop();
+            pausePhys();
+            
             if (subState != null) {
                 subState.persistentUpdate = false;
                 pauseState.closeCallback = () -> {
                     subState.persistentUpdate = true;
                     persistentUpdate = prevPersistentUpdate;
+                    resumePhys();
                 }
                 subState.openSubState(pauseState);
             } else {
-                pauseState.closeCallback = () -> { persistentUpdate = prevPersistentUpdate; }
+                pauseState.closeCallback = () -> {
+                    persistentUpdate = prevPersistentUpdate;
+                    resumePhys();
+                }
                 openSubState(pauseState);
             }
         }
@@ -307,8 +318,7 @@ class PlayState extends LycanState {
         if (Main.user.getSettings().sound) _sndDie.play();
         player.animation.finishCallback = (_) -> {
             persistentUpdate = false;
-            player.physics.body.velocity.y = 0;
-            Phys.FORCE_TIMESTEP = 0;    //TODO: LD quick hack to pause physics sim
+            pausePhys();
             var dieState = new DieState();
             dieState.closeCallback = () -> {
                 remove(player);
@@ -323,8 +333,8 @@ class PlayState extends LycanState {
                 FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
                 FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
                 FlxG.camera.snapToTarget();
-                Phys.FORCE_TIMESTEP = null;
                 persistentUpdate = true;
+                resumePhys(false);
             }
             openSubState(dieState);
         };
@@ -343,10 +353,9 @@ class PlayState extends LycanState {
         player.characterController.leftPressed = false;
         player.characterController.rightPressed = false;
         player.characterController.stop();
-        player.physics.body.velocity.y = 0;
-        Phys.FORCE_TIMESTEP = 0;
+        pausePhys();
         passState.closeCallback = () -> {
-            Phys.FORCE_TIMESTEP = null;
+            resumePhys(false);
             player.characterController.hasControl = true;
             persistentUpdate = true;
         };
@@ -390,19 +399,13 @@ class PlayState extends LycanState {
 
     public function collectWorld(worldDef:WorldDef):Void {
         var foundState = new PieceFoundState(worldDef);
-        var oldVel = player.physics.body.velocity.copy(true);
-        player.characterController.stop();
-        player.physics.body.velocity.setxy(0, 0);
-        Phys.space.gravity.y = 0;
-        Phys.FORCE_TIMESTEP = 0;
+        pausePhys();
         if (isWorldEditing) {
             var editState:EditState = cast subState;
             editState.persistentUpdate = false;
             foundState.closeCallback = () -> {
-                Phys.space.gravity.y = Config.GRAVITY;
-                Phys.FORCE_TIMESTEP = null;
                 editState.persistentUpdate = true;
-                player.physics.body.velocity.set(oldVel);
+                resumePhys();
                 editState.addNewWorldPiece(worldDef);
             };
             editState.openSubState(foundState);
@@ -410,10 +413,8 @@ class PlayState extends LycanState {
             // Reset running status
             persistentUpdate = false;
             foundState.closeCallback = () -> {
-                Phys.space.gravity.y = Config.GRAVITY;
-                Phys.FORCE_TIMESTEP = null;
                 persistentUpdate = true;
-                player.physics.body.velocity.set(oldVel);
+                resumePhys();
                 if (curStage == 1 && !editHintShown) {
                     worldEditingDisabled = false;
                     player.characterController.hasControl = false;
@@ -476,6 +477,21 @@ class PlayState extends LycanState {
             hint.tween = FlxTween.tween(hint.text, {alpha: 1}, 0.6);
             hintList.add(hint);
             uiGroup.add(hint.text);
+    }
+
+    private function pausePhys():Void {
+        oldVel = player.physics.body.velocity.copy(true);
+        player.characterController.stop();
+        player.physics.body.velocity.setxy(0, 0);
+        Phys.space.gravity.y = 0;
+        Phys.FORCE_TIMESTEP = 0;
+    }
+
+    private function resumePhys(resumeOldVel:Bool = true):Void {
+        Phys.space.gravity.y = Config.GRAVITY;
+        Phys.FORCE_TIMESTEP = null;
+        if (resumeOldVel) player.physics.body.velocity.set(oldVel);
+        oldVel = null;
     }
     
     // Setters

@@ -89,7 +89,6 @@ class PauseState extends FlxSubState {
     }
 
     private function onRetry():Void {
-        var cb = this.closeCallback;
         PlayState.instance.onReload(false);
     }
 

@@ -51,11 +51,11 @@ class BreakSplashState extends FlxSubState {
         maskShader.maskImage.input = alphaMask.pixels.clone();
         backGround.shader = maskShader;
         
-        FlxTween.tween(this, { radius: 0 }, 1.2, { ease: FlxEase.cubeIn, onComplete: (_) -> {
+        FlxTween.tween(this, { radius: 0 }, 0.8, { ease: FlxEase.cubeIn, onComplete: (_) -> {
             if (toNextStage) PlayState.instance.toNextStage();
             else PlayState.instance.reloadStage();
             FlxTween.tween(this, { radius: screenRadius },
-                1.2, { ease: FlxEase.cubeOut, onComplete: (_) -> { close(); }});
+                0.8, { ease: FlxEase.cubeOut, onComplete: (_) -> { close(); }});
         }});
 
         add(backGround);
