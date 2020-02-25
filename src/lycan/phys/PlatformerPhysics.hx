@@ -63,7 +63,7 @@ class PlatformerPhysics {
 		WORLD_FILTER.collisionGroup = 1;
 		WORLD_FILTER.collisionMask = -1;
 		OVERLAPPING_FILTER.collisionGroup = (1 << 2);
-		OVERLAPPING_FILTER.collisionMask  = -1;
+		OVERLAPPING_FILTER.collisionMask  = 0;  // Don't collide with anothing
 		CHARACTER_FILTER.collisionGroup = (1 << 3);
 		CHARACTER_FILTER.collisionMask = -1;
 

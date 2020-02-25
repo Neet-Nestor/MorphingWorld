@@ -1,11 +1,12 @@
 package sprites;
 
-import nape.callbacks.CbType;
 import config.Config;
 import flixel.util.FlxColor;
-import lycan.world.components.Switchable;
-import lycan.world.components.PhysicsEntity;
 import lycan.entities.LSprite;
+import lycan.phys.PlatformerPhysics;
+import lycan.world.components.PhysicsEntity;
+import lycan.world.components.Switchable;
+import nape.callbacks.CbType;
 import nape.phys.BodyType;
 import states.PlayState;
 
@@ -36,6 +37,7 @@ class Button extends LSprite implements PhysicsEntity implements Switchable {
         physics.body.userData.entity = this;
         physics.body.cbTypes.add(SWITCH_TYPE);
         physics.body.shapes.at(0).sensorEnabled = true;
+        physics.body.shapes.at(0).filter = PlatformerPhysics.OVERLAPPING_FILTER;
 
         switcher.onCallback = (b) -> {
             animation.play("on");

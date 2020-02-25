@@ -37,8 +37,8 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
 		physics.init(BodyType.STATIC, true, false);
 		physics.body.userData.entity = this;
 		physics.enabled = true;
-		physics.body.shapes.at(0).sensorEnabled = true;
 		physics.body.cbTypes.add(WORLD_PIECE_TYPE);
+		physics.body.shapes.at(0).sensorEnabled = true;
 		physics.body.shapes.at(0).filter = PlatformerPhysics.OVERLAPPING_FILTER;
 		
 		collectable.onCollect = function(c) {

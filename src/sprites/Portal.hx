@@ -40,9 +40,9 @@ class Portal extends LSprite implements PhysicsEntity {
 		physics.createRectangularBody(14, 5, BodyType.STATIC);
         physics.enabled = true;
 		physics.body.userData.entity = this;
+		physics.body.cbTypes.add(PORTAL_TYPE);
 		physics.body.shapes.at(0).sensorEnabled = true;
 		physics.body.shapes.at(0).filter = PlatformerPhysics.OVERLAPPING_FILTER;
-		physics.body.cbTypes.add(PORTAL_TYPE);
 		
 		_sndPass = FlxG.sound.load(AssetPaths.pass__wav);
 		
