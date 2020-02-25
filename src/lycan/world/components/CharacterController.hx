@@ -170,10 +170,9 @@ class CharacterControllerComponent extends Component<CharacterController> {
 				physics.body.position.y++;
 				result = Phys.space.convexCast(physics.body.shapes.at(0), 1, false, physics.body.shapes.at(0).filter);
 				if (result != null && Math.abs(result.normal.angle * FlxAngle.TO_DEG + 90) <= groundable.groundedAngleLimit) {
-					var groundEntity = result.shape.body.userData.entity;
-					groundable.add(groundEntity);
 					if (Std.is(result.shape.body.userData.entity, MovingBoard)) {
 						var mb:MovingBoard = cast result.shape.body.userData.entity;
+						groundable.add(mb);
 						onMovingPlatform = true;
 						movingPlatform = mb;
 					} else {
@@ -193,6 +192,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 					groundable.add(groundEntity);
 					if (Std.is(result.shape.body.userData.entity, MovingBoard)) {
 						var mb:MovingBoard = cast result.shape.body.userData.entity;
+						groundable.add(mb);
 						onMovingPlatform = true;
 						movingPlatform = mb;
 					} else {
@@ -214,7 +214,6 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		// Moving Left/Right
 		if (hasControl) {
 			if (leftPressed != rightPressed) {
-				// if (groundable.isGrounded) Main.sound.playSound(Effect.Step, Main.user.getSettings().sound);
 				if (groundable.isGrounded && Main.user.getSettings().sound) {
 					_sndStep.play();
 				}
