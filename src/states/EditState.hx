@@ -203,8 +203,10 @@ class EditState extends FlxSubState {
 
 			// don't allow the user to exit editing mode
 			PlayState.instance.worldEditingDisabled = true;
-			PlayState.instance.showHint("[Click to destroy world]",
-				() -> PlayState.instance.universe.getSlot(-1, 0) == null || PlayState.instance.universe.getSlot(-1, 0).world == null,
+			var initWorld = PlayState.instance.universe.getSlot(-1, 0).world;
+			PlayState.instance.showHint("[Click to destroy world or Directly replace it]",
+				() -> PlayState.instance.universe.getSlot(-1, 0) == null || PlayState.instance.universe.getSlot(-1, 0).world != initWorld ||
+					!PlayState.instance.isWorldEditing,  // Just in case that user exit editing state for some reason
 				() -> {
 					uiGroup.remove(mouseCursor);
 					PlayState.instance.worldEditingDisabled = false;

@@ -34,7 +34,6 @@ import game.WorldCollection;
 import flixel.tweens.FlxEase;
 
 class WorldSlot extends FlxSpriteGroup {
-
 	public var gridPos:GridPosition;
 	public var world(default, set):MiniWorld;
 	public var universe:Universe;
