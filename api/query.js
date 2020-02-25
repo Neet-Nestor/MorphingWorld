@@ -91,24 +91,33 @@ router.get("/games", function (req, res) {
                     const [key, value] = entry;
                     const [user, timestampStr] = key.split(":");
                     const timestamp = parseFloat(timestampStr);
+                    var inRecoding = false;
                     if (!("user" in game)) {
                         game.user = user;
                     }
                     if (value.type === "Start") {
                         startTime = timestamp;
                         game.start = timestamp;
-                    } else if (value.type === "Die") {
-                        death++;
-                    } else if (value.type === "Reset") {
-                        reset++;
-                    } else if (value.type === "Pass") {
-                        game[`stage${value.stage}`] = { time: timestamp - startTime, death, reset };
-                        startTime = timestamp;
-                        death = 0;
-                        reset = 0;
+                        if (inRecoding) {
+                            games.push(game);
+                            game = {};
+                            inRecoding = false;
+                        }
+                    } else {
+                        inRecoding = true;
+                        if (value.type === "Die") {
+                            death++;
+                        } else if (value.type === "Reset") {
+                            reset++;
+                        } else if (value.type === "Pass") {
+                            game[`stage${value.stage}`] = { time: timestamp - startTime, death, reset };
+                            startTime = timestamp;
+                            death = 0;
+                            reset = 0;
+                        }
                     }
                 }
-                games.push(game);
+                if (inRecoding) ames.push(game);
             }
             games.sort((g1, g2) => g1.start - g2.start);
             res.status(200).json(games);
