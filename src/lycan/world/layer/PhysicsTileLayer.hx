@@ -176,7 +176,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 				if (_binaryData[tileIndex] == 1) {
 					// Mark the beginning of a new rectangle
 					if (startRow == -1)
-						startRow = y;
+						startRow = x;
 
 					// Mark the tile as already read
 					_binaryData[tileIndex] = -1;
@@ -185,8 +185,8 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 				else if (_binaryData[tileIndex] == 0 || _binaryData[tileIndex] == -1) {
 					// If we marked the beginning a rectangle, end it and process it
 					if (startRow != -1) {
-						endRow = y - 1;
-						rects.push(constructRectangle(x, startRow, endRow));
+						endRow = x - 1;
+						rects.push(constructRectangle(startRow, y, endRow));
 						startRow = -1;
 						endRow = -1;
 					}
@@ -195,7 +195,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 			// If we reached the last line and marked the beginning of a rectangle, end it and process it
 			if (startRow != -1) {
 				endRow = heightInTiles - 1;
-				rects.push(constructRectangle(x, startRow, endRow));
+				rects.push(constructRectangle(startRow, y, endRow));
 				startRow = -1;
 				endRow = -1;
 			}
