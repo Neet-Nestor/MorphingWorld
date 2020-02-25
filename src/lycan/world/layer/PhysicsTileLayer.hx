@@ -169,8 +169,8 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 		var rects = new Array<FlxRect>();
 
 		// Go over every column, then scan along them
-		for (x in 0...widthInTiles) {
-			for (y in 0...heightInTiles) {
+		for (x in 0...heightInTiles) {
+			for (y in 0...widthInTiles) {
 				tileIndex = x + (y * widthInTiles);
 				// Is that tile solid?
 				if (_binaryData[tileIndex] == 1) {
