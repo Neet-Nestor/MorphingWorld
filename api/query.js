@@ -117,7 +117,7 @@ router.get("/games", function (req, res) {
                         }
                     }
                 }
-                if (inRecoding) ames.push(game);
+                if (inRecoding) games.push(game);
             }
             games.sort((g1, g2) => g1.start - g2.start);
             res.status(200).json(games);
