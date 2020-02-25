@@ -114,7 +114,7 @@ class PlayState extends LycanState {
         removeHintShown = #if FLX_NO_DEBUG false #else true #end;
         worldEditingDisabled = #if FLX_NO_DEBUG true #else false #end;
         hintList = new List<Hint>();
-        curStage = 0;
+        curStage = Main.user.getLastStage();
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
     }
 
@@ -131,11 +131,9 @@ class PlayState extends LycanState {
         initScripts();
         WorldCollection.init();
         initUniverse();
+        toNextStage();
         initCamera();
         add(player);
-        // Move hint
-        showHint("[A/D or LEFT/RIGHT to move]",
-            () -> FlxG.keys.anyJustPressed([FlxKey.A, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT]));
     }
 
     // Initializers
@@ -205,16 +203,6 @@ class PlayState extends LycanState {
     private function initUniverse():Void {
         universe = new Universe();
         reloadPlayerPosition = true;
-
-        curStage = 0;
-        WorldCollection.defineWorlds(curStage);
-        var initWorld = WorldCollection.get(Config.STAGES[curStage][0]);
-        universe.makeSlot(0, 0).loadWorld(initWorld);
-        initWorld.owned = true;
-        universe.forEachOfType(WorldPiece, (piece) -> {
-            if (piece.worldDef == initWorld) piece.collectable.collect(player);
-        }, true);
-
         add(universe);
     }
 
@@ -344,10 +332,12 @@ class PlayState extends LycanState {
         if (isWorldEditing) endWorldEditing();
         if (subState != null) subState.close();
         // logging
-        if (pass) Main.logger.logPass(curStage);
-        else Main.logger.logReset(curStage);
-        
-        Main.user.setLastStage(curStage);
+        if (pass) {
+            Main.logger.logPass(curStage);
+            Main.user.setLastStage(curStage);
+        } else {
+            Main.logger.logReset(curStage);
+        }
 
         var passState = new BreakSplashState(pass);
         persistentUpdate = false;
@@ -396,7 +386,11 @@ class PlayState extends LycanState {
         FlxG.camera.snapToTarget();
 
         // Hint Setup
-        if (curStage == 1) {
+        if (curStage == 0) {
+            // Move hint
+            showHint("[A/D or LEFT/RIGHT to move]",
+            () -> FlxG.keys.anyJustPressed([FlxKey.A, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT]));
+        } else if (curStage == 1) {
             showHint("[W/UP/SPACE to jump]", () -> FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W, FlxKey.SPACE]));
         }
     }

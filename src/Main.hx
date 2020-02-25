@@ -14,7 +14,7 @@ class Main extends Sprite {
         user = new User();
         sound = new Sound();
         logger = new Logger();
-        Main.logger.logStart(Main.user.getTimes());
+        Main.logger.logStart(Main.user.getPlayTimes());
         stage.application.onExit.add (function (exitCode) {
             logger.logExit(Main.user.getLastStage(), Main.user.getTimes());
             user.saveCurrent();

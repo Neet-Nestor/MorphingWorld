@@ -29,7 +29,7 @@ class MenuState extends LycanState {
         loadTitle();
         loadStart();
         loadOptions();
-        loadAboutUS();
+        loadCleanData();
         loadQuit();
     }
 
@@ -63,12 +63,18 @@ class MenuState extends LycanState {
         add(optionsBtn);
     }
 
-    private function loadAboutUS():Void {
-        // TODO: about us page
-        var aboutUsBtn = new FlxButton(0, title.getScreenPosition().y + 150, "About Us", () -> {});
-        aboutUsBtn.screenCenter(FlxAxes.X);
-        add(aboutUsBtn);
+    private function loadCleanData():Void {
+        var cleanBtn = new FlxButton(0, title.getScreenPosition().y + 150, "Clean Save Data", onCleanData);
+        cleanBtn.screenCenter(FlxAxes.X);
+        add(cleanBtn);
     }
+
+    // private function loadAboutUS():Void {
+    //     // TODO: about us page
+    //     var aboutUsBtn = new FlxButton(0, title.getScreenPosition().y + 150, "About Us", () -> {});
+    //     aboutUsBtn.screenCenter(FlxAxes.X);
+    //     add(aboutUsBtn);
+    // }
 
     private function loadQuit():Void {
         var quitUsBtn = new FlxButton(0, title.getScreenPosition().y + 175, "Quit Game", onQuit);
@@ -77,8 +83,11 @@ class MenuState extends LycanState {
     }
 
     private function onStart():Void {
-        Main.user.setLastStage(0);
         FlxG.switchState(new PlayState());
+    }
+
+    private function onCleanData():Void {
+        Main.user.cleanSaveData();
     }
 
     private function onOption():Void {

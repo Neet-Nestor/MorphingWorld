@@ -111,7 +111,7 @@ class OptionPauseState extends FlxSubState {
         // if (this.prevState == null) {
         //     this.prevState = new MenuState();
         // }
-        Main.user.save(settings);
+        Main.user.setSetting(settings);
         // FlxG.switchState(prevState);
         close();
     }
