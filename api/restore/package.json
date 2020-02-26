@@ -1,0 +1,14 @@
+{
+  "name": "mwlog-backup-restore",
+  "version": "1.0.0",
+  "description": "Back up the redis store",
+  "main": "restore.js",
+  "scripts": {
+    "test": "node restore.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}
