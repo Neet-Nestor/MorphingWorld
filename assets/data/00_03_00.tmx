@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="7">
+ <tileset firstgid="1" source="Sprute.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="14" height="14">
+  <properties>
+   <property name="collision" value="true"/>
+   <property name="collisionType" value="physics"/>
+  </properties>
+  <data encoding="csv">
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,0,0,0,0,0,36,36,36,
+36,36,36,36,36,36,0,0,0,0,0,36,36,36,
+36,36,36,36,36,36,0,0,0,0,0,36,36,36,
+36,36,36,36,36,36,0,14,14,14,14,36,36,36,
+36,36,36,36,36,36,0,36,36,36,36,36,36,36,
+36,36,36,36,36,36,0,36,36,36,36,36,36,36,
+36,36,36,36,36,36,0,36,36,36,36,36,36,36,
+36,36,36,36,36,36,0,36,36,36,36,36,36,36,
+36,36,36,36,36,36,0,0,0,0,0,0,36,36,
+36,36,36,36,36,36,0,0,0,0,0,0,36,36,
+36,36,36,36,36,36,0,14,14,14,14,14,36,36,
+36,36,36,36,36,36,0,36,36,36,36,36,36,36,
+36,36,36,36,36,36,0,36,36,36,36,36,36,36
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="2" name="collectable" type="piece" x="320" y="96" width="32" height="32">
+   <properties>
+    <property name="world" value="00_03_01"/>
+   </properties>
+  </object>
+  <object id="3" name="player" type="player" x="352" y="328" width="16" height="24"/>
+  <object id="4" name="board" type="board" gid="38" x="192.167" y="364.28" width="32" height="32">
+   <properties>
+    <property name="oneway" value="true"/>
+   </properties>
+  </object>
+  <object id="5" name="moving1" type="movingboard" gid="38" x="191.367" y="289.019" width="32" height="32">
+   <properties>
+    <property name="oneway" value="true"/>
+    <property name="path" value="path0301"/>
+   </properties>
+  </object>
+  <object id="6" name="path0301" type="path" x="208" y="281.026">
+   <polyline points="0,0 0.800643,-155.325"/>
+  </object>
+ </objectgroup>
+</map>
