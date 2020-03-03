@@ -109,6 +109,16 @@ class PlayState extends LycanState {
     public function new() {
         super();
         instance = this;
+    }
+
+    /**
+     * From FlxState API Doc (http://api.haxeflixel.com/flixel/FlxState.html):
+     *   We do NOT recommend overriding the constructor, unless you want some crazy unpredictable things to happen!
+     **/
+    override public function create():Void {
+		persistentDraw = true;
+        persistentUpdate = true;
+        reloadPlayerPosition = false;
         isWorldEditing = false;
         editHintShown = #if FLX_NO_DEBUG false #else true #end;
         removeHintShown = #if FLX_NO_DEBUG false #else true #end;
@@ -116,12 +126,6 @@ class PlayState extends LycanState {
         hintList = new List<Hint>();
         curStage = Main.user.getLastStage();
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
-    }
-
-    override public function create():Void {
-		persistentDraw = true;
-        persistentUpdate = true;
-        reloadPlayerPosition = false;
         // In case it was set before by fault
         Phys.FORCE_TIMESTEP = null;
 
