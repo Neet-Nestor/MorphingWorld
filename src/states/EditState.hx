@@ -140,7 +140,6 @@ class EditState extends FlxSubState {
 		}
 		
 		swatchGroup.screenCenter(FlxAxes.X);
-		
 		swatchGroup.camera = PlayState.instance.uiCamera;
 
 		// Drag hint
@@ -217,7 +216,6 @@ class EditState extends FlxSubState {
 		add(swatchGroup);
 		add(uiGroup);
 		
-		swatchGroup.camera = PlayState.instance.uiCamera;
 		openCallback = () -> { transitionIn(); };
 	}
 	
@@ -336,5 +334,10 @@ class EditState extends FlxSubState {
 			close();
 			if (callback != null) callback();
 		});
+	}
+
+	override public function destroy():Void {
+		super.destroy();
+		mousePos.put();
 	}
 }
