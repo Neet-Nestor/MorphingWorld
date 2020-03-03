@@ -1,5 +1,7 @@
 package sprites;
 
+import flixel.math.FlxPoint;
+import flixel.FlxCamera;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -11,12 +13,16 @@ class UIButton extends FlxSpriteGroup {
     public var label:FlxText;
     public var overlay:FlxSprite;
     public var pressed:Bool;
-    public var cb:() -> Void;
+	public var mousePos:FlxPoint;
+    public var onClick:() -> Void;
+    public var refCam:FlxCamera;
 
-    public function new(x:Float, y:Float, text:String, cb:() -> Void) {
+    public function new(x:Float, y:Float, text:String, ?cb:() -> Void, ?referenceCamera:FlxCamera) {
         super();
         this.pressed = false;
-        this.cb = cb;
+        onClick = cb != null ? cb : () -> {};
+        refCam = referenceCamera;
+		mousePos = FlxPoint.get();
 
         background = new FlxSprite(x, y);
         background.loadGraphic(AssetPaths.uibutton__png, true, 200, 40);
@@ -43,23 +49,30 @@ class UIButton extends FlxSpriteGroup {
 
     override public function update(dt:Float):Void {
         super.update(dt);
+        
+        FlxG.mouse.getScreenPosition(refCam, mousePos);
 
-        if (FlxG.mouse.overlaps(this)) {
+        if (background.overlapsPoint(mousePos)) {
             overlay.alpha = 0.3;
         } else {
             overlay.alpha = 0;
         }
 
-        if (FlxG.mouse.justPressed && FlxG.mouse.overlaps(this)) {
+        if (FlxG.mouse.justPressed && background.overlapsPoint(mousePos)) {
             // Mouse Down inside the button
             pressed = true;
         } else if (FlxG.mouse.justReleased) {
             // If clicked (mouse up inside && mouse previously down inside)
-            if (FlxG.mouse.overlaps(this) && pressed) cb();
+            if (background.overlapsPoint(mousePos) && pressed) onClick();
 
             pressed = false;
         }
 
         background.animation.play(pressed ? "pressed" : "idle");
+    }
+
+    override public function destroy():Void {
+        super.destroy();
+        mousePos.put();
     }
 }

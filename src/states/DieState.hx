@@ -67,13 +67,13 @@ class DieState extends FlxSubState {
     }
 
     private function loadRestart():Void {
-        restartBtn = new UIButton(0, hint.y + 100, "Try Again", onRestart);
+        restartBtn = new UIButton(0, hint.y + 100, "Try Again", onRestart, uiGroup.camera);
         restartBtn.screenCenter(FlxAxes.X);
         uiGroup.add(restartBtn);
 	}
 	
 	private function loadMenu():Void {
-        menuBtn = new UIButton(0, hint.y + 145, "Main Menu", onMenu);
+        menuBtn = new UIButton(0, hint.y + 145, "Main Menu", onMenu, uiGroup.camera);
         menuBtn.screenCenter(FlxAxes.X);
         uiGroup.add(menuBtn);
     }

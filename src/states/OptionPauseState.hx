@@ -101,7 +101,7 @@ class OptionPauseState extends FlxSubState {
     }
 
     private function loadQuit():Void {
-        var quitUsBtn = new UIButton(0, title.y + 225, "Back", onQuit);
+        var quitUsBtn = new UIButton(0, title.y + 225, "Back", onQuit, uiGroup.camera);
         quitUsBtn.screenCenter(FlxAxes.X);
         uiGroup.add(quitUsBtn);
     }

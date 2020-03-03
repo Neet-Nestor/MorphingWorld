@@ -63,22 +63,22 @@ class PauseState extends FlxSubState {
 
     private function loadButtons():Void {
         var vOffset = 100;
-        backBtn = new UIButton(0, title.y + vOffset, "Back", onBack);
+        backBtn = new UIButton(0, title.y + vOffset, "Back", onBack, uiGroup.camera);
         backBtn.screenCenter(FlxAxes.X);
         uiGroup.add(backBtn);
         
         vOffset += 45;
-        retryBtn = new UIButton(0, title.y + vOffset, "Retry", onRetry);
+        retryBtn = new UIButton(0, title.y + vOffset, "Retry", onRetry, uiGroup.camera);
         retryBtn.screenCenter(FlxAxes.X);
         uiGroup.add(retryBtn);
 
         vOffset += 45;
-        optionsBtn = new UIButton(0, title.y + vOffset, "Options", onOptions);
+        optionsBtn = new UIButton(0, title.y + vOffset, "Options", onOptions, uiGroup.camera);
         optionsBtn.screenCenter(FlxAxes.X);
         uiGroup.add(optionsBtn);
 
         vOffset += 45;
-        menuBtn = new UIButton(0, title.y + vOffset, "Main Menu", onMenu);
+        menuBtn = new UIButton(0, title.y + vOffset, "Main Menu", onMenu, uiGroup.camera);
         menuBtn.screenCenter(FlxAxes.X);
         uiGroup.add(menuBtn);
 	}
