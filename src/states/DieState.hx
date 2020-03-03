@@ -5,7 +5,6 @@ import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
-import flixel.ui.FlxButton;
 import flixel.FlxG;
 import lycan.states.LycanState;
 import flixel.FlxSprite;
@@ -18,10 +17,11 @@ import flixel.addons.ui.FlxUIRadioGroup;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUIText;
 import flixel.system.FlxSound;
+import sprites.UIButton;
 
 class DieState extends FlxSubState {
-	private var restartBtn:FlxButton;
-	private var menuBtn:FlxButton;
+	private var restartBtn:UIButton;
+	private var menuBtn:UIButton;
     private var title:FlxText;
     private var hint:FlxText;
 
@@ -67,13 +67,13 @@ class DieState extends FlxSubState {
     }
 
     private function loadRestart():Void {
-        restartBtn = new FlxButton(0, hint.y + 100, "Try Again", onRestart);
+        restartBtn = new UIButton(0, hint.y + 100, "Try Again", onRestart);
         restartBtn.screenCenter(FlxAxes.X);
         uiGroup.add(restartBtn);
 	}
 	
 	private function loadMenu():Void {
-        menuBtn = new FlxButton(0, hint.y + 125, "Main Menu", onMenu);
+        menuBtn = new UIButton(0, hint.y + 145, "Main Menu", onMenu);
         menuBtn.screenCenter(FlxAxes.X);
         uiGroup.add(menuBtn);
     }

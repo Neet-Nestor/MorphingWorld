@@ -5,7 +5,6 @@ import flixel.group.FlxSpriteGroup;
 import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
-import flixel.ui.FlxButton;
 import flixel.FlxG;
 import lycan.states.LycanState;
 import flixel.FlxSprite;
@@ -17,9 +16,10 @@ import flixel.addons.ui.FlxUIRadioGroup;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUIText;
 import flixel.addons.ui.FlxSlider;
+import sprites.UIButton;
 
 class OptionPauseState extends FlxSubState {
-    private var startBtn:FlxButton;
+    private var startBtn:UIButton;
     private var title:FlxText;
     // public var prevState:FlxSubState;
     public var uiGroup:FlxSpriteGroup;
@@ -101,7 +101,7 @@ class OptionPauseState extends FlxSubState {
     }
 
     private function loadQuit():Void {
-        var quitUsBtn = new FlxButton(0, title.y + 205, "Back", onQuit);
+        var quitUsBtn = new UIButton(0, title.y + 225, "Back", onQuit);
         quitUsBtn.screenCenter(FlxAxes.X);
         uiGroup.add(quitUsBtn);
     }

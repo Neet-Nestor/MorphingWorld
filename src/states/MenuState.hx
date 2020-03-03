@@ -2,7 +2,6 @@ package states;
 
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
-import flixel.ui.FlxButton;
 import flixel.FlxG;
 import lime.system.System;
 import lycan.states.LycanState;
@@ -14,9 +13,9 @@ import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIRadioGroup;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUIText;
+import sprites.UIButton;
 
 class MenuState extends LycanState {
-    private var startBtn:FlxButton;
     private var title:FlxText;
 
     override public function create():Void {
@@ -48,36 +47,37 @@ class MenuState extends LycanState {
     private function loadTitle():Void {
         title = new FlxText(0, 0, 0, "Morphing World", 48);
         title.screenCenter();
+        title.y -= 30;
         add(title);
     }
 
     private function loadStart():Void {
-        startBtn = new FlxButton(0, title.getScreenPosition().y + 100, "Start", onStart);
+        var startBtn = new UIButton(0, title.getScreenPosition().y + 100, "Start", onStart);
         startBtn.screenCenter(FlxAxes.X);
         add(startBtn);
     }
 
     private function loadOptions():Void {
-        var optionsBtn = new FlxButton(0, title.getScreenPosition().y + 125, "Options", onOption);
+        var optionsBtn = new UIButton(0, title.getScreenPosition().y + 145, "Options", onOption);
         optionsBtn.screenCenter(FlxAxes.X);
         add(optionsBtn);
     }
 
     private function loadCleanData():Void {
-        var cleanBtn = new FlxButton(0, title.getScreenPosition().y + 150, "Clean Save Data", onCleanData);
+        var cleanBtn = new UIButton(0, title.getScreenPosition().y + 190, "Clean Save Data", onCleanData);
         cleanBtn.screenCenter(FlxAxes.X);
         add(cleanBtn);
     }
 
     // private function loadAboutUS():Void {
     //     // TODO: about us page
-    //     var aboutUsBtn = new FlxButton(0, title.getScreenPosition().y + 150, "About Us", () -> {});
+    //     var aboutUsBtn = new UIButton(0, title.getScreenPosition().y + 150, "About Us", () -> {});
     //     aboutUsBtn.screenCenter(FlxAxes.X);
     //     add(aboutUsBtn);
     // }
 
     private function loadQuit():Void {
-        var quitUsBtn = new FlxButton(0, title.getScreenPosition().y + 175, "Quit Game", onQuit);
+        var quitUsBtn = new UIButton(0, title.getScreenPosition().y + 235, "Quit Game", onQuit);
         quitUsBtn.screenCenter(FlxAxes.X);
         add(quitUsBtn);
     }
