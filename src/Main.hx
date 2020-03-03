@@ -3,6 +3,7 @@ package;
 import states.RootState;
 import flixel.FlxGame;
 import openfl.display.Sprite;
+import Main.Logger;
 
 class Main extends Sprite {
     public static var user:User;
