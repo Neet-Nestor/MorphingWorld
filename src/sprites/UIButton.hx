@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
@@ -24,6 +25,8 @@ class UIButton extends FlxSpriteGroup {
         background.animation.play("idle");
 
         label = new FlxText(text);
+        label.size = 12;
+        label.color = FlxColor.BLACK;
         label.x = background.x + (background.width / 2.0) - (label.width / 2.0);
         label.y = background.y + (background.height / 2.0) - (label.height / 2.0);
 
