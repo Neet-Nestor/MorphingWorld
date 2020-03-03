@@ -169,14 +169,14 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 		var rects = new Array<FlxRect>();
 
 		// Go over every column, then scan along them
-		for (y in 0...heightInTiles) {
-			for (x in 0...widthInTiles) {
+		for (x in 0...widthInTiles) {
+			for (y in 0...heightInTiles) {
 				tileIndex = x + (y * widthInTiles);
 				// Is that tile solid?
 				if (_binaryData[tileIndex] == 1) {
 					// Mark the beginning of a new rectangle
 					if (startRow == -1)
-						startRow = x;
+						startRow = y;
 
 					// Mark the tile as already read
 					_binaryData[tileIndex] = -1;
@@ -185,8 +185,8 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 				else if (_binaryData[tileIndex] == 0 || _binaryData[tileIndex] == -1) {
 					// If we marked the beginning a rectangle, end it and process it
 					if (startRow != -1) {
-						endRow = x - 1;
-						rects.push(constructRectangle(startRow, y, endRow));
+						endRow = y - 1;
+						rects.push(constructRectangle(x, startRow, endRow));
 						startRow = -1;
 						endRow = -1;
 					}
@@ -195,7 +195,7 @@ class PhysicsTileLayer extends TileLayer implements PhysicsEntity {
 			// If we reached the last line and marked the beginning of a rectangle, end it and process it
 			if (startRow != -1) {
 				endRow = heightInTiles - 1;
-				rects.push(constructRectangle(startRow, y, endRow));
+				rects.push(constructRectangle(x, startRow, endRow));
 				startRow = -1;
 				endRow = -1;
 			}
