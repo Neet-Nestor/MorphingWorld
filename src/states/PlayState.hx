@@ -382,12 +382,14 @@ class PlayState extends LycanState {
         universe.reset();
         add(player);
         FlxG.camera.follow(null);
-        cameraFocus.destroy();
-        cameraFocus = new CameraFocus();
-        cameraFocus.add(new ObjectTargetInfluencer(player));
-        FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
-        FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
-        FlxG.camera.snapToTarget();
+        if (cameraFocus != null) {
+            cameraFocus.destroy();
+            cameraFocus = new CameraFocus();
+            cameraFocus.add(new ObjectTargetInfluencer(player));
+            FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
+            FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
+            FlxG.camera.snapToTarget();
+        }
 
         // Hint Setup
         if (curStage == 0) {
