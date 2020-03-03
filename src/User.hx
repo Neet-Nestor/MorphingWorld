@@ -14,7 +14,6 @@ class User {
             var content:String = haxe.Json.stringify(res);
             sys.io.File.saveContent("data.json", content);
             trace("uuid not found, generating new uuid");
-            this.lastStage = -1;
         } else {
             var content:String = sys.io.File.getContent("data.json");
             res = haxe.Json.parse(content);
@@ -22,7 +21,6 @@ class User {
             var content:String = haxe.Json.stringify(res);
             sys.io.File.saveContent("data.json", content);
             trace("uuid: " + res.uuid);
-            this.lastStage = res.lastStage;
         }
         #else
         res = {uuid: _uuid, volume: 1, music: true, sound: true, playTimes: 1, lastStage: -1};
@@ -65,8 +63,7 @@ class User {
         return res.playTimes;
     }
 
-    public function saveCurrent():Void {
-        this.res.lastStage = this.lastStage;
+    public function save():Void {
         #if sys
         var content:String = haxe.Json.stringify(res);
         sys.io.File.saveContent("data.json", content);

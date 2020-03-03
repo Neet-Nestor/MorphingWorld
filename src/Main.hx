@@ -3,12 +3,12 @@ package;
 import states.RootState;
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import Main.Logger;
 
 class Main extends Sprite {
     public static var user:User;
     public static var sound:Sound;
     public static var logger:Logger;
+
     public function new() {
         super();
         addChild(new FlxGame(0, 0, RootState, 1, 60, 60, true));
@@ -17,8 +17,8 @@ class Main extends Sprite {
         logger = new Logger();
         Main.logger.logStart(Main.user.getPlayTimes());
         stage.application.onExit.add (function (exitCode) {
-            logger.logExit(Main.user.getLastStage(), Main.user.getTimes());
-            user.saveCurrent();
+            logger.logExit(Main.user.getLastStage(), Main.user.getPlayTimes());
+            user.save();
         });
     }
 }
