@@ -25,7 +25,7 @@ class User {
             this.lastStage = res.lastStage;
         }
         #else
-        res = {uuid: _uuid, volume: 1, music: true, sound: true, times: 1, lastStage: -1};
+        res = {uuid: _uuid, volume: 1, music: true, sound: true, playTimes: 1, lastStage: -1};
         trace("sys not available, generating new uuid");
         #end
     }
