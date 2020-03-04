@@ -1,5 +1,6 @@
 package states;
 
+import flixel.math.FlxPoint;
 import flixel.FlxCamera;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxSubState;
@@ -17,10 +18,12 @@ import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUIText;
 import flixel.addons.ui.FlxSlider;
 import sprites.UIButton;
+import sprites.UISlider;
 
 class OptionPauseState extends FlxSubState {
     private var startBtn:UIButton;
     private var title:FlxText;
+    public var mousePos:FlxPoint;
     // public var prevState:FlxSubState;
     public var uiGroup:FlxSpriteGroup;
     public var settings:{volume: Int, music: Bool, sound: Bool};
@@ -28,15 +31,16 @@ class OptionPauseState extends FlxSubState {
     override public function create():Void {
         super.create();
         // TODO: set value reflect to their current value;
+        mousePos = FlxPoint.get();
         settings = Main.user.getSettings();
         uiGroup = new FlxSpriteGroup();
-        uiGroup.camera = PlayState.instance.uiCamera;
         loadBG();
         loadTitle();
         loadVolumeOption();
         loadMusic();
         loadSound();
         loadQuit();
+        uiGroup.camera = PlayState.instance.uiCamera;
         add(uiGroup);
     }
 
@@ -61,9 +65,13 @@ class OptionPauseState extends FlxSubState {
     private function loadVolumeOption():Void {
         var txt = new FlxText(title.x - 50, title.y + 100, 0, "Volume", 16);
         uiGroup.add(txt);
-        var slide = new FlxSlider(null, "", title.x + 130, title.y + 80, 0, 100, 100, 20, 3, 0x66CCFF66, 0xFF828282);
+        var slide = new UISlider(null, "", title.x + 130, title.y + 80, 0, 100, 100, 20, 3, 0x66CCFF66, 0xFF828282, PlayState.instance.uiCamera);
         slide.value = settings.volume;
         slide.callback = function(newValue:Float) {
+            FlxG.mouse.getScreenPosition(uiGroup.camera, mousePos);
+            if (slide.overlapsPoint(mousePos)) {
+                trace("overlaps");
+            }
             slide.value = 100 * newValue;
             // TODO: change music volume
             FlxG.sound.changeVolume(newValue - FlxG.sound.volume);
