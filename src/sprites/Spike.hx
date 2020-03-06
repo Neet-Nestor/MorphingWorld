@@ -21,18 +21,17 @@ import nape.space.Space;
 
 class Spike extends DamagerSprite {
 	public var showing(default, set):Bool;
-    public var animate:Bool;
-    
 	public var tweens:FlxTweenManager;
     
-	public function new(?bodyType:BodyType) {
-        super(bodyType);
-		loadGraphic(AssetPaths.spike__png);
+	public function new(x:Float = 0, y:Float = 0) {
+		super(BodyType.KINEMATIC);
+		
+		this.setCenter(x, y);
+		this.loadGraphic(AssetPaths.spike__png);
 		physics.createBodyFromBitmap(pixels, 0x08, BodyType.STATIC);
 		tweens = new FlxTweenManager();
 		
 		showing = true;
-		animate = true;
     }
 
 	override public function update(dt:Float):Void {

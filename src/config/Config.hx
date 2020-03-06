@@ -27,6 +27,9 @@ class Config {
 	public static inline final CAMERA_LERP_NORMAL:Float = 0.3;
     public static inline final CAMERA_OFFSET_Y:Float = -55;
 
+    // Spike bury offset
+    public static inline final SPIKE_OFFSET_Y:Float = 6;
+
     // World
 	public static inline final TILE_SIZE:Int = 32;
 	public static inline final WORLD_TILE_WIDTH:Int = 14;

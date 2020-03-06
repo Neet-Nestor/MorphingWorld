@@ -48,6 +48,7 @@ import sprites.Crate;
 import sprites.DamagerSprite;
 import sprites.Door;
 import sprites.MovingBoard;
+import sprites.MovingSpike;
 import sprites.Player;
 import sprites.Portal;
 import sprites.Spike;
@@ -231,12 +232,24 @@ class WorldLoader {
 		});
 
 		loadObject("spike", (obj, layer, map) -> {
-			var spike:Spike = new Spike();
+			var spike:Spike = new Spike(obj.x, obj.y + Config.SPIKE_OFFSET_Y);
 			spike.physics.body.allowRotation = true;
-			spike.setCenter(obj.x, obj.y);
 			spike.angle = obj.angle;
-			// bury it down
-			spike.y += 6;
+			spike.physics.snapBodyToEntity();
+			spike.physics.body.cbTypes.add(DamagerSprite.DAMAGER_TYPE);
+
+			if (obj.properties.contains("showing")) {
+				spike.showing = obj.properties.getBool("showing");
+			}
+			
+			map.set(obj.name, spike);
+			layer.add(spike);
+		});
+
+		loadObject("moving_spike", (obj, layer, map) -> {
+			var spike:Spike = new MovingSpike(obj.x, obj.y + Config.SPIKE_OFFSET_Y);
+			spike.physics.body.allowRotation = true;
+			spike.angle = obj.angle;
 			spike.physics.snapBodyToEntity();
 			spike.physics.body.cbTypes.add(DamagerSprite.DAMAGER_TYPE);
 
