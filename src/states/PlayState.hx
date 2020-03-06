@@ -398,6 +398,11 @@ class PlayState extends LycanState {
             () -> FlxG.keys.anyJustPressed([FlxKey.A, FlxKey.D, FlxKey.UP, FlxKey.DOWN, FlxKey.LEFT, FlxKey.RIGHT]));
         } else if (curStage == 1) {
             showHint("[W/UP/SPACE to jump]", () -> FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W, FlxKey.SPACE]));
+        } else if (curStage == 3) {
+            showHint("[S/Down to drop through board]", () -> {
+                var initSlot = universe.getSlot(0, 0);
+                return initSlot == null || initSlot.world == null || !initSlot.world.bodyOverlaps(player.physics.body);
+            });
         }
     }
 
