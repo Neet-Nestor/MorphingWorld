@@ -241,9 +241,7 @@ class WorldLoader {
 			spike.physics.body.cbTypes.add(DamagerSprite.DAMAGER_TYPE);
 
 			if (obj.properties.contains("showing")) {
-				spike.animate = false;
 				spike.showing = obj.properties.getBool("showing");
-				spike.animate = true;
 			}
 			
 			map.set(obj.name, spike);
