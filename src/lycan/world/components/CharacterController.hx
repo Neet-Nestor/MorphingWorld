@@ -235,7 +235,8 @@ class CharacterControllerComponent extends Component<CharacterController> {
 			body.shapes.at(0).material.staticFriction = 0;
 		}
 
-		if (groundable.isGrounded) {
+		// Only reset jumps when stop on ground
+		if (groundable.isGrounded && body.velocity.y == 0) {
 			currentJumps = 0;
 			canJump = true;
 		}
