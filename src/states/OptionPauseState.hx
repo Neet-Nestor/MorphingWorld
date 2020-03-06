@@ -115,12 +115,7 @@ class OptionPauseState extends FlxSubState {
     }
 
     private function onQuit():Void {
-        // TODO quit
-        // if (this.prevState == null) {
-        //     this.prevState = new MenuState();
-        // }
         Main.user.setSetting(settings);
-        // FlxG.switchState(prevState);
         close();
     }
 }
