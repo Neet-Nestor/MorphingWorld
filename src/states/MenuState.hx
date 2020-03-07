@@ -88,6 +88,7 @@ class MenuState extends LycanState {
 
     private function onCleanData():Void {
         Main.user.cleanSaveData();
+        FlxG.switchState(new SelectState());
     }
 
     private function onOption():Void {

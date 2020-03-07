@@ -13,12 +13,14 @@ class UIButton extends FlxSpriteGroup {
     public var label:FlxText;
     public var overlay:FlxSprite;
     public var pressed:Bool;
+    public var hidden:Bool;
 	public var mousePos:FlxPoint;
     public var onClick:() -> Void;
     public var refCam:FlxCamera;
 
     public function new(x:Float, y:Float, text:String, ?cb:() -> Void, ?referenceCamera:FlxCamera) {
         super();
+        this.hidden = false;
         this.pressed = false;
         onClick = cb != null ? cb : () -> {};
         refCam = referenceCamera;
@@ -49,26 +51,44 @@ class UIButton extends FlxSpriteGroup {
 
     override public function update(dt:Float):Void {
         super.update(dt);
-        
-        FlxG.mouse.getScreenPosition(refCam, mousePos);
+        if (!hidden) {
+            FlxG.mouse.getScreenPosition(refCam, mousePos);
 
-        if (background.overlapsPoint(mousePos)) {
-            overlay.alpha = 0.3;
+            if (background.overlapsPoint(mousePos)) {
+                overlay.alpha = 0.3;
+            } else {
+                overlay.alpha = 0;
+            }
+    
+            if (FlxG.mouse.justPressed && background.overlapsPoint(mousePos)) {
+                // Mouse Down inside the button
+                pressed = true;
+            } else if (FlxG.mouse.justReleased) {
+                // If clicked (mouse up inside && mouse previously down inside)
+                if (background.overlapsPoint(mousePos) && pressed) onClick();
+    
+                pressed = false;
+            }
+    
+            background.animation.play(pressed ? "pressed" : "idle");
+        }
+    }
+
+    public function setText(text:String):Void {
+        label.text = text;
+    }
+
+    public function setHidden(_hidden:Bool):Void {
+        this.hidden = _hidden;
+        if (hidden) {
+            this.overlay.alpha = 0.0;
+            this.background.alpha = 0.0;
+            this.label.alpha = 0.0;
         } else {
-            overlay.alpha = 0;
+            this.overlay.alpha = 1.0;
+            this.background.alpha = 1.0;
+            this.label.alpha = 1.0;
         }
-
-        if (FlxG.mouse.justPressed && background.overlapsPoint(mousePos)) {
-            // Mouse Down inside the button
-            pressed = true;
-        } else if (FlxG.mouse.justReleased) {
-            // If clicked (mouse up inside && mouse previously down inside)
-            if (background.overlapsPoint(mousePos) && pressed) onClick();
-
-            pressed = false;
-        }
-
-        background.animation.play(pressed ? "pressed" : "idle");
     }
 
     override public function destroy():Void {
