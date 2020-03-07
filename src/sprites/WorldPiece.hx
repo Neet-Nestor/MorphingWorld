@@ -39,7 +39,7 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
 		physics.enabled = true;
 		physics.body.cbTypes.add(WORLD_PIECE_TYPE);
 		physics.body.shapes.at(0).sensorEnabled = true;
-		physics.body.shapes.at(0).filter = PlatformerPhysics.OVERLAPPING_FILTER;
+		physics.body.shapes.at(0).filter = PlatformerPhysics.NON_COLLIDE_FILTER;
 		
 		collectable.onCollect = function(c) {
 			Main.logger.logCollect(PlayState.instance.curStage, worldDef.name);

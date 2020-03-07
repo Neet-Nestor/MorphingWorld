@@ -236,7 +236,7 @@ class CharacterControllerComponent extends Component<CharacterController> {
 		}
 
 		// Only reset jumps when stop on ground
-		if (groundable.isGrounded && body.velocity.y == 0) {
+		if (groundable.isGrounded && Math.abs(body.velocity.y) <= 0.000001) {
 			currentJumps = 0;
 			canJump = true;
 		}

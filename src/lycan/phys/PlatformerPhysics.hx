@@ -43,7 +43,7 @@ class PlatformerPhysics {
 	public static var OVERLAPPING_GROUP:InteractionGroup = new InteractionGroup(true);
 
 	// Interaction Filters
-	public static var OVERLAPPING_FILTER:InteractionFilter = new InteractionFilter();
+	public static var NON_COLLIDE_FILTER:InteractionFilter = new InteractionFilter();
 	public static var WORLD_FILTER:InteractionFilter = new InteractionFilter();
 	public static var SLOT_FILTER:InteractionFilter = new InteractionFilter();
 	public static var CHARACTER_FILTER:InteractionFilter = new InteractionFilter();
@@ -62,8 +62,8 @@ class PlatformerPhysics {
 		space = space == null ? Phys.space : space;
 		WORLD_FILTER.collisionGroup = 1;
 		WORLD_FILTER.collisionMask = -1;
-		OVERLAPPING_FILTER.collisionGroup = (1 << 2);
-		OVERLAPPING_FILTER.collisionMask  = 0;  // Don't collide with anothing
+		NON_COLLIDE_FILTER.collisionGroup = (1 << 2);
+		NON_COLLIDE_FILTER.collisionMask  = 0;  // Don't collide with anothing
 		CHARACTER_FILTER.collisionGroup = (1 << 3);
 		CHARACTER_FILTER.collisionMask = -1;
 

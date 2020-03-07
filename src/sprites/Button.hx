@@ -37,7 +37,7 @@ class Button extends LSprite implements PhysicsEntity implements Switchable {
         physics.body.userData.entity = this;
         physics.body.cbTypes.add(SWITCH_TYPE);
         physics.body.shapes.at(0).sensorEnabled = true;
-        physics.body.shapes.at(0).filter = PlatformerPhysics.OVERLAPPING_FILTER;
+        physics.body.shapes.at(0).filter = PlatformerPhysics.NON_COLLIDE_FILTER;
 
         switcher.onCallback = (b) -> {
             animation.play("on");

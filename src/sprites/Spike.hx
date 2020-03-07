@@ -18,8 +18,11 @@ import nape.callbacks.InteractionType;
 import nape.geom.Vec2;
 import nape.phys.BodyType;
 import nape.space.Space;
+import nape.dynamics.InteractionFilter;
 
 class Spike extends DamagerSprite {
+	public static var SPIKE_FILTER:InteractionFilter = new InteractionFilter();
+
 	public var showing(default, set):Bool;
 	public var tweens:FlxTweenManager;
     
@@ -29,6 +32,12 @@ class Spike extends DamagerSprite {
 		this.loadGraphic(AssetPaths.spike__png);
 		this.setCenter(x, y); // This must be after loading Graphic
 		physics.createBodyFromBitmap(pixels, 0x08, BodyType.STATIC);
+		for (shape in physics.body.shapes) {
+			shape.filter = SPIKE_FILTER;
+		}
+		SPIKE_FILTER.collisionGroup = (1 << 8);
+		SPIKE_FILTER.collisionMask = -1;
+
 		tweens = new FlxTweenManager();
 		
 		showing = true;
