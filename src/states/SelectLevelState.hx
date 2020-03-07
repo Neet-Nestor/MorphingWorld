@@ -15,7 +15,7 @@ import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUIText;
 import sprites.UIButton;
 
-class SelectState extends LycanState {
+class SelectLevelState extends LycanState {
     private var title:FlxText;
     private var up:UIButton;
     private var down:UIButton;

@@ -27,8 +27,8 @@ class MenuState extends LycanState {
         loadBG();
         loadTitle();
         loadStart();
+        loadSelectLevel();
         loadOptions();
-        loadCleanData();
         loadQuit();
     }
 
@@ -57,16 +57,16 @@ class MenuState extends LycanState {
         add(startBtn);
     }
 
-    private function loadOptions():Void {
-        var optionsBtn = new UIButton(0, title.getScreenPosition().y + 145, "Options", onOption);
-        optionsBtn.screenCenter(FlxAxes.X);
-        add(optionsBtn);
+    private function loadSelectLevel():Void {
+        var selectBtn = new UIButton(0, title.getScreenPosition().y + 145, "Select Level", onSelectLevel);
+        selectBtn.screenCenter(FlxAxes.X);
+        add(selectBtn);
     }
 
-    private function loadCleanData():Void {
-        var cleanBtn = new UIButton(0, title.getScreenPosition().y + 190, "Clean Save Data", onCleanData);
-        cleanBtn.screenCenter(FlxAxes.X);
-        add(cleanBtn);
+    private function loadOptions():Void {
+        var optionsBtn = new UIButton(0, title.getScreenPosition().y + 190, "Options", onOption);
+        optionsBtn.screenCenter(FlxAxes.X);
+        add(optionsBtn);
     }
 
     // private function loadAboutUS():Void {
@@ -86,15 +86,11 @@ class MenuState extends LycanState {
         FlxG.switchState(new PlayState());
     }
 
-    private function onCleanData():Void {
-        Main.user.cleanSaveData();
-        FlxG.switchState(new SelectState());
+    private function onSelectLevel():Void {
+        openSubState(new SelectLevelState());
     }
 
     private function onOption():Void {
-        // var options = new OptionState();
-        // options.prevState = this;
-        // FlxG.switchState(options);
         openSubState(new OptionState());
     }
 
