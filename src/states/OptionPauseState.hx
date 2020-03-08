@@ -34,13 +34,13 @@ class OptionPauseState extends FlxSubState {
         mousePos = FlxPoint.get();
         settings = Main.user.getSettings();
         uiGroup = new FlxSpriteGroup();
+        uiGroup.camera = PlayState.instance.uiCamera;
         loadBG();
         loadTitle();
         loadVolumeOption();
         loadMusic();
         loadSound();
         loadQuit();
-        uiGroup.camera = PlayState.instance.uiCamera;
         add(uiGroup);
     }
 
@@ -69,11 +69,7 @@ class OptionPauseState extends FlxSubState {
         slide.value = settings.volume;
         slide.callback = function(newValue:Float) {
             FlxG.mouse.getScreenPosition(uiGroup.camera, mousePos);
-            if (slide.overlapsPoint(mousePos)) {
-                trace("overlaps");
-            }
             slide.value = 100 * newValue;
-            // TODO: change music volume
             FlxG.sound.changeVolume(newValue - FlxG.sound.volume);
             var iv:Int = cast slide.value;
             settings.volume = iv;
