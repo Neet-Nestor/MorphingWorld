@@ -1,5 +1,6 @@
 package states;
 
+import config.Config;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.FlxG;
@@ -21,10 +22,7 @@ class SelectLevelState extends LycanState {
     private var down:UIButton;
     private var btnArr:Array<UIButton>;
     private var page:Int;
-
-
-    // Use an array of names later
-    private var limit:Int = 12;
+    private var lastStageUnlocked:Int;
 
     override public function create():Void {
         super.create();
@@ -32,6 +30,7 @@ class SelectLevelState extends LycanState {
         //     //FlxG.sound.playMusic(AssetPaths.bgmtemp2__ogg, 0.65, true);
         // }
         Main.sound.playMusic();
+        lastStageUnlocked = Main.user.getLastStage();
         page = 0;
         loadBG();
         loadTitle();
@@ -80,7 +79,7 @@ class SelectLevelState extends LycanState {
         for (i in 0...5) {
             var level = page * 5 + i + 1;
             btnArr[i].setText("Level " + level);
-            if (level > limit) {
+            if (level >= Config.STAGES.length - 1) {
                 btnArr[i].setHidden(true);
             } else {
                 btnArr[i].setHidden(false);
@@ -91,7 +90,7 @@ class SelectLevelState extends LycanState {
         } else {
             up.setHidden(false);
         }
-        if (page * 5 + 5 > limit) {
+        if (page * 5 + 5 >= Config.STAGES.length - 1) {
             down.setHidden(true);
         } else {
             down.setHidden(false);
@@ -103,7 +102,7 @@ class SelectLevelState extends LycanState {
         for (i in 0...5) {
             var level = page * 5 + i + 1;
             btnArr[i].setText("Level " + level);
-            if (level > limit) {
+            if (level >= Config.STAGES.length - 1) {
                 btnArr[i].setHidden(true);
             } else {
                 btnArr[i].setHidden(false);
@@ -114,7 +113,7 @@ class SelectLevelState extends LycanState {
         } else {
             up.setHidden(false);
         }
-        if (page * 5 + 5 > limit) {
+        if (page * 5 + 5 >= Config.STAGES.length - 1) {
             down.setHidden(true);
         } else {
             down.setHidden(false);
@@ -122,7 +121,7 @@ class SelectLevelState extends LycanState {
     }
 
     private function loadList():Void {
-        btnArr = new Array();
+        btnArr = [];
         for (i in 0...5) {
             var btn = new UIButton(0, title.getScreenPosition().y + 170 + 45 * i, "Level " + (page * 5 + i + 1), () -> {
                 onSelect(i);
