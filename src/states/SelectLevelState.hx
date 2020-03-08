@@ -65,7 +65,7 @@ class SelectLevelState extends LycanState {
     private function loadupdown():Void {
         up = new UIButton(0, title.getScreenPosition().y + 100, "Previous Page", onUp);
         up.screenCenter(FlxAxes.X);
-        up.setHidden(true);
+        up.hidden = true;
         add(up);
 
         // down
@@ -78,22 +78,22 @@ class SelectLevelState extends LycanState {
         this.page -= 1;
         for (i in 0...5) {
             var level = page * 5 + i + 1;
-            btnArr[i].setText("Level " + level);
+            btnArr[i].text = "Level " + level;
             if (level >= Config.STAGES.length - 1) {
-                btnArr[i].setHidden(true);
+                btnArr[i].hidden = true;
             } else {
-                btnArr[i].setHidden(false);
+                btnArr[i].hidden = false;
             }
         }
         if (page == 0) {
-            up.setHidden(true);
+            up.hidden = true;
         } else {
-            up.setHidden(false);
+            up.hidden = false;
         }
         if (page * 5 + 5 >= Config.STAGES.length - 1) {
-            down.setHidden(true);
+            down.hidden = true;
         } else {
-            down.setHidden(false);
+            down.hidden = false;
         }
     }
 
@@ -101,22 +101,22 @@ class SelectLevelState extends LycanState {
         this.page += 1;
         for (i in 0...5) {
             var level = page * 5 + i + 1;
-            btnArr[i].setText("Level " + level);
+            btnArr[i].text = "Level " + level;
             if (level >= Config.STAGES.length - 1) {
-                btnArr[i].setHidden(true);
+                btnArr[i].hidden = true;
             } else {
-                btnArr[i].setHidden(false);
+                btnArr[i].hidden = false;
             }
         }
         if (page == 0) {
-            up.setHidden(true);
+            up.hidden = true;
         } else {
-            up.setHidden(false);
+            up.hidden = false;
         }
         if (page * 5 + 5 >= Config.STAGES.length - 1) {
-            down.setHidden(true);
+            down.hidden = true;
         } else {
-            down.setHidden(false);
+            down.hidden = false;
         }
     }
 
