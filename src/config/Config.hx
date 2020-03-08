@@ -81,6 +81,49 @@ class Config {
             {name: "You", dialog: "Stop! You are Alice! What do you want?", avatar: AssetPaths.bob__png},
             {name: "Alice", dialog: "There there, Bob the guy. I’ll help you to get out of this world. See the door over there? Go to it!", avatar: AssetPaths.alice__png},
             {name: "You", dialog: "Sure... If it isn’t obvious enough...", avatar: AssetPaths.bob__png}
+        ],
+        1 => [
+            {name: "You", dialog: "Where am I now?", avatar: AssetPaths.bob__png},
+            {name: "Alice", dialog: "You are in the other side of the portal you sweet dummy! See that loot box over there? Go fetch!", avatar: AssetPaths.alice__png},
+            {name: "You", dialog: "Hey!", avatar: AssetPaths.bob__png}
+        ],
+        2 => [
+            {name: "You", dialog: "What now?", avatar: AssetPaths.bob__png},
+            {name: "Alice", dialog: "This is a piece of map. The way the world looks is under your control. As long as you have the map pieces, you can build your own world with the pieces you have.", avatar: AssetPaths.alice__png},
+            {name: "You", dialog: "Then how would I do that?", avatar: AssetPaths.bob__png},
+            {name: "Alice", dialog: "It’s simple, you just need the kind person sitting in front of the screen to press E for you.", avatar: AssetPaths.alice__png}
+        ],
+        3 => [
+            {name: "You", dialog: "Wow! That was amazing! Thank you! Whoever kind person you are! I’ll give you something good when you get me out of this place! Now lets get going!", avatar: AssetPaths.bob__png}
+        ],
+        4 => [
+            {name: "You", dialog: "Looks like there is no way out…", avatar: AssetPaths.bob__png}
+        ],
+        5 => [
+            {name: "You", dialog: "Oh its getting physical", avatar: AssetPaths.bob__png}
+        ],
+        6 => [
+            {name: "You", dialog: "This one looks complicated, but you will help me right? Remember, there is something special for you when you help me get out. Thank you thank you thank you!", avatar: AssetPaths.bob__png}
+        ],
+        7 => [
+            {name: "Alice", dialog: "Hang on tight! You are getting there!", avatar: AssetPaths.alice__png}
+        ],
+        8 => [
+            {name: "You", dialog: "Oh we are finally here! But why am I still in this nasty world?", avatar: AssetPaths.bob__png},
+            {name: "Alice", dialog: "Because there is no way out in the land of the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord. HAHAHAHAHAHA", avatar: AssetPaths.alice__png},
+            {name: "You", dialog: "???", avatar: AssetPaths.bob__png},
+            {name: "Vlad", dialog: "Surprise! I, the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord is a part time actor and Alice is my most popular persona!", avatar: AssetPaths.dark__png},
+            {name: "You", dialog: "???", avatar: AssetPaths.bob__png},
+            {name: "Vlad", dialog: "There is no way out HAHAHAHAHA. You should see the look on your face!", avatar: AssetPaths.dark__png},
+            {name: "You", dialog: "I know, I am programed to only have two faces.", avatar: AssetPaths.bob__png},
+            {name: "Vlad", dialog: "Oh you are such a buzzkill. Talking to you is no fun. I’ll just keep watching you die in this forgotten land HAHAHAHAHA!", avatar: AssetPaths.dark__png},
+            {name: "Vlad", dialog: "Vlad disappears", avatar: AssetPaths.dark__png},
+            {name: "You", dialog: "Alrght, thank you for getting me there, the kind person sitting in front of the screen.", avatar: AssetPaths.bob__png},
+            {name: "You", dialog: "Don’t worry about me, because I am just a character that you play in this game. So I’m technically not stocked in this world as I am not in this world. Well, I am, but you are not and I am you.", avatar: AssetPaths.bob__png},
+            {name: "You", dialog: "Anyways, you did get me here but technically you didn’t get me out of this world because I was not in this world. Well, I am, but you are not and I am you. I think you get the gist.", avatar: AssetPaths.bob__png},
+            {name: "You", dialog: "However, I’ll still give you something, not necessarily good, but something, just like the way you halfway completed your mission. Get it? You get me to win but not out of this world, and I give you something but not necessarily good?", avatar: AssetPaths.bob__png},
+            {name: "You", dialog: "You’ll get it eventually.", avatar: AssetPaths.bob__png},
+            {name: "You", dialog: "Here you go!"", avatar: AssetPaths.bob__png}
         ]
     ];
     **/
