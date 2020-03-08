@@ -82,7 +82,7 @@ class SelectLevelState extends LycanState {
                 onSelect(i);
             });
             btn.screenCenter(FlxAxes.X);
-            btn.disabled = i > lastStageUnlocked;
+            btn.disabled = i >= lastStageUnlocked;
             btn.hidden = i >= Config.STAGES.length - 1;
             btnArr.push(btn);
             add(btn);
@@ -94,7 +94,7 @@ class SelectLevelState extends LycanState {
         for (i in 0...5) {
             var level = page * 5 + i;
             btnArr[i].text = "Level " + (level + 1);
-            btnArr[i].disabled = level > lastStageUnlocked;
+            btnArr[i].disabled = level >= lastStageUnlocked;
             btnArr[i].hidden = level >= Config.STAGES.length - 1;
         }
         up.hidden = page == 0;
@@ -106,7 +106,7 @@ class SelectLevelState extends LycanState {
         for (i in 0...5) {
             var level = page * 5 + i;
             btnArr[i].text = "Level " + (level + 1);
-            btnArr[i].disabled = level > lastStageUnlocked;
+            btnArr[i].disabled = level >= lastStageUnlocked;
             btnArr[i].hidden = level >= Config.STAGES.length - 1;
         }
         up.hidden = page == 0;
