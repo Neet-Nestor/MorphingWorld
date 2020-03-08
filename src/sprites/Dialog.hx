@@ -9,43 +9,35 @@ import flixel.util.FlxAxes;
 import states.PlayState;
 
 class Dialog extends FlxSpriteGroup {
-    public var text:FlxText;
     public var background:FlxSprite;
-    public var dialogs:Array<String>;
-    public var curDialogIndex:Int;
-    public var onFinish:() -> Void;
+    public var dialog(default, set):String;
+    public var label:FlxText;
+    public var promote:FlxText;
 
-    public function new(dialogs:Array<String>, ?onFinish:() -> Void) {
+    public function new(x:Float = 0, y:Float = 0, dialog:String) {
         super();
-        this.dialogs = dialogs;
-        curDialogIndex = 0;
-        camera = PlayState.instance.uiCamera;
-        this.onFinish = onFinish != null ? onFinish : () -> {};
 
-        background = new FlxSprite();
+        background = new FlxSprite(x, y);
         background.loadGraphic(AssetPaths.dialog__png, false, 1400, 300);
-        background.y = 0.7 * FlxG.height;
-        background.width = FlxG.width;
-        background.height = FlxG.height - y;
-        background.screenCenter(FlxAxes.X);
 
-        text = new FlxText(0, 0, 0.8 * FlxG.width, dialogs[0]);
-        text.x = (background.width - text.width) / 2.0;
-        text.y = (background.height - text.height) / 2.0;
+        label = new FlxText(0, 0, 0.8 * 1400, dialog, 32);
+        label.x = x + (background.width  - label.width)  / 2.0;
+        label.y = y + (background.height - label.height) / 2.0;
 
+        promote = new FlxText(0, 0, 0, "[SPACE]", 20);
+        promote.x = x + (background.width - 50 - promote.width);
+        promote.y = y + (background.height - 50);
+
+        this.dialog = dialog;
+        
         add(background);
-        add(text);
+        add(label);
+        add(promote);
     }
 
-    override public function update(dt:Float):Void {
-        super.update(dt);
-        if (FlxG.keys.anyJustPressed([FlxKey.SPACE])) {
-            curDialogIndex++;
-            if (curDialogIndex >= dialogs.length) {
-                onFinish();
-                return;
-            }
-            text.text = dialogs[curDialogIndex];
-        }
+    public function set_dialog(val:String):String {
+        label.text = val;
+        dialog = val;
+        return val;
     }
 }

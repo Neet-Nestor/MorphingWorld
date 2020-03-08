@@ -55,7 +55,11 @@ class BreakSplashState extends FlxSubState {
             if (toNextStage) PlayState.instance.toNextStage();
             else PlayState.instance.reloadStage();
             FlxTween.tween(this, { radius: screenRadius },
-                0.8, { ease: FlxEase.cubeOut, onComplete: (_) -> { close(); }});
+                0.8, { ease: FlxEase.cubeOut, onComplete: (_) -> {
+                    var dialogState = new DialogState(["Where am I?"]);
+                    dialogState.closeCallback = close;
+                    openSubState(dialogState);
+                }});
         }});
 
         add(backGround);
