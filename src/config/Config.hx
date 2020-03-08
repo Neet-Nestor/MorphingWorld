@@ -62,20 +62,20 @@ class Config {
                {x:-1, y:-1} => "00_02_01", {x:-1, y:1} => "00_02_01", {x:1, y:-1} => "00_02_01", {x:1, y:1} => "00_02_01" ]
     ];
 
-    /**
+    
     public static final DIALOGS:Map<Int, Array<{name:String, dialog:String, avatar:String}>> = [
         // start dialogs
         0 => [
             {name: "You", dialog: "What Happened? Where am I?", avatar: AssetPaths.bob__png},
-            {name: "Someone", dialog: "You are in a happy place.", avatar: AssetPaths.dark__png},
+            {name: "Someone", dialog: "You are in a happy place.", avatar: AssetPaths.vlad__png},
             {name: "You", dialog: "Really? Who are you?", avatar: AssetPaths.bob__png},
-            {name: "Someone", dialog: "My name is Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord.", avatar: AssetPaths.dark__png},
+            {name: "Someone", dialog: "My name is Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord.", avatar: AssetPaths.vlad__png},
             {name: "You", dialog: "Al..right. My name is Bob the guy.", avatar: AssetPaths.bob__png},
-            {name: "Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord", dialog: "Hello, Bob de guy. It appears that you accidentally stepped foot in my land, the land of the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord. As the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord, the lord of this land, I welcome you to join me with this journey to explore the land of the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord.", avatar: AssetPaths.dark__png},
+            {name: "Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord", dialog: "Hello, Bob de guy. It appears that you accidentally stepped foot in my land, the land of the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord. As the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord, the lord of this land, I welcome you to join me with this journey to explore the land of the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord.", avatar: AssetPaths.vlad__png},
             {name: "You", dialog: "Uhhhhh, can we just call you Vlad? And even though it’s my pleasure to “step foot” on your land, can you get me out of this place? I’m waiting on my pizza delivery. And no offense, it smells like someone died here and was rotten a hundreds of years ago.", avatar: AssetPaths.bob__png},
-            {name: "Vlad", dialog: "Oh don’t worry about that, Bob the guy, what you just described is exactly what happened to this place.", avatar: AssetPaths.dark__png},
+            {name: "Vlad", dialog: "Oh don’t worry about that, Bob the guy, what you just described is exactly what happened to this place.", avatar: AssetPaths.vlad__png},
             {name: "You", dialog: "How is this a happy place?", avatar: AssetPaths.bob__png},
-            {name: "Vlad", dialog: "It’s a happy place for me! And don’t you worry about going out of this place. You are indeed a rare find. I just couldn’t get enough of human suffering. Enjoy the rest of your life here! HAHAHAHAHAHAHA...", avatar: AssetPaths.dark__png},
+            {name: "Vlad", dialog: "It’s a happy place for me! And don’t you worry about going out of this place. You are indeed a rare find. I just couldn’t get enough of human suffering. Enjoy the rest of your life here! HAHAHAHAHAHAHA...", avatar: AssetPaths.vlad__png},
             {name: "You", dialog: "...", avatar: AssetPaths.bob__png},
             {name: "A beautiful voice", dialog: "Hello, Bob the guy, my name is Angela Alicephere Von Rose...", avatar: AssetPaths.alice__png},
             {name: "You", dialog: "Stop! You are Alice! What do you want?", avatar: AssetPaths.bob__png},
@@ -112,19 +112,18 @@ class Config {
             {name: "You", dialog: "Oh we are finally here! But why am I still in this nasty world?", avatar: AssetPaths.bob__png},
             {name: "Alice", dialog: "Because there is no way out in the land of the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord. HAHAHAHAHAHA", avatar: AssetPaths.alice__png},
             {name: "You", dialog: "???", avatar: AssetPaths.bob__png},
-            {name: "Vlad", dialog: "Surprise! I, the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord is a part time actor and Alice is my most popular persona!", avatar: AssetPaths.dark__png},
+            {name: "Vlad", dialog: "Surprise! I, the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord is a part time actor and Alice is my most popular persona!", avatar: AssetPaths.vlad__png},
             {name: "You", dialog: "???", avatar: AssetPaths.bob__png},
-            {name: "Vlad", dialog: "There is no way out HAHAHAHAHA. You should see the look on your face!", avatar: AssetPaths.dark__png},
+            {name: "Vlad", dialog: "There is no way out HAHAHAHAHA. You should see the look on your face!", avatar: AssetPaths.vlad__png},
             {name: "You", dialog: "I know, I am programed to only have two faces.", avatar: AssetPaths.bob__png},
-            {name: "Vlad", dialog: "Oh you are such a buzzkill. Talking to you is no fun. I’ll just keep watching you die in this forgotten land HAHAHAHAHA!", avatar: AssetPaths.dark__png},
-            {name: "Vlad", dialog: "Vlad disappears", avatar: AssetPaths.dark__png},
+            {name: "Vlad", dialog: "Oh you are such a buzzkill. Talking to you is no fun. I’ll just keep watching you die in this forgotten land HAHAHAHAHA!", avatar: AssetPaths.vlad__png},
+            {name: "Vlad", dialog: "Vlad disappears", avatar: AssetPaths.vlad__png},
             {name: "You", dialog: "Alrght, thank you for getting me there, the kind person sitting in front of the screen.", avatar: AssetPaths.bob__png},
             {name: "You", dialog: "Don’t worry about me, because I am just a character that you play in this game. So I’m technically not stocked in this world as I am not in this world. Well, I am, but you are not and I am you.", avatar: AssetPaths.bob__png},
             {name: "You", dialog: "Anyways, you did get me here but technically you didn’t get me out of this world because I was not in this world. Well, I am, but you are not and I am you. I think you get the gist.", avatar: AssetPaths.bob__png},
             {name: "You", dialog: "However, I’ll still give you something, not necessarily good, but something, just like the way you halfway completed your mission. Get it? You get me to win but not out of this world, and I give you something but not necessarily good?", avatar: AssetPaths.bob__png},
             {name: "You", dialog: "You’ll get it eventually.", avatar: AssetPaths.bob__png},
-            {name: "You", dialog: "Here you go!"", avatar: AssetPaths.bob__png}
+            {name: "You", dialog: "Here you go!", avatar: AssetPaths.bob__png}
         ]
     ];
-    **/
 }
