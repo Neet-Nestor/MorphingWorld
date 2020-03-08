@@ -45,8 +45,10 @@ class User {
     }
 
     public function setLastStage(lastStage:Int):Void {
-        res.lastStage = lastStage;
-        save();
+        if (lastStage > res.lastStage) {
+            res.lastStage = lastStage;
+            save();
+        }
     }
 
     public function cleanSaveData():Void {

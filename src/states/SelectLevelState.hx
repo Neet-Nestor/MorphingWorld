@@ -71,72 +71,55 @@ class SelectLevelState extends LycanState {
         // down
         down = new UIButton(0, title.getScreenPosition().y + 420, "Next Page", onDown);
         down.screenCenter(FlxAxes.X);
+        down.hidden = page * 5 + 5 >= Config.STAGES.length - 1;
         add(down);
-    }
-
-    private function onUp():Void {
-        this.page -= 1;
-        for (i in 0...5) {
-            var level = page * 5 + i + 1;
-            btnArr[i].text = "Level " + level;
-            if (level >= Config.STAGES.length - 1) {
-                btnArr[i].hidden = true;
-            } else {
-                btnArr[i].hidden = false;
-            }
-        }
-        if (page == 0) {
-            up.hidden = true;
-        } else {
-            up.hidden = false;
-        }
-        if (page * 5 + 5 >= Config.STAGES.length - 1) {
-            down.hidden = true;
-        } else {
-            down.hidden = false;
-        }
-    }
-
-    private function onDown():Void {
-        this.page += 1;
-        for (i in 0...5) {
-            var level = page * 5 + i + 1;
-            btnArr[i].text = "Level " + level;
-            if (level >= Config.STAGES.length - 1) {
-                btnArr[i].hidden = true;
-            } else {
-                btnArr[i].hidden = false;
-            }
-        }
-        if (page == 0) {
-            up.hidden = true;
-        } else {
-            up.hidden = false;
-        }
-        if (page * 5 + 5 >= Config.STAGES.length - 1) {
-            down.hidden = true;
-        } else {
-            down.hidden = false;
-        }
     }
 
     private function loadList():Void {
         btnArr = [];
         for (i in 0...5) {
-            var btn = new UIButton(0, title.getScreenPosition().y + 170 + 45 * i, "Level " + (page * 5 + i + 1), () -> {
+            var btn = new UIButton(0, title.getScreenPosition().y + 170 + 45 * i, "Level " + (i + 1), () -> {
                 onSelect(i);
             });
             btn.screenCenter(FlxAxes.X);
-            add(btn);
+            btn.disabled = i > lastStageUnlocked;
+            btn.hidden = i >= Config.STAGES.length - 1;
             btnArr.push(btn);
+            add(btn);
         }
+    }
+
+    private function onUp():Void {
+        this.page -= 1;
+        for (i in 0...5) {
+            var level = page * 5 + i;
+            btnArr[i].text = "Level " + (level + 1);
+            btnArr[i].disabled = level > lastStageUnlocked;
+            btnArr[i].hidden = level >= Config.STAGES.length - 1;
+        }
+        up.hidden = page == 0;
+        down.hidden = page * 5 + 5 >= Config.STAGES.length - 1;
+    }
+
+    private function onDown():Void {
+        this.page += 1;
+        for (i in 0...5) {
+            var level = page * 5 + i;
+            btnArr[i].text = "Level " + (level + 1);
+            btnArr[i].disabled = level > lastStageUnlocked;
+            btnArr[i].hidden = level >= Config.STAGES.length - 1;
+        }
+        up.hidden = page == 0;
+        down.hidden = page * 5 + 5 >= Config.STAGES.length - 1;
     }
 
     private function onSelect(i:Int):Void {
         var selected = page * 5 + i;
-
-        // move to the selected stage
-        trace("select stage " + selected);
+        if (selected <= lastStageUnlocked && selected < Config.STAGES.length - 1) {
+            // move to the selected stage
+            FlxG.switchState(new PlayState(selected));
+        }
+        trace("PANIC: select stage over bound");
     }
 
     private function loadBack():Void {

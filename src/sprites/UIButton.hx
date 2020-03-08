@@ -19,17 +19,10 @@ class UIButton extends FlxSpriteGroup {
 	public var mousePos:FlxPoint;
     public var onClick:() -> Void;
     public var refCam:FlxCamera;
-    public var disabled:Bool;
+    public var disabled(default, set):Bool;
 
     public function new(x:Float, y:Float, text:String, ?onClick:() -> Void, disabled:Bool = false, ?referenceCamera:FlxCamera) {
         super();
-        this.hidden = false;
-        this.pressed = false;
-        this.text = text;
-        this.onClick = onClick != null ? onClick : () -> {};
-        this.disabled = disabled;
-        refCam = referenceCamera;
-		mousePos = FlxPoint.get();
 
         background = new FlxSprite(x, y);
         background.loadGraphic(AssetPaths.uibutton__png, true, 200, 40);
@@ -53,7 +46,15 @@ class UIButton extends FlxSpriteGroup {
         disabledOverlay.makeGraphic(200, 40, FlxColor.GRAY);
 		disabledOverlay.anchorTo(background, 0, 0, 0, 0);
         disabledOverlay.alpha = 0;
+        
+        this.hidden = false;
+        this.text = text;
+        this.disabled = disabled;
+        this.pressed = false;
+        this.onClick = onClick != null ? onClick : () -> {};
+        refCam = referenceCamera;
 
+		mousePos = FlxPoint.get();
         add(background);
         add(label);
         add(hoveredOverlay);
@@ -62,14 +63,11 @@ class UIButton extends FlxSpriteGroup {
 
     override public function update(dt:Float):Void {
         super.update(dt);
-        if (disabled) {
-            disabledOverlay.alpha = 0.3;
-        } else {
-            disabledOverlay.alpha = 0;
-        }
         // Click & Hover handling
         if (!hidden && !disabled) {
             FlxG.mouse.getScreenPosition(refCam, mousePos);
+            trace(mousePos);
+            trace(background.x + " " + background.y);
 
             if (background.overlapsPoint(mousePos)) {
                 hoveredOverlay.alpha = 0.3;
@@ -111,6 +109,16 @@ class UIButton extends FlxSpriteGroup {
             this.disabledOverlay.alpha = 0.3;
         }
         this.hidden = val;
+        return val;
+    }
+
+    public function set_disabled(val:Bool):Bool {
+        if (!hidden && val) {
+            disabledOverlay.alpha = 0.6;
+        } else {
+            disabledOverlay.alpha = 0;
+        }
+        disabled = val;
         return val;
     }
 

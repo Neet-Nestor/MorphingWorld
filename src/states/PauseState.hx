@@ -96,8 +96,6 @@ class PauseState extends FlxSubState {
     }
 
     private function onOptions():Void {
-        var option = new OptionPauseState();
-        // option.loadCamera();
-        openSubState(option);
+        openSubState(new OptionPauseState());
     }
 }

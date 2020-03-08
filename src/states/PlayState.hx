@@ -89,11 +89,7 @@ class PlayState extends LycanState {
     // Hints
     public var editHintShown:Bool;
     public var removeHintShown:Bool;
-
-    // For scripts
-	public var parser:Parser;
-	public var interp:Interp;
-
+    
     // Managers
 	public var timers:FlxTimerManager;
     public var tweens:FlxTweenManager;
@@ -106,9 +102,10 @@ class PlayState extends LycanState {
 
 	public static var instance(default, null):PlayState;
 
-    public function new() {
+    public function new(?initStage:Int) {
         super();
         instance = this;
+        curStage = initStage == null ? 0: initStage;
     }
 
     /**
@@ -124,7 +121,6 @@ class PlayState extends LycanState {
         removeHintShown = #if FLX_NO_DEBUG false #else true #end;
         worldEditingDisabled = #if FLX_NO_DEBUG true #else false #end;
         hintList = new List<Hint>();
-        curStage = Main.user.getLastStage();
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
         // In case it was set before by fault
         Phys.FORCE_TIMESTEP = null;
@@ -132,10 +128,9 @@ class PlayState extends LycanState {
         super.create();
         initPhysics();
         initManagers();
-        initScripts();
         WorldCollection.init();
         initUniverse();
-        toNextStage();
+        reloadStage();
         initCamera();
         add(player);
     }
@@ -187,23 +182,7 @@ class PlayState extends LycanState {
         add(tweens);
         add(puffEmitter);
     }
-
-    private function initScripts():Void {
-        // Scripting Setup
-		parser = new Parser();
-		interp = new Interp();
-		var scriptGlobals:Dynamic = {};
-		interp.variables.set("Global", scriptGlobals);
-		interp.variables.set("game", this);
-		interp.variables.set("Math", Math);
-		interp.variables.set("FlxTween", tweens);
-		interp.variables.set("FlxEase", FlxEase);
-		interp.variables.set("BodyType", BodyType);
-		interp.variables.set("ObjectTargetInfluencer", ObjectTargetInfluencer);
-		interp.variables.set("Phys", Phys);
-		interp.variables.set("wait", function(delay:Float, cb:Void -> Void) new FlxTimer(timers).start(delay, (_) -> cb()));
-    }
-
+    
     private function initUniverse():Void {
         universe = new Universe();
         reloadPlayerPosition = true;
@@ -399,7 +378,7 @@ class PlayState extends LycanState {
         } else if (curStage == 1) {
             showHint("[W/UP/SPACE to jump]", () -> FlxG.keys.anyJustPressed([FlxKey.UP, FlxKey.W, FlxKey.SPACE]));
         } else if (curStage == 3) {
-            showHint("[S/Down to drop through board]", () -> {
+            showHint("[S/Down to drop through boards]", () -> {
                 var initSlot = universe.getSlot(0, 0);
                 return initSlot == null || initSlot.world == null || !initSlot.world.bodyOverlaps(player.physics.body);
             });

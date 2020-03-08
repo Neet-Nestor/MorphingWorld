@@ -110,16 +110,6 @@ class WorldLoader {
 				tl.scrollFactor.set(scrollFactor, scrollFactor);
 			}
 		});
-
-		// TODO duplicated, implement for objects and objects at same time
-		layerLoadedHandlers.add(function(tiledLayer, layer) {
-			layer.worldLayer.world.onLoadingComplete.addOnce(() -> {
-				if (tiledLayer.properties.contains("onLoad")) {
-					var expr = PlayState.instance.parser.parseString(tiledLayer.properties.get("onLoad"));
-					PlayState.instance.interp.execute(expr);
-				}
-			});
-		});
 	}
 
 	public function setupObjectHandlers():Void {
@@ -165,16 +155,6 @@ class WorldLoader {
 				});
 			});
 		};
-
-		var runobjectscript = function(obj:Dynamic, expr:Expr, world:TiledWorld) {
-			PlayState.instance.interp.variables.set("obj", obj);
-			PlayState.instance.interp.variables.set("world", world);
-			PlayState.instance.interp.variables.set("object", function(id) {
-				return world.objects.get(id);
-			});
-			PlayState.instance.interp.execute(expr);
-			PlayState.instance.interp.variables.remove("obj");
-		}
 
 		loadObject("player", (obj, layer, map) -> {
 			var player:Player = null;
@@ -390,13 +370,6 @@ class WorldLoader {
 				weld(weldTarget, weldee);
 			}
 		});
-
-		lateLoad((obj, layer, map) -> {
-			if (obj.properties.contains("onLoad")) {
-				runobjectscript(map.get(obj.name), PlayState.instance.parser.parseString(obj.properties.get("onLoad")), layer.worldLayer.world);
-			}
-		});
-
 	}
 
 	public function getGraphicFromTile(obj:TiledObject):FlxGraphicAsset {
