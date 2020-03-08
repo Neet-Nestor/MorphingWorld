@@ -31,7 +31,7 @@ class Spike extends DamagerSprite {
 		
 		this.loadGraphic(AssetPaths.spike__png);
 		this.setCenter(x, y); // This must be after loading Graphic
-		physics.createBodyFromBitmap(pixels, 0x08, BodyType.STATIC);
+		physics.createBodyFromBitmap(pixels, 0x08, BodyType.KINEMATIC);
 		for (shape in physics.body.shapes) {
 			shape.filter = SPIKE_FILTER;
 		}
