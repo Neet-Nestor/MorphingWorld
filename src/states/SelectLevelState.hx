@@ -77,7 +77,7 @@ class SelectLevelState extends LycanState {
                 onSelect(i);
             });
             btn.screenCenter(FlxAxes.X);
-            btn.disabled = i >= Main.user.getLastStage();
+            btn.disabled = i > Main.user.getLastStage();
             btn.hidden = i >= Config.STAGES.length - 1;
             btnArr.push(btn);
             add(btn);
