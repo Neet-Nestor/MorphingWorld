@@ -1,0 +1,1701 @@
+[{"user":"17aa4072-90bb-426e-b586-e53e9a77e9d0","start":1582532191.517,"stage0":{"time":70.5460000038147,"death":0,"reset":0},"stage1":{"time":30.70900011062622,"death":0,"reset":0},"stage2":{"time":112.27300000190735,"death":0,"reset":0},"stage3":{"time":246.48599982261658,"death":1,"reset":0},"stage4":{"time":95.5860002040863,"death":0,"reset":0},"stage5":{"time":486.0920000076294,"death":8,"reset":0},"stage6":{"time":25.340999841690063,"death":0,"reset":0},"stage7":{"time":69.36199998855591,"death":0,"reset":0},"stage8":{"time":268.74699997901917,"death":0,"reset":0},"stage9":{"time":942.9769999980927,"death":6,"reset":0},"stage10":{"time":1727.4079999923706,"death":11,"reset":0},"stage11":{"time":4.30400013923645,"death":0,"reset":0}},{"user":"48194dfb-125d-4af1-ab13-a2c860f4fb67","start":1582534249.59695,"stage0":{"time":3.5493998527526855,"death":0,"reset":0},"exit":"1582534255.40329"},{"user":"b832a9a3-7745-4b5b-95cd-69dc025c94c1","start":1582535017.15257,"stage0":{"time":4.1160500049591064,"death":0,"reset":0},"stage1":{"time":25.09559988975525,"death":0,"reset":0},"stage2":{"time":43.54451012611389,"death":0,"reset":0},"stage3":{"time":37.94353008270264,"death":1,"reset":0},"exit":"1582535173.81252"},{"user":"30ba4b72-5842-4cf8-8966-1617322e713d","start":1582536288.0012,"stage0":{"time":24.288439989089966,"death":0,"reset":0},"stage1":{"time":52.9925000667572,"death":0,"reset":0},"stage2":{"time":30.4201500415802,"death":0,"reset":0},"stage3":{"time":49.85973000526428,"death":1,"reset":0},"stage4":{"time":83.77823996543884,"death":0,"reset":0},"stage5":{"time":301.924329996109,"death":6,"reset":0},"stage6":{"time":17.105109930038452,"death":0,"reset":0},"stage7":{"time":112.75795006752014,"death":3,"reset":0},"stage8":{"time":77.8430700302124,"death":0,"reset":0},"stage9":{"time":140.2609100341797,"death":1,"reset":0},"exit":"1582537378.03042"},{"user":"48194dfb-125d-4af1-ab13-a2c860f4fb67","start":1582539030.93776,"stage0":{"time":5.4499499797821045,"death":0,"reset":0},"stage1":{"time":10.738339900970459,"death":0,"reset":0},"stage2":{"time":10.130559921264648,"death":0,"reset":0},"stage3":{"time":20.203150033950806,"death":0,"reset":0},"stage4":{"time":15.175009965896606,"death":0,"reset":0},"stage5":{"time":57.16437005996704,"death":1,"reset":0},"stage6":{"time":11.715759992599487,"death":0,"reset":0},"stage7":{"time":46.70726013183594,"death":0,"reset":0},"stage8":{"time":19.965839862823486,"death":0,"reset":0},"stage9":{"time":62.659300088882446,"death":0,"reset":0}},{"user":"b6bf1607-3f22-4d14-9ce0-f5797a0715d6","start":1582539099.036,"stage0":{"time":13.810999870300293,"death":0,"reset":0},"stage1":{"time":26.705000162124634,"death":0,"reset":0},"stage2":{"time":75.53900003433228,"death":0,"reset":0},"stage3":{"time":46.04900002479553,"death":1,"reset":0},"stage4":{"time":35.103999853134155,"death":0,"reset":0},"exit":"1582539435.599"},{"user":"6987d5b4-5596-4989-a0fb-6efc588d8e30","start":1582540940.09536,"exit":"1582540942.26877"},{"user":"702d9d91-e17d-463b-a944-4d1070140683","start":1582541185.586,"exit":"1582541188.536"},{"user":"95f0c6bf-c157-435c-b6b9-a606b3ea828a","start":1582543732.009,"exit":"1582543733.988"},{"user":"86cee82f-e1ab-4062-807d-26d05494e8f1","start":1582544688.788,"stage0":{"time":19.47699999809265,"death":0,"reset":0},"exit":"1582544771.204"},{"user":"86cee82f-e1ab-4062-807d-26d05494e8f1","start":1582544774.884,"exit":"1582544787.225"},{"user":"86cee82f-e1ab-4062-807d-26d05494e8f1","start":1582544790.507,"stage0":{"time":7.361999988555908,"death":0,"reset":0},"stage1":{"time":49.473000049591064,"death":0,"reset":0},"stage2":{"time":53.27999997138977,"death":0,"reset":0},"exit":"1582544957.654"},{"user":"1dda1268-6344-4c72-8914-2a81b18a297c","start":1582545737.565,"stage0":{"time":199.65100002288818,"death":0,"reset":0},"stage1":{"time":15.678999900817871,"death":0,"reset":0},"stage2":{"time":30.486000061035156,"death":0,"reset":0},"stage3":{"time":46.86400008201599,"death":0,"reset":0},"stage4":{"time":41.63499999046326,"death":1,"reset":0},"stage5":{"time":242.50699996948242,"death":2,"reset":0},"stage6":{"time":29.966000080108643,"death":0,"reset":0},"stage7":{"time":93,"death":4,"reset":0},"stage8":{"time":47.64800000190735,"death":0,"reset":0},"stage9":{"time":253.4229998588562,"death":4,"reset":0},"stage10":{"time":665.4420001506805,"death":1,"reset":0},"stage11":{"time":6.944000005722046,"death":0,"reset":0},"exit":"1582547658.966"},{"user":"a1f16aca-8736-4adf-a186-f1a1da9d60c9","start":1582589185.598,"exit":"1582589216.676"},{"user":"d1e73bc1-3903-4350-8cab-fb79e34d3975","start":1582589811.796,"stage0":{"time":14.652999877929688,"death":0,"reset":0},"stage1":{"time":27.263000011444092,"death":0,"reset":0},"stage2":{"time":24.11300015449524,"death":0,"reset":0},"stage3":{"time":29.3439998626709,"death":0,"reset":0},"stage4":{"time":55.08899998664856,"death":2,"reset":0},"stage5":{"time":432.4470000267029,"death":11,"reset":0},"stage6":{"time":17.808000087738037,"death":0,"reset":0},"stage7":{"time":141.02500009536743,"death":5,"reset":0},"stage8":{"time":795.5979998111725,"death":0,"reset":0},"stage9":{"time":166.16100001335144,"death":1,"reset":0},"stage10":{"time":268.7039999961853,"death":2,"reset":0},"stage11":{"time":55.23200011253357,"death":0,"reset":0},"exit":"1582591856.819"},{"user":"c9b1d4a5-997b-426c-9505-cc7cbc984d38","start":1582590090.04657,"stage0":{"time":90.47002005577087,"death":0,"reset":0},"stage1":{"time":30.924139976501465,"death":0,"reset":0},"stage2":{"time":82.5980498790741,"death":0,"reset":0}},{"start":1582590436.02447,"user":"c9b1d4a5-997b-426c-9505-cc7cbc984d38","stage0":{"time":19.378609895706177,"death":0,"reset":0},"stage1":{"time":29.662630081176758,"death":0,"reset":0},"stage2":{"time":285.96018981933594,"death":0,"reset":0},"stage3":{"time":67.10017013549805,"death":1,"reset":0},"stage4":{"time":174.03315997123718,"death":1,"reset":0},"stage5":{"time":514.541209936142,"death":6,"reset":0},"stage6":{"time":21.626160144805908,"death":0,"reset":0},"stage7":{"time":937.801609992981,"death":14,"reset":0},"stage8":{"time":489.7568099498749,"death":0,"reset":0},"stage9":{"time":1030.613830089569,"death":6,"reset":0},"stage10":{"time":4281.795479774475,"death":4,"reset":0},"stage11":{"time":3.671220064163208,"death":0,"reset":0},"exit":"1582598409.59864"},{"user":"ada61c52-dc2b-452f-a7f9-9eeee0e24727","start":1582590858.376,"stage0":{"time":213.87299990653992,"death":6,"reset":0},"stage1":{"time":24.848000049591064,"death":0,"reset":0},"stage2":{"time":21.822999954223633,"death":0,"reset":0},"stage3":{"time":38.09599995613098,"death":0,"reset":0},"stage4":{"time":81.77699995040894,"death":2,"reset":0},"stage5":{"time":265.13499999046326,"death":2,"reset":0},"stage6":{"time":15.281000137329102,"death":0,"reset":0},"stage7":{"time":47.90400004386902,"death":0,"reset":0},"stage8":{"time":317.3420000076294,"death":0,"reset":0},"exit":"1582591905.597"},{"user":"38a75cf0-89c6-4a1a-b710-517f3dfc7d57","start":1582591223.13343,"stage0":{"time":5.20674991607666,"death":0,"reset":0},"stage1":{"time":29.30235004425049,"death":0,"reset":0},"stage2":{"time":21.636709928512573,"death":0,"reset":0},"stage3":{"time":55.91247010231018,"death":1,"reset":0},"exit":"1582591358.65972"},{"user":"0b6c1920-9afa-452d-8bcb-5ab77a432add","start":1582592061.82514,"stage0":{"time":5.417730093002319,"death":0,"reset":0},"stage1":{"time":28.170429944992065,"death":0,"reset":0},"stage2":{"time":38.840790033340454,"death":0,"reset":0},"stage3":{"time":33.93921995162964,"death":1,"reset":0},"stage4":{"time":27.177989959716797,"death":0,"reset":0},"stage5":{"time":96.48707008361816,"death":0,"reset":0},"stage6":{"time":16.44561004638672,"death":0,"reset":0},"stage7":{"time":45.344630002975464,"death":0,"reset":0},"stage8":{"time":116.21434998512268,"death":0,"reset":0}},{"user":"d1e73bc1-3903-4350-8cab-fb79e34d3975","start":1582592074.759,"stage0":{"time":3.950000047683716,"death":0,"reset":0},"exit":"1582592082.59"},{"user":"702d9d91-e17d-463b-a944-4d1070140683","start":1582592235.995},{"user":"59c2c2ad-81ef-4940-9903-3e8721a6bf9e","start":1582592294.984,"stage0":{"time":7.2220001220703125,"death":0,"reset":0},"stage1":{"time":22.32099986076355,"death":0,"reset":0},"stage2":{"time":26.39900016784668,"death":0,"reset":0},"stage3":{"time":43.88799977302551,"death":0,"reset":0},"stage4":{"time":63.0550000667572,"death":1,"reset":0},"stage5":{"time":203.4079999923706,"death":2,"reset":0},"stage6":{"time":21.53600001335144,"death":1,"reset":0},"stage7":{"time":341.36100006103516,"death":2,"reset":0},"stage8":{"time":204.87999987602234,"death":0,"reset":0},"exit":"1582593237.369"},{"start":1582592584.72378,"user":"0b6c1920-9afa-452d-8bcb-5ab77a432add","stage0":{"time":51.00756001472473,"death":2,"reset":0},"stage1":{"time":11.199020147323608,"death":0,"reset":0},"stage2":{"time":8.335690021514893,"death":0,"reset":0},"stage3":{"time":22.559639930725098,"death":0,"reset":0},"stage4":{"time":24.261339902877808,"death":0,"reset":0},"stage5":{"time":159.44491004943848,"death":1,"reset":0},"stage6":{"time":14.095760107040405,"death":0,"reset":0},"stage7":{"time":204.78322982788086,"death":3,"reset":0},"stage8":{"time":18.643750190734863,"death":0,"reset":0},"stage9":{"time":171.98820996284485,"death":0,"reset":0},"stage10":{"time":628.7912700176239,"death":3,"reset":0},"stage11":{"time":30.279289960861206,"death":0,"reset":0},"exit":"1582594047.34059"},{"user":"a1f16aca-8736-4adf-a186-f1a1da9d60c9","start":1582593048.871,"stage0":{"time":5.680999994277954,"death":0,"reset":0},"exit":"1582593076.06"},{"user":"47e54d06-c6e6-4ee9-b608-cca88262aad3","start":1582593115.52569,"stage0":{"time":7.471239805221558,"death":0,"reset":0},"exit":"1582593132.60074"},{"user":"5e32844b-50a7-44c4-a9ce-ade82705e977","start":1582593652.787,"exit":"1582593654.26"},{"user":"5e32844b-50a7-44c4-a9ce-ade82705e977","start":1582593753.763},{"start":1582593979.47,"user":"5e32844b-50a7-44c4-a9ce-ade82705e977","exit":"1582594003.093"},{"user":"86cee82f-e1ab-4062-807d-26d05494e8f1","start":1582594070.941},{"start":1582594072.592,"user":"86cee82f-e1ab-4062-807d-26d05494e8f1","exit":"1582594080.541"},{"user":"86cee82f-e1ab-4062-807d-26d05494e8f1","stage0":{"time":5.811000108718872,"death":0,"reset":0},"stage1":{"time":28.799000024795532,"death":0,"reset":0},"start":1582594183.281,"stage2":{"time":21.233999967575073,"death":0,"reset":0}},{"start":1582595764.776,"user":"86cee82f-e1ab-4062-807d-26d05494e8f1","stage0":{"time":7.122999906539917,"death":0,"reset":0},"stage1":{"time":22.52900004386902,"death":0,"reset":0},"stage2":{"time":14.078999996185303,"death":0,"reset":0},"stage3":{"time":101.48699998855591,"death":1,"reset":0},"exit":"1582595998.726"},{"user":"82792e33-ca0f-42c4-8899-f090679ecae6","start":1582598743.35083,"stage0":{"time":73.352059841156,"death":0,"reset":0},"stage1":{"time":41.248990058898926,"death":0,"reset":0},"stage2":{"time":15.302870035171509,"death":0,"reset":0},"stage3":{"time":63.95216989517212,"death":2,"reset":0},"exit":"1582598991.74121"},{"user":"99444e65-62c0-4f3d-8a42-bd3383eed9b0","start":1582610145.30376,"stage0":{"time":39.6208598613739,"death":0,"reset":0},"stage1":{"time":32.81597018241882,"death":0,"reset":0},"stage2":{"time":39.631749868392944,"death":0,"reset":0},"stage3":{"time":61.87297010421753,"death":1,"reset":0},"stage4":{"time":37.587990045547485,"death":0,"reset":0}},{"start":1582610449.94111,"user":"99444e65-62c0-4f3d-8a42-bd3383eed9b0","stage0":{"time":7.1711602210998535,"death":1,"reset":0},"stage1":{"time":16.950849771499634,"death":0,"reset":0},"stage2":{"time":6.253690004348755,"death":0,"reset":0}},{"user":"a3968438-53bf-478d-a8d0-768eb64afeaa","start":1582610455.2129,"stage0":{"time":22.651710033416748,"death":0,"reset":0},"stage1":{"time":13.690410137176514,"death":0,"reset":0},"stage2":{"time":7.545289993286133,"death":0,"reset":0},"stage3":{"time":25.464879989624023,"death":0,"reset":0},"stage4":{"time":22.6008198261261,"death":0,"reset":0},"stage5":{"time":66.66920018196106,"death":1,"reset":0},"stage6":{"time":14.398139953613281,"death":0,"reset":0},"stage7":{"time":42.56659007072449,"death":0,"reset":0},"stage8":{"time":83.23355984687805,"death":0,"reset":0},"stage9":{"time":151.07122015953064,"death":3,"reset":0},"stage10":{"time":360.8534998893738,"death":2,"reset":0},"stage11":{"time":22.8024001121521,"death":0,"reset":0},"exit":"1582611292.66633"},{"user":"3d90ad00-1cb1-4d87-b9ae-0bf7e2287b86","start":1582610477.12463,"stage0":{"time":4.07256007194519,"death":0,"reset":0},"stage1":{"time":32.7524299621582,"death":0,"reset":0},"stage2":{"time":25.103149890899658,"death":0,"reset":0},"stage3":{"time":50.411360025405884,"death":0,"reset":0},"stage4":{"time":77.18159008026123,"death":5,"reset":0},"stage5":{"time":141.37045001983643,"death":2,"reset":0},"stage6":{"time":75.76440000534058,"death":5,"reset":0},"stage7":{"time":214.02752995491028,"death":12,"reset":0},"stage8":{"time":225.7748200893402,"death":0,"reset":0},"exit":"1582611642.98034"},{"user":"86cee82f-e1ab-4062-807d-26d05494e8f1","start":1582611469.419,"stage0":{"time":5.425000190734863,"death":2,"reset":0},"stage1":{"time":24.705999851226807,"death":0,"reset":0},"stage2":{"time":14.733999967575073,"death":0,"reset":0},"stage3":{"time":60.59400010108948,"death":1,"reset":0},"exit":"1582611688.65"},{"user":"2d03bf9c-56cd-4dfc-a524-4f55e120f280","start":1582612770.182,"stage0":{"time":4.047000169754028,"death":0,"reset":0},"stage1":{"time":10.352999925613403,"death":0,"reset":0},"stage2":{"time":5.568000078201294,"death":0,"reset":0},"stage3":{"time":26.42899990081787,"death":0,"reset":0},"stage4":{"time":55.937999963760376,"death":2,"reset":0},"stage5":{"time":108.625,"death":4,"reset":0},"stage6":{"time":24.11300015449524,"death":0,"reset":1},"stage7":{"time":42.686999797821045,"death":0,"reset":0},"stage8":{"time":124.79800009727478,"death":0,"reset":0},"stage9":{"time":396.26399993896484,"death":4,"reset":3},"stage10":{"time":748.125,"death":2,"reset":1},"stage11":{"time":11.631999969482422,"death":0,"reset":0}},{"start":1582614418.547,"user":"2d03bf9c-56cd-4dfc-a524-4f55e120f280","stage0":{"time":10.644000053405762,"death":0,"reset":0},"stage1":{"time":11.023000001907349,"death":0,"reset":0},"stage2":{"time":4.115000009536743,"death":0,"reset":0}},{"start":1582614453.762,"user":"2d03bf9c-56cd-4dfc-a524-4f55e120f280","stage0":{"time":5.349999904632568,"death":0,"reset":0},"stage1":{"time":13.420000076293945,"death":0,"reset":0},"stage2":{"time":10.704999923706055,"death":0,"reset":0}},{"start":1582614553.893,"user":"2d03bf9c-56cd-4dfc-a524-4f55e120f280","stage0":{"time":13.750999927520752,"death":0,"reset":0},"stage1":{"time":9.233000040054321,"death":0,"reset":0},"stage2":{"time":4.079999923706055,"death":0,"reset":0},"stage3":{"time":20.848000049591064,"death":0,"reset":0},"stage4":{"time":15.0239999294281,"death":0,"reset":0},"stage5":{"time":70.5440001487732,"death":1,"reset":0},"stage6":{"time":10.431999921798706,"death":0,"reset":0},"stage7":{"time":24.161999940872192,"death":0,"reset":0},"stage8":{"time":13.181999921798706,"death":0,"reset":0},"stage9":{"time":52.25800013542175,"death":0,"reset":0},"stage10":{"time":44.0460000038147,"death":0,"reset":0},"stage11":{"time":2.4179999828338623,"death":0,"reset":0}},{"start":1582615635.205,"user":"2d03bf9c-56cd-4dfc-a524-4f55e120f280","stage0":{"time":112.59899997711182,"death":0,"reset":0},"stage1":{"time":8.543999910354614,"death":0,"reset":0},"stage2":{"time":3.7290000915527344,"death":0,"reset":0},"stage3":{"time":17.663000106811523,"death":0,"reset":0},"stage4":{"time":12.832000017166138,"death":0,"reset":0},"stage5":{"time":33.28099989891052,"death":1,"reset":0},"stage6":{"time":9.071000099182129,"death":0,"reset":0},"stage7":{"time":24.143999814987183,"death":1,"reset":0},"stage8":{"time":16.67200016975403,"death":0,"reset":0},"stage9":{"time":48.430999994277954,"death":0,"reset":0},"stage10":{"time":31.76099991798401,"death":0,"reset":0},"stage11":{"time":2.510999917984009,"death":0,"reset":0},"exit":"1582617785.733"},{"start":1582616869.27344,"user":"99444e65-62c0-4f3d-8a42-bd3383eed9b0","stage0":{"time":11.207500219345093,"death":0,"reset":0},"stage1":{"time":24.877489805221558,"death":0,"reset":0},"stage2":{"time":15.173290014266968,"death":0,"reset":0},"stage3":{"time":33.36521005630493,"death":0,"reset":0},"stage4":{"time":51.93634009361267,"death":0,"reset":0},"stage5":{"time":272.9148898124695,"death":1,"reset":0},"stage6":{"time":20.685240030288696,"death":0,"reset":0},"stage7":{"time":90.96105003356934,"death":6,"reset":0},"stage8":{"time":264.51405000686646,"death":0,"reset":0},"exit":"1582618150.97529"},{"user":"2d03bf9c-56cd-4dfc-a524-4f55e120f280","start":1582617825.178,"stage0":{"time":14.498999834060669,"death":0,"reset":0},"stage1":{"time":8.432000160217285,"death":0,"reset":0},"stage2":{"time":3.6480000019073486,"death":0,"reset":0},"stage3":{"time":18.031999826431274,"death":0,"reset":0},"stage4":{"time":11.458000183105469,"death":0,"reset":0},"stage5":{"time":37.549999952316284,"death":1,"reset":0},"stage6":{"time":8.723000049591064,"death":0,"reset":0},"stage7":{"time":21.26099991798401,"death":2,"reset":0},"stage8":{"time":14.832000017166138,"death":0,"reset":0},"stage9":{"time":55.776000022888184,"death":0,"reset":0},"stage10":{"time":20.2739999294281,"death":0,"reset":0},"stage11":{"time":2.4160001277923584,"death":0,"reset":0}},{"user":"0ba4cc5d-bb86-41ee-a948-2e7908543657","start":1582620334.608,"stage0":{"time":9.609999895095825,"death":0,"reset":0},"stage1":{"time":24.368000030517578,"death":0,"reset":0},"stage2":{"time":13.745000123977661,"death":0,"reset":0}},{"user":"d53b5d84-a3a6-4e3d-9079-99d2f0c6431f","start":1582620362.52079,"stage0":{"time":94.48600006103516,"death":3,"reset":0},"stage1":{"time":27.58126997947693,"death":0,"reset":0},"stage2":{"time":7.687350034713745,"death":0,"reset":0},"stage3":{"time":42.976109981536865,"death":0,"reset":0}},{"user":"790506ed-9e29-498b-a0f3-d526971cc3a8","start":1582622763.181,"stage0":{"time":34.69700002670288,"death":0,"reset":0},"stage1":{"time":53.45199990272522,"death":0,"reset":0},"stage2":{"time":44.25500011444092,"death":0,"reset":0},"stage3":{"time":60.55399990081787,"death":1,"reset":0},"stage4":{"time":47.88000011444092,"death":0,"reset":0},"stage5":{"time":2562.4110000133514,"death":0,"reset":0},"stage6":{"time":52.978999853134155,"death":0,"reset":1},"exit":"1582625698.913"},{"user":"6987d5b4-5596-4989-a0fb-6efc588d8e30","start":1582658905.63975,"exit":"1582658920.95549"},{"user":"a70211ee-a45f-4737-9049-2f13f37d9dd4","start":1582666403.08399,"stage0":{"time":3.198349952697754,"death":0,"reset":0},"stage1":{"time":11.95605993270874,"death":0,"reset":0},"stage2":{"time":5.2434399127960205,"death":0,"reset":0},"stage3":{"time":20.381810188293457,"death":0,"reset":0},"stage4":{"time":15.748369932174683,"death":0,"reset":0},"stage5":{"time":64.68633008003235,"death":2,"reset":0},"stage6":{"time":11.693229913711548,"death":0,"reset":0},"exit":"1582666636.68105"},{"start":1582669832.58261,"user":"d53b5d84-a3a6-4e3d-9079-99d2f0c6431f","stage0":{"time":4.199770212173462,"death":0,"reset":0},"stage1":{"time":18.87805986404419,"death":0,"reset":0},"stage2":{"time":6.657480001449585,"death":0,"reset":0}},{"user":"1f5e3302-2a7c-47ff-95fe-760f51fb98f1","start":1582690237.858,"stage0":{"time":16.75499987602234,"death":0,"reset":0},"stage1":{"time":32.307000160217285,"death":0,"reset":0},"stage2":{"time":13.855000019073486,"death":0,"reset":0}},{"start":1582694786.77422,"user":"d53b5d84-a3a6-4e3d-9079-99d2f0c6431f","stage0":{"time":5.2784600257873535,"death":0,"reset":0},"stage1":{"time":18.734839916229248,"death":0,"reset":0},"stage2":{"time":5.869070053100586,"death":0,"reset":0}},{"user":"473941e2-d3bb-4ac5-8f3f-ff6d9de292f5","start":1582745586.03237,"stage0":{"time":36.76116991043091,"death":0,"reset":0},"stage1":{"time":65.14837002754211,"death":0,"reset":0},"stage2":{"time":198.1125500202179,"death":0,"reset":0},"stage3":{"time":130.65489983558655,"death":1,"reset":0},"exit":"1582757408.34043"},{"user":"22958c05-dbfe-47df-bd9e-3fb896cd6feb","start":1582775373.36293,"stage0":{"time":15.904439926147461,"death":0,"reset":0},"stage1":{"time":22.476210117340088,"death":0,"reset":0},"stage2":{"time":39.01885986328125,"death":0,"reset":0},"stage3":{"time":29.70886993408203,"death":0,"reset":0},"stage4":{"time":36.461310148239136,"death":0,"reset":0},"stage5":{"time":78.8487298488617,"death":0,"reset":0},"stage6":{"time":35.674570083618164,"death":1,"reset":0},"stage7":{"time":49.61686992645264,"death":0,"reset":0},"stage8":{"time":236.45107007026672,"death":0,"reset":0},"stage9":{"time":165.75161004066467,"death":1,"reset":0},"stage10":{"time":1396.0540099143982,"death":3,"reset":0},"stage11":{"time":9.411580085754395,"death":0,"reset":0},"exit":"1582777492.83847"},{"user":"cca31c6d-d393-4db0-a30a-1c736de679c2","start":1582777535.48677,"stage0":{"time":11.81164002418518,"death":0,"reset":0},"stage1":{"time":21.36675000190735,"death":0,"reset":0},"stage2":{"time":24.50264000892639,"death":0,"reset":0},"stage3":{"time":32.49263000488281,"death":0,"reset":0},"stage4":{"time":64.94202995300293,"death":0,"reset":0},"stage5":{"time":357.96898007392883,"death":5,"reset":0},"stage6":{"time":23.475059986114502,"death":0,"reset":0},"stage7":{"time":73.91581010818481,"death":1,"reset":0},"stage8":{"time":244.78079986572266,"death":0,"reset":0},"stage9":{"time":223.8730001449585,"death":1,"reset":0},"stage10":{"time":547.6231398582458,"death":6,"reset":0},"stage11":{"time":6.733330011367798,"death":0,"reset":0},"exit":"1582779175.98575"},{"user":"22958c05-dbfe-47df-bd9e-3fb896cd6feb","start":1582777667.24647,"stage0":{"time":5.248029947280884,"death":0,"reset":0},"stage1":{"time":24.879209995269775,"death":0,"reset":0},"stage2":{"time":7.202110052108765,"death":0,"reset":0},"exit":"1582777725.57458"},{"user":"fd074fd6-3654-4dcf-b93a-d8c9ef3a69ec","start":1582778091.0916,"stage0":{"time":4.314800024032593,"death":0,"reset":0},"stage1":{"time":12.639050006866455,"death":0,"reset":0},"stage2":{"time":10.429009914398193,"death":0,"reset":0},"stage3":{"time":60.18140006065369,"death":1,"reset":0}},{"start":1582778210.71741,"user":"fd074fd6-3654-4dcf-b93a-d8c9ef3a69ec","exit":"1582778220.56851"},{"user":"df0b0fe9-83a5-4ab1-9778-25cd71614911","start":1582778251.48445,"stage0":{"time":16.40235996246338,"death":0,"reset":0},"stage1":{"time":17.50068998336792,"death":0,"reset":0},"stage2":{"time":8.918109893798828,"death":0,"reset":0},"stage3":{"time":51.58667016029358,"death":0,"reset":0},"stage4":{"time":81.28032994270325,"death":2,"reset":0},"exit":"1582778581.18804"},{"user":"a62d7cd0-faf6-4f69-b3d2-943ebd88e898","start":1582778605.85475,"exit":"1582778633.39387"},{"user":"220bc03e-a613-4ab5-b751-bde296012dde","start":1582778643.23622,"exit":"1582778646.85998"},{"user":"220bc03e-a613-4ab5-b751-bde296012dde","start":1582778651.05365,"stage0":{"time":4.20265007019043,"death":0,"reset":0},"stage1":{"time":11.229190111160278,"death":0,"reset":0},"stage2":{"time":5.574309825897217,"death":0,"reset":0},"stage3":{"time":22.262230157852173,"death":0,"reset":0},"stage4":{"time":52.919270038604736,"death":2,"reset":0},"stage5":{"time":99.99213981628418,"death":3,"reset":0},"stage6":{"time":72.47018003463745,"death":1,"reset":0},"stage7":{"time":77.70903015136719,"death":0,"reset":0},"stage8":{"time":59.86166977882385,"death":0,"reset":0},"stage9":{"time":135.46527004241943,"death":3,"reset":0},"stage10":{"time":162.49167013168335,"death":0,"reset":0},"stage11":{"time":3.4926698207855225,"death":0,"reset":0},"exit":"1582779780.63959"},{"user":"e7f1e57d-31af-40cd-b9fe-afb9bb08fa06","start":1582779785.58372,"stage0":{"time":3.734990119934082,"death":0,"reset":0},"stage1":{"time":19.99714994430542,"death":0,"reset":0},"exit":"1582779827.1131"},{"user":"30309b47-95fc-480d-b579-423cdffc165f","start":1582779834.43508,"stage0":{"time":4.34633994102478,"death":0,"reset":0},"stage1":{"time":12.132960081100464,"death":0,"reset":0},"stage2":{"time":6.586230039596558,"death":0,"reset":0},"stage3":{"time":23.110599994659424,"death":0,"reset":0},"exit":"1582779907.98953"},{"user":"902a65fa-f477-4f76-8449-a68abd370665","start":1582779977.83741,"stage0":{"time":3.1136200428009033,"death":0,"reset":0},"stage1":{"time":32.40815997123718,"death":0,"reset":0},"stage2":{"time":14.220920085906982,"death":0,"reset":0},"stage3":{"time":33.0409300327301,"death":0,"reset":0},"exit":"1582780095.12653"},{"user":"49ecfb4e-7e6d-4ea8-af63-df8f22be1351","start":1582780106.78794,"stage0":{"time":3.7855498790740967,"death":0,"reset":0},"stage1":{"time":10.609330177307129,"death":0,"reset":0},"stage2":{"time":5.151170015335083,"death":0,"reset":0},"stage3":{"time":23.35588002204895,"death":0,"reset":0},"stage4":{"time":37.96818995475769,"death":5,"reset":0},"stage5":{"time":140.61254000663757,"death":2,"reset":0},"stage6":{"time":11.560319900512695,"death":0,"reset":0},"stage7":{"time":74.46829009056091,"death":3,"reset":0},"stage8":{"time":54.807679891586304,"death":0,"reset":0},"stage9":{"time":129.59943008422852,"death":3,"reset":0},"stage10":{"time":144.85612988471985,"death":4,"reset":0},"stage11":{"time":2.8112800121307373,"death":0,"reset":0},"exit":"1582780751.95712"},{"user":"46d21c9f-485c-4c8d-b672-bba124bfd60e","start":1582780115.29538,"stage0":{"time":4.539129972457886,"death":0,"reset":0},"stage1":{"time":26.578199863433838,"death":0,"reset":0},"stage2":{"time":24.26190996170044,"death":0,"reset":0},"stage3":{"time":165.6361701488495,"death":1,"reset":0},"stage4":{"time":73.9875500202179,"death":0,"reset":0},"stage5":{"time":176.55296993255615,"death":1,"reset":0},"stage6":{"time":18.276390075683594,"death":0,"reset":0},"stage7":{"time":45.53369998931885,"death":0,"reset":0},"stage8":{"time":329.13741993904114,"death":0,"reset":0},"stage9":{"time":284.5036299228668,"death":2,"reset":0},"stage10":{"time":1654.6970300674438,"death":6,"reset":0},"stage11":{"time":4.676019906997681,"death":0,"reset":0}},{"user":"bd0d31ed-2f2a-49f2-9cc6-a8a731deced1","start":1582781342.41783,"stage0":{"time":5.717710018157959,"death":0,"reset":0},"stage1":{"time":17.76454997062683,"death":0,"reset":0},"stage2":{"time":40.483010053634644,"death":0,"reset":0},"stage3":{"time":30.9309298992157,"death":0,"reset":0},"stage4":{"time":55.30406999588013,"death":2,"reset":0},"exit":"1582781591.6878"},{"user":"4789c081-a628-4c78-8dbc-22b40860fc45","start":1582781360.23948,"stage0":{"time":2.949090003967285,"death":0,"reset":0},"stage1":{"time":11.727799892425537,"death":0,"reset":0},"exit":"1582781420.46918"},{"user":"4789c081-a628-4c78-8dbc-22b40860fc45","start":1582781423.85932,"stage0":{"time":5.108479976654053,"death":0,"reset":0},"stage1":{"time":12.272030115127563,"death":0,"reset":0},"exit":"1582781461.67494"},{"user":"2ebb3286-3534-4488-b6ea-30c956fa8643","start":1582781499.09299,"stage0":{"time":2.8559200763702393,"death":0,"reset":0},"stage1":{"time":26.73041009902954,"death":0,"reset":0},"stage2":{"time":8.127339839935303,"death":0,"reset":0},"stage3":{"time":23.47695016860962,"death":0,"reset":0}},{"user":"071743eb-b370-4419-89e4-f5816535495e","start":1582781599.25299,"stage0":{"time":270.78100991249084,"death":0,"reset":0},"stage1":{"time":15.022449970245361,"death":0,"reset":0},"stage2":{"time":41.40480017662048,"death":0,"reset":0},"stage3":{"time":27.253429889678955,"death":0,"reset":0},"exit":"1582782026.17178"},{"start":1582781599.79314,"user":"2ebb3286-3534-4488-b6ea-30c956fa8643","exit":"1582781601.63977"},{"user":"aeef7634-91c7-400b-8328-dca5ec0cc7ea","start":1582782034.43196,"exit":"1582782050.06309"},{"user":"15b28835-f879-4cbe-924f-c849fcdb590b","start":1582782056.83987,"stage0":{"time":16.1070499420166,"death":0,"reset":0},"stage1":{"time":22.450780153274536,"death":0,"reset":0},"stage2":{"time":16.350630044937134,"death":0,"reset":0},"stage3":{"time":26.28573989868164,"death":0,"reset":0},"stage4":{"time":45.471920013427734,"death":1,"reset":0},"exit":"1582782291.13184"},{"user":"48656599-9721-48cc-92ed-79842a190924","start":1582782182.22859,"stage0":{"time":3.9651899337768555,"death":0,"reset":0},"exit":"1582782195.72737"},{"user":"a5451dfb-a14b-4988-8e14-23a4fa3e0549","start":1582782202.22574,"stage0":{"time":2.591050148010254,"death":0,"reset":0},"stage1":{"time":10.312729835510254,"death":0,"reset":0},"stage2":{"time":5.5789899826049805,"death":0,"reset":0},"stage3":{"time":31.935960054397583,"death":0,"reset":0},"stage4":{"time":33.34523010253906,"death":2,"reset":0},"stage5":{"time":65.06089997291565,"death":1,"reset":0},"exit":"1582782361.39376"},{"user":"d09e2e65-85e4-46b2-956a-bd388d8c5672","start":1582782311.52805,"stage0":{"time":14.863460063934326,"death":0,"reset":0},"stage1":{"time":50.860780000686646,"death":0,"reset":0},"stage2":{"time":8.776210069656372,"death":0,"reset":0},"stage3":{"time":31.870450019836426,"death":0,"reset":0},"stage4":{"time":29.681859970092773,"death":0,"reset":0},"exit":"1582782515.01411"},{"user":"a648691a-908f-40fa-b5aa-ef2b84b92e8e","start":1582782380.16362,"stage0":{"time":2.586319923400879,"death":0,"reset":0},"stage1":{"time":10.274940013885498,"death":0,"reset":0},"stage2":{"time":10.88057017326355,"death":0,"reset":0},"stage3":{"time":34.47617983818054,"death":0,"reset":0},"stage4":{"time":18.21650004386902,"death":0,"reset":0},"stage5":{"time":42.942569971084595,"death":0,"reset":0},"stage6":{"time":12.24491000175476,"death":0,"reset":0},"stage7":{"time":36.3018000125885,"death":0,"reset":0},"stage8":{"time":65.13435006141663,"death":0,"reset":0},"exit":"1582782696.85048"},{"user":"2550cd0c-bc0d-476b-85ac-be842b9c425f","start":1582787019.023,"stage0":{"time":5.641000032424927,"death":0,"reset":0},"stage1":{"time":16.368000030517578,"death":0,"reset":0},"stage2":{"time":8.383999824523926,"death":0,"reset":0},"stage3":{"time":65.53600001335144,"death":0,"reset":0},"exit":"1582787139.852"},{"start":1582860251.80589,"user":"46d21c9f-485c-4c8d-b672-bba124bfd60e","stage0":{"time":10.002959966659546,"death":0,"reset":0},"stage1":{"time":23.070070028305054,"death":0,"reset":0},"stage2":{"time":17.616739988327026,"death":0,"reset":0},"stage3":{"time":37.092180013656616,"death":0,"reset":0},"exit":"1582860386.81599"},{"user":"edc53237-cd74-46fb-9edb-0adb90b497e4","start":1582871477.305,"stage0":{"time":93.63299989700317,"death":0,"reset":0},"stage1":{"time":24.350000143051147,"death":0,"reset":0},"stage2":{"time":112.20099997520447,"death":0,"reset":0}},{"start":1582871911.553,"user":"edc53237-cd74-46fb-9edb-0adb90b497e4","stage0":{"time":4.569999933242798,"death":0,"reset":0},"stage1":{"time":11.389000177383423,"death":0,"reset":0},"stage2":{"time":7.3459999561309814,"death":0,"reset":0}},{"user":"1f06549f-60ca-4f2f-8129-0de0de5ecb10","start":1582872425.093,"stage0":{"time":33.519999980926514,"death":0,"reset":0},"stage1":{"time":10.527000188827515,"death":0,"reset":0},"stage2":{"time":12.890999794006348,"death":0,"reset":0},"exit":"1582872507.796"},{"user":"bd2063ff-a274-4244-8fe3-eafdf8a5ba5b","start":1582873297.42025,"stage0":{"time":5.154590129852295,"death":0,"reset":0},"stage1":{"time":12.241750001907349,"death":0,"reset":0},"stage2":{"time":6.807909965515137,"death":0,"reset":0}},{"user":"50d0f0e2-15d9-4dd1-9bdb-1d9cb457fa90","start":1582879300.354,"exit":"1582879314.487"},{"user":"50d0f0e2-15d9-4dd1-9bdb-1d9cb457fa90","start":1582879316.543,"stage0":{"time":26.513000011444092,"death":0,"reset":0},"stage1":{"time":39.24799990653992,"death":0,"reset":0},"stage2":{"time":41.26400017738342,"death":0,"reset":0},"stage3":{"time":107.82200002670288,"death":3,"reset":0},"stage4":{"time":152.9599997997284,"death":3,"reset":0}},{"start":1582879977.525,"user":"50d0f0e2-15d9-4dd1-9bdb-1d9cb457fa90","stage0":{"time":6.506999969482422,"death":6,"reset":0},"stage1":{"time":10.253999948501587,"death":0,"reset":0},"stage2":{"time":4.290999889373779,"death":0,"reset":0},"stage3":{"time":19.10199999809265,"death":0,"reset":0},"stage4":{"time":14.495000123977661,"death":0,"reset":0},"stage5":{"time":144.91299986839294,"death":5,"reset":0},"stage6":{"time":60.19200015068054,"death":2,"reset":0},"stage7":{"time":158.19000005722046,"death":4,"reset":0},"stage8":{"time":229.52199983596802,"death":0,"reset":0},"stage9":{"time":375.5199999809265,"death":4,"reset":0},"stage10":{"time":1002.7039999961853,"death":1,"reset":0},"stage11":{"time":10.351999998092651,"death":0,"reset":0},"exit":"1582882119.828"},{"user":"8202bd19-0407-4223-a47c-9a0c27677202","start":1582938454.366,"exit":"1582938456.226"},{"user":"86cee82f-e1ab-4062-807d-26d05494e8f1","start":1583201502.332,"stage0":{"time":15.039000034332275,"death":1,"reset":0},"stage1":{"time":24.384999990463257,"death":0,"reset":0},"stage2":{"time":13.407999992370605,"death":0,"reset":0},"stage3":{"time":57.43899989128113,"death":1,"reset":0},"stage4":{"time":133.61600017547607,"death":4,"reset":0},"exit":"1583201876.213"},{"user":"30ba4b72-5842-4cf8-8966-1617322e713d","start":1583317071.18731,"stage0":{"time":5.040960073471069,"death":1,"reset":0},"exit":"1583317080.03615"},{"user":"347c8201-3cb2-4aab-8bc6-665c313294a6","start":1583570971.88705,"exit":"1583571119.48364"}]
+
+
+
+
+
+Play 0: 
+	User: 17aa4072-90bb-426e-b586-e53e9a77e9d0
+	Started: Mon Feb 24 2020 00:16:31 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 71
+		Death: 0
+	Stage 1
+		Time: 31
+		Death: 0
+	Stage 2
+		Time: 112
+		Death: 0
+	Stage 3
+		Time: 246
+		Death: 1
+	Stage 4
+		Time: 96
+		Death: 0
+	Stage 5
+		Time: 486
+		Death: 8
+	Stage 6
+		Time: 25
+		Death: 0
+	Stage 7
+		Time: 69
+		Death: 0
+	Stage 8
+		Time: 269
+		Death: 0
+	Stage 9
+		Time: 943
+		Death: 6
+	Stage 10
+		Time: 1727
+		Death: 11
+	Stage 11
+		Time: 4
+		Death: 0
+Play 1: 
+	User: 48194dfb-125d-4af1-ab13-a2c860f4fb67
+	Started: Mon Feb 24 2020 00:50:49 GMT-0800 (Pacific Standard Time)
+	Play duration : 6
+	Stage 0
+		Time: 4
+		Death: 0
+Play 2: 
+	User: b832a9a3-7745-4b5b-95cd-69dc025c94c1
+	Started: Mon Feb 24 2020 01:03:37 GMT-0800 (Pacific Standard Time)
+	Play duration : 157
+	Stage 0
+		Time: 4
+		Death: 0
+	Stage 1
+		Time: 25
+		Death: 0
+	Stage 2
+		Time: 44
+		Death: 0
+	Stage 3
+		Time: 38
+		Death: 1
+Play 3: 
+	User: 30ba4b72-5842-4cf8-8966-1617322e713d
+	Started: Mon Feb 24 2020 01:24:48 GMT-0800 (Pacific Standard Time)
+	Play duration : 1090
+	Stage 0
+		Time: 24
+		Death: 0
+	Stage 1
+		Time: 53
+		Death: 0
+	Stage 2
+		Time: 30
+		Death: 0
+	Stage 3
+		Time: 50
+		Death: 1
+	Stage 4
+		Time: 84
+		Death: 0
+	Stage 5
+		Time: 302
+		Death: 6
+	Stage 6
+		Time: 17
+		Death: 0
+	Stage 7
+		Time: 113
+		Death: 3
+	Stage 8
+		Time: 78
+		Death: 0
+	Stage 9
+		Time: 140
+		Death: 1
+Play 4: 
+	User: 48194dfb-125d-4af1-ab13-a2c860f4fb67
+	Started: Mon Feb 24 2020 02:10:30 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 11
+		Death: 0
+	Stage 2
+		Time: 10
+		Death: 0
+	Stage 3
+		Time: 20
+		Death: 0
+	Stage 4
+		Time: 15
+		Death: 0
+	Stage 5
+		Time: 57
+		Death: 1
+	Stage 6
+		Time: 12
+		Death: 0
+	Stage 7
+		Time: 47
+		Death: 0
+	Stage 8
+		Time: 20
+		Death: 0
+	Stage 9
+		Time: 63
+		Death: 0
+Play 5: 
+	User: b6bf1607-3f22-4d14-9ce0-f5797a0715d6
+	Started: Mon Feb 24 2020 02:11:39 GMT-0800 (Pacific Standard Time)
+	Play duration : 337
+	Stage 0
+		Time: 14
+		Death: 0
+	Stage 1
+		Time: 27
+		Death: 0
+	Stage 2
+		Time: 76
+		Death: 0
+	Stage 3
+		Time: 46
+		Death: 1
+	Stage 4
+		Time: 35
+		Death: 0
+Play 6: 
+	User: 6987d5b4-5596-4989-a0fb-6efc588d8e30
+	Started: Mon Feb 24 2020 02:42:20 GMT-0800 (Pacific Standard Time)
+	Play duration : 2
+Play 7: 
+	User: 702d9d91-e17d-463b-a944-4d1070140683
+	Started: Mon Feb 24 2020 02:46:25 GMT-0800 (Pacific Standard Time)
+	Play duration : 3
+Play 8: 
+	User: 95f0c6bf-c157-435c-b6b9-a606b3ea828a
+	Started: Mon Feb 24 2020 03:28:52 GMT-0800 (Pacific Standard Time)
+	Play duration : 2
+Play 9: 
+	User: 86cee82f-e1ab-4062-807d-26d05494e8f1
+	Started: Mon Feb 24 2020 03:44:48 GMT-0800 (Pacific Standard Time)
+	Play duration : 82
+	Stage 0
+		Time: 19
+		Death: 0
+Play 10: 
+	User: 86cee82f-e1ab-4062-807d-26d05494e8f1
+	Started: Mon Feb 24 2020 03:46:14 GMT-0800 (Pacific Standard Time)
+	Play duration : 12
+Play 11: 
+	User: 86cee82f-e1ab-4062-807d-26d05494e8f1
+	Started: Mon Feb 24 2020 03:46:30 GMT-0800 (Pacific Standard Time)
+	Play duration : 167
+	Stage 0
+		Time: 7
+		Death: 0
+	Stage 1
+		Time: 49
+		Death: 0
+	Stage 2
+		Time: 53
+		Death: 0
+Play 12: 
+	User: 1dda1268-6344-4c72-8914-2a81b18a297c
+	Started: Mon Feb 24 2020 04:02:17 GMT-0800 (Pacific Standard Time)
+	Play duration : 1921
+	Stage 0
+		Time: 200
+		Death: 0
+	Stage 1
+		Time: 16
+		Death: 0
+	Stage 2
+		Time: 30
+		Death: 0
+	Stage 3
+		Time: 47
+		Death: 0
+	Stage 4
+		Time: 42
+		Death: 1
+	Stage 5
+		Time: 243
+		Death: 2
+	Stage 6
+		Time: 30
+		Death: 0
+	Stage 7
+		Time: 93
+		Death: 4
+	Stage 8
+		Time: 48
+		Death: 0
+	Stage 9
+		Time: 253
+		Death: 4
+	Stage 10
+		Time: 665
+		Death: 1
+	Stage 11
+		Time: 7
+		Death: 0
+Play 13: 
+	User: a1f16aca-8736-4adf-a186-f1a1da9d60c9
+	Started: Mon Feb 24 2020 16:06:25 GMT-0800 (Pacific Standard Time)
+	Play duration : 31
+Play 14: 
+	User: d1e73bc1-3903-4350-8cab-fb79e34d3975
+	Started: Mon Feb 24 2020 16:16:51 GMT-0800 (Pacific Standard Time)
+	Play duration : 2045
+	Stage 0
+		Time: 15
+		Death: 0
+	Stage 1
+		Time: 27
+		Death: 0
+	Stage 2
+		Time: 24
+		Death: 0
+	Stage 3
+		Time: 29
+		Death: 0
+	Stage 4
+		Time: 55
+		Death: 2
+	Stage 5
+		Time: 432
+		Death: 11
+	Stage 6
+		Time: 18
+		Death: 0
+	Stage 7
+		Time: 141
+		Death: 5
+	Stage 8
+		Time: 796
+		Death: 0
+	Stage 9
+		Time: 166
+		Death: 1
+	Stage 10
+		Time: 269
+		Death: 2
+	Stage 11
+		Time: 55
+		Death: 0
+Play 15: 
+	User: c9b1d4a5-997b-426c-9505-cc7cbc984d38
+	Started: Mon Feb 24 2020 16:21:30 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 90
+		Death: 0
+	Stage 1
+		Time: 31
+		Death: 0
+	Stage 2
+		Time: 83
+		Death: 0
+Play 16: 
+	User: c9b1d4a5-997b-426c-9505-cc7cbc984d38
+	Started: Mon Feb 24 2020 16:27:16 GMT-0800 (Pacific Standard Time)
+	Play duration : 7974
+	Stage 0
+		Time: 19
+		Death: 0
+	Stage 1
+		Time: 30
+		Death: 0
+	Stage 2
+		Time: 286
+		Death: 0
+	Stage 3
+		Time: 67
+		Death: 1
+	Stage 4
+		Time: 174
+		Death: 1
+	Stage 5
+		Time: 515
+		Death: 6
+	Stage 6
+		Time: 22
+		Death: 0
+	Stage 7
+		Time: 938
+		Death: 14
+	Stage 8
+		Time: 490
+		Death: 0
+	Stage 9
+		Time: 1031
+		Death: 6
+	Stage 10
+		Time: 4282
+		Death: 4
+	Stage 11
+		Time: 4
+		Death: 0
+Play 17: 
+	User: ada61c52-dc2b-452f-a7f9-9eeee0e24727
+	Started: Mon Feb 24 2020 16:34:18 GMT-0800 (Pacific Standard Time)
+	Play duration : 1047
+	Stage 0
+		Time: 214
+		Death: 6
+	Stage 1
+		Time: 25
+		Death: 0
+	Stage 2
+		Time: 22
+		Death: 0
+	Stage 3
+		Time: 38
+		Death: 0
+	Stage 4
+		Time: 82
+		Death: 2
+	Stage 5
+		Time: 265
+		Death: 2
+	Stage 6
+		Time: 15
+		Death: 0
+	Stage 7
+		Time: 48
+		Death: 0
+	Stage 8
+		Time: 317
+		Death: 0
+Play 18: 
+	User: 38a75cf0-89c6-4a1a-b710-517f3dfc7d57
+	Started: Mon Feb 24 2020 16:40:23 GMT-0800 (Pacific Standard Time)
+	Play duration : 136
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 29
+		Death: 0
+	Stage 2
+		Time: 22
+		Death: 0
+	Stage 3
+		Time: 56
+		Death: 1
+Play 19: 
+	User: 0b6c1920-9afa-452d-8bcb-5ab77a432add
+	Started: Mon Feb 24 2020 16:54:21 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 28
+		Death: 0
+	Stage 2
+		Time: 39
+		Death: 0
+	Stage 3
+		Time: 34
+		Death: 1
+	Stage 4
+		Time: 27
+		Death: 0
+	Stage 5
+		Time: 96
+		Death: 0
+	Stage 6
+		Time: 16
+		Death: 0
+	Stage 7
+		Time: 45
+		Death: 0
+	Stage 8
+		Time: 116
+		Death: 0
+Play 20: 
+	User: d1e73bc1-3903-4350-8cab-fb79e34d3975
+	Started: Mon Feb 24 2020 16:54:34 GMT-0800 (Pacific Standard Time)
+	Play duration : 8
+	Stage 0
+		Time: 4
+		Death: 0
+Play 21: 
+	User: 702d9d91-e17d-463b-a944-4d1070140683
+	Started: Mon Feb 24 2020 16:57:15 GMT-0800 (Pacific Standard Time)
+Play 22: 
+	User: 59c2c2ad-81ef-4940-9903-3e8721a6bf9e
+	Started: Mon Feb 24 2020 16:58:14 GMT-0800 (Pacific Standard Time)
+	Play duration : 942
+	Stage 0
+		Time: 7
+		Death: 0
+	Stage 1
+		Time: 22
+		Death: 0
+	Stage 2
+		Time: 26
+		Death: 0
+	Stage 3
+		Time: 44
+		Death: 0
+	Stage 4
+		Time: 63
+		Death: 1
+	Stage 5
+		Time: 203
+		Death: 2
+	Stage 6
+		Time: 22
+		Death: 1
+	Stage 7
+		Time: 341
+		Death: 2
+	Stage 8
+		Time: 205
+		Death: 0
+Play 23: 
+	User: 0b6c1920-9afa-452d-8bcb-5ab77a432add
+	Started: Mon Feb 24 2020 17:03:04 GMT-0800 (Pacific Standard Time)
+	Play duration : 1463
+	Stage 0
+		Time: 51
+		Death: 2
+	Stage 1
+		Time: 11
+		Death: 0
+	Stage 2
+		Time: 8
+		Death: 0
+	Stage 3
+		Time: 23
+		Death: 0
+	Stage 4
+		Time: 24
+		Death: 0
+	Stage 5
+		Time: 159
+		Death: 1
+	Stage 6
+		Time: 14
+		Death: 0
+	Stage 7
+		Time: 205
+		Death: 3
+	Stage 8
+		Time: 19
+		Death: 0
+	Stage 9
+		Time: 172
+		Death: 0
+	Stage 10
+		Time: 629
+		Death: 3
+	Stage 11
+		Time: 30
+		Death: 0
+Play 24: 
+	User: a1f16aca-8736-4adf-a186-f1a1da9d60c9
+	Started: Mon Feb 24 2020 17:10:48 GMT-0800 (Pacific Standard Time)
+	Play duration : 27
+	Stage 0
+		Time: 6
+		Death: 0
+Play 25: 
+	User: 47e54d06-c6e6-4ee9-b608-cca88262aad3
+	Started: Mon Feb 24 2020 17:11:55 GMT-0800 (Pacific Standard Time)
+	Play duration : 17
+	Stage 0
+		Time: 7
+		Death: 0
+Play 26: 
+	User: 5e32844b-50a7-44c4-a9ce-ade82705e977
+	Started: Mon Feb 24 2020 17:20:52 GMT-0800 (Pacific Standard Time)
+	Play duration : 1
+Play 27: 
+	User: 5e32844b-50a7-44c4-a9ce-ade82705e977
+	Started: Mon Feb 24 2020 17:22:33 GMT-0800 (Pacific Standard Time)
+Play 28: 
+	User: 5e32844b-50a7-44c4-a9ce-ade82705e977
+	Started: Mon Feb 24 2020 17:26:19 GMT-0800 (Pacific Standard Time)
+	Play duration : 24
+Play 29: 
+	User: 86cee82f-e1ab-4062-807d-26d05494e8f1
+	Started: Mon Feb 24 2020 17:27:50 GMT-0800 (Pacific Standard Time)
+Play 30: 
+	User: 86cee82f-e1ab-4062-807d-26d05494e8f1
+	Started: Mon Feb 24 2020 17:27:52 GMT-0800 (Pacific Standard Time)
+	Play duration : 8
+Play 31: 
+	User: 86cee82f-e1ab-4062-807d-26d05494e8f1
+	Started: Mon Feb 24 2020 17:29:43 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 6
+		Death: 0
+	Stage 1
+		Time: 29
+		Death: 0
+	Stage 2
+		Time: 21
+		Death: 0
+Play 32: 
+	User: 86cee82f-e1ab-4062-807d-26d05494e8f1
+	Started: Mon Feb 24 2020 17:56:04 GMT-0800 (Pacific Standard Time)
+	Play duration : 234
+	Stage 0
+		Time: 7
+		Death: 0
+	Stage 1
+		Time: 23
+		Death: 0
+	Stage 2
+		Time: 14
+		Death: 0
+	Stage 3
+		Time: 101
+		Death: 1
+Play 33: 
+	User: 82792e33-ca0f-42c4-8899-f090679ecae6
+	Started: Mon Feb 24 2020 18:45:43 GMT-0800 (Pacific Standard Time)
+	Play duration : 248
+	Stage 0
+		Time: 73
+		Death: 0
+	Stage 1
+		Time: 41
+		Death: 0
+	Stage 2
+		Time: 15
+		Death: 0
+	Stage 3
+		Time: 64
+		Death: 2
+Play 34: 
+	User: 99444e65-62c0-4f3d-8a42-bd3383eed9b0
+	Started: Mon Feb 24 2020 21:55:45 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 40
+		Death: 0
+	Stage 1
+		Time: 33
+		Death: 0
+	Stage 2
+		Time: 40
+		Death: 0
+	Stage 3
+		Time: 62
+		Death: 1
+	Stage 4
+		Time: 38
+		Death: 0
+Play 35: 
+	User: 99444e65-62c0-4f3d-8a42-bd3383eed9b0
+	Started: Mon Feb 24 2020 22:00:49 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 7
+		Death: 1
+	Stage 1
+		Time: 17
+		Death: 0
+	Stage 2
+		Time: 6
+		Death: 0
+Play 36: 
+	User: a3968438-53bf-478d-a8d0-768eb64afeaa
+	Started: Mon Feb 24 2020 22:00:55 GMT-0800 (Pacific Standard Time)
+	Play duration : 837
+	Stage 0
+		Time: 23
+		Death: 0
+	Stage 1
+		Time: 14
+		Death: 0
+	Stage 2
+		Time: 8
+		Death: 0
+	Stage 3
+		Time: 25
+		Death: 0
+	Stage 4
+		Time: 23
+		Death: 0
+	Stage 5
+		Time: 67
+		Death: 1
+	Stage 6
+		Time: 14
+		Death: 0
+	Stage 7
+		Time: 43
+		Death: 0
+	Stage 8
+		Time: 83
+		Death: 0
+	Stage 9
+		Time: 151
+		Death: 3
+	Stage 10
+		Time: 361
+		Death: 2
+	Stage 11
+		Time: 23
+		Death: 0
+Play 37: 
+	User: 3d90ad00-1cb1-4d87-b9ae-0bf7e2287b86
+	Started: Mon Feb 24 2020 22:01:17 GMT-0800 (Pacific Standard Time)
+	Play duration : 1166
+	Stage 0
+		Time: 4
+		Death: 0
+	Stage 1
+		Time: 33
+		Death: 0
+	Stage 2
+		Time: 25
+		Death: 0
+	Stage 3
+		Time: 50
+		Death: 0
+	Stage 4
+		Time: 77
+		Death: 5
+	Stage 5
+		Time: 141
+		Death: 2
+	Stage 6
+		Time: 76
+		Death: 5
+	Stage 7
+		Time: 214
+		Death: 12
+	Stage 8
+		Time: 226
+		Death: 0
+Play 38: 
+	User: 86cee82f-e1ab-4062-807d-26d05494e8f1
+	Started: Mon Feb 24 2020 22:17:49 GMT-0800 (Pacific Standard Time)
+	Play duration : 219
+	Stage 0
+		Time: 5
+		Death: 2
+	Stage 1
+		Time: 25
+		Death: 0
+	Stage 2
+		Time: 15
+		Death: 0
+	Stage 3
+		Time: 61
+		Death: 1
+Play 39: 
+	User: 2d03bf9c-56cd-4dfc-a524-4f55e120f280
+	Started: Mon Feb 24 2020 22:39:30 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 4
+		Death: 0
+	Stage 1
+		Time: 10
+		Death: 0
+	Stage 2
+		Time: 6
+		Death: 0
+	Stage 3
+		Time: 26
+		Death: 0
+	Stage 4
+		Time: 56
+		Death: 2
+	Stage 5
+		Time: 109
+		Death: 4
+	Stage 6
+		Time: 24
+		Death: 0
+	Stage 7
+		Time: 43
+		Death: 0
+	Stage 8
+		Time: 125
+		Death: 0
+	Stage 9
+		Time: 396
+		Death: 4
+	Stage 10
+		Time: 748
+		Death: 2
+	Stage 11
+		Time: 12
+		Death: 0
+Play 40: 
+	User: 2d03bf9c-56cd-4dfc-a524-4f55e120f280
+	Started: Mon Feb 24 2020 23:06:58 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 11
+		Death: 0
+	Stage 1
+		Time: 11
+		Death: 0
+	Stage 2
+		Time: 4
+		Death: 0
+Play 41: 
+	User: 2d03bf9c-56cd-4dfc-a524-4f55e120f280
+	Started: Mon Feb 24 2020 23:07:33 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 13
+		Death: 0
+	Stage 2
+		Time: 11
+		Death: 0
+Play 42: 
+	User: 2d03bf9c-56cd-4dfc-a524-4f55e120f280
+	Started: Mon Feb 24 2020 23:09:13 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 14
+		Death: 0
+	Stage 1
+		Time: 9
+		Death: 0
+	Stage 2
+		Time: 4
+		Death: 0
+	Stage 3
+		Time: 21
+		Death: 0
+	Stage 4
+		Time: 15
+		Death: 0
+	Stage 5
+		Time: 71
+		Death: 1
+	Stage 6
+		Time: 10
+		Death: 0
+	Stage 7
+		Time: 24
+		Death: 0
+	Stage 8
+		Time: 13
+		Death: 0
+	Stage 9
+		Time: 52
+		Death: 0
+	Stage 10
+		Time: 44
+		Death: 0
+	Stage 11
+		Time: 2
+		Death: 0
+Play 43: 
+	User: 2d03bf9c-56cd-4dfc-a524-4f55e120f280
+	Started: Mon Feb 24 2020 23:27:15 GMT-0800 (Pacific Standard Time)
+	Play duration : 2151
+	Stage 0
+		Time: 113
+		Death: 0
+	Stage 1
+		Time: 9
+		Death: 0
+	Stage 2
+		Time: 4
+		Death: 0
+	Stage 3
+		Time: 18
+		Death: 0
+	Stage 4
+		Time: 13
+		Death: 0
+	Stage 5
+		Time: 33
+		Death: 1
+	Stage 6
+		Time: 9
+		Death: 0
+	Stage 7
+		Time: 24
+		Death: 1
+	Stage 8
+		Time: 17
+		Death: 0
+	Stage 9
+		Time: 48
+		Death: 0
+	Stage 10
+		Time: 32
+		Death: 0
+	Stage 11
+		Time: 3
+		Death: 0
+Play 44: 
+	User: 99444e65-62c0-4f3d-8a42-bd3383eed9b0
+	Started: Mon Feb 24 2020 23:47:49 GMT-0800 (Pacific Standard Time)
+	Play duration : 1282
+	Stage 0
+		Time: 11
+		Death: 0
+	Stage 1
+		Time: 25
+		Death: 0
+	Stage 2
+		Time: 15
+		Death: 0
+	Stage 3
+		Time: 33
+		Death: 0
+	Stage 4
+		Time: 52
+		Death: 0
+	Stage 5
+		Time: 273
+		Death: 1
+	Stage 6
+		Time: 21
+		Death: 0
+	Stage 7
+		Time: 91
+		Death: 6
+	Stage 8
+		Time: 265
+		Death: 0
+Play 45: 
+	User: 2d03bf9c-56cd-4dfc-a524-4f55e120f280
+	Started: Tue Feb 25 2020 00:03:45 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 14
+		Death: 0
+	Stage 1
+		Time: 8
+		Death: 0
+	Stage 2
+		Time: 4
+		Death: 0
+	Stage 3
+		Time: 18
+		Death: 0
+	Stage 4
+		Time: 11
+		Death: 0
+	Stage 5
+		Time: 38
+		Death: 1
+	Stage 6
+		Time: 9
+		Death: 0
+	Stage 7
+		Time: 21
+		Death: 2
+	Stage 8
+		Time: 15
+		Death: 0
+	Stage 9
+		Time: 56
+		Death: 0
+	Stage 10
+		Time: 20
+		Death: 0
+	Stage 11
+		Time: 2
+		Death: 0
+Play 46: 
+	User: 0ba4cc5d-bb86-41ee-a948-2e7908543657
+	Started: Tue Feb 25 2020 00:45:34 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 10
+		Death: 0
+	Stage 1
+		Time: 24
+		Death: 0
+	Stage 2
+		Time: 14
+		Death: 0
+Play 47: 
+	User: d53b5d84-a3a6-4e3d-9079-99d2f0c6431f
+	Started: Tue Feb 25 2020 00:46:02 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 94
+		Death: 3
+	Stage 1
+		Time: 28
+		Death: 0
+	Stage 2
+		Time: 8
+		Death: 0
+	Stage 3
+		Time: 43
+		Death: 0
+Play 48: 
+	User: 790506ed-9e29-498b-a0f3-d526971cc3a8
+	Started: Tue Feb 25 2020 01:26:03 GMT-0800 (Pacific Standard Time)
+	Play duration : 2936
+	Stage 0
+		Time: 35
+		Death: 0
+	Stage 1
+		Time: 53
+		Death: 0
+	Stage 2
+		Time: 44
+		Death: 0
+	Stage 3
+		Time: 61
+		Death: 1
+	Stage 4
+		Time: 48
+		Death: 0
+	Stage 5
+		Time: 2562
+		Death: 0
+	Stage 6
+		Time: 53
+		Death: 0
+Play 49: 
+	User: 6987d5b4-5596-4989-a0fb-6efc588d8e30
+	Started: Tue Feb 25 2020 11:28:25 GMT-0800 (Pacific Standard Time)
+	Play duration : 15
+Play 50: 
+	User: a70211ee-a45f-4737-9049-2f13f37d9dd4
+	Started: Tue Feb 25 2020 13:33:23 GMT-0800 (Pacific Standard Time)
+	Play duration : 234
+	Stage 0
+		Time: 3
+		Death: 0
+	Stage 1
+		Time: 12
+		Death: 0
+	Stage 2
+		Time: 5
+		Death: 0
+	Stage 3
+		Time: 20
+		Death: 0
+	Stage 4
+		Time: 16
+		Death: 0
+	Stage 5
+		Time: 65
+		Death: 2
+	Stage 6
+		Time: 12
+		Death: 0
+Play 51: 
+	User: d53b5d84-a3a6-4e3d-9079-99d2f0c6431f
+	Started: Tue Feb 25 2020 14:30:32 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 4
+		Death: 0
+	Stage 1
+		Time: 19
+		Death: 0
+	Stage 2
+		Time: 7
+		Death: 0
+Play 52: 
+	User: 1f5e3302-2a7c-47ff-95fe-760f51fb98f1
+	Started: Tue Feb 25 2020 20:10:37 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 17
+		Death: 0
+	Stage 1
+		Time: 32
+		Death: 0
+	Stage 2
+		Time: 14
+		Death: 0
+Play 53: 
+	User: d53b5d84-a3a6-4e3d-9079-99d2f0c6431f
+	Started: Tue Feb 25 2020 21:26:26 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 19
+		Death: 0
+	Stage 2
+		Time: 6
+		Death: 0
+Play 54: 
+	User: 473941e2-d3bb-4ac5-8f3f-ff6d9de292f5
+	Started: Wed Feb 26 2020 11:33:06 GMT-0800 (Pacific Standard Time)
+	Play duration : 11822
+	Stage 0
+		Time: 37
+		Death: 0
+	Stage 1
+		Time: 65
+		Death: 0
+	Stage 2
+		Time: 198
+		Death: 0
+	Stage 3
+		Time: 131
+		Death: 1
+Play 55: 
+	User: 22958c05-dbfe-47df-bd9e-3fb896cd6feb
+	Started: Wed Feb 26 2020 19:49:33 GMT-0800 (Pacific Standard Time)
+	Play duration : 2119
+	Stage 0
+		Time: 16
+		Death: 0
+	Stage 1
+		Time: 22
+		Death: 0
+	Stage 2
+		Time: 39
+		Death: 0
+	Stage 3
+		Time: 30
+		Death: 0
+	Stage 4
+		Time: 36
+		Death: 0
+	Stage 5
+		Time: 79
+		Death: 0
+	Stage 6
+		Time: 36
+		Death: 1
+	Stage 7
+		Time: 50
+		Death: 0
+	Stage 8
+		Time: 236
+		Death: 0
+	Stage 9
+		Time: 166
+		Death: 1
+	Stage 10
+		Time: 1396
+		Death: 3
+	Stage 11
+		Time: 9
+		Death: 0
+Play 56: 
+	User: cca31c6d-d393-4db0-a30a-1c736de679c2
+	Started: Wed Feb 26 2020 20:25:35 GMT-0800 (Pacific Standard Time)
+	Play duration : 1640
+	Stage 0
+		Time: 12
+		Death: 0
+	Stage 1
+		Time: 21
+		Death: 0
+	Stage 2
+		Time: 25
+		Death: 0
+	Stage 3
+		Time: 32
+		Death: 0
+	Stage 4
+		Time: 65
+		Death: 0
+	Stage 5
+		Time: 358
+		Death: 5
+	Stage 6
+		Time: 23
+		Death: 0
+	Stage 7
+		Time: 74
+		Death: 1
+	Stage 8
+		Time: 245
+		Death: 0
+	Stage 9
+		Time: 224
+		Death: 1
+	Stage 10
+		Time: 548
+		Death: 6
+	Stage 11
+		Time: 7
+		Death: 0
+Play 57: 
+	User: 22958c05-dbfe-47df-bd9e-3fb896cd6feb
+	Started: Wed Feb 26 2020 20:27:47 GMT-0800 (Pacific Standard Time)
+	Play duration : 58
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 25
+		Death: 0
+	Stage 2
+		Time: 7
+		Death: 0
+Play 58: 
+	User: fd074fd6-3654-4dcf-b93a-d8c9ef3a69ec
+	Started: Wed Feb 26 2020 20:34:51 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 4
+		Death: 0
+	Stage 1
+		Time: 13
+		Death: 0
+	Stage 2
+		Time: 10
+		Death: 0
+	Stage 3
+		Time: 60
+		Death: 1
+Play 59: 
+	User: fd074fd6-3654-4dcf-b93a-d8c9ef3a69ec
+	Started: Wed Feb 26 2020 20:36:50 GMT-0800 (Pacific Standard Time)
+	Play duration : 10
+Play 60: 
+	User: df0b0fe9-83a5-4ab1-9778-25cd71614911
+	Started: Wed Feb 26 2020 20:37:31 GMT-0800 (Pacific Standard Time)
+	Play duration : 330
+	Stage 0
+		Time: 16
+		Death: 0
+	Stage 1
+		Time: 18
+		Death: 0
+	Stage 2
+		Time: 9
+		Death: 0
+	Stage 3
+		Time: 52
+		Death: 0
+	Stage 4
+		Time: 81
+		Death: 2
+Play 61: 
+	User: a62d7cd0-faf6-4f69-b3d2-943ebd88e898
+	Started: Wed Feb 26 2020 20:43:25 GMT-0800 (Pacific Standard Time)
+	Play duration : 28
+Play 62: 
+	User: 220bc03e-a613-4ab5-b751-bde296012dde
+	Started: Wed Feb 26 2020 20:44:03 GMT-0800 (Pacific Standard Time)
+	Play duration : 4
+Play 63: 
+	User: 220bc03e-a613-4ab5-b751-bde296012dde
+	Started: Wed Feb 26 2020 20:44:11 GMT-0800 (Pacific Standard Time)
+	Play duration : 1130
+	Stage 0
+		Time: 4
+		Death: 0
+	Stage 1
+		Time: 11
+		Death: 0
+	Stage 2
+		Time: 6
+		Death: 0
+	Stage 3
+		Time: 22
+		Death: 0
+	Stage 4
+		Time: 53
+		Death: 2
+	Stage 5
+		Time: 100
+		Death: 3
+	Stage 6
+		Time: 72
+		Death: 1
+	Stage 7
+		Time: 78
+		Death: 0
+	Stage 8
+		Time: 60
+		Death: 0
+	Stage 9
+		Time: 135
+		Death: 3
+	Stage 10
+		Time: 162
+		Death: 0
+	Stage 11
+		Time: 3
+		Death: 0
+Play 64: 
+	User: e7f1e57d-31af-40cd-b9fe-afb9bb08fa06
+	Started: Wed Feb 26 2020 21:03:05 GMT-0800 (Pacific Standard Time)
+	Play duration : 42
+	Stage 0
+		Time: 4
+		Death: 0
+	Stage 1
+		Time: 20
+		Death: 0
+Play 65: 
+	User: 30309b47-95fc-480d-b579-423cdffc165f
+	Started: Wed Feb 26 2020 21:03:54 GMT-0800 (Pacific Standard Time)
+	Play duration : 74
+	Stage 0
+		Time: 4
+		Death: 0
+	Stage 1
+		Time: 12
+		Death: 0
+	Stage 2
+		Time: 7
+		Death: 0
+	Stage 3
+		Time: 23
+		Death: 0
+Play 66: 
+	User: 902a65fa-f477-4f76-8449-a68abd370665
+	Started: Wed Feb 26 2020 21:06:17 GMT-0800 (Pacific Standard Time)
+	Play duration : 117
+	Stage 0
+		Time: 3
+		Death: 0
+	Stage 1
+		Time: 32
+		Death: 0
+	Stage 2
+		Time: 14
+		Death: 0
+	Stage 3
+		Time: 33
+		Death: 0
+Play 67: 
+	User: 49ecfb4e-7e6d-4ea8-af63-df8f22be1351
+	Started: Wed Feb 26 2020 21:08:26 GMT-0800 (Pacific Standard Time)
+	Play duration : 645
+	Stage 0
+		Time: 4
+		Death: 0
+	Stage 1
+		Time: 11
+		Death: 0
+	Stage 2
+		Time: 5
+		Death: 0
+	Stage 3
+		Time: 23
+		Death: 0
+	Stage 4
+		Time: 38
+		Death: 5
+	Stage 5
+		Time: 141
+		Death: 2
+	Stage 6
+		Time: 12
+		Death: 0
+	Stage 7
+		Time: 74
+		Death: 3
+	Stage 8
+		Time: 55
+		Death: 0
+	Stage 9
+		Time: 130
+		Death: 3
+	Stage 10
+		Time: 145
+		Death: 4
+	Stage 11
+		Time: 3
+		Death: 0
+Play 68: 
+	User: 46d21c9f-485c-4c8d-b672-bba124bfd60e
+	Started: Wed Feb 26 2020 21:08:35 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 27
+		Death: 0
+	Stage 2
+		Time: 24
+		Death: 0
+	Stage 3
+		Time: 166
+		Death: 1
+	Stage 4
+		Time: 74
+		Death: 0
+	Stage 5
+		Time: 177
+		Death: 1
+	Stage 6
+		Time: 18
+		Death: 0
+	Stage 7
+		Time: 46
+		Death: 0
+	Stage 8
+		Time: 329
+		Death: 0
+	Stage 9
+		Time: 285
+		Death: 2
+	Stage 10
+		Time: 1655
+		Death: 6
+	Stage 11
+		Time: 5
+		Death: 0
+Play 69: 
+	User: bd0d31ed-2f2a-49f2-9cc6-a8a731deced1
+	Started: Wed Feb 26 2020 21:29:02 GMT-0800 (Pacific Standard Time)
+	Play duration : 249
+	Stage 0
+		Time: 6
+		Death: 0
+	Stage 1
+		Time: 18
+		Death: 0
+	Stage 2
+		Time: 40
+		Death: 0
+	Stage 3
+		Time: 31
+		Death: 0
+	Stage 4
+		Time: 55
+		Death: 2
+Play 70: 
+	User: 4789c081-a628-4c78-8dbc-22b40860fc45
+	Started: Wed Feb 26 2020 21:29:20 GMT-0800 (Pacific Standard Time)
+	Play duration : 60
+	Stage 0
+		Time: 3
+		Death: 0
+	Stage 1
+		Time: 12
+		Death: 0
+Play 71: 
+	User: 4789c081-a628-4c78-8dbc-22b40860fc45
+	Started: Wed Feb 26 2020 21:30:23 GMT-0800 (Pacific Standard Time)
+	Play duration : 38
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 12
+		Death: 0
+Play 72: 
+	User: 2ebb3286-3534-4488-b6ea-30c956fa8643
+	Started: Wed Feb 26 2020 21:31:39 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 3
+		Death: 0
+	Stage 1
+		Time: 27
+		Death: 0
+	Stage 2
+		Time: 8
+		Death: 0
+	Stage 3
+		Time: 23
+		Death: 0
+Play 73: 
+	User: 071743eb-b370-4419-89e4-f5816535495e
+	Started: Wed Feb 26 2020 21:33:19 GMT-0800 (Pacific Standard Time)
+	Play duration : 427
+	Stage 0
+		Time: 271
+		Death: 0
+	Stage 1
+		Time: 15
+		Death: 0
+	Stage 2
+		Time: 41
+		Death: 0
+	Stage 3
+		Time: 27
+		Death: 0
+Play 74: 
+	User: 2ebb3286-3534-4488-b6ea-30c956fa8643
+	Started: Wed Feb 26 2020 21:33:19 GMT-0800 (Pacific Standard Time)
+	Play duration : 2
+Play 75: 
+	User: aeef7634-91c7-400b-8328-dca5ec0cc7ea
+	Started: Wed Feb 26 2020 21:40:34 GMT-0800 (Pacific Standard Time)
+	Play duration : 16
+Play 76: 
+	User: 15b28835-f879-4cbe-924f-c849fcdb590b
+	Started: Wed Feb 26 2020 21:40:56 GMT-0800 (Pacific Standard Time)
+	Play duration : 234
+	Stage 0
+		Time: 16
+		Death: 0
+	Stage 1
+		Time: 22
+		Death: 0
+	Stage 2
+		Time: 16
+		Death: 0
+	Stage 3
+		Time: 26
+		Death: 0
+	Stage 4
+		Time: 45
+		Death: 1
+Play 77: 
+	User: 48656599-9721-48cc-92ed-79842a190924
+	Started: Wed Feb 26 2020 21:43:02 GMT-0800 (Pacific Standard Time)
+	Play duration : 13
+	Stage 0
+		Time: 4
+		Death: 0
+Play 78: 
+	User: a5451dfb-a14b-4988-8e14-23a4fa3e0549
+	Started: Wed Feb 26 2020 21:43:22 GMT-0800 (Pacific Standard Time)
+	Play duration : 159
+	Stage 0
+		Time: 3
+		Death: 0
+	Stage 1
+		Time: 10
+		Death: 0
+	Stage 2
+		Time: 6
+		Death: 0
+	Stage 3
+		Time: 32
+		Death: 0
+	Stage 4
+		Time: 33
+		Death: 2
+	Stage 5
+		Time: 65
+		Death: 1
+Play 79: 
+	User: d09e2e65-85e4-46b2-956a-bd388d8c5672
+	Started: Wed Feb 26 2020 21:45:11 GMT-0800 (Pacific Standard Time)
+	Play duration : 203
+	Stage 0
+		Time: 15
+		Death: 0
+	Stage 1
+		Time: 51
+		Death: 0
+	Stage 2
+		Time: 9
+		Death: 0
+	Stage 3
+		Time: 32
+		Death: 0
+	Stage 4
+		Time: 30
+		Death: 0
+Play 80: 
+	User: a648691a-908f-40fa-b5aa-ef2b84b92e8e
+	Started: Wed Feb 26 2020 21:46:20 GMT-0800 (Pacific Standard Time)
+	Play duration : 317
+	Stage 0
+		Time: 3
+		Death: 0
+	Stage 1
+		Time: 10
+		Death: 0
+	Stage 2
+		Time: 11
+		Death: 0
+	Stage 3
+		Time: 34
+		Death: 0
+	Stage 4
+		Time: 18
+		Death: 0
+	Stage 5
+		Time: 43
+		Death: 0
+	Stage 6
+		Time: 12
+		Death: 0
+	Stage 7
+		Time: 36
+		Death: 0
+	Stage 8
+		Time: 65
+		Death: 0
+Play 81: 
+	User: 2550cd0c-bc0d-476b-85ac-be842b9c425f
+	Started: Wed Feb 26 2020 23:03:39 GMT-0800 (Pacific Standard Time)
+	Play duration : 121
+	Stage 0
+		Time: 6
+		Death: 0
+	Stage 1
+		Time: 16
+		Death: 0
+	Stage 2
+		Time: 8
+		Death: 0
+	Stage 3
+		Time: 66
+		Death: 0
+Play 82: 
+	User: 46d21c9f-485c-4c8d-b672-bba124bfd60e
+	Started: Thu Feb 27 2020 19:24:11 GMT-0800 (Pacific Standard Time)
+	Play duration : 135
+	Stage 0
+		Time: 10
+		Death: 0
+	Stage 1
+		Time: 23
+		Death: 0
+	Stage 2
+		Time: 18
+		Death: 0
+	Stage 3
+		Time: 37
+		Death: 0
+Play 83: 
+	User: edc53237-cd74-46fb-9edb-0adb90b497e4
+	Started: Thu Feb 27 2020 22:31:17 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 94
+		Death: 0
+	Stage 1
+		Time: 24
+		Death: 0
+	Stage 2
+		Time: 112
+		Death: 0
+Play 84: 
+	User: edc53237-cd74-46fb-9edb-0adb90b497e4
+	Started: Thu Feb 27 2020 22:38:31 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 11
+		Death: 0
+	Stage 2
+		Time: 7
+		Death: 0
+Play 85: 
+	User: 1f06549f-60ca-4f2f-8129-0de0de5ecb10
+	Started: Thu Feb 27 2020 22:47:05 GMT-0800 (Pacific Standard Time)
+	Play duration : 83
+	Stage 0
+		Time: 34
+		Death: 0
+	Stage 1
+		Time: 11
+		Death: 0
+	Stage 2
+		Time: 13
+		Death: 0
+Play 86: 
+	User: bd2063ff-a274-4244-8fe3-eafdf8a5ba5b
+	Started: Thu Feb 27 2020 23:01:37 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 5
+		Death: 0
+	Stage 1
+		Time: 12
+		Death: 0
+	Stage 2
+		Time: 7
+		Death: 0
+Play 87: 
+	User: 50d0f0e2-15d9-4dd1-9bdb-1d9cb457fa90
+	Started: Fri Feb 28 2020 00:41:40 GMT-0800 (Pacific Standard Time)
+	Play duration : 14
+Play 88: 
+	User: 50d0f0e2-15d9-4dd1-9bdb-1d9cb457fa90
+	Started: Fri Feb 28 2020 00:41:56 GMT-0800 (Pacific Standard Time)
+	Stage 0
+		Time: 27
+		Death: 0
+	Stage 1
+		Time: 39
+		Death: 0
+	Stage 2
+		Time: 41
+		Death: 0
+	Stage 3
+		Time: 108
+		Death: 3
+	Stage 4
+		Time: 153
+		Death: 3
+Play 89: 
+	User: 50d0f0e2-15d9-4dd1-9bdb-1d9cb457fa90
+	Started: Fri Feb 28 2020 00:52:57 GMT-0800 (Pacific Standard Time)
+	Play duration : 2142
+	Stage 0
+		Time: 7
+		Death: 6
+	Stage 1
+		Time: 10
+		Death: 0
+	Stage 2
+		Time: 4
+		Death: 0
+	Stage 3
+		Time: 19
+		Death: 0
+	Stage 4
+		Time: 14
+		Death: 0
+	Stage 5
+		Time: 145
+		Death: 5
+	Stage 6
+		Time: 60
+		Death: 2
+	Stage 7
+		Time: 158
+		Death: 4
+	Stage 8
+		Time: 230
+		Death: 0
+	Stage 9
+		Time: 376
+		Death: 4
+	Stage 10
+		Time: 1003
+		Death: 1
+	Stage 11
+		Time: 10
+		Death: 0
+Play 90: 
+	User: 8202bd19-0407-4223-a47c-9a0c27677202
+	Started: Fri Feb 28 2020 17:07:34 GMT-0800 (Pacific Standard Time)
+	Play duration : 2
+Play 91: 
+	User: 86cee82f-e1ab-4062-807d-26d05494e8f1
+	Started: Mon Mar 02 2020 18:11:42 GMT-0800 (Pacific Standard Time)
+	Play duration : 374
+	Stage 0
+		Time: 15
+		Death: 1
+	Stage 1
+		Time: 24
+		Death: 0
+	Stage 2
+		Time: 13
+		Death: 0
+	Stage 3
+		Time: 57
+		Death: 1
+	Stage 4
+		Time: 134
+		Death: 4
+Play 92: 
+	User: 30ba4b72-5842-4cf8-8966-1617322e713d
+	Started: Wed Mar 04 2020 02:17:51 GMT-0800 (Pacific Standard Time)
+	Play duration : 9
+	Stage 0
+		Time: 5
+		Death: 1
+Play 93: 
+	User: 347c8201-3cb2-4aab-8bc6-665c313294a6
+	Started: Sat Mar 07 2020 00:49:31 GMT-0800 (Pacific Standard Time)
+	Play duration : 148
+    
+Avg time:
+26
+23
+29
+49
+54
+268
+25
+126
+180
+266
+855
+Avg death:
+0.2972972972972973
+0
+0
+0.40816326530612246
+1
+2.5555555555555554
+0.38461538461538464
+2.5
+0
+2.1666666666666665
+2.8125
+Each player reach level

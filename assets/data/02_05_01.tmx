@@ -27,7 +27,7 @@
   <object id="211" name="spike" type="spike" gid="41" x="224.194" y="256.193" width="32" height="32"/>
   <object id="14" name="piece" type="piece" gid="47" x="256.103" y="416" width="32" height="32">
    <properties>
-    <property name="world" value="09_02"/>
+    <property name="world" value="02_05_02"/>
    </properties>
   </object>
   <object id="16" name="button1" type="button" x="32" y="128" width="32" height="32">

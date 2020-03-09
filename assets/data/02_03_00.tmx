@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="12">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="17">
  <tileset firstgid="1" source="Sprute.tsx"/>
  <layer id="1" name="Tile Layer 1" width="14" height="14">
   <properties>
@@ -12,26 +12,28 @@
 36,36,36,36,0,0,0,0,0,0,36,36,36,36,
 36,36,36,36,0,0,0,0,0,0,36,36,36,36,
 36,36,36,36,0,0,0,0,0,0,36,36,36,36,
-36,0,0,0,0,0,0,0,0,0,0,0,0,36,
-36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,0,0,0,0,0,0,0,0,0,0,36,0,36,
+36,0,0,0,0,0,0,0,0,0,0,36,0,36,
 36,0,0,0,0,0,0,0,0,0,0,0,0,36,
 36,0,0,0,0,0,0,0,0,0,0,0,0,36,
 36,14,14,0,0,0,0,0,0,0,14,14,14,36,
+36,36,36,0,0,0,0,0,0,0,36,36,36,36,
 36,36,36,14,0,0,0,0,0,0,36,36,36,36,
-36,36,36,36,0,0,0,0,0,0,36,36,36,36,
 36,36,36,36,0,0,0,0,0,0,36,36,36,36,
 36,36,36,36,0,0,0,0,0,0,36,36,36,36
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="10" name="piece" type="piece" gid="47" x="384" y="288" width="32" height="32">
+  <object id="8" name="player" type="player" x="70" y="264" width="16" height="24"/>
+  <object id="10" name="portal" type="portal" gid="50" x="384" y="288" width="32" height="32">
    <properties>
-    <property name="world" value="07_02"/>
+    <property name="world" value="win"/>
    </properties>
   </object>
-  <object id="11" name="button" type="button" x="32" y="256" width="32" height="32">
+  <object id="4" name="door0700" type="door" x="352" y="224" width="32" height="64"/>
+  <object id="10" name="piece" type="piece" gid="47" x="320" y="288" width="32" height="32">
    <properties>
-    <property name="target" value="door0700"/>
+    <property name="world" value="02_03_01"/>
    </properties>
   </object>
   <object id="13" name="board04" type="board" gid="38" x="287.444" y="118.482" width="32" height="32">

@@ -44,7 +44,7 @@
   <object id="400" name="door0801" type="door" x="96" y="320" width="32" height="64"/>
   <object id="14" name="piece" type="piece" gid="47" x="128" y="416" width="32" height="32">
    <properties>
-    <property name="world" value="08_02"/>
+    <property name="world" value="02_04_02"/>
    </properties>
   </object>
   <object id="15" name="portal" type="portal" x="32" y="352" width="32" height="32"/>

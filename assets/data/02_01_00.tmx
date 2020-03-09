@@ -43,7 +43,7 @@
   </object>
   <object id="10" name="piece" type="piece" gid="47" x="160" y="192" width="32" height="32">
    <properties>
-    <property name="world" value="06_01"/>
+    <property name="world" value="02_01_01"/>
    </properties>
   </object>
   <object id="11" name="spike3" type="spike" gid="41" x="96" y="384" width="32" height="32"/>
