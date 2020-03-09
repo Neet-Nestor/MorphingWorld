@@ -24,7 +24,7 @@ class User {
             trace("uuid: " + res.uuid);
         }
         #else
-        res = {uuid: _uuid, volume: 1, music: true, sound: true, playTimes: 1, lastStage: -1};
+        res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, dialogEnabled: _dialogEnabled};
         trace("sys not available, generating new uuid");
         #end
     }

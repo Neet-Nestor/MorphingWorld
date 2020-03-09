@@ -12,6 +12,7 @@ class Logger {
 
     public function logExit(lastStage: Int, times: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "dialogue" : Main.user.isDialogEnabled(),
             "type" : "EXIT",
             "lastStage" : lastStage,
             "times" : times,
@@ -23,6 +24,7 @@ class Logger {
 
     public function logStart(times: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "dialogue" : Main.user.isDialogEnabled(),
             "type" : "Start",
             "times" : times
         }};
@@ -32,6 +34,7 @@ class Logger {
 
     public function logPass(stage: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "dialogue" : Main.user.isDialogEnabled(),
             "type" : "Pass",
             "stage" : stage
         }};
@@ -42,6 +45,7 @@ class Logger {
     
     public function logReset(stage: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "dialogue" : Main.user.isDialogEnabled(),
             "type" : "Reset",
             "stage" : stage
         }};
@@ -52,6 +56,7 @@ class Logger {
     // on collect
     public function logCollect(stage:Int, gem:String):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "dialogue" : Main.user.isDialogEnabled(),
             "type" : "Collect",
             "stage" : stage,
             "gem" : gem
@@ -63,6 +68,7 @@ class Logger {
     // on win
     public function logWin():Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "dialogue" : Main.user.isDialogEnabled(),
             "type" : "Win"
         }};
         var content:String = haxe.Json.stringify(log);
@@ -72,6 +78,7 @@ class Logger {
     // on die
     public function logDie(stage:Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "dialogue" : Main.user.isDialogEnabled(),
             "type" : "Die",
             "stage" : stage
         }};
