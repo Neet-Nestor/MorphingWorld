@@ -172,10 +172,18 @@ class EditState extends FlxSubState {
 				() -> PlayState.instance.universe.slots.length > previousSlots,
 				() -> {
 					uiGroup.remove(mouseCursor);
-					PlayState.instance.worldEditingDisabled = false;
-					PlayState.instance.showHint("[Scroll Down or E again to finish]",
-						() -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel < 0,
-						() -> { PlayState.instance.player.characterController.hasControl = true; });
+					persistentUpdate = false;
+					PlayState.instance.persistentUpdate = false;
+					var dialogState = new DialogState("map_done");
+					dialogState.closeCallback = () -> {
+						persistentUpdate = true;
+						PlayState.instance.persistentUpdate = true;
+						PlayState.instance.worldEditingDisabled = false;
+						PlayState.instance.showHint("[Scroll Down or E again to finish]",
+							() -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel < 0,
+							() -> { PlayState.instance.player.characterController.hasControl = true; });
+					}
+					openSubState(dialogState);
 				});
 		}
 
@@ -183,33 +191,47 @@ class EditState extends FlxSubState {
 			PlayState.instance.removeHintShown = true;
 			// Get screen location of the path
 			// Magic: 400, 225 in uiCamera = 0, 0 in WorldCamera
+			persistentUpdate = false;
+			PlayState.instance.persistentUpdate = false;
+			PlayState.instance.player.characterController.stop();
+			PlayState.instance.player.characterController.hasControl = false;
+			PlayState.instance.player.characterController.leftPressed = false;
+			PlayState.instance.player.characterController.rightPressed = false;
+			PlayState.instance.pausePhys();
+			var dialogState = new DialogState("delete");
+				dialogState.closeCallback = () -> {
+				persistentUpdate = true;
+				PlayState.instance.persistentUpdate = true;
+				PlayState.instance.resumePhys(false);
 
-			var mouseCursor = new MouseCursor();
-			var slotToRemove = PlayState.instance.universe.getSlot(-1, 0).outline;
-			var pos = slotToRemove.getPosition();
-			pos.x = (pos.x - slotToRemove.camera.scroll.x) / slotToRemove.camera.zoom + 400;
-			pos.y = (pos.y - slotToRemove.camera.scroll.y) / slotToRemove.camera.zoom + 225;
+				var mouseCursor = new MouseCursor();
+				var slotToRemove = PlayState.instance.universe.getSlot(-1, 0).outline;
+				var pos = slotToRemove.getPosition();
+				pos.x = (pos.x - slotToRemove.camera.scroll.x) / slotToRemove.camera.zoom + 400;
+				pos.y = (pos.y - slotToRemove.camera.scroll.y) / slotToRemove.camera.zoom + 225;
 
-			// Add offsets
-			pos.x += (slotToRemove.width / 2)  / slotToRemove.camera.zoom + mouseCursor.width  / 2;
-			pos.y += (slotToRemove.height / 2) / slotToRemove.camera.zoom + mouseCursor.height / 2;
+				// Add offsets
+				pos.x += (slotToRemove.width / 2)  / slotToRemove.camera.zoom + mouseCursor.width  / 2;
+				pos.y += (slotToRemove.height / 2) / slotToRemove.camera.zoom + mouseCursor.height / 2;
 
-			mouseCursor.setPosition(pos.x, pos.y);
-			mouseCursor.alpha = 0;
-			uiGroup.add(mouseCursor);
+				mouseCursor.setPosition(pos.x, pos.y);
+				mouseCursor.alpha = 0;
+				uiGroup.add(mouseCursor);
 
-			FlxTween.tween(mouseCursor, { alpha: 1 }, 1);
+				FlxTween.tween(mouseCursor, { alpha: 1 }, 1);
 
-			// don't allow the user to exit editing mode
-			PlayState.instance.worldEditingDisabled = true;
-			var initWorld = PlayState.instance.universe.getSlot(-1, 0).world;
-			PlayState.instance.showHint("[Click to destroy world or Directly replace it]",
-				() -> PlayState.instance.universe.getSlot(-1, 0) == null || PlayState.instance.universe.getSlot(-1, 0).world != initWorld ||
-					!PlayState.instance.isWorldEditing,  // Just in case that user exit editing state for some reason
-				() -> {
-					uiGroup.remove(mouseCursor);
-					PlayState.instance.worldEditingDisabled = false;
-				});
+				// don't allow the user to exit editing mode
+				PlayState.instance.worldEditingDisabled = true;
+				var initWorld = PlayState.instance.universe.getSlot(-1, 0).world;
+				PlayState.instance.showHint("[Click to destroy world or Directly replace it]",
+					() -> PlayState.instance.universe.getSlot(-1, 0) == null || PlayState.instance.universe.getSlot(-1, 0).world != initWorld ||
+						!PlayState.instance.isWorldEditing,  // Just in case that user exit editing state for some reason
+					() -> {
+						uiGroup.remove(mouseCursor);
+						PlayState.instance.worldEditingDisabled = false;
+					});
+			}
+			openSubState(dialogState);
 		}
 		
 		add(swatchBackground);

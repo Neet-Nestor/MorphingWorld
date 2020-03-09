@@ -1,5 +1,7 @@
 package states;
 
+import flixel.FlxCamera.FlxCameraFollowStyle;
+import config.Config;
 import game.WorldDef;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -17,8 +19,8 @@ import flixel.system.FlxAssets.FlxShader;
 
 // Passing Animation State
 class BreakSplashState extends FlxSubState {
-    public var toNextStage:Bool; // if false, reload this stage instead of going to next one
-    public var skipFront:Bool;   // whether we skip the zoom in part
+    public var cb:() -> Void; // if false, reload this stage instead of going to next one
+    public var checkDialog:Bool;
 
     public var backGround:FlxSprite;
     public var alphaMask:FlxSprite;
@@ -26,10 +28,10 @@ class BreakSplashState extends FlxSubState {
     public var screenRadius:Float;
     public var maskShader:BitmapMaskShader;
 
-    public function new(pass:Bool = false, skipFront:Bool = false) {
+    public function new(?cb:() -> Void, checkDialog:Bool = false) {
         super();
-        this.toNextStage = pass;
-        this.skipFront = skipFront;
+        this.cb = cb;
+        this.checkDialog = checkDialog;
     }
     
     override public function create():Void {
@@ -53,19 +55,42 @@ class BreakSplashState extends FlxSubState {
         maskShader.maskImage.input = alphaMask.pixels.clone();
         backGround.shader = maskShader;
         
-        if (skipFront) {
-            if (toNextStage) PlayState.instance.toNextStage();
-            else PlayState.instance.reloadStage();
+        var completeHandler = (_) -> {
+            if (checkDialog) {
+                // Check whether there is stage start dialog
+                var dialogKey = null;
+                switch PlayState.instance.curStage {
+                    case 1: dialogKey = "pass";
+                    case 11: dialogKey = "push";
+                    default: dialogKey = null;
+                }
+
+                if (PlayState.instance.curStage == Config.STAGES.length - 1) dialogKey = "win";
+
+                if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {
+                    persistentUpdate = false;
+                    FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
+
+                    var dialogState = new DialogState(dialogKey);
+                    dialogState.closeCallback = () -> {
+                        persistentUpdate = true;
+                        FlxTween.tween(FlxG.camera.targetOffset, { y:Config.CAMERA_OFFSET_Y }, 0.3);
+                        close();
+                    }
+                    openSubState(dialogState);
+                } else {
+                    close();
+                }
+            } else {
+                close();
+            }
+        };
+        
+        FlxTween.tween(this, { radius: 0 }, 0.8, { ease: FlxEase.cubeIn, onComplete: (_) -> {
+            if (cb != null) cb();
             FlxTween.tween(this, { radius: screenRadius },
-                0.8, { ease: FlxEase.cubeOut, onComplete: (_) -> { close(); }});
-        } else {
-            FlxTween.tween(this, { radius: 0 }, 0.8, { ease: FlxEase.cubeIn, onComplete: (_) -> {
-                if (toNextStage) PlayState.instance.toNextStage();
-                else PlayState.instance.reloadStage();
-                FlxTween.tween(this, { radius: screenRadius },
-                    0.8, { ease: FlxEase.cubeOut, onComplete: (_) -> { close(); }});
-            }});
-        }
+                0.8, { ease: FlxEase.cubeOut, onComplete: completeHandler});
+        }});
 
         add(backGround);
     }

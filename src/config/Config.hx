@@ -64,9 +64,9 @@ class Config {
     ];
 
     
-    public static final DIALOGS:Map<Int, Array<{name:String, dialog:String, avatar:String}>> = [
+    public static final DIALOGS:Map<String, Array<{name:String, dialog:String, avatar:String}>> = [
         // start dialogs
-        0 => [
+        "start" => [
             {name: "You", dialog: "What Happened? Where am I?", avatar: AssetPaths.bob__png},
             {name: "Someone", dialog: "You are in a happy place.", avatar: AssetPaths.vlad__png},
             {name: "You", dialog: "Really? Who are you?", avatar: AssetPaths.bob__png},
@@ -83,33 +83,33 @@ class Config {
             {name: "Alice", dialog: "There there, Bob the guy. I’ll help you to get out of this world. See the door over there? Go to it!", avatar: AssetPaths.alice__png},
             {name: "You", dialog: "Sure... If it isn’t obvious enough...", avatar: AssetPaths.bob__png}
         ],
-        1 => [
+        "pass" => [
             {name: "You", dialog: "Where am I now?", avatar: AssetPaths.bob__png},
             {name: "Alice", dialog: "You are in the other side of the portal you sweet dummy! See that loot box over there? Go fetch!", avatar: AssetPaths.alice__png},
             {name: "You", dialog: "Hey!", avatar: AssetPaths.bob__png}
         ],
-        2 => [
+        "map_collected" => [
             {name: "You", dialog: "What now?", avatar: AssetPaths.bob__png},
             {name: "Alice", dialog: "This is a piece of map. The way the world looks is under your control. As long as you have the map pieces, you can build your own world with the pieces you have.", avatar: AssetPaths.alice__png},
             {name: "You", dialog: "Then how would I do that?", avatar: AssetPaths.bob__png},
             {name: "Alice", dialog: "It’s simple, you just need the kind person sitting in front of the screen to press E for you.", avatar: AssetPaths.alice__png}
         ],
-        3 => [
+        "map_done" => [
             {name: "You", dialog: "Wow! That was amazing! Thank you! Whoever kind person you are! I’ll give you something good when you get me out of this place! Now lets get going!", avatar: AssetPaths.bob__png}
         ],
-        4 => [
-            {name: "You", dialog: "Looks like there is no way out…", avatar: AssetPaths.bob__png}
+        "delete" => [
+            {name: "You", dialog: "Looks like there is no way out...", avatar: AssetPaths.bob__png}
         ],
-        5 => [
+        "push" => [
             {name: "You", dialog: "Oh its getting physical", avatar: AssetPaths.bob__png}
         ],
-        6 => [
+        "help1" => [
             {name: "You", dialog: "This one looks complicated, but you will help me right? Remember, there is something special for you when you help me get out. Thank you thank you thank you!", avatar: AssetPaths.bob__png}
         ],
-        7 => [
+        "help2" => [
             {name: "Alice", dialog: "Hang on tight! You are getting there!", avatar: AssetPaths.alice__png}
         ],
-        8 => [
+        "win" => [
             {name: "You", dialog: "Oh we are finally here! But why am I still in this nasty world?", avatar: AssetPaths.bob__png},
             {name: "Alice", dialog: "Because there is no way out in the land of the great Vladimir Adolf Nashvile Wulfstan Agyros Van de Lord. HAHAHAHAHAHA", avatar: AssetPaths.alice__png},
             {name: "You", dialog: "???", avatar: AssetPaths.bob__png},

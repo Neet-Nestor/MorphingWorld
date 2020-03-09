@@ -89,6 +89,7 @@ class PlayState extends LycanState {
     // Hints
     public var editHintShown:Bool;
     public var removeHintShown:Bool;
+    public var hintList:List<Hint>;
     
     // Managers
 	public var timers:FlxTimerManager;
@@ -96,9 +97,6 @@ class PlayState extends LycanState {
 
     // Sound
     public var _sndDie:FlxSound;
-
-    // Hint related
-    public var hintList:List<Hint>;
 
 	public static var instance(default, null):PlayState;
 
@@ -130,9 +128,32 @@ class PlayState extends LycanState {
         initManagers();
         WorldCollection.init();
         initUniverse();
-        reloadStage(true);
+        reloadStage();
         initCamera();
         add(player);
+
+        // start dialog
+        var dialogKey = null;
+        switch curStage {
+            case 0: dialogKey = "start";
+            case 1: dialogKey = "pass";
+            case 11: dialogKey = "push";
+            default: dialogKey = null;
+        }
+
+        if (curStage == Config.STAGES.length - 1) dialogKey = "win";
+
+        if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {
+            persistentUpdate = false;
+            FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
+
+            var dialogState = new DialogState(dialogKey);
+            dialogState.closeCallback = () -> {
+                persistentUpdate = true;
+                FlxTween.tween(FlxG.camera.targetOffset, { y:Config.CAMERA_OFFSET_Y }, 0.3);
+            }
+            openSubState(dialogState);
+        }
     }
 
     // Initializers
@@ -196,7 +217,8 @@ class PlayState extends LycanState {
 		cameraFocus = new CameraFocus();
 		cameraFocus.add(new ObjectTargetInfluencer(player));
 		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
-		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
+        FlxG.camera.targetOffset.y = curStage == 0 || curStage == 1 || curStage == 11 || curStage == Config.STAGES.length - 1 ? 
+            Config.CAMERA_OFFSET_Y_DIALOG : Config.CAMERA_OFFSET_Y;
 		FlxG.camera.snapToTarget();
     }
 
@@ -322,7 +344,7 @@ class PlayState extends LycanState {
             Main.logger.logReset(curStage);
         }
 
-        var passState = new BreakSplashState(pass);
+        var passState = new BreakSplashState(pass ? this.toNextStage : this.reloadStage, true);
         persistentUpdate = false;
         player.characterController.hasControl = false;
         player.characterController.leftPressed = false;
@@ -345,10 +367,15 @@ class PlayState extends LycanState {
             close();
             return;
         }
-        reloadStage(true);
+        reloadStage();
     }
 
-    public function reloadStage(showDialog:Bool = false):Void {
+    override public function destroy():Void {
+        PlayState.instance = null;
+        super.destroy();
+    }
+
+    public function reloadStage():Void {
         WorldCollection.reset();
         WorldCollection.defineWorlds(curStage);
         remove(player);
@@ -370,23 +397,7 @@ class PlayState extends LycanState {
             FlxG.camera.snapToTarget();
         }
 
-        // show dialog
-        if (showDialog) {
-            var dialogState = new DialogState();
-            player.characterController.hasControl = false;
-            player.characterController.leftPressed = false;
-            player.characterController.rightPressed = false;
-            player.characterController.stop();
-            pausePhys();
-            dialogState.closeCallback = () -> {
-                resumePhys(false);
-                player.characterController.hasControl = true;
-                showHints();
-            }
-            openSubState(dialogState);
-        } else {
-            showHints();
-        }
+        showHints();
     }
 
     public function showHints():Void {
@@ -487,7 +498,7 @@ class PlayState extends LycanState {
             uiGroup.add(hint.text);
     }
 
-    private function pausePhys():Void {
+    public function pausePhys():Void {
         oldVel = player.physics.body.velocity.copy(true);
         player.characterController.stop();
         player.physics.body.velocity.setxy(0, 0);
@@ -495,7 +506,7 @@ class PlayState extends LycanState {
         Phys.FORCE_TIMESTEP = 0;
     }
 
-    private function resumePhys(resumeOldVel:Bool = true):Void {
+    public function resumePhys(resumeOldVel:Bool = true):Void {
         Phys.space.gravity.y = Config.GRAVITY;
         Phys.FORCE_TIMESTEP = null;
         if (resumeOldVel) player.physics.body.velocity.set(oldVel);

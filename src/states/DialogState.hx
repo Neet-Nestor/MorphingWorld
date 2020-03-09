@@ -1,5 +1,7 @@
 package states;
 
+import flixel.tweens.FlxTween;
+import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxObject;
 import config.Config;
 import flixel.util.FlxAxes;
@@ -16,26 +18,15 @@ class DialogState extends FlxSubState {
     public var curDialogIndex:Int;
     public var prevFocus:FlxObject;
 
-    public function new() {
+    public function new(key:String) {
         super();
+        dialogs = Config.DIALOGS[key];
         curDialogIndex = 0;
     }
 
     override public function create():Void {
         super.create();
-        
-        if (!Config.DIALOGS.exists(PlayState.instance.curStage)) {
-            // no dialogs, skip
-            close();
-            return;
-        }
 
-        prevFocus = FlxG.camera.target;
-        FlxG.camera.follow(PlayState.instance.player);
-		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
-		FlxG.camera.snapToTarget();
-
-        this.dialogs = Config.DIALOGS[PlayState.instance.curStage];
 		uiGroup = new FlxSpriteGroup();
         uiGroup.camera = PlayState.instance.uiCamera;
         dialogSprite = new Dialog((FlxG.width - 1400) / 2, FlxG.height - 300 - 20, dialogs[0]);
@@ -55,11 +46,5 @@ class DialogState extends FlxSubState {
             }
             dialogSprite.setDialog(dialogs[curDialogIndex]);
         }
-    }
-
-    override public function close():Void {
-        FlxG.camera.follow(prevFocus);
-		FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
-        super.close();
     }
 }

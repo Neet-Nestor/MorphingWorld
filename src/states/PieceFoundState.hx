@@ -38,7 +38,7 @@ class PieceFoundState extends FlxSubState {
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
 		
-		if (FlxG.keys.justPressed.ANY || FlxG.mouse.justPressed) {
+		if (PlayState.instance.curStage > 1 && FlxG.keys.justPressed.ANY || FlxG.mouse.justPressed) {
 			transitionOut();
 		}
     }
@@ -89,7 +89,16 @@ class PieceFoundState extends FlxSubState {
 		cancelTweens.push(tweens.tween(bg, {alpha: 0.62}, 0.5, {ease: FlxEase.quadOut}));
 		cancelTweens.push(tweens.tween(beams, {alpha: 0.11}, 0.5, {ease: FlxEase.quadOut}));
 		cancelTweens.push(tweens.tween(pieceSprite, {alpha: 1}, 0.5, {ease: FlxEase.quadOut}));
-		cancelTweens.push(tweens.tween(pieceSprite.scale, {x: 0.65, y: 0.65}, 1, {ease: FlxEase.elasticOut}));
+		cancelTweens.push(tweens.tween(pieceSprite.scale, {x: 0.65, y: 0.65}, 1, {ease: FlxEase.elasticOut, onComplete: (_) -> {
+			if (PlayState.instance.curStage == 1) {
+				var dialogState = new DialogState("map_collected");
+				persistentUpdate = true;
+				dialogState.closeCallback = () -> {
+					transitionOut();
+				}
+				openSubState(dialogState);
+			}
+		}}));
 		tweens.tween(pieceSprite, {angle: 4}, 1.9, {ease: FlxEase.quadInOut, type: FlxTweenType.PINGPONG});
 	}
 	
@@ -100,8 +109,6 @@ class PieceFoundState extends FlxSubState {
 		tweens.tween(bg, {alpha: 0}, 0.3, {ease: FlxEase.quadIn});
 		tweens.tween(beams, {alpha: 0}, 0.3, {ease: FlxEase.quadIn});
 		tweens.tween(pieceSprite, {alpha: 1}, 0, {ease: FlxEase.quadIn});
-		tweens.tween(pieceSprite.scale, {x: 0, y: 0}, 0.2, {ease: FlxEase.quadIn, onComplete: (_) -> {
-			close();
-		}});
+		tweens.tween(pieceSprite.scale, {x: 0, y: 0}, 0.2, {ease: FlxEase.quadIn, onComplete: (_) -> { close(); }});
 	}
 }
