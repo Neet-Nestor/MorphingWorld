@@ -350,10 +350,8 @@ class PlayState extends LycanState {
         if (pass) {
             Main.logger.logPass(curStage);
             Main.user.setLastStage(curStage);
-        } else {
-            Main.logger.logReset(curStage);
         }
-
+        
         var passState = new BreakSplashState(pass ? this.toNextStage : this.reloadStage, true);
         persistentUpdate = false;
         player.characterController.hasControl = false;

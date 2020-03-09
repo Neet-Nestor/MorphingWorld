@@ -10,10 +10,10 @@ class Logger {
         enabled = #if FLX_NO_DEBUG true #else false #end;
     }
 
-    public function logExit(lastStage: Int, times: Int):Void {
+    public function logClose(lastStage: Int, times: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
             "dialogue" : Main.user.isDialogEnabled(),
-            "type" : "EXIT",
+            "type" : "Close",
             "lastStage" : lastStage,
             "times" : times,
             "settings" : Main.user.getSettings()
@@ -41,6 +41,17 @@ class Logger {
         var content:String = haxe.Json.stringify(log);
         commit(content);
     }
+    
+    public function logExit(fromStage: Int, lastStage:Int):Void {
+        var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "dialogue" : Main.user.isDialogEnabled(),
+            "type" : "Exit",
+            "fromStage" : fromStage,
+            "lastStage" : lastStage
+        }};
+        var content:String = haxe.Json.stringify(log);
+        commit(content);
+    }
 
     public function logPass(stage: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
@@ -51,7 +62,6 @@ class Logger {
         var content:String = haxe.Json.stringify(log);
         commit(content);
     }
-
     
     public function logReset(stage: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {

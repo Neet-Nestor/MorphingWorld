@@ -88,10 +88,12 @@ class PauseState extends FlxSubState {
 	}
 	
 	private function onMenu():Void {
+        Main.logger.logExit(PlayState.instance.curStage, Main.user.getLastStage());
 		FlxG.switchState(new MenuState());
     }
 
     private function onRetry():Void {
+        Main.logger.logReset(PlayState.instance.curStage);
         PlayState.instance.onReload(false);
     }
 
