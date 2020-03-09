@@ -113,6 +113,7 @@ class SelectLevelState extends LycanState {
         if (selected <= Main.user.getLastStage() && selected < Config.STAGES.length - 1) {
             // move to the selected stage
             FlxG.switchState(new PlayState(selected));
+            return;
         }
         trace("PANIC: select stage over bound");
     }
