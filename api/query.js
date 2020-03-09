@@ -54,11 +54,11 @@ router.get("/time/start", function (req, res) {
 });
 
 
-// Get exit time for every users
-router.get("/time/exit", function (req, res) {
+// Get close time for every users
+router.get("/time/close", function (req, res) {
     console.log(`[GET /data/time/end] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
     try {
-        zrangeAsync("EXIT", 0, -1)
+        zrangeAsync("Close", 0, -1)
             .then((data) => Promise.all(data.map((entry) => hgetallAsync(entry).then((data) => [entry, data]))))
             .then((data) => {
                 res.status(200).json(data.map((el) => {
@@ -111,8 +111,8 @@ router.get("/games", function (req, res) {
                         startTime = timestamp;
                         death = 0;
                         reset = 0;
-                    } else if (value.type === "EXIT") {
-                        game.exit = timestampStr;
+                    } else if (value.type === "Close") {
+                        game.close = timestampStr;
                         games.push(game);
                         game = {};
                     }
