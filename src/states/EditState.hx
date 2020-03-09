@@ -172,18 +172,25 @@ class EditState extends FlxSubState {
 				() -> PlayState.instance.universe.slots.length > previousSlots,
 				() -> {
 					uiGroup.remove(mouseCursor);
-					persistentUpdate = false;
-					PlayState.instance.persistentUpdate = false;
-					var dialogState = new DialogState("map_done");
-					dialogState.closeCallback = () -> {
-						persistentUpdate = true;
-						PlayState.instance.persistentUpdate = true;
+					if (Main.user.isDialogEnabled()) {
+						persistentUpdate = false;
+						PlayState.instance.persistentUpdate = false;
+						var dialogState = new DialogState("map_done");
+						dialogState.closeCallback = () -> {
+							persistentUpdate = true;
+							PlayState.instance.persistentUpdate = true;
+							PlayState.instance.worldEditingDisabled = false;
+							PlayState.instance.showHint("[Scroll Down or E again to finish]",
+								() -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel < 0,
+								() -> { PlayState.instance.player.characterController.hasControl = true; });
+						}
+						openSubState(dialogState);
+					} else {
 						PlayState.instance.worldEditingDisabled = false;
 						PlayState.instance.showHint("[Scroll Down or E again to finish]",
 							() -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel < 0,
 							() -> { PlayState.instance.player.characterController.hasControl = true; });
 					}
-					openSubState(dialogState);
 				});
 		}
 
@@ -191,20 +198,7 @@ class EditState extends FlxSubState {
 			PlayState.instance.removeHintShown = true;
 			// Get screen location of the path
 			// Magic: 400, 225 in uiCamera = 0, 0 in WorldCamera
-			persistentUpdate = false;
-			PlayState.instance.persistentUpdate = false;
-			PlayState.instance.player.characterController.stop();
-			PlayState.instance.player.characterController.hasControl = false;
-			PlayState.instance.player.characterController.leftPressed = false;
-			PlayState.instance.player.characterController.rightPressed = false;
-			PlayState.instance.pausePhys();
-			var dialogState = new DialogState("delete");
-			dialogState.closeCallback = () -> {
-				persistentUpdate = true;
-				PlayState.instance.persistentUpdate = true;
-				PlayState.instance.resumePhys(false);
-				PlayState.instance.player.characterController.hasControl = true;
-
+			var normalLogic = () -> {
 				var mouseCursor = new MouseCursor();
 				var slotToRemove = PlayState.instance.universe.getSlot(-1, 0).outline;
 				var pos = slotToRemove.getPosition();
@@ -231,8 +225,28 @@ class EditState extends FlxSubState {
 						uiGroup.remove(mouseCursor);
 						PlayState.instance.worldEditingDisabled = false;
 					});
+			};
+
+			if (Main.user.isDialogEnabled()) {
+				persistentUpdate = false;
+				PlayState.instance.persistentUpdate = false;
+				PlayState.instance.player.characterController.stop();
+				PlayState.instance.player.characterController.hasControl = false;
+				PlayState.instance.player.characterController.leftPressed = false;
+				PlayState.instance.player.characterController.rightPressed = false;
+				PlayState.instance.pausePhys();
+				var dialogState = new DialogState("delete");
+				dialogState.closeCallback = () -> {
+					persistentUpdate = true;
+					PlayState.instance.persistentUpdate = true;
+					PlayState.instance.resumePhys(false);
+					PlayState.instance.player.characterController.hasControl = true;
+					normalLogic();
+				}
+				openSubState(dialogState);
+			} else {
+				normalLogic();
 			}
-			openSubState(dialogState);
 		}
 		
 		add(swatchBackground);

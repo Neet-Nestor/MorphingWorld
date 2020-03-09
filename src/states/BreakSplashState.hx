@@ -56,7 +56,7 @@ class BreakSplashState extends FlxSubState {
         backGround.shader = maskShader;
         
         var completeHandler = (_) -> {
-            if (checkDialog) {
+            if (Main.user.isDialogEnabled() && checkDialog) {
                 // Check whether there is stage start dialog
                 var dialogKey = null;
                 switch PlayState.instance.curStage {

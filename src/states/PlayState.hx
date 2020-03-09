@@ -132,28 +132,30 @@ class PlayState extends LycanState {
         initCamera();
         add(player);
 
-        // start dialog
-        var dialogKey = null;
-        switch curStage {
-            case 0: dialogKey = "start";
-            case 1: dialogKey = "pass";
-            case 11: dialogKey = "push";
-            case 12: dialogKey = "difficult";
-            default: dialogKey = null;
-        }
-
-        if (curStage == Config.STAGES.length - 1) dialogKey = "win";
-
-        if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {
-            persistentUpdate = false;
-            FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
-
-            var dialogState = new DialogState(dialogKey);
-            dialogState.closeCallback = () -> {
-                persistentUpdate = true;
-                FlxTween.tween(FlxG.camera.targetOffset, { y:Config.CAMERA_OFFSET_Y }, 0.3);
+        if (Main.user.isDialogEnabled()) {
+            // start dialog
+            var dialogKey = null;
+            switch curStage {
+                case 0: dialogKey = "start";
+                case 1: dialogKey = "pass";
+                case 11: dialogKey = "push";
+                case 12: dialogKey = "difficult";
+                default: dialogKey = null;
             }
-            openSubState(dialogState);
+
+            if (curStage == Config.STAGES.length - 1) dialogKey = "win";
+
+            if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {
+                persistentUpdate = false;
+                FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
+
+                var dialogState = new DialogState(dialogKey);
+                dialogState.closeCallback = () -> {
+                    persistentUpdate = true;
+                    FlxTween.tween(FlxG.camera.targetOffset, { y:Config.CAMERA_OFFSET_Y }, 0.3);
+                }
+                openSubState(dialogState);
+            }
         }
     }
 
