@@ -3,14 +3,15 @@ package;
 import haxe.Json;
 
 class User {
-    private var res:{uuid: String, volume: Int, music: Bool, sound: Bool, lastStage:Int, playTimes: Int};
+    private var res:{uuid: String, volume: Int, music: Bool, sound: Bool, lastStage: Int, playTimes: Int, dialogEnabled: Bool};
 
     public function new() {
         var _uuid = Uuid.v4();
+        var _dialogEnabled = Std.random(100) < 50; 
         #if sys
         if (!sys.FileSystem.exists("data.json")) {
             // uuid and default settings
-            res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1};
+            res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, dialogEnabled: _dialogEnabled};
             var content:String = haxe.Json.stringify(res);
             sys.io.File.saveContent("data.json", content);
             trace("uuid not found, generating new uuid");
@@ -49,6 +50,10 @@ class User {
             res.lastStage = lastStage;
             save();
         }
+    }
+
+    public function isDialogEnabled():Bool {
+        return res.dialogEnabled;
     }
 
     public function cleanSaveData():Void {
