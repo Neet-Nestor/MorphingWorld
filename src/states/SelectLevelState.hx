@@ -52,7 +52,7 @@ class SelectLevelState extends LycanState {
         title.y -= 140;
         add(title);
 
-        var hint = new FlxText(0, title.y + title.height + 20, 0, "You were at level " + Main.user.getLastStage(), 14);
+        var hint = new FlxText(0, title.y + title.height + 20, 0, "You were at level " + (Main.user.getLastStage() + 1), 14);
         hint.screenCenter(FlxAxes.X);
         add(hint);
     }
