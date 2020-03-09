@@ -130,7 +130,7 @@ class PlayState extends LycanState {
         initManagers();
         WorldCollection.init();
         initUniverse();
-        reloadStage();
+        reloadStage(true);
         initCamera();
         add(player);
     }
@@ -345,10 +345,10 @@ class PlayState extends LycanState {
             close();
             return;
         }
-        reloadStage();
+        reloadStage(true);
     }
 
-    public function reloadStage():Void {
+    public function reloadStage(showDialog:Bool = false):Void {
         WorldCollection.reset();
         WorldCollection.defineWorlds(curStage);
         remove(player);
@@ -370,6 +370,26 @@ class PlayState extends LycanState {
             FlxG.camera.snapToTarget();
         }
 
+        // show dialog
+        if (showDialog) {
+            var dialogState = new DialogState();
+            player.characterController.hasControl = false;
+            player.characterController.leftPressed = false;
+            player.characterController.rightPressed = false;
+            player.characterController.stop();
+            pausePhys();
+            dialogState.closeCallback = () -> {
+                resumePhys(false);
+                player.characterController.hasControl = true;
+                showHints();
+            }
+            openSubState(dialogState);
+        } else {
+            showHints();
+        }
+    }
+
+    public function showHints():Void {
         // Hint Setup
         if (curStage == 0) {
             // Move hint

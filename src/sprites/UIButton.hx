@@ -66,8 +66,6 @@ class UIButton extends FlxSpriteGroup {
         // Click & Hover handling
         if (!hidden && !disabled) {
             FlxG.mouse.getScreenPosition(refCam, mousePos);
-            trace(mousePos);
-            trace(background.x + " " + background.y);
 
             if (background.overlapsPoint(mousePos)) {
                 hoveredOverlay.alpha = 0.3;

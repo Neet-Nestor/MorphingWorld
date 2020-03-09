@@ -26,6 +26,7 @@ class Config {
     // Camera
 	public static inline final CAMERA_LERP_NORMAL:Float = 0.3;
     public static inline final CAMERA_OFFSET_Y:Float = -55;
+    public static inline final CAMERA_OFFSET_Y_DIALOG:Float = 50;
 
     // Spike bury offset
     public static inline final SPIKE_OFFSET_Y:Float = 6;

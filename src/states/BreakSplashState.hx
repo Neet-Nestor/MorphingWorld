@@ -18,6 +18,7 @@ import flixel.system.FlxAssets.FlxShader;
 // Passing Animation State
 class BreakSplashState extends FlxSubState {
     public var toNextStage:Bool; // if false, reload this stage instead of going to next one
+    public var skipFront:Bool;   // whether we skip the zoom in part
 
     public var backGround:FlxSprite;
     public var alphaMask:FlxSprite;
@@ -25,9 +26,10 @@ class BreakSplashState extends FlxSubState {
     public var screenRadius:Float;
     public var maskShader:BitmapMaskShader;
 
-    public function new(pass:Bool = false) {
+    public function new(pass:Bool = false, skipFront:Bool = false) {
         super();
         this.toNextStage = pass;
+        this.skipFront = skipFront;
     }
     
     override public function create():Void {
@@ -51,16 +53,19 @@ class BreakSplashState extends FlxSubState {
         maskShader.maskImage.input = alphaMask.pixels.clone();
         backGround.shader = maskShader;
         
-        FlxTween.tween(this, { radius: 0 }, 0.8, { ease: FlxEase.cubeIn, onComplete: (_) -> {
+        if (skipFront) {
             if (toNextStage) PlayState.instance.toNextStage();
             else PlayState.instance.reloadStage();
             FlxTween.tween(this, { radius: screenRadius },
-                0.8, { ease: FlxEase.cubeOut, onComplete: (_) -> {
-                    var dialogState = new DialogState(["Where am I?"]);
-                    dialogState.closeCallback = close;
-                    openSubState(dialogState);
-                }});
-        }});
+                0.8, { ease: FlxEase.cubeOut, onComplete: (_) -> { close(); }});
+        } else {
+            FlxTween.tween(this, { radius: 0 }, 0.8, { ease: FlxEase.cubeIn, onComplete: (_) -> {
+                if (toNextStage) PlayState.instance.toNextStage();
+                else PlayState.instance.reloadStage();
+                FlxTween.tween(this, { radius: screenRadius },
+                    0.8, { ease: FlxEase.cubeOut, onComplete: (_) -> { close(); }});
+            }});
+        }
 
         add(backGround);
     }
