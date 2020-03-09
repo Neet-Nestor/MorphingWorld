@@ -140,8 +140,9 @@ class PlayState extends LycanState {
             switch curStage {
                 case 0: dialogKey = "start";
                 case 1: dialogKey = "pass";
+                case 9: dialogKey = "difficult";
                 case 11: dialogKey = "push";
-                case 12: dialogKey = "difficult";
+                case 12: dialogKey = "soon";
                 default: dialogKey = null;
             }
 

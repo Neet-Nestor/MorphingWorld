@@ -104,6 +104,9 @@ class Config {
             {name: "You", dialog: "Oh its getting physical", avatar: AssetPaths.bob__png}
         ],
         "difficult" => [
+            {name: "You", dialog: "This one looks complicated, but you will help me right? Remember, there is something special for you when you help me get out. Thank you thank you thank you!", avatar: AssetPaths.bob__png}
+        ],
+        "soon" => [
             {name: "Alice", dialog: "Hang on tight! You are getting there!", avatar: AssetPaths.alice__png}
         ],
         "win" => [
