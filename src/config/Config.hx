@@ -103,10 +103,7 @@ class Config {
         "push" => [
             {name: "You", dialog: "Oh its getting physical", avatar: AssetPaths.bob__png}
         ],
-        "help1" => [
-            {name: "You", dialog: "This one looks complicated, but you will help me right? Remember, there is something special for you when you help me get out. Thank you thank you thank you!", avatar: AssetPaths.bob__png}
-        ],
-        "help2" => [
+        "difficult" => [
             {name: "Alice", dialog: "Hang on tight! You are getting there!", avatar: AssetPaths.alice__png}
         ],
         "win" => [

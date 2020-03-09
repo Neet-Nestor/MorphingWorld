@@ -62,6 +62,7 @@ class BreakSplashState extends FlxSubState {
                 switch PlayState.instance.curStage {
                     case 1: dialogKey = "pass";
                     case 11: dialogKey = "push";
+                    case 12: dialogKey = "difficult";
                     default: dialogKey = null;
                 }
 
