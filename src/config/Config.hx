@@ -124,7 +124,10 @@ class Config {
             {name: "You", dialog: "Anyways, you did get me here but technically you didn’t get me out of this world because I was not in this world. Well, I am, but you are not and I am you. I think you get the gist.", avatar: AssetPaths.bob__png},
             {name: "You", dialog: "However, I’ll still give you something, not necessarily good, but something, just like the way you halfway completed your mission. Get it? You get me to win but not out of this world, and I give you something but not necessarily good?", avatar: AssetPaths.bob__png},
             {name: "You", dialog: "You’ll get it eventually.", avatar: AssetPaths.bob__png},
-            {name: "You", dialog: "Here you go!", avatar: AssetPaths.bob__png}
+            {name: "You", dialog: "Here you go!", avatar: AssetPaths.bob__png},
+            {name: "You", dialog: "I hereby pronouce you \"The Lord of Morphing World\". Congratulations on your new title!", avatar: AssetPaths.bob__png},
+            {name: "You", dialog: "Cherish it, defend it. I trust you!", avatar: AssetPaths.bob__png},
+            {name: "You", dialog: "Bye bye!", avatar: AssetPaths.bob__png}
         ]
     ];
 }
