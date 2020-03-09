@@ -22,15 +22,10 @@ class SelectLevelState extends LycanState {
     private var down:UIButton;
     private var btnArr:Array<UIButton>;
     private var page:Int;
-    private var lastStageUnlocked:Int;
 
     override public function create():Void {
         super.create();
-        // if (FlxG.sound.music == null) { // don't restart the music if it's already playing
-        //     //FlxG.sound.playMusic(AssetPaths.bgmtemp2__ogg, 0.65, true);
-        // }
         Main.sound.playMusic();
-        lastStageUnlocked = Main.user.getLastStage();
         page = 0;
         loadBG();
         loadTitle();
@@ -54,22 +49,22 @@ class SelectLevelState extends LycanState {
     private function loadTitle():Void {
         title = new FlxText(0, 0, 0, "Select Level", 48);
         title.screenCenter();
-        title.y -= 100;
+        title.y -= 140;
         add(title);
 
-        var hint = new FlxText(0, title.y + 50, 0, "You were at level " + Main.user.getLastStage(), 14);
+        var hint = new FlxText(0, title.y + title.height + 20, 0, "You were at level " + Main.user.getLastStage(), 14);
         hint.screenCenter(FlxAxes.X);
         add(hint);
     }
 
     private function loadupdown():Void {
-        up = new UIButton(0, title.getScreenPosition().y + 100, "Previous Page", onUp);
+        up = new UIButton(0, title.getScreenPosition().y + 120, "Previous Page", onUp);
         up.screenCenter(FlxAxes.X);
         up.hidden = true;
         add(up);
 
         // down
-        down = new UIButton(0, title.getScreenPosition().y + 420, "Next Page", onDown);
+        down = new UIButton(0, title.getScreenPosition().y + 440, "Next Page", onDown);
         down.screenCenter(FlxAxes.X);
         down.hidden = page * 5 + 5 >= Config.STAGES.length - 1;
         add(down);
@@ -78,11 +73,11 @@ class SelectLevelState extends LycanState {
     private function loadList():Void {
         btnArr = [];
         for (i in 0...5) {
-            var btn = new UIButton(0, title.getScreenPosition().y + 170 + 45 * i, "Level " + (i + 1), () -> {
+            var btn = new UIButton(0, title.getScreenPosition().y + 190 + 45 * i, "Level " + (i + 1), () -> {
                 onSelect(i);
             });
             btn.screenCenter(FlxAxes.X);
-            btn.disabled = i >= lastStageUnlocked;
+            btn.disabled = i >= Main.user.getLastStage();
             btn.hidden = i >= Config.STAGES.length - 1;
             btnArr.push(btn);
             add(btn);
@@ -94,7 +89,7 @@ class SelectLevelState extends LycanState {
         for (i in 0...5) {
             var level = page * 5 + i;
             btnArr[i].text = "Level " + (level + 1);
-            btnArr[i].disabled = level >= lastStageUnlocked;
+            btnArr[i].disabled = level >= Main.user.getLastStage();
             btnArr[i].hidden = level >= Config.STAGES.length - 1;
         }
         up.hidden = page == 0;
@@ -106,7 +101,7 @@ class SelectLevelState extends LycanState {
         for (i in 0...5) {
             var level = page * 5 + i;
             btnArr[i].text = "Level " + (level + 1);
-            btnArr[i].disabled = level >= lastStageUnlocked;
+            btnArr[i].disabled = level >= Main.user.getLastStage();
             btnArr[i].hidden = level >= Config.STAGES.length - 1;
         }
         up.hidden = page == 0;
@@ -115,7 +110,7 @@ class SelectLevelState extends LycanState {
 
     private function onSelect(i:Int):Void {
         var selected = page * 5 + i;
-        if (selected <= lastStageUnlocked && selected < Config.STAGES.length - 1) {
+        if (selected <= Main.user.getLastStage() && selected < Config.STAGES.length - 1) {
             // move to the selected stage
             FlxG.switchState(new PlayState(selected));
         }

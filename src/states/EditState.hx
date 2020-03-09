@@ -199,10 +199,11 @@ class EditState extends FlxSubState {
 			PlayState.instance.player.characterController.rightPressed = false;
 			PlayState.instance.pausePhys();
 			var dialogState = new DialogState("delete");
-				dialogState.closeCallback = () -> {
+			dialogState.closeCallback = () -> {
 				persistentUpdate = true;
 				PlayState.instance.persistentUpdate = true;
 				PlayState.instance.resumePhys(false);
+				PlayState.instance.player.characterController.hasControl = true;
 
 				var mouseCursor = new MouseCursor();
 				var slotToRemove = PlayState.instance.universe.getSlot(-1, 0).outline;

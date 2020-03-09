@@ -115,9 +115,9 @@ class PlayState extends LycanState {
         persistentUpdate = true;
         reloadPlayerPosition = false;
         isWorldEditing = false;
-        editHintShown = #if FLX_NO_DEBUG false #else true #end;
-        removeHintShown = #if FLX_NO_DEBUG false #else true #end;
-        worldEditingDisabled = #if FLX_NO_DEBUG true #else false #end;
+        editHintShown = false;
+        removeHintShown = false;
+        worldEditingDisabled = curStage <= 1;
         hintList = new List<Hint>();
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
         // In case it was set before by fault
@@ -261,6 +261,8 @@ class PlayState extends LycanState {
 
             var prevPersistentUpdate = persistentUpdate;
             persistentUpdate = false;
+            player.characterController.leftPressed = false;
+            player.characterController.rightPressed = false;
             player.characterController.stop();
             pausePhys();
             
@@ -418,12 +420,17 @@ class PlayState extends LycanState {
 
     public function collectWorld(worldDef:WorldDef):Void {
         var foundState = new PieceFoundState(worldDef);
+        player.characterController.hasControl = false;
+        player.characterController.leftPressed = false;
+        player.characterController.rightPressed = false;
+        player.characterController.stop();
         pausePhys();
         if (isWorldEditing) {
             var editState:EditState = cast subState;
             editState.persistentUpdate = false;
             foundState.closeCallback = () -> {
                 editState.persistentUpdate = true;
+                player.characterController.hasControl = true;
                 resumePhys();
                 editState.addNewWorldPiece(worldDef);
             };
@@ -439,6 +446,8 @@ class PlayState extends LycanState {
                     player.characterController.hasControl = false;
                     showHint("[Scroll Up or E to change the world]",
                         () -> FlxG.keys.anyJustPressed([FlxKey.E]) || FlxG.mouse.wheel > 0);
+                } else {
+                    player.characterController.hasControl = true;
                 }
             };
             openSubState(foundState);
