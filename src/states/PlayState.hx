@@ -220,8 +220,10 @@ class PlayState extends LycanState {
 		cameraFocus = new CameraFocus();
 		cameraFocus.add(new ObjectTargetInfluencer(player));
 		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
-        FlxG.camera.targetOffset.y = curStage == 0 || curStage == 1 || curStage == 11 || curStage == Config.STAGES.length - 1 ? 
-            Config.CAMERA_OFFSET_Y_DIALOG : Config.CAMERA_OFFSET_Y;
+        FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
+        if (Main.user.isDialogEnabled() && (curStage == 0 || curStage == 1 || curStage == 11 || curStage == Config.STAGES.length - 1)) {
+            FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
+        }
 		FlxG.camera.snapToTarget();
     }
 
