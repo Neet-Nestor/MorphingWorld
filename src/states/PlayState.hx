@@ -111,6 +111,8 @@ class PlayState extends LycanState {
      *   We do NOT recommend overriding the constructor, unless you want some crazy unpredictable things to happen!
      **/
     override public function create():Void {
+        Main.logger.logEnter(curStage);
+
 		persistentDraw = true;
         persistentUpdate = true;
         reloadPlayerPosition = false;

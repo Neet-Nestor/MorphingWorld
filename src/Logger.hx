@@ -32,6 +32,16 @@ class Logger {
         commit(content);
     }
 
+    public function logEnter(stage: Int):Void {
+        var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
+            "dialogue" : Main.user.isDialogEnabled(),
+            "type" : "Enter",
+            "stage" : stage
+        }};
+        var content:String = haxe.Json.stringify(log);
+        commit(content);
+    }
+
     public function logPass(stage: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
             "dialogue" : Main.user.isDialogEnabled(),
