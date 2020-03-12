@@ -64,11 +64,11 @@ port: 4596
   ]
   ```
 
-- Get Exit data
+- Get die data
 
   HTTP/1.1 GET
 
-  /api/data/time/exit
+  /api/data/die
   
   return: 
 
@@ -77,7 +77,32 @@ port: 4596
       {
           "user": "f0a4351f-1ff5-43e2-84fe-5d6321cb150c",
           "timestamp": "1582171610.826",
-          "type": "EXIT",
+          "type": "Die",
+          "lastStage": "01_00",
+          "settings": {
+              "sound":true,
+              "music":true,
+              "volume":100
+            },
+      },
+      ...
+  ]
+  ```
+
+- Get close data
+
+  HTTP/1.1 GET
+
+  /api/data/time/close
+  
+  return: 
+
+  ```json
+  [
+      {
+          "user": "f0a4351f-1ff5-43e2-84fe-5d6321cb150c",
+          "timestamp": "1582171610.826",
+          "type": "Close",
           "lastStage": "01_00",
           "settings": {
               "sound":true,

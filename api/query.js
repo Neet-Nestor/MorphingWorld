@@ -76,6 +76,28 @@ router.get("/time/close", function (req, res) {
     }
 });
 
+// Get close time for every users
+router.get("/die", function (req, res) {
+    console.log(`[GET /data/time/end] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
+    try {
+        zrangeAsync("Die", 0, -1)
+            .then((data) => Promise.all(data.map((entry) => hgetallAsync(entry).then((data) => [entry, data]))))
+            .then((data) => {
+                res.status(200).json(data.map((el) => {
+                    const [key, values] = el;
+                    const [user, timestamp] = key.split(":");
+                    return { user, timestamp, ...values };
+                }));
+            }).catch((err) => {
+                console.error(err);
+                res.status(500).json({ "msg": "Error occured during Redis querying" });
+            });
+    } catch (e) {
+        console.error(e.stack);
+        res.status(500).json({ "msg": e.message });
+    }
+});
+
 // Get game stats
 router.get("/games", function (req, res) {
     console.log(`[GET /data/games] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
@@ -94,14 +116,14 @@ router.get("/games", function (req, res) {
                     if (!("user" in game)) {
                         game.user = user;
                     }
-                    if (value.type === "Start") {
-                        if ("start" in game) {
+                    if (value.type === "Enter") {
+                        if ("enter" in game) {
                             // Detected a new game run
                             games.push(game);
                             game = {};
                         }
                         startTime = timestamp;
-                        game.start = timestamp;
+                        game.enter = timestamp;
                     } else if (value.type === "Die") {
                         death++;
                     } else if (value.type === "Reset") {
@@ -111,13 +133,15 @@ router.get("/games", function (req, res) {
                         startTime = timestamp;
                         death = 0;
                         reset = 0;
-                    } else if (value.type === "Close") {
-                        game.close = timestampStr;
-                        games.push(game);
-                        game = {};
+                    } else if (value.type === "Exit" || value.type === "Close") {
+                        if ("enter" in game) {
+                            game.exit = timestampStr;
+                            games.push(game);
+                            game = {};
+                        }
                     }
                 }
-                if ("start" in game) games.push(game);
+                if ("enter" in game) games.push(game);
             }
             games.sort((g1, g2) => g1.start - g2.start);
             res.status(200).json(games);
