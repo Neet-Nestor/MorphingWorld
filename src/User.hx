@@ -2,16 +2,20 @@ package;
 
 import haxe.Json;
 
+enum Difficulty {
+    EASY;
+    HARD;   // DEFAULT
+}
+
 class User {
-    private var res:{uuid: String, volume: Int, music: Bool, sound: Bool, lastStage: Int, playTimes: Int, dialogEnabled: Bool};
+    private var res:{uuid: String, volume: Int, music: Bool, sound: Bool, lastStage: Int, playTimes: Int, difficulty: Difficulty};
 
     public function new() {
         var _uuid = Uuid.v4();
-        var _dialogEnabled = Std.random(100) < 50; 
         #if sys
         if (!sys.FileSystem.exists("data.json")) {
             // uuid and default settings
-            res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, dialogEnabled: _dialogEnabled};
+            res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, difficulty: Difficulty.HARD};
             var content:String = haxe.Json.stringify(res);
             sys.io.File.saveContent("data.json", content);
             trace("uuid not found, generating new uuid");
@@ -24,7 +28,7 @@ class User {
             trace("uuid: " + res.uuid);
         }
         #else
-        res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, dialogEnabled: _dialogEnabled};
+        res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, difficulty: Difficulty.HARD};
         trace("sys not available, generating new uuid");
         #end
     }
@@ -52,8 +56,12 @@ class User {
         }
     }
 
-    public function isDialogEnabled():Bool {
-        return res.dialogEnabled;
+    public function getDifficulty():Difficulty {
+        return res.difficulty;
+    }
+
+    public function setDifficulty(newDifficulty:Difficulty):Void {
+        res.difficulty = newDifficulty;
     }
 
     public function cleanSaveData():Void {

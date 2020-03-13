@@ -12,7 +12,7 @@ class Logger {
 
     public function logClose(lastStage: Int, times: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
-            "dialogue" : Main.user.isDialogEnabled(),
+            "difficulty" : Main.user.getDifficulty(),
             "type" : "Close",
             "lastStage" : lastStage,
             "times" : times,
@@ -24,7 +24,7 @@ class Logger {
 
     public function logStart(times: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
-            "dialogue" : Main.user.isDialogEnabled(),
+            "difficulty" : Main.user.getDifficulty(),
             "type" : "Start",
             "times" : times
         }};
@@ -34,7 +34,7 @@ class Logger {
 
     public function logEnter(stage: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
-            "dialogue" : Main.user.isDialogEnabled(),
+            "difficulty" : Main.user.getDifficulty(),
             "type" : "Enter",
             "stage" : stage
         }};
@@ -44,7 +44,7 @@ class Logger {
     
     public function logExit(fromStage: Int, lastStage:Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
-            "dialogue" : Main.user.isDialogEnabled(),
+            "difficulty" : Main.user.getDifficulty(),
             "type" : "Exit",
             "fromStage" : fromStage,
             "lastStage" : lastStage
@@ -55,7 +55,7 @@ class Logger {
 
     public function logPass(stage: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
-            "dialogue" : Main.user.isDialogEnabled(),
+            "difficulty" : Main.user.getDifficulty(),
             "type" : "Pass",
             "stage" : stage
         }};
@@ -65,7 +65,7 @@ class Logger {
     
     public function logReset(stage: Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
-            "dialogue" : Main.user.isDialogEnabled(),
+            "difficulty" : Main.user.getDifficulty(),
             "type" : "Reset",
             "stage" : stage
         }};
@@ -76,7 +76,7 @@ class Logger {
     // on collect
     public function logCollect(stage:Int, gem:String):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
-            "dialogue" : Main.user.isDialogEnabled(),
+            "difficulty" : Main.user.getDifficulty(),
             "type" : "Collect",
             "stage" : stage,
             "gem" : gem
@@ -88,7 +88,7 @@ class Logger {
     // on win
     public function logWin():Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
-            "dialogue" : Main.user.isDialogEnabled(),
+            "difficulty" : Main.user.getDifficulty(),
             "type" : "Win"
         }};
         var content:String = haxe.Json.stringify(log);
@@ -98,7 +98,7 @@ class Logger {
     // on die
     public function logDie(stage:Int):Void {
         var log = {user: Main.user.getUUID(), timestamp: Sys.time(), data: {
-            "dialogue" : Main.user.isDialogEnabled(),
+            "difficulty" : Main.user.getDifficulty(),
             "type" : "Die",
             "stage" : stage
         }};

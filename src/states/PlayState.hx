@@ -134,31 +134,29 @@ class PlayState extends LycanState {
         initCamera();
         add(player);
 
-        if (Main.user.isDialogEnabled()) {
-            // start dialog
-            var dialogKey = null;
-            switch curStage {
-                case 0: dialogKey = "start";
-                case 1: dialogKey = "pass";
-                case 9: dialogKey = "difficult";
-                case 11: dialogKey = "push";
-                case 12: dialogKey = "soon";
-                default: dialogKey = null;
+        // start dialog
+        var dialogKey = null;
+        switch curStage {
+            case 0: dialogKey = "start";
+            case 1: dialogKey = "pass";
+            case 9: dialogKey = "difficult";
+            case 11: dialogKey = "push";
+            case 12: dialogKey = "soon";
+            default: dialogKey = null;
+        }
+
+        if (curStage == Config.STAGES.length - 1) dialogKey = "win";
+
+        if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {
+            persistentUpdate = false;
+            FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
+
+            var dialogState = new DialogState(dialogKey);
+            dialogState.closeCallback = () -> {
+                persistentUpdate = true;
+                FlxTween.tween(FlxG.camera.targetOffset, { y:Config.CAMERA_OFFSET_Y }, 0.3);
             }
-
-            if (curStage == Config.STAGES.length - 1) dialogKey = "win";
-
-            if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {
-                persistentUpdate = false;
-                FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
-
-                var dialogState = new DialogState(dialogKey);
-                dialogState.closeCallback = () -> {
-                    persistentUpdate = true;
-                    FlxTween.tween(FlxG.camera.targetOffset, { y:Config.CAMERA_OFFSET_Y }, 0.3);
-                }
-                openSubState(dialogState);
-            }
+            openSubState(dialogState);
         }
     }
 
@@ -224,7 +222,7 @@ class PlayState extends LycanState {
 		cameraFocus.add(new ObjectTargetInfluencer(player));
 		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
         FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
-        if (Main.user.isDialogEnabled() && (curStage == 0 || curStage == 1 || curStage == 11 || curStage == Config.STAGES.length - 1)) {
+        if (curStage == 0 || curStage == 1 || curStage == 11 || curStage == Config.STAGES.length - 1) {
             FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
         }
 		FlxG.camera.snapToTarget();
@@ -493,24 +491,24 @@ class PlayState extends LycanState {
     // Helper functions
     // Transfer to hint state
     public function showHint(text:String, triggerCondition:Void -> Bool, ?cb:Void -> Void):Void {
-            // cancel previous hint
-            var hint = new Hint();
-            hint.triggered = false;
-            hint.text = new FlxText(0, FlxG.height - 50, 0, text, 20);
-            hint.text.screenCenter(FlxAxes.X);
-            hint.text.alpha = 0;
-            hint.triggerCondition = triggerCondition;
-            hint.callback = () -> {
-                if (!hint.tween.finished) hint.tween.cancel();
-                if (cb != null) cb();
-                hintList.remove(hint);
-                FlxTween.tween(hint.text, {alpha: 0}, 0.6, { onComplete: (_) -> {
-                    uiGroup.remove(hint.text);
-                }});
-            };
-            hint.tween = FlxTween.tween(hint.text, {alpha: 1}, 0.6);
-            hintList.add(hint);
-            uiGroup.add(hint.text);
+        // cancel previous hint
+        var hint = new Hint();
+        hint.triggered = false;
+        hint.text = new FlxText(0, FlxG.height - 50, 0, text, 20);
+        hint.text.screenCenter(FlxAxes.X);
+        hint.text.alpha = 0;
+        hint.triggerCondition = triggerCondition;
+        hint.callback = () -> {
+            if (!hint.tween.finished) hint.tween.cancel();
+            if (cb != null) cb();
+            hintList.remove(hint);
+            FlxTween.tween(hint.text, {alpha: 0}, 0.6, { onComplete: (_) -> {
+                uiGroup.remove(hint.text);
+            }});
+        };
+        hint.tween = FlxTween.tween(hint.text, {alpha: 1}, 0.6);
+        hintList.add(hint);
+        uiGroup.add(hint.text);
     }
 
     public function pausePhys():Void {
