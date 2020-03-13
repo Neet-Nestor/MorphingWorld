@@ -89,7 +89,12 @@ class PauseState extends FlxSubState {
 	
 	private function onMenu():Void {
         Main.logger.logExit(PlayState.instance.curStage, Main.user.getLastStage());
-		FlxG.switchState(new MenuState());
+        FlxG.switchState(new MenuState());
+        
+        // ABTest: Dynamically change difficulty
+        if (PlayState.instance.curStage == 5) {
+            Main.user.setDifficulty(User.Difficulty.EASY);
+        }
     }
 
     private function onRetry():Void {

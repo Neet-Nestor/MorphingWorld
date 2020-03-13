@@ -68,7 +68,10 @@ class PlayState extends LycanState {
     public var universe:Universe;
 	public var cameraFocus:CameraFocus;
     public var reloadPlayerPosition:Bool;
-	public var curStage:Int;
+    public var curStage:Int;
+    // For Dynamic difficulty change
+    public var stageStartTime:Float;
+    public var deathsInStage:Int;
 
     // For transition effects
     public var timeFactor(default, set):Float = 1;
@@ -103,7 +106,7 @@ class PlayState extends LycanState {
     public function new(?initStage:Int) {
         super();
         instance = this;
-        curStage = initStage == null ? 0: initStage;
+        curStage = initStage == null ? 0 : initStage;
     }
 
     /**
@@ -119,6 +122,7 @@ class PlayState extends LycanState {
         isWorldEditing = false;
         editHintShown = false;
         removeHintShown = false;
+        deathsInStage = 0;
         worldEditingDisabled = curStage <= 1;
         hintList = new List<Hint>();
         _sndDie = FlxG.sound.load(AssetPaths.die__wav);
@@ -311,6 +315,10 @@ class PlayState extends LycanState {
 
     // Handlers
     public function die():Void {
+        // Log
+        deathsInStage++;
+        Main.logger.logDie(curStage);
+
         endWorldEditing();
         player.characterController.hasControl = false;
         player.dead = true;
@@ -366,13 +374,24 @@ class PlayState extends LycanState {
     }
 
     public function toNextStage():Void {
-        // Clean
+        // Reset numbers
+        deathsInStage = 0;
+
+        // ABTest: Dynamically change difficulty
+        if (curStage == 5) {
+            var curTime = Sys.time();
+            if (curTime - stageStartTime > 50 || deathsInStage > 2) {
+                Main.user.setDifficulty(User.Difficulty.EASY);
+            }
+        }
+
         curStage++;
         if (curStage >= Config.STAGES.length) {
             FlxG.switchState(new MenuState());
             close();
             return;
         }
+
         reloadStage();
     }
 
@@ -402,8 +421,10 @@ class PlayState extends LycanState {
             FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
             FlxG.camera.snapToTarget();
         }
-
         showHints();
+
+        // Reset start time
+        stageStartTime = Sys.time();
     }
 
     public function showHints():Void {
