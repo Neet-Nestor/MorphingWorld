@@ -23,9 +23,10 @@ class BreakSplashState extends FlxSubState {
     public var checkDialog:Bool;
 
     public var backGround:FlxSprite;
-    public var circle:FlxSprite;
+    public var alphaMask:FlxSprite;
     public var radius:Float;
     public var screenRadius:Float;
+    public var maskShader:BitmapMaskShader;
 
     public function new(?cb:() -> Void, checkDialog:Bool = false) {
         super();
@@ -44,11 +45,15 @@ class BreakSplashState extends FlxSubState {
         backGround.camera = PlayState.instance.uiCamera;
         backGround.screenCenter();
 
-        circle = new FlxSprite();
-        circle.camera = PlayState.instance.uiCamera;
-        circle.drawCircle(0, 0, screenRadius, FlxColor.WHITE, null, { smoothing: true });
-        circle.screenCenter();
-        circle.scale.set(0, 0);
+        alphaMask = new FlxSprite();
+        alphaMask.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
+        alphaMask.camera = PlayState.instance.uiCamera;
+        alphaMask.screenCenter();
+        alphaMask.drawCircle(alphaMask.width / 2, alphaMask.height / 2, screenRadius, FlxColor.WHITE, null, { smoothing: true });
+
+        maskShader = new BitmapMaskShader();
+        maskShader.maskImage.input = alphaMask.pixels.clone();
+        backGround.shader = maskShader;
         
         var completeHandler = (_) -> {
             if (checkDialog) {
@@ -83,16 +88,45 @@ class BreakSplashState extends FlxSubState {
             }
         };
         
-        FlxTween.tween(circle.scale, { x: 1, y: 1 }, 0.8, { ease: FlxEase.cubeIn, onComplete: (_) -> {
+        FlxTween.tween(this, { radius: 0 }, 0.8, { ease: FlxEase.cubeIn, onComplete: (_) -> {
             if (cb != null) cb();
-            FlxTween.tween(circle.scale, { x: 0, y: 0 },
+            FlxTween.tween(this, { radius: screenRadius },
                 0.8, { ease: FlxEase.cubeOut, onComplete: completeHandler});
         }});
 
         add(backGround);
     }
 
+    override public function draw():Void {
+        // Weird race condition
+        if (radius > 2 && radius < screenRadius) {
+            alphaMask.fill(FlxColor.TRANSPARENT);
+            alphaMask.drawCircle(alphaMask.width / 2, alphaMask.height / 2, radius, FlxColor.WHITE, null, { smoothing: true });
+            maskShader.maskImage.input = alphaMask.pixels.clone();
+        }
+        super.draw();
+    }
+
     override public function update(dt:Float):Void {
         super.update(dt);
     }
+}
+
+class BitmapMaskShader extends FlxShader {
+    @:glFragmentSource("
+        #pragma header
+		
+		uniform sampler2D maskImage;
+		
+		void main(void) {
+			#pragma body
+			
+			float mask = texture2D (maskImage, openfl_TextureCoordv).a;
+            gl_FragColor *= (1.0 - mask);
+		}
+    ")
+    
+	public function new() {
+        super();
+	}
 }
