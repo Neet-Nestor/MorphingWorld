@@ -410,7 +410,7 @@ class PlayState extends LycanState {
         player = null;
 
         var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
-        var nextWorld = WorldCollection.get(Config.stages[curStage][0]);
+        var nextWorld = WorldCollection.get(stages[curStage][0]);
         if (nextWorld.name == "win") Main.logger.logWin();
         nextWorld.owned = true;
         universe.reset();
