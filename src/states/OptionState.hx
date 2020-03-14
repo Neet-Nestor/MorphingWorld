@@ -101,7 +101,7 @@ class OptionState extends FlxSubState {
     }
 
     private function loadFullScreen():Void {
-        var txt = new FlxText(title.x - 50, title.y + 210, 0, "loadFullScreen", 16);
+        var txt = new FlxText(title.x - 50, title.y + 210, 0, "FullScreen", 16);
         uiGroup.add(txt);
         var check = new FlxUICheckBox(title.x + 180, title.y + 210, null, null, "", 100, [], null);
         check.checked = FlxG.fullscreen;
