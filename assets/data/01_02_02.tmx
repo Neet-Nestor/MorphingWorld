@@ -25,7 +25,11 @@
     <property name="world" value="05_00"/>
    </properties>
   </object>
-  <object id="21" name="object13" type="spike" gid="41" x="128" y="128" width="32" height="32"/>
+  <object id="21" name="object13" type="spike" gid="41" x="128" y="128" width="32" height="32">
+   <properties>
+    <property name="only_hard" value="true"/>
+   </properties>
+  </object>
   <object id="22" name="object12" type="spike" gid="41" x="160" y="128" width="32" height="32"/>
   <object id="23" name="object11" type="spike" gid="41" x="192" y="128" width="32" height="32"/>
   <object id="24" name="object10" type="spike" gid="41" x="224" y="128" width="32" height="32"/>
