@@ -82,10 +82,10 @@ class Config {
 
     public static final DIALOGS_KEYS:Map<Int, String> = [
         0 => "start", 1 => "pass", 9 => "difficult", 11 => "push", 12 => "soon"
-    ]
+    ];
     public static final DIALOGS_KEYS_EASY:Map<Int, String> = [
         0 => "start", 1 => "pass", 8 => "difficult", 10 => "push", 12 => "soon"
-    ]
+    ];
     
     public static final DIALOGS:Map<String, Array<{name:String, dialog:String, avatar:String}>> = [
         // start dialogs

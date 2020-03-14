@@ -139,7 +139,7 @@ class PlayState extends LycanState {
         add(player);
 
         // start dialog
-        var dialogKey = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.DIALOGS_EASY[curStage] : Config.DIALOGS[curStage];
+        var dialogKey = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.DIALOGS_KEYS_EASY[curStage] : Config.DIALOGS_KEYS[curStage];
         var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
         if (curStage == stages.length - 1) dialogKey = "win";
 
