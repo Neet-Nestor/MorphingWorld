@@ -42,7 +42,7 @@ class Dialog extends FlxSpriteGroup {
         label.x = avatar.x + avatar.width + 20;
         label.y = nameLabel.y + nameLabel.height + 20;
 
-        promote = new FlxText(0, 0, 0, "[SPACE]", 20);
+        promote = new FlxText(0, 0, 0, "[SPACE to continue, ESC to skip]", 20);
         promote.x = x + (background.width - 50 - promote.width);
         promote.y = y + (background.height - 50);
 
