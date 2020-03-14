@@ -48,7 +48,7 @@ class BreakSplashState extends FlxSubState {
         circle.camera = PlayState.instance.uiCamera;
         circle.drawCircle(0, 0, screenRadius, FlxColor.WHITE, null, { smoothing: true });
         circle.screenCenter();
-        circle.scale = 0;
+        circle.scale.set(0, 0);
         
         var completeHandler = (_) -> {
             if (checkDialog) {
@@ -83,9 +83,9 @@ class BreakSplashState extends FlxSubState {
             }
         };
         
-        FlxTween.tween(circle, { scale: 1 }, 0.8, { ease: FlxEase.cubeIn, onComplete: (_) -> {
+        FlxTween.tween(circle.scale, { x: 1, y: 1 }, 0.8, { ease: FlxEase.cubeIn, onComplete: (_) -> {
             if (cb != null) cb();
-            FlxTween.tween(circle, { scale: 0 },
+            FlxTween.tween(circle.scale, { x: 0, y: 0 },
                 0.8, { ease: FlxEase.cubeOut, onComplete: completeHandler});
         }});
 
