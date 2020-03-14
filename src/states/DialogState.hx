@@ -26,11 +26,6 @@ class DialogState extends FlxSubState {
     override public function create():Void {
         super.create();
         
-        if (!Main.user.isDialogEnabled()) {
-            close();
-            return;
-        }
-
 		uiGroup = new FlxSpriteGroup();
         uiGroup.camera = PlayState.instance.uiCamera;
         dialogSprite = new Dialog((FlxG.width - 1400) / 2, FlxG.height - 300 - 20, dialogs[0]);
