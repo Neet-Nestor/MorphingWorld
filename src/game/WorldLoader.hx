@@ -212,18 +212,20 @@ class WorldLoader {
 		});
 
 		loadObject("spike", (obj, layer, map) -> {
-			var spike:Spike = new Spike(obj.x, obj.y + Config.SPIKE_OFFSET_Y);
-			spike.physics.body.allowRotation = true;
-			spike.angle = obj.angle;
-			spike.physics.snapBodyToEntity();
-			spike.physics.body.cbTypes.add(DamagerSprite.DAMAGER_TYPE);
+			if (!obj.properties.contains("only_hard") || Main.user.getDifficulty() == User.Difficulty.HARD) {
+				var spike:Spike = new Spike(obj.x, obj.y + Config.SPIKE_OFFSET_Y);
+				spike.physics.body.allowRotation = true;
+				spike.angle = obj.angle;
+				spike.physics.snapBodyToEntity();
+				spike.physics.body.cbTypes.add(DamagerSprite.DAMAGER_TYPE);
 
-			if (obj.properties.contains("showing")) {
-				spike.showing = obj.properties.getBool("showing");
+				if (obj.properties.contains("showing")) {
+					spike.showing = obj.properties.getBool("showing");
+				}
+				
+				map.set(obj.name, spike);
+				layer.add(spike);
 			}
-			
-			map.set(obj.name, spike);
-			layer.add(spike);
 		});
 
 		loadObject("moving_spike", (obj, layer, map) -> {
