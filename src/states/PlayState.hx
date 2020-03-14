@@ -386,10 +386,6 @@ class PlayState extends LycanState {
             }
         }
 
-        if (Main.user.getDifficulty() == User.Difficulty.EASY) {
-            // SKIP 6th stage
-            curStage++;
-        }
         curStage++;
 
         if (curStage >= Config.STAGES.length) {
@@ -413,7 +409,8 @@ class PlayState extends LycanState {
         player.destroy();
         player = null;
 
-        var nextWorld = WorldCollection.get(Config.STAGES[curStage][0]);
+        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        var nextWorld = WorldCollection.get(Config.stages[curStage][0]);
         if (nextWorld.name == "win") Main.logger.logWin();
         nextWorld.owned = true;
         universe.reset();

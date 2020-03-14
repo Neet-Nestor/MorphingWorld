@@ -57,8 +57,8 @@ class Universe extends FlxGroup {
 		PlayState.instance.reloadPlayerPosition = true;
 		var initWorld = WorldCollection.get(initWorldName);
 
-		if (Config.INIT_UNIVERSE.exists(PlayState.instance.curStage)) {
-			var initConfig = Config.INIT_UNIVERSE[PlayState.instance.curStage];
+		if (Config.INIT_UNIVERSE.exists(initWorldName)) {
+			var initConfig = Config.INIT_UNIVERSE[initWorldName];
 			for (slot in initConfig.keys()) {
 				makeSlot(slot.x, slot.y).loadWorld(WorldCollection.get(initConfig[slot]));
 			}
