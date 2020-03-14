@@ -80,6 +80,12 @@ class Config {
                         {x:-1, y:-1} => "00_02_01", {x:-1, y:1} => "00_02_01", {x:1, y:-1} => "00_02_01", {x:1, y:1} => "00_02_01" ]
     ];
 
+    public static final DIALOGS:Map<Int, String> = [
+        0 => "start", 1 => "pass", 9 => "difficult", 11 => "push", 12 => "soon"
+    ]
+    public static final DIALOGS_EASY:Map<Int, String> = [
+        0 => "start", 1 => "pass", 8 => "difficult", 10 => "push", 12 => "soon"
+    ]
     
     public static final DIALOGS:Map<String, Array<{name:String, dialog:String, avatar:String}>> = [
         // start dialogs

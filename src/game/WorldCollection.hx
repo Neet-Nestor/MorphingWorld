@@ -15,12 +15,13 @@ class WorldCollection extends NamedCollection<WorldDef> {
 	}
 
 	public static function defineWorlds(forStage:Int):Void {
-		if (forStage > Config.STAGES.length) {
+        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+		if (forStage > stages.length) {
 			trace("!!!! ERROR !!!!!, stage not exists");
 			return;
 		}
 		instance.clear();
-		for (world in Config.STAGES[forStage]) {
+		for (world in stages[forStage]) {
 			if (!instance.exists(world)) {
 				defineWorld(world, false);
 			}

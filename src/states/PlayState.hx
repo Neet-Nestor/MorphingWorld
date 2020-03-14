@@ -139,17 +139,9 @@ class PlayState extends LycanState {
         add(player);
 
         // start dialog
-        var dialogKey = null;
-        switch curStage {
-            case 0: dialogKey = "start";
-            case 1: dialogKey = "pass";
-            case 9: dialogKey = "difficult";
-            case 11: dialogKey = "push";
-            case 12: dialogKey = "soon";
-            default: dialogKey = null;
-        }
-
-        if (curStage == Config.STAGES.length - 1) dialogKey = "win";
+        var dialogKey = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.DIALOGS_EASY[curStage] : Config.DIALOGS[curStage];
+        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        if (curStage == stages.length - 1) dialogKey = "win";
 
         if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {
             persistentUpdate = false;
@@ -226,7 +218,8 @@ class PlayState extends LycanState {
 		cameraFocus.add(new ObjectTargetInfluencer(player));
 		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
         FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
-        if (curStage == 0 || curStage == 1 || curStage == 11 || curStage == Config.STAGES.length - 1) {
+        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        if (curStage == 0 || curStage == 1 || curStage == 11 || curStage == stages.length - 1) {
             FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
         }
 		FlxG.camera.snapToTarget();
@@ -388,7 +381,9 @@ class PlayState extends LycanState {
 
         curStage++;
 
-        if (curStage >= Config.STAGES.length) {
+        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+
+        if (curStage >= stages.length) {
             FlxG.switchState(new MenuState());
             close();
             return;

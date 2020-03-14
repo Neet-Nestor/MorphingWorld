@@ -66,8 +66,8 @@ class BreakSplashState extends FlxSubState {
                     case 12: dialogKey = "soon";
                     default: dialogKey = null;
                 }
-
-                if (PlayState.instance.curStage == Config.STAGES.length - 1) dialogKey = "win";
+                var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+                if (PlayState.instance.curStage == stages.length - 1) dialogKey = "win";
 
                 if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {
                     persistentUpdate = false;

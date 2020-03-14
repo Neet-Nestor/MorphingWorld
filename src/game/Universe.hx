@@ -50,7 +50,10 @@ class Universe extends FlxGroup {
 	
 	// reset the universe according to init config for this stage
 	public function reset(?initWorldName:String):Void {
-		if (initWorldName == null) initWorldName = Config.STAGES[PlayState.instance.curStage][0];
+		if (initWorldName == null) {
+			var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+			initWorldName = stages[PlayState.instance.curStage][0];
+		}
 		for (slot in slots) removeSlot(slot);
 		for (world in worldLayer) world.destroy();
 		worldLayer.clear();
