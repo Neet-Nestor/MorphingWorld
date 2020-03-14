@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="14" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="8">
+ <tileset firstgid="1" source="Sprute.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="14" height="14">
+  <properties>
+   <property name="collision" value="true"/>
+   <property name="collisionType" value="physics"/>
+  </properties>
+  <data encoding="csv">
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,0,0,0,0,0,0,0,0,0,0,0,0,36,
+36,19,19,19,19,19,19,19,19,19,19,19,19,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="8" name="player" type="player" x="96" y="328" width="16" height="24"/>
+  <object id="10" name="portall2s3" type="portal" gid="50" x="320" y="352" width="32" height="32">
+   <properties>
+    <property name="world" value="01_00"/>
+   </properties>
+  </object>
+  <object id="4" name="spike3" type="moving_spike" gid="41" x="159.341" y="351.47" width="32" height="32"/>
+  <object id="5" name="spike2" type="moving_spike" gid="41" x="192.167" y="351.47" width="32" height="32"/>
+  <object id="6" name="spike1" type="moving_spike" gid="41" x="225.794" y="351.47" width="32" height="32"/>
+ </objectgroup>
+</map>
