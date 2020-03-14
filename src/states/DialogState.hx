@@ -25,7 +25,6 @@ class DialogState extends FlxSubState {
 
     override public function create():Void {
         super.create();
-        
 		uiGroup = new FlxSpriteGroup();
         uiGroup.camera = PlayState.instance.uiCamera;
         dialogSprite = new Dialog((FlxG.width - 1400) / 2, FlxG.height - 300 - 20, dialogs[0]);
@@ -44,6 +43,9 @@ class DialogState extends FlxSubState {
                 return;
             }
             dialogSprite.setDialog(dialogs[curDialogIndex]);
+        }
+        if (FlxG.keys.anyJustPressed([FlxKey.ESCAPE])) {
+            close();
         }
     }
 }

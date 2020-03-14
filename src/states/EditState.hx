@@ -191,7 +191,6 @@ class EditState extends FlxSubState {
 			PlayState.instance.removeHintShown = true;
 			// Get screen location of the path
 			// Magic: 400, 225 in uiCamera = 0, 0 in WorldCamera
-
 			persistentUpdate = false;
 			PlayState.instance.persistentUpdate = false;
 			PlayState.instance.player.characterController.stop();
