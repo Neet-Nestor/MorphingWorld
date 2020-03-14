@@ -35,6 +35,7 @@ class OptionState extends FlxSubState {
         loadVolumeOption();
         loadMusic();
         loadSound();
+        loadFullScreen();
         loadQuit();
         add(uiGroup);
     }
@@ -99,8 +100,19 @@ class OptionState extends FlxSubState {
         uiGroup.add(check);
     }
 
+    private function loadFullScreen():Void {
+        var txt = new FlxText(title.x - 50, title.y + 135, 0, "loadFullScreen", 16);
+        uiGroup.add(txt);
+        var check = new FlxUICheckBox(title.x + 180, title.y + 210, null, null, "", 100, [], null);
+        check.checked = FlxG.fullscreen;
+        check.callback = function() {
+            FlxG.fullscreen = check.checked;
+        }
+        uiGroup.add(check);
+    }
+
     private function loadQuit():Void {
-        var quitUsBtn = new UIButton(0, title.y + 225, "Back", onQuit, uiGroup.camera);
+        var quitUsBtn = new UIButton(0, title.y + 255, "Back", onQuit, uiGroup.camera);
         quitUsBtn.screenCenter(FlxAxes.X);
         uiGroup.add(quitUsBtn);
     }
