@@ -57,6 +57,7 @@ class User {
 
     public function setEasyMode(easyMode:Bool = true):Void {
         res.easy = easyMode;
+        save();
     }
 
     public function cleanSaveData():Void {
