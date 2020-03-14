@@ -139,8 +139,8 @@ class PlayState extends LycanState {
         add(player);
 
         // start dialog
-        var dialogKey = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.DIALOGS_KEYS_EASY[curStage] : Config.DIALOGS_KEYS[curStage];
-        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        var dialogKey = Main.user.isEasyMode()? Config.DIALOGS_KEYS_EASY[curStage] : Config.DIALOGS_KEYS[curStage];
+        var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
         if (curStage == stages.length - 1) dialogKey = "win";
 
         if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {
@@ -218,7 +218,7 @@ class PlayState extends LycanState {
 		cameraFocus.add(new ObjectTargetInfluencer(player));
 		FlxG.camera.follow(cameraFocus, FlxCameraFollowStyle.LOCKON, 0.12);
         FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y;
-        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
         if (curStage == 0 || curStage == 1 || curStage == 11 || curStage == stages.length - 1) {
             FlxG.camera.targetOffset.y = Config.CAMERA_OFFSET_Y_DIALOG;
         }
@@ -367,22 +367,21 @@ class PlayState extends LycanState {
     }
 
     public function toNextStage():Void {
-        // Reset numbers
-        deathsInStage = 0;
-
         // ABTest: Dynamically change difficulty
         if (curStage == 5) {
             var curTime = Sys.time();
-            if (curTime - stageStartTime > 50 || deathsInStage > 2) {
+            trace("Time used in this level " + (curTime - stageStartTime));
+            trace("Deaths in level " + deathsInStage);
+            if (curTime - stageStartTime > 50 || deathsInStage >= 2) {
                 trace("Difficulty has been set to easy");
-                Main.user.setDifficulty(User.Difficulty.EASY);
+                Main.user.setEasyMode();
             }
         }
 
+        deathsInStage = 0;
         curStage++;
 
-        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
-
+        var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
         if (curStage >= stages.length) {
             FlxG.switchState(new MenuState());
             close();
@@ -404,7 +403,7 @@ class PlayState extends LycanState {
         player.destroy();
         player = null;
 
-        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
         var nextWorld = WorldCollection.get(stages[curStage][0]);
         if (nextWorld.name == "win") Main.logger.logWin();
         nextWorld.owned = true;

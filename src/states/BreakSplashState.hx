@@ -58,8 +58,8 @@ class BreakSplashState extends FlxSubState {
         var completeHandler = (_) -> {
             if (checkDialog) {
                 // Check whether there is stage start dialog
-                var dialogKey = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.DIALOGS_KEYS_EASY[PlayState.instance.curStage] : Config.DIALOGS_KEYS[PlayState.instance.curStage];
-                var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+                var dialogKey = Main.user.isEasyMode() ? Config.DIALOGS_KEYS_EASY[PlayState.instance.curStage] : Config.DIALOGS_KEYS[PlayState.instance.curStage];
+                var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
                 if (PlayState.instance.curStage == stages.length - 1) dialogKey = "win";
 
                 if (dialogKey != null && Config.DIALOGS.exists(dialogKey)) {

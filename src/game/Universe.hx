@@ -51,7 +51,7 @@ class Universe extends FlxGroup {
 	// reset the universe according to init config for this stage
 	public function reset(?initWorldName:String):Void {
 		if (initWorldName == null) {
-			var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+			var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
 			initWorldName = stages[PlayState.instance.curStage][0];
 		}
 		for (slot in slots) removeSlot(slot);

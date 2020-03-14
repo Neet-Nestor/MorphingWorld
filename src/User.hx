@@ -2,20 +2,15 @@ package;
 
 import haxe.Json;
 
-enum Difficulty {
-    EASY;
-    HARD;   // DEFAULT
-}
-
 class User {
-    private var res:{uuid: String, volume: Int, music: Bool, sound: Bool, lastStage: Int, playTimes: Int, difficulty: Difficulty};
+    private var res:{uuid: String, volume: Int, music: Bool, sound: Bool, lastStage: Int, playTimes: Int, easy: Bool};
 
     public function new() {
         var _uuid = Uuid.v4();
         #if sys
         if (!sys.FileSystem.exists("data.json")) {
             // uuid and default settings
-            res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, difficulty: Difficulty.HARD};
+            res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, easy: false};
             var content:String = haxe.Json.stringify(res);
             sys.io.File.saveContent("data.json", content);
             trace("uuid not found, generating new uuid");
@@ -28,7 +23,7 @@ class User {
             trace("uuid: " + res.uuid);
         }
         #else
-        res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, difficulty: Difficulty.HARD};
+        res = {uuid: _uuid, volume: 100, music: true, sound: true, lastStage: -1, playTimes: 1, easy: false};
         trace("sys not available, generating new uuid");
         #end
     }
@@ -56,12 +51,12 @@ class User {
         }
     }
 
-    public function getDifficulty():Difficulty {
-        return res.difficulty;
+    public function isEasyMode():Bool {
+        return res.easy;
     }
 
-    public function setDifficulty(newDifficulty:Difficulty):Void {
-        res.difficulty = newDifficulty;
+    public function setEasyMode(easyMode:Bool = true):Void {
+        res.easy = easyMode;
     }
 
     public function cleanSaveData():Void {

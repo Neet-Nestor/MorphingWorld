@@ -15,7 +15,7 @@ class WorldCollection extends NamedCollection<WorldDef> {
 	}
 
 	public static function defineWorlds(forStage:Int):Void {
-        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
 		if (forStage > stages.length) {
 			trace("!!!! ERROR !!!!!, stage not exists");
 			return;

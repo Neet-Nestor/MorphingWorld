@@ -212,7 +212,7 @@ class WorldLoader {
 		});
 
 		loadObject("spike", (obj, layer, map) -> {
-			if (!obj.properties.contains("only_hard") || Main.user.getDifficulty() == User.Difficulty.HARD) {
+			if (!obj.properties.contains("only_hard") || !Main.user.isEasyMode()) {
 				var spike:Spike = new Spike(obj.x, obj.y + Config.SPIKE_OFFSET_Y);
 				spike.physics.body.allowRotation = true;
 				spike.angle = obj.angle;

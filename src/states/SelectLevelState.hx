@@ -66,7 +66,7 @@ class SelectLevelState extends LycanState {
         // down
         down = new UIButton(0, title.getScreenPosition().y + 440, "Next Page", onDown);
         down.screenCenter(FlxAxes.X);
-        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
         down.hidden = page * 5 + 5 >= stages.length - 1;
         add(down);
     }
@@ -79,7 +79,7 @@ class SelectLevelState extends LycanState {
             });
             btn.screenCenter(FlxAxes.X);
             btn.disabled = i > Main.user.getLastStage() + 1;
-            var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+            var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
             btn.hidden = i >= stages.length - 1;
             btnArr.push(btn);
             add(btn);
@@ -88,7 +88,7 @@ class SelectLevelState extends LycanState {
 
     private function onUp():Void {
         this.page -= 1;
-        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
         for (i in 0...5) {
             var level = page * 5 + i;
             btnArr[i].text = "Level " + (level + 1);
@@ -101,7 +101,7 @@ class SelectLevelState extends LycanState {
 
     private function onDown():Void {
         this.page += 1;
-        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
         for (i in 0...5) {
             var level = page * 5 + i;
             btnArr[i].text = "Level " + (level + 1);
@@ -114,7 +114,7 @@ class SelectLevelState extends LycanState {
 
     private function onSelect(i:Int):Void {
         var selected = page * 5 + i;
-        var stages = Main.user.getDifficulty() == User.Difficulty.EASY ? Config.STAGES_EASY : Config.STAGES;
+        var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
         if (selected <= Main.user.getLastStage() + 1 && selected < stages.length - 1) {
             // move to the selected stage
             FlxG.switchState(new PlayState(selected));
