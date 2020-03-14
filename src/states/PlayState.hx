@@ -386,7 +386,12 @@ class PlayState extends LycanState {
             }
         }
 
+        if (Main.user.getDifficulty() == User.Difficulty.EASY) {
+            // SKIP 6th stage
+            curStage++;
+        }
         curStage++;
+
         if (curStage >= Config.STAGES.length) {
             FlxG.switchState(new MenuState());
             close();
