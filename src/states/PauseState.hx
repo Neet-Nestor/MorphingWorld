@@ -93,6 +93,7 @@ class PauseState extends FlxSubState {
         
         // ABTest: Dynamically change difficulty
         if (PlayState.instance.curStage == 5) {
+            trace("Difficulty has been set to easy since player exit at level 5");
             Main.user.setDifficulty(User.Difficulty.EASY);
         }
     }

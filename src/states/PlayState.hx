@@ -381,6 +381,7 @@ class PlayState extends LycanState {
         if (curStage == 5) {
             var curTime = Sys.time();
             if (curTime - stageStartTime > 50 || deathsInStage > 2) {
+                trace("Difficulty has been set to easy");
                 Main.user.setDifficulty(User.Difficulty.EASY);
             }
         }
