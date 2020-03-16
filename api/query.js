@@ -77,6 +77,89 @@ router.get("/time/close", function (req, res) {
 });
 
 // Get close time for every users
+router.get("/time/exit", function (req, res) {
+    console.log(`[GET /data/time/end] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
+    try {
+        zrangeAsync("EXIT", 0, -1)
+            .then((data) => Promise.all(data.map((entry) => hgetallAsync(entry).then((data) => [entry, data]))))
+            .then((data) => {
+                res.status(200).json(data.map((el) => {
+                    const [key, values] = el;
+                    const [user, timestamp] = key.split(":");
+                    return { user, timestamp, ...values };
+                }));
+            }).catch((err) => {
+                console.error(err);
+                res.status(500).json({ "msg": "Error occured during Redis querying" });
+            });
+    } catch (e) {
+        console.error(e.stack);
+        res.status(500).json({ "msg": e.message });
+    }
+});
+
+// Get EXIT time for every users
+router.get("/time/lasting", function (req, res) {
+    console.log(`[GET /data/time/end] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
+    try {
+        queryAllData()
+            .then((data) => {
+                const retMap = {};
+                var curStart = null;
+                var lastTimeStamp = null;
+                console.log(data);
+                data.forEach((group) => {
+                    var curUser = null;
+                    group.forEach((el) => {
+                        const [key, values] = el;
+                        const [user, timestamp] = key.split(":");
+                        if (user.endsWith("3657")) {
+                            console.log("1");
+                        }
+                        curUser = user;
+                        if (values.type === "Start") {
+                            if (curStart !== null) {
+                                if (user in retMap) {
+                                    retMap[user] = Math.max(retMap[user], lastTimeStamp - curStart);
+                                } else {
+                                    retMap[user] = lastTimeStamp === null ? null : lastTimeStamp - curStart;
+                                }
+                            }
+                            curStart = timestamp;
+                        } else if (values.type === "EXIT" || values.type === "Close") {
+                            if (curStart !== null) {
+                                if (user in retMap) {
+                                    retMap[user] = Math.max(retMap[user], timestamp - curStart);
+                                } else {
+                                    retMap[user] = timestamp - curStart;
+                                }
+                                curStart = null;
+                            }
+                        }
+                        lastTimeStamp = timestamp;
+                    });
+                    if (curStart != null) {
+                        if (curUser in retMap) {
+                            retMap[curUser] = Math.max(retMap[curUser], lastTimeStamp - curStart);
+                        } else {
+                            retMap[curUser] = lastTimeStamp === null ? null : lastTimeStamp - curStart;
+                        }
+                    }
+                    curStart = null;
+                    lastTimeStamp = null;
+                });
+                res.status(200).json(Object.values(retMap));
+            }).catch((err) => {
+                console.error(err);
+                res.status(500).json({ "msg": "Error occured during Redis querying" });
+            });
+    } catch (e) {
+        console.error(e.stack);
+        res.status(500).json({ "msg": e.message });
+    }
+});
+
+// Get close time for every users
 router.get("/die", function (req, res) {
     console.log(`[GET /data/time/end] Received Request at ${moment().format("HH:mm:ss.SSS MM/DD/YYYY")}`);
     try {
