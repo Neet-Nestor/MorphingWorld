@@ -29,9 +29,10 @@ You can run this command to make `lime` vailable as a command (alias for `haxeli
 haxelib run lime setup
 ```
 
-Run the following two commands to install [flixel-tools](http://haxeflixel.com/documentation/flixel-tools/) (needed for project templates among other things):
-
+Run the following two commands to install other flixel related dependancies:
 ```bash
+haxelib install flixel-addons
+haxelib install flixel-ui
 haxelib install flixel-tools
 haxelib run flixel-tools setup
 ```
@@ -42,11 +43,8 @@ Install the required dependencies of lycan:
 haxelib install nape-haxe4
 haxelib install tink_macro
 haxelib install tink_lang
+haxelib install hscript
 ```
-
-## Install lycan
-
-Lycan library is too large to include in this repo as it would cause the auto-completion plugin fails. Therefore, it is stored in a sperate git repo. You can access it and install it by following the README file [here](https://github.com/Neet-Nestor/Lycan).
 
 ## Install tools for development
 

@@ -174,7 +174,7 @@ class WorldLoader {
 
 		loadObject("piece", (obj, layer, map) -> {
 			var worldDef = WorldCollection.get(obj.properties.getString("world"));
-			if (worldDef != null && worldDef.owned) return null;
+			if (worldDef != null && worldDef.owned) return;
 			var c = new WorldPiece();
 			c.parentWorldDef = (cast layer.worldLayer.world:MiniWorld).worldDef;
 			c.setCenter(obj.x, obj.y);
@@ -186,7 +186,7 @@ class WorldLoader {
 
 		loadObject("portal", (obj, layer, map) -> {
 			var worldDef = WorldCollection.get(obj.properties.getString("world"));
-			if (worldDef != null && worldDef.owned) return null;
+			if (worldDef != null && worldDef.owned) return;
 			var c = new Portal(worldDef);
 			c.setCenter(obj.x, obj.y);
 			c.physics.snapBodyToEntity();
