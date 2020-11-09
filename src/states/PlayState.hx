@@ -114,8 +114,6 @@ class PlayState extends LycanState {
      *   We do NOT recommend overriding the constructor, unless you want some crazy unpredictable things to happen!
      **/
     override public function create():Void {
-        Main.logger.logEnter(curStage);
-
 		persistentDraw = true;
         persistentUpdate = true;
         reloadPlayerPosition = false;
@@ -306,8 +304,6 @@ class PlayState extends LycanState {
     public function die():Void {
         // Log
         deathsInStage++;
-        Main.logger.logDie(curStage);
-
         endWorldEditing();
         player.characterController.hasControl = false;
         player.dead = true;
@@ -343,7 +339,6 @@ class PlayState extends LycanState {
         if (subState != null) subState.close();
         // logging
         if (pass) {
-            Main.logger.logPass(curStage);
             Main.user.setLastStage(curStage);
         }
         
@@ -401,7 +396,6 @@ class PlayState extends LycanState {
 
         var stages = Main.user.isEasyMode() ? Config.STAGES_EASY : Config.STAGES;
         var nextWorld = WorldCollection.get(stages[curStage][0]);
-        if (nextWorld.name == "win") Main.logger.logWin();
         nextWorld.owned = true;
         universe.reset();
         add(player);

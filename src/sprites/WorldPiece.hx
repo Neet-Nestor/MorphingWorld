@@ -42,7 +42,6 @@ class WorldPiece extends LSprite implements PhysicsEntity implements Collectable
 		physics.body.shapes.at(0).filter = PlatformerPhysics.NON_COLLIDE_FILTER;
 		
 		collectable.onCollect = function(c) {
-			Main.logger.logCollect(PlayState.instance.curStage, worldDef.name);
 			var player:Player = cast c;
 			physics.enabled = false;
 			physics.enableUpdate = false;
