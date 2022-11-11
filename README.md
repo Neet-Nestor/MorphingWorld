@@ -1,8 +1,11 @@
 # MorphingWorld
 
-A game inspired by winner game World Collector on Ludum Dare 45. Download on [GameJolt](https://gamejolt.com/games/Morphingworld/475838).
+A game inspired by winner game World Collector on Ludum Dare 45.
 
 ![Title Page](screenshots/title.png)
+
+## Download
+The game is available on [GameJolt](https://gamejolt.com/games/Morphingworld/475838).
 
 ## Install required libraries
 
